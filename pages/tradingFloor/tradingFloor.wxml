@@ -1,0 +1,13 @@
+<!--tradingFloor.wxml-->
+<view class="tradingFloor">
+  <view class="headBar">
+    <button class="headBar-btn" style="width: 40%">加入</button>
+    <button class="headBar-btn" style="width: 40%">创建</button>
+  </view>
+  <view class="board">
+    <!--if db has data show cards, else show words-->
+    <view class="card"></view>
+    <view class="card"></view>
+    <view class="card"></view>
+  </view>
+</view>

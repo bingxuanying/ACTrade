@@ -1,0 +1,38 @@
+/* pages/tradingFloor/tradingFloor.wxss */
+.tradingFloor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.headBar {
+  background-color: lightblue;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.headBar-btn {
+  height: 70%;
+  border-radius: 15px;
+  padding: 5px
+}
+
+.board {
+  background-color: lightyellow;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  background-color: lightpink;
+  width: 90%;
+  height: 100px;
+  margin-top: 15px;
+}

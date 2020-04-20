@@ -1,0 +1,73 @@
+/* pages/roomCreate/roomCreate.wxss */
+.roomCreate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.dodoImg {
+  background-color: lightpink;
+  width: 95%;
+  height: 50px;
+}
+
+.settings {
+  background-color: lightyellow;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.flightOpt {
+  background-color: lightgray;
+  width: 90%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.flightOpt-btn {
+  height: 70%;
+  border-radius: 15px;
+  padding: 5px
+}
+
+.settings-layout {
+  background-color: lightgreen;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 5px;
+}
+
+.settings-title {
+  width: 30%;
+}
+
+.settings-content {
+  background-color: olivedrab;
+  width: 70%;
+}
+
+.bottombar {
+  background-color: lightblue;
+  width: 95%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.bottombar-btn {
+  height: 70%;
+  border-radius: 15px;
+  padding: 5px
+}

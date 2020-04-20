@@ -1,5 +1,10 @@
 {
   "pages":[
+    "pages/roomCreate/roomCreate",
+    "pages/tradingFloor/tradingFloor",
+    "pages/roomAdd/roomAdd",
+    "pages/roomMaster/roomMaster",
+    "pages/roomSlave/roomSlave",
     "pages/index/index",
     "pages/logs/logs"
   ],
