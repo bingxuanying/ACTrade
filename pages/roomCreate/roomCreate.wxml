@@ -3,28 +3,38 @@
   <view class="dodoImg"></view>
   <view class="settings">
     <view class="flightOpt">
-      <button class="flightOpt-btn" style="width: 40%">商业航班</button>
-      <button class="flightOpt-btn" style="width: 40%">私人航班</button>
+      <button class="flightOpt-btn {{flight==0?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%">商业航班</button>
+      <button class="flightOpt-btn {{flight==1?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">私人航班</button>
     </view>
     <view class="settings-layout">
-      <view class="settings-title">title</view>
-      <view class="settings-content">content</view>
+      <view class="settings-title">大头菜价格</view>
+      <view class="settings-content">
+        <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
+      </view>
     </view>
     <view class="settings-layout">
-      <view class="settings-title">title</view>
-      <view class="settings-content">content</view>
+      <view class="settings-title">海关密码</view>
+      <view class="settings-content">
+        <input value="{{code}}" placeholder="之后可更改" maxlength="4" bindinput="bindCodeInput" />
+      </view>
     </view>
     <view class="settings-layout">
-      <view class="settings-title">title</view>
-      <view class="settings-content">content</view>
+      <view class="settings-title">开放时长</view>
+      <view class="settings-content">
+        <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="18" value="{{time}}" show-value />
+      </view>
     </view>
     <view class="settings-layout">
-      <view class="settings-title">title</view>
-      <view class="settings-content">content</view>
+      <view class="settings-title">在岛人数限制</view>
+      <view class="settings-content">
+        <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="18" value="{{people}}" show-value />
+      </view>
     </view>
     <view class="settings-layout">
-      <view class="settings-title">title</view>
-      <view class="settings-content">content</view>
+      <view class="settings-title">留言板</view>
+      <view class="settings-content">
+        <input value="{{note}}" bindinput="bindNoteInput" />
+      </view>
     </view>
   </view>
   <view class="bottombar">

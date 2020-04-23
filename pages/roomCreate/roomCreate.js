@@ -1,66 +1,51 @@
 // pages/roomCreate/roomCreate.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    flight: 0,
+    price: 500,
+    code: '',
+    time: 6,
+    people: 3,
+    note: '随便带点什么都可以~！'
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  setPublic: function() {
+    this.setData({
+      flight: 0
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  setPrivate: function() {
+    this.setData({
+      flight: 1
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  bindPriceInput: function(e) {
+    console.log('price: ' + e.detail.value)
+    this.setData({
+      price: e.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  bindCodeInput: function(e) {
+    console.log('code: ' + e.detail.value)
+    this.setData({
+      code: e.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  bindSliderTime: function(e) {
+    console.log('time: ' + e.detail.value)
+    this.setData({
+      time: e.detail.value
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  bindSliderPeople: function(e) {
+    console.log('limitOfPeople: ' + e.detail.value)
+    this.setData({
+      people: e.detail.value
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  bindNoteInput: function(e) {
+    console.log('note: ' + e.detail.value)
+    this.setData({
+      note: e.detail.value
+    })
   }
 })
