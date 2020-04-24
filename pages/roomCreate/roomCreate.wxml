@@ -15,7 +15,7 @@
     <view class="settings-layout">
       <view class="settings-title">海关密码</view>
       <view class="settings-content">
-        <input value="{{code}}" placeholder="之后可更改" maxlength="4" bindinput="bindCodeInput" />
+        <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
       </view>
     </view>
     <view class="settings-layout">

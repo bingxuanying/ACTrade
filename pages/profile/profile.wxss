@@ -1,0 +1,31 @@
+/* pages/profile/profile.wxss */
+.profile {
+  background-color: lightyellow;
+  width: 100vw;
+  height: 100vh;
+}
+
+.passport {
+  width: 100%;
+}
+
+.nickname {
+  position: absolute;
+  top: 15vw;
+  left: 35vw;
+  font-size: 14px;
+}
+
+.islandname {
+  position: absolute;
+  top: 25vw;
+  left: 35vw;
+  font-size: 14px;
+}
+
+.fruit {
+  position: absolute;
+  top: 35vw;
+  left: 35vw;
+  font-size: 14px;
+}

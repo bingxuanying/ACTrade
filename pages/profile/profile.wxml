@@ -1,0 +1,14 @@
+<!--pages/profile/profile.wxml-->
+<view class="profile">
+  <image class="passport" src="../assets/passport5x3.png" mode="widthFix" />
+  <view class="nickname">
+    <text>游戏昵称</text>
+  </view>
+  <view class="islandname">
+    <text>岛名</text>
+  </view>
+  <view class="fruit">
+    <text>特产</text>
+  </view>
+  
+</view>

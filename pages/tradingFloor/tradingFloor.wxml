@@ -6,8 +6,14 @@
   </view>
   <view class="board">
     <!--if db has data show cards, else show words-->
-    <view class="card"></view>
-    <view class="card"></view>
-    <view class="card"></view>
+    <view class="card">
+      <image class="boardingpass" src="../assets/boardingpass2x1.png" mode="widthFix" />
+    </view>
+    <view class="card">
+      <image class="boardingpass" src="../assets/boardingpass2x1.png" mode="widthFix" />
+    </view>
+    <view class="card">
+      <image class="boardingpass" src="../assets/boardingpass2x1.png" mode="widthFix" />
+    </view>
   </view>
 </view>

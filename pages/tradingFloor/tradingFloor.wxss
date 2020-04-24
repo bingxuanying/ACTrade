@@ -32,7 +32,11 @@
 
 .card {
   background-color: lightpink;
-  width: 90%;
-  height: 100px;
-  margin-top: 15px;
+  width: 94%;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.boardingpass {
+  width: 100%;
 }
