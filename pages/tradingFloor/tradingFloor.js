@@ -2,6 +2,7 @@
 Page({
   data: {
     order: 'time',
+    showModal: false,
   },
   onTapAdd: function() {
 
@@ -23,5 +24,15 @@ Page({
     this.setData({
       order:'price'
     })
-  }
+  },
+  modalOpen: function(e) {
+    this.setData({
+      showModal: true
+    })
+  },
+  modalHide: function(e) {
+    this.setData({
+      showModal: false
+    })
+  },
 })
