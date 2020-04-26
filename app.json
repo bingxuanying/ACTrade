@@ -1,11 +1,7 @@
 {
   "pages":[
-    "pages/roomCreate/roomCreate",
     "pages/tradingFloor/tradingFloor",
-<<<<<<< HEAD
-=======
     "pages/roomCreate/roomCreate",
->>>>>>> 8de7347d03192ceeb47b0861d2695e206369ddcf
     "pages/profile/profile",
     "pages/roomAdd/roomAdd",
     "pages/roomMaster/roomMaster",

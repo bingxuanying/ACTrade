@@ -1,8 +1,10 @@
 <!--tradingFloor.wxml-->
 <view class="tradingFloor">
   <view class="headBar">
-    <button class="headBar-btn" style="width: 40%">加入</button>
-    <button class="headBar-btn" style="width: 40%">创建</button>
+    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapAdd">加入</button>
+    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapCreate">创建</button>
+    <button class="headBar-btn-order {{order=='time'?'headBar-btn-order-active':''}}" style="width: 16%" bindtap="onTapTime">时间排序</button>
+    <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 16%" bindtap="onTapPrice">价格排序</button>
   </view>
   <view class="board">
     <!--if db has data show cards, else show words-->

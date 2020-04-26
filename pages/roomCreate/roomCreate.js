@@ -47,5 +47,12 @@ Page({
     this.setData({
       note: e.detail.value
     })
+  },
+  onTapBack: function() {
+    wx.navigateBack({
+      complete: (res) => {
+        console.log(res)
+      },
+    })
   }
 })

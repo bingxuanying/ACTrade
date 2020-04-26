@@ -38,7 +38,7 @@
     </view>
   </view>
   <view class="bottombar">
-    <button class="bottombar-btn" style="width: 40%">返回</button>
+    <button class="bottombar-btn" style="width: 40%" bindtap="onTapBack">返回</button>
     <button class="bottombar-btn" style="width: 40%">创建</button>
   </view>
 </view>
