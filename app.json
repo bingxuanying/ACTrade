@@ -12,8 +12,23 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "白菜恶霸",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/tradingFloor/tradingFloor",
+      "text": "交易大厅",
+      "iconPath": "/assets/tab/施工icon.png",
+      "selectedIconPath": "/assets/tab/施工icon.png"
+    },
+    {
+      "pagePath": "pages/profile/profile",
+      "text": "护照信息",
+      "iconPath": "/assets/tab/PassportIcon.png",
+      "selectedIconPath": "/assets/tab/PassportIcon.png"
+    }
+  ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
