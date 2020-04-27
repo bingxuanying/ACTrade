@@ -61,6 +61,27 @@ Page({
     var dbName = this.data.flight === 0 ? 'BusinessFlights' : 'PrivateFlights';
     var roomNum = Math.floor(Math.random() * 1000).toString();
 
+    function getDate() {
+      var date = new Date(),
+          month = (date.getMonth() + 1).toString(),
+          day = date.getDate().toString(),
+          hr = date.getHours().toString(),
+          min = date.getMinutes().toString(),
+          sec = date.getSeconds().toString(),
+          milisec = date.getMilliseconds().toString();
+      if (day.length < 2) 
+        day = '0' + day;
+      if (hr.length < 2) 
+        hr = '0' + hr;
+      if (min.length < 2) 
+        min = '0' + min;
+      if (sec.length < 2) 
+        sec = '0' + sec;
+      milisec = '0'.repeat(3 - milisec.length) + milisec;
+  
+      return parseInt(month + day + hr + min + sec + milisec, 10);
+    };
+
     db.collection(dbName).add({
       data: {
         flight: this.data.flight,
@@ -69,9 +90,11 @@ Page({
         time: this.data.time,
         people: this.data.people,
         note: this.data.note,
-        roomNum: '0'.repeat(3 - roomNum.length) + roomNum
+        roomNum: '0'.repeat(3 - roomNum.length) + roomNum,
+        creatTime: getDate()
       },
       success: function(res) {
+        // enter master room
         console.log(res)
       }
     })
