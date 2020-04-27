@@ -1,6 +1,15 @@
 <!--pages/profile/profile.wxml-->
 <view class="profile">
   <image class="passport" src="../../assets/passport5x3.png" mode="widthFix" />
+
+  <view class="userinfo">
+    <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 100px"> 获取头像昵称 </button>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
+      <text class="userinfo-name">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
   <view class="nickname">
     <text>游戏昵称</text>
   </view>

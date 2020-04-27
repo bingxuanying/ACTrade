@@ -9,23 +9,57 @@
   width: 100%;
 }
 
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-btn {
+  height: 30px;
+  position: absolute;
+  top: 40%;
+  left: 7.8%;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.userinfo-avatar {
+  width: 27vw;
+  height: 27vw;
+  position: absolute;
+  top: 20.2%;
+  left: 5.2%;
+  margin: 20rpx;
+  border-radius: 24px;
+}
+
+.userinfo-name {
+  position: absolute;
+  top: 39.5%;
+  left: 9.5%;
+  transform: rotate(10deg);
+  color: #000;
+  font-size: 10px;
+}
+
 .nickname {
   position: absolute;
-  top: 15vw;
-  left: 35vw;
+  top: 20vw;
+  left: 42vw;
   font-size: 14px;
 }
 
 .islandname {
   position: absolute;
-  top: 25vw;
-  left: 35vw;
+  top: 30vw;
+  left: 42vw;
   font-size: 14px;
 }
 
 .fruit {
   position: absolute;
-  top: 35vw;
-  left: 35vw;
+  top: 40vw;
+  left: 42vw;
   font-size: 14px;
 }
