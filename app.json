@@ -19,8 +19,8 @@
     "list": [{
       "pagePath": "pages/tradingFloor/tradingFloor",
       "text": "交易大厅",
-      "iconPath": "/assets/tab/施工icon.png",
-      "selectedIconPath": "/assets/tab/施工icon.png"
+      "iconPath": "/assets/tab/施工Icon.png",
+      "selectedIconPath": "/assets/tab/施工Icon.png"
     },
     {
       "pagePath": "pages/profile/profile",
