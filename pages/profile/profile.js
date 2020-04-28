@@ -1,12 +1,16 @@
 // pages/profile/profile.js
-const app = getApp()
+const app = getApp();
+const db = wx.cloud.database();
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    nickname: '',
+    islandName: '',
+    fruit: 'apple',
+    hemishpere: 'north',
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -42,6 +46,61 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  bindNicknameInput: function(e) {
+    this.setData({
+      nickname: e.detail.value
+    })
+    console.log('nickname: ' + this.data.nickname)
+  },
+  bindIslandNameInput: function(e) {
+    this.setData({
+      islandName: e.detail.value
+    })
+    console.log('islandName: ' + this.data.islandName)
+  },
+  onTapApple: function() {
+    this.setData({
+      fruit: 'apple'
+    })
+  },
+  onTapCherry: function() {
+    this.setData({
+      fruit: 'cherry'
+    })
+  },
+  onTapOrange: function() {
+    this.setData({
+      fruit: 'orange'
+    })
+  },
+  onTapPeach: function() {
+    this.setData({
+      fruit: 'peach'
+    })
+  },
+  onTapPear: function() {
+    this.setData({
+      fruit: 'pear'
+    })
+  },
+  onTapDone: function() {
+    db.collection('UsersProfile').add({
+      data: {
+        userInfo: this.data.userInfo,
+        nickname: this.data.nickname,
+        islandName: this.data.islandName,
+        fruit: this.data.fruit,
+        hemishpere: this.data.hemishpere,
+      },
+      success: function(res) {
+        // back to lobby
+        console.log(res)
+        wx.navigateTo({
+          url: 'pages/tradingFloor/tradingFloor',
+        })
+      }
     })
   }
 })
