@@ -1,6 +1,6 @@
 <!--pages/profile/profile.wxml-->
 <view class="profile">
-  <image class="passport" src="../../assets/passport5x3.png" mode="widthFix" />
+  <image class="passport" src="../../assets/passport/passport5x3.png" mode="widthFix" />
 
   <view class="userinfo">
     <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 100px"> 获取头像昵称 </button>

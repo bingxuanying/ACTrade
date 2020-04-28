@@ -2,8 +2,8 @@
 <view class="tradingFloor">
   <!--head bar-->
   <view class="headBar">
-    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapAdd" bindtap="modalOpen">搜索</button>
-    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapCreate">创建</button>
+    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapAdd" bindtap="modalOpen">找寻</button>
+    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapCreate">开岛</button>
     <button class="headBar-btn-order {{order=='time'?'headBar-btn-order-active':''}}" style="width: 16%" bindtap="onTapTime">时间排序</button>
     <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 16%" bindtap="onTapPrice">价格排序</button>
   </view>
@@ -12,13 +12,13 @@
   <view class="board">
     <!--if db has data show cards, else show words-->
     <view class="card">
-      <image class="boardingpass" src="../../assets/boardingpass2x1.png" mode="widthFix" />
+      <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
     </view>
     <view class="card">
-      <image class="boardingpass" src="../../assets/boardingpass2x1.png" mode="widthFix" />
+      <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
     </view>
     <view class="card">
-      <image class="boardingpass" src="../../assets/boardingpass2x1.png" mode="widthFix" />
+      <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
     </view>
   </view>
 
