@@ -2,9 +2,10 @@
 <view class="tradingFloor">
   <!--head bar-->
   <view class="headBar">
-    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="modalOpen">找寻</button>
+    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="onTapCancel" wx:if="{{keyword.length === 5}}">取消找寻</button>
+    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="modalOpen" wx:else>找寻</button>
     <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapCreate">开岛</button>
-    <button class="headBar-btn-order {{order=='time'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapTime">时间排序</button>
+    <button class="headBar-btn-order {{order=='createTime'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapTime">时间排序</button>
     <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapPrice">价格排序</button>
   </view>
 

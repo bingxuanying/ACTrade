@@ -5,14 +5,14 @@ Page({
   data: {
     isLoading: false,
     offset: 0,
-    order: 'time',
+    order: 'createTime',
     showModal: false,
     keyword: '',
     cards: [],
   },
   onLoad: function() {
     db.collection('BusinessFlights')
-    .orderBy('createTime', 'desc')
+    .orderBy(this.data.order, 'desc')
     .skip(this.data.offset)
     .limit(10)
     .get({
@@ -35,45 +35,103 @@ Page({
   onTapTime: function() {
     if (this.data.order === 'price') {
       this.setData({
-        order:'time',
+        order:'createTime',
         isLoading: true
       })
   
-      db.collection('BusinessFlights')
-      .orderBy('createTime', 'desc')
-      .skip(0)
-      .limit(10)
-      .get({
-        success: res => {
-          this.setData({
-            cards: res.data,
-            offset: 0,
-            isLoading: false
-          })
-        }
-      })
+      if (this.data.keyword.length === 5) {
+        db.collection('PrivateFlights')
+        .where({
+          roomNum: this.data.keyword
+        })
+        .orderBy(this.data.order, 'desc')
+        .get({
+          success: res => {
+            var privateData = res.data
+    
+            db.collection('BusinessFlights')
+            .where({
+              roomNum: this.data.keyword
+            })
+            .orderBy(this.data.order, 'desc')
+            .get({
+              success: res => {
+                this.setData({
+                  cards: privateData.concat(res.data),
+                  offset: 0,
+                  isLoading: false
+                })
+              }
+            })
+          }
+        });
+      }
+      else {
+        db.collection('BusinessFlights')
+        .orderBy(this.data.order, 'desc')
+        .skip(0)
+        .limit(10)
+        .get({
+          success: res => {
+            this.setData({
+              cards: res.data,
+              offset: 0,
+              isLoading: false
+            })
+          }
+        })
+      }
     }
   },
   onTapPrice: function() {
-    if (this.data.order === 'time') {
+    if (this.data.order === 'createTime') {
       this.setData({
         order:'price',
         isLoading: true
       })
   
-      db.collection('BusinessFlights')
-      .orderBy('price', 'desc')
-      .skip(0)
-      .limit(10)
-      .get({
-        success: res => {
-          this.setData({
-            cards: res.data,
-            offset: 0,
-            isLoading: false
-          })
-        }
-      })
+      if (this.data.keyword.length === 5) {
+        db.collection('PrivateFlights')
+        .where({
+          roomNum: this.data.keyword
+        })
+        .orderBy(this.data.order, 'desc')
+        .get({
+          success: res => {
+            var privateData = res.data
+    
+            db.collection('BusinessFlights')
+            .where({
+              roomNum: this.data.keyword
+            })
+            .orderBy(this.data.order, 'desc')
+            .get({
+              success: res => {
+                this.setData({
+                  cards: privateData.concat(res.data),
+                  offset: 0,
+                  isLoading: false
+                })
+              }
+            })
+          }
+        });
+      }
+      else{
+        db.collection('BusinessFlights')
+        .orderBy(this.data.order, 'desc')
+        .skip(0)
+        .limit(10)
+        .get({
+          success: res => {
+            this.setData({
+              cards: res.data,
+              offset: 0,
+              isLoading: false
+            })
+          }
+        })
+      }
     }
   },
   modalOpen: function(e) {
@@ -124,5 +182,25 @@ Page({
         })
       }
     });
+  },
+  onTapCancel: function() {
+    this.setData({
+      isLoading: true,
+      keyword: ''
+    })
+
+    db.collection('BusinessFlights')
+    .orderBy(this.data.order, 'desc')
+    .skip(0)
+    .limit(10)
+    .get({
+      success: res => {
+        this.setData({
+          cards: res.data,
+          offset: 0,
+          isLoading: false
+        })
+      }
+    })
   }
 })
