@@ -9,18 +9,17 @@
 .headBar {
   background-color: lightblue;
   width: 94%;
-  height: 40px;
+  height: 80rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  border-radius: 10px;
+  border-radius: 25rpx;
 }
 
 .headBar-btn-order {
   height: 50%;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 28rpx;
   padding: 0;
   background: transparent;
   border-radius: 0;
@@ -33,10 +32,10 @@
 .headBar-btn-room {
   height: 70%;
   float: right;
-  font-size: 14px;
-  line-height: 28px;
+  font-size: 28rpx;
+  line-height: 56rpx;
   padding: 0;
-  border-radius: 15px;
+  border-radius: 30rpx;
 }
 
 .board {
@@ -44,12 +43,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 25rpx;
 }
 
 .card {
   width: 94%;
-  margin-bottom: 10px;
+  margin-bottom: 25rpx;
   padding: 0;
 }
 
@@ -73,7 +72,7 @@
 .mymodal{
   position: fixed;
   width: 100%;
-  top: 20%;
+  top: 200rpx;
   background-color: transparent;
   z-index: 20;
   transition: all 300ms ease-out;
@@ -81,4 +80,30 @@
 
 .modal-img {
   width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal-inputImg {
+  width: 300rpx;
+  position: absolute;
+  top: 190rpx;
+  left: 230rpx;
+}
+
+.modal-inputBar {
+  width: 230rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 210rpx;
+  left: 267rpx;
+  border: none;
+}
+
+.modal-btn {
+  font-size: 30rpx;
+  border-radius: 27rpx;
+  padding: 8rpx;
+  position: absolute;
+  top: 370rpx;
 }

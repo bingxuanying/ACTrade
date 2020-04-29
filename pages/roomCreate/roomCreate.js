@@ -27,7 +27,7 @@ Page({
   },
   bindCodeInput: function(e) {
     this.setData({
-      code: e.detail.value.toUpperCase()
+      code: e.detail.value.toUpperCase(),
     })
     console.log('code: ' + this.data.code)
   },
@@ -84,7 +84,6 @@ Page({
 
     db.collection(dbName).add({
       data: {
-        flight: this.data.flight,
         price: this.data.price,
         code: this.data.code,
         time: this.data.time,

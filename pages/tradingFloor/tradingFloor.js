@@ -7,7 +7,8 @@ Page({
     offset: 0,
     order: 'time',
     showModal: false,
-    keyword: 'none'
+    keyword: '',
+    cards: [],
   },
   onLoad: function() {
     db.collection('BusinessFlights')
@@ -15,9 +16,11 @@ Page({
     .skip(this.data.offset)
     .limit(10)
     .get({
-      success: function(res) {
-        // res.data 是包含以上定义的两条记录的数组
-        console.log(res.data)
+      success: res => {
+        console.log(res.data);
+        this.setData({
+          cards: res.data
+        })
       }
     })
   },
@@ -49,7 +52,17 @@ Page({
   },
   modalHide: function(e) {
     this.setData({
-      showModal: false
+      showModal: false,
+      keyword: ''
     })
   },
+  bindSearchBar: function(e) {
+    this.setData({
+      keyword: e.detail.value.toUpperCase()
+    });
+    console.log('keyword: ' + this.data.keyword)
+  },
+  onTapSearch: function() {
+
+  }
 })

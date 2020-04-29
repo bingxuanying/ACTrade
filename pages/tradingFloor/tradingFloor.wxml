@@ -2,31 +2,34 @@
 <view class="tradingFloor">
   <!--head bar-->
   <view class="headBar">
-    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapAdd" bindtap="modalOpen">找寻</button>
-    <button class="headBar-btn-room" style="width: 18%" bindtap="onTapCreate">开岛</button>
-    <button class="headBar-btn-order {{order=='time'?'headBar-btn-order-active':''}}" style="width: 16%" bindtap="onTapTime">时间排序</button>
-    <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 16%" bindtap="onTapPrice">价格排序</button>
+    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="modalOpen">找寻</button>
+    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapCreate">开岛</button>
+    <button class="headBar-btn-order {{order=='time'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapTime">时间排序</button>
+    <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapPrice">价格排序</button>
   </view>
 
   <!--info board-->
   <view class="board">
     <!--if db has data show cards, else show words-->
-    <view class="card">
-      <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
-    </view>
-    <view class="card">
-      <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
-    </view>
-    <view class="card">
-      <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
-    </view>
+    <block wx:if="{{cards.length > 0}}">
+      <block  wx:for="{{cards}}" wx:for-item="item" wx:key="_id">
+        {{item._id}}
+        <view class="card">
+          <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
+        </view>
+      </block>
+    </block>
   </view>
 
   <!--mask-->
   <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
   <!--modal-->
   <view class='mymodal' wx:if="{{showModal}}">
-    <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix"></image>
+    <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix" />
+    <image class="modal-inputImg" src="../../assets/input框.png" mode="widthFix" />
+    <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
+    <button class="modal-btn" style="width: 120rpx; left:230rpx" bindtap="modalHide">返回</button>
+    <button class="modal-btn"  style="width: 120rpx; left:410rpx" disabled="{{keyword.length===5?false:true}}" bindtap="onTapSearch">搜索</button>
   </view>
 
 </view>
