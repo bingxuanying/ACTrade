@@ -12,7 +12,7 @@ Page({
   },
   onLoad: function() {
     db.collection('BusinessFlights')
-    .orderBy('creatTime', 'desc')
+    .orderBy('createTime', 'desc')
     .skip(this.data.offset)
     .limit(10)
     .get({
@@ -24,9 +24,6 @@ Page({
       }
     })
   },
-  onTapSearch: function() {
-
-  },
   onTapCreate: function() {
     wx.navigateTo({
       url: '/pages/roomCreate/roomCreate',
@@ -36,14 +33,48 @@ Page({
     })
   },
   onTapTime: function() {
-    this.setData({
-      order:'time'
-    })
+    if (this.data.order === 'price') {
+      this.setData({
+        order:'time',
+        isLoading: true
+      })
+  
+      db.collection('BusinessFlights')
+      .orderBy('createTime', 'desc')
+      .skip(0)
+      .limit(10)
+      .get({
+        success: res => {
+          this.setData({
+            cards: res.data,
+            offset: 0,
+            isLoading: false
+          })
+        }
+      })
+    }
   },
   onTapPrice: function() {
-    this.setData({
-      order:'price'
-    })
+    if (this.data.order === 'time') {
+      this.setData({
+        order:'price',
+        isLoading: true
+      })
+  
+      db.collection('BusinessFlights')
+      .orderBy('price', 'desc')
+      .skip(0)
+      .limit(10)
+      .get({
+        success: res => {
+          this.setData({
+            cards: res.data,
+            offset: 0,
+            isLoading: false
+          })
+        }
+      })
+    }
   },
   modalOpen: function(e) {
     this.setData({
@@ -63,6 +94,35 @@ Page({
     console.log('keyword: ' + this.data.keyword)
   },
   onTapSearch: function() {
+    this.setData({
+      showModal: false,
+      isLoading: true
+    })
 
+    db.collection('PrivateFlights')
+    .where({
+      roomNum: this.data.keyword
+    })
+    .orderBy(this.data.order, 'desc')
+    .get({
+      success: res => {
+        var privateData = res.data
+
+        db.collection('BusinessFlights')
+        .where({
+          roomNum: this.data.keyword
+        })
+        .orderBy(this.data.order, 'desc')
+        .get({
+          success: res => {
+            this.setData({
+              cards: privateData.concat(res.data),
+              offset: 0,
+              isLoading: false
+            })
+          }
+        })
+      }
+    });
   }
 })

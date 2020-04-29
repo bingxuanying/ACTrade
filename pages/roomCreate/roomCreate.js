@@ -90,7 +90,7 @@ Page({
         people: this.data.people,
         note: this.data.note,
         roomNum: '0'.repeat(3 - roomNum.length) + roomNum,
-        creatTime: getDate()
+        createTime: getDate()
       },
       success: function(res) {
         // enter master room

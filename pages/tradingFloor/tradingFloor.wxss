@@ -48,12 +48,26 @@
 
 .card {
   width: 94%;
+  position: relative;
   margin-bottom: 25rpx;
   padding: 0;
 }
 
 .boardingpass {
   width: 100%;
+}
+
+.card-note {
+  position: absolute;
+  top: 100rpx;
+  left: 20rpx;
+}
+
+.loadingGIF {
+  width: 100rpx;
+  position: absolute;
+  top: 450rpx;
+  left: 330rpx;
 }
 
 /*mask*/

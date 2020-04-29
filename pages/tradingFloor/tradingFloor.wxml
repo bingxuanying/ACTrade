@@ -11,14 +11,16 @@
   <!--info board-->
   <view class="board">
     <!--if db has data show cards, else show words-->
-    <block wx:if="{{cards.length > 0}}">
+    <block wx:if="{{cards.length>0 && isLoading===false}}">
       <block  wx:for="{{cards}}" wx:for-item="item" wx:key="_id">
-        {{item._id}}
         <view class="card">
           <image class="boardingpass" src="../../assets/boardingpass/boardingpass2x1.png" mode="widthFix" />
+        <text class="card-note">{{item.note + ' ' + item.price + ' ' + item.createTime}}</text>
         </view>
       </block>
     </block>
+
+    <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
   </view>
 
   <!--mask-->
