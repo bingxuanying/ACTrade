@@ -45,12 +45,13 @@ page {
   position: absolute;
   top: 148rpx;
   left: 57rpx;
-  border-radius: 44rpx;
+  border-radius: 67rpx;
+  border: white solid 10rpx;
 }
 
 .userinfo-name-box {
   position: absolute;
-  top: 355rpx;
+  top: 368rpx;
   left: 25rpx;
   transform: rotate(9deg);
   color: #000;
@@ -59,6 +60,7 @@ page {
   border-style: double;
   border-color: #9b764a;
   padding: 5rpx;
+  padding-right: 10rpx;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -129,6 +131,7 @@ page {
   font-size: inherit;
   background-color: #e5c793;
   border-radius: 15rpx;
+  padding: 5rpx;
 }
 .fruit {
   /* width: 15%; */

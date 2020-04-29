@@ -11,6 +11,9 @@ Page({
     cards: [],
   },
   onLoad: function() {
+    this.setData({
+      isLoading: true
+    })
     db.collection('BusinessFlights')
     .orderBy(this.data.order, 'desc')
     .skip(this.data.offset)
@@ -19,7 +22,8 @@ Page({
       success: res => {
         console.log(res.data);
         this.setData({
-          cards: res.data
+          cards: res.data,
+          isLoading: false
         })
       }
     })

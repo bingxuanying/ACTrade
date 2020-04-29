@@ -87,6 +87,16 @@ Page({
       fruit: 'pear'
     })
   },
+  changeSwitch: function(i) {
+    this.setData({isClick:true})
+    if (this.data.hemishpere == "north") {
+      this.setData({hemishpere:"south", isNorth: false});
+    }else {
+      this.setData({hemishpere:"north", isNorth: true})
+    }
+    // console.log(this.data.hemishpere);
+    // console.log(this.data.isNorth);
+  },
   onTapDone: function() {
     db.collection('UsersProfile').add({
       data: {
@@ -104,15 +114,5 @@ Page({
         })
       }
     })
-  },
-  changeSwitch: function(i) {
-    this.setData({isClick:true})
-    if (this.data.hemishpere == "north") {
-      this.setData({hemishpere:"south", isNorth: false});
-    }else {
-      this.setData({hemishpere:"north", isNorth: true})
-    }
-    // console.log(this.data.hemishpere);
-    // console.log(this.data.isNorth);
   },
 })

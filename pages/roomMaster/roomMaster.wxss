@@ -1,1 +1,141 @@
 /* pages/roomMaster/roomMaster.wxss */
+.roomMaster {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-box,
+.tool-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.info-box {
+  width: 84%;
+  height: 130rpx;
+  justify-content: space-around;
+  border-radius: 100rpx;
+  background-color: lightpink;
+}
+
+.masterInfo {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: -50rpx;
+}
+
+.masterInfo-avatar{
+  width: 110rpx;
+  height: 110rpx;
+  background-color: lightyellow;
+  border-radius: 50%;
+}
+
+.masterInfo-masterData{
+  width: calc(100% - 180rpx);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10rpx;
+}
+
+.masterInfo-islandName {
+  width: 100%;
+  height: 55%;
+  background-color: lightgreen;
+  font-size: 40rpx;
+  letter-spacing: 3rpx;
+  line-height: 80rpx;
+}
+
+.masterInfo-playerName {
+  width: 100%;
+  height: 35%;
+  background-color: lightblue;
+  font-size: 28rpx;
+}
+
+.room-box {
+  width: 94%;
+  min-height: 1100rpx;
+  background-color: lightpink;
+  border-radius: 50rpx;
+  margin-top: 20rpx;
+  padding-top: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: scroll;
+}
+
+.slaveInfo {
+  width: 96%;
+  height: 80rpx;
+  padding-bottom: 7rpx;
+  margin-bottom: 7rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+  background-position: bottom;
+  background-size: 28rpx 4rpx;
+  background-repeat: repeat-x;
+  overflow: hidden;
+}
+
+.slaveInfo-head {
+  width: 100rpx;
+  height: 90%;
+  background-color: lightblue;
+}
+
+.slaveInfo-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 10rpx;
+}
+
+.slaveInfo-playerName {
+  min-width: 200rpx;
+  height: 90%;
+  background-color: lightblue;
+  margin-left: 10rpx;
+}
+
+.tool-box {
+  width: 94%;
+  height: 50rpx;
+  justify-content: center;
+}
+
+.tool-closeBtn {
+  width: 30%;
+  height: 100%;
+  background-color: green;
+  border-radius: 50rpx;
+  border: solid gray 7rpx;
+}
+
+.tool-changeBtn {
+  width: 45%;
+  height: 100%;
+  margin-left: 30rpx;
+  background-color: orange;
+  border-radius: 50rpx;
+  border: solid gray 7rpx;
+}

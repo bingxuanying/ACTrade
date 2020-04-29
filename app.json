@@ -1,11 +1,11 @@
 {
   "pages":[
+    "pages/roomMaster/roomMaster",
+    "pages/roomSlave/roomSlave",
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
     "pages/roomCreate/roomCreate",
-    "pages/roomAdd/roomAdd",
-    "pages/roomMaster/roomMaster",
-    "pages/roomSlave/roomSlave"
+    "pages/roomAdd/roomAdd"
   ],
   "window":{
     "backgroundTextStyle":"light",

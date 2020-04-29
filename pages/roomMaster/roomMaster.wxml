@@ -1,2 +1,37 @@
 <!--pages/roomMaster/roomMaster.wxml-->
-<text>pages/roomMaster/roomMaster.wxml</text>
+<view class="roomMaster">
+  <view class="info-box">
+    <view class="masterInfo">
+      <view class="masterInfo-avatar"></view>
+      <view class="masterInfo-masterData">
+        <view class="masterInfo-islandName">一拳给你撂岛</view>
+        <view class="masterInfo-playerName">BingxuanYing</view>
+      </view>
+    </view>
+    <view class="lineInfo">
+    </view>
+  </view>
+
+  <view class="room-box">
+    <view class="slaveInfo">
+      <view class="slaveInfo-head"></view>
+      <view class="slaveInfo-avatar"></view>
+      <view class="slaveInfo-playerName"></view>
+    </view>
+    <view class="slaveInfo">
+      <view class="slaveInfo-head"></view>
+      <view class="slaveInfo-avatar"></view>
+      <view class="slaveInfo-playerName"></view>
+    </view>
+    <view class="slaveInfo">
+      <view class="slaveInfo-head"></view>
+      <view class="slaveInfo-avatar"></view>
+      <view class="slaveInfo-playerName"></view>
+    </view>
+  </view>
+
+  <view class="tool-box">
+    <view class="tool-closeBtn"></view>
+    <view class="tool-changeBtn"></view>
+  </view>
+</view>
