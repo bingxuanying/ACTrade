@@ -1,6 +1,8 @@
 <!--pages/roomCreate/roomCreate.wxml-->
 <view class="roomCreate">
-  <view class="dodoImg"></view>
+  <view class="dodoImg-box">
+    <image class="dodoImg" src="../../assets/icons/DodoFlightIcon.png" mode="heightFix"/>
+  </view>
   <view class="settings">
     <view class="flightOpt">
       <button class="flightOpt-btn {{flight==0?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%">商业航班</button>
@@ -21,19 +23,19 @@
     <view class="settings-layout">
       <view class="settings-title">开放时长</view>
       <view class="settings-content">
-        <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="18" value="{{time}}" show-value />
+        <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
       </view>
     </view>
     <view class="settings-layout">
       <view class="settings-title">在岛人数限制</view>
       <view class="settings-content">
-        <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="18" value="{{people}}" show-value />
+        <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
       </view>
     </view>
     <view class="settings-layout">
       <view class="settings-title">留言板</view>
-      <view class="settings-content">
-        <input value="{{note}}" bindinput="bindNoteInput" />
+      <view class="settings-content ">
+        <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
       </view>
     </view>
   </view>

@@ -6,24 +6,31 @@
   width: 100vw;
 }
 
-.dodoImg {
-  background-color: lightpink;
+.dodoImg-box {
+  background-color: #218ec5;
   width: 95%;
   height: 50px;
+  padding: 5rpx;
+  padding-top: 15rpx;
+  display: flex;
+  justify-content: center;
+  border-radius: 15rpx 15rpx 0 0;
+}
+.dodoImg {
+  height: 100%;
 }
 
 .settings {
-  background-color: lightyellow;
+  background-color: #218ec5;
   width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 5rpx 5rpx;
 }
 
 .flightOpt {
-  background-color: lightgray;
+  background-color: #218ec5;
   width: 90%;
   height: 50px;
   display: flex;
@@ -33,45 +40,58 @@
 }
 
 .flightOpt-btn {
+  background-color: lightblue;
   height: 70%;
   border-radius: 15px;
   padding: 5px
 }
 
 .flightOpt-btn-active {
-  background-color: lightsalmon;
+  background-color: lightgreen;
 }
 
 .settings-layout {
-  background-color: lightgreen;
+  background-color: #218ec5;
+  min-height: 80rpx;
   width: 90%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  padding-top: 5px;
-  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0;
+  font-size: 30rpx;
+  border-bottom: lightblue 2px dotted;
 }
 
 .settings-title {
   width: 35%;
+  color: white;
 }
 
 .settings-content {
-  background-color: white;
-  width: 65%;
-}
-
-.bottombar {
   background-color: lightblue;
+  width: 65%;
+  border-radius: 15rpx;
+}
+.extend-text {
+  height: 200rpx;
+}
+.bottombar {
+  background-color: #218ec5;
+
+  /* background-color: lightblue; */
   width: 95%;
   height: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  padding: 0 5rpx;
+  border-radius: 0 0 15rpx 15rpx;
 }
 
 .bottombar-btn {
+  background-color: lightblue;
   height: 70%;
   border-radius: 15px;
   padding: 5px
