@@ -1,40 +1,47 @@
 <!--pages/profile/profile.wxml-->
 <view class="profile">
-  <image class="passport" src="../../assets/passport/passport5x3.png" mode="widthFix" />
+  <image class="passport" src="../../assets/passport/passport.png" mode="widthFix" />
 
   <view class="userinfo">
-    <image class="userinfo-avatar-background" src="../../assets/passport/passport头像框.png" mode="widthFix" />
-
+    <!-- <image class="userinfo-avatar-background" src="../../assets/passport/passport头像框.png" mode="widthFix" /> -->
     <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 130rpx"> 登入信息 </button>
     <block wx:else>
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
-      <text class="userinfo-name">{{userInfo.nickName}}</text>
+      <view class="userinfo-name-box">
+        <image class="userinfo-name-box-icon" src="../../assets/icons/AvatarIcon.png" />
+        <text class="userinfo-name-box-name">{{userInfo.nickName}}</text>
+      </view>
     </block>
   </view>
 
   <view class="personalInfo" wx:if="{{hasUserInfo}}">
     <view class="personalInfo-row">
-      <image class="personalInfo-icon" src="../../assets/icons/Hemishpere.png" mode="widthFix" />
+      <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
       <view class="personalInfo-title">游戏昵称</view>
       <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" />
     </view>
     <view class="personalInfo-row">
-      <image class="personalInfo-icon" src="../../assets/icons/Hemishpere.png" mode="widthFix" />
+      <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
       <view class="personalInfo-title">岛名</view>
       <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
     </view>
     <view class="personalInfo-row">
-      <image class="fruit" src="{{fruit==='apple'?'../../assets/icons/AppleIcon.png':'../../assets/icons/AppleIconGray.png'}}" mode="widthFix" bindtap="onTapApple" />
-      <image class="fruit" src="{{fruit==='cherry'?'../../assets/icons/CherryIcon.png':'../../assets/icons/CherryIconGray.png'}}" mode="widthFix" bindtap="onTapCherry" />
-      <image class="fruit" src="{{fruit==='orange'?'../../assets/icons/OrangeIcon.png':'../../assets/icons/OrangeIconGray.png'}}" mode="widthFix" bindtap="onTapOrange" />
-      <image class="fruit" src="{{fruit==='peach'?'../../assets/icons/PeachIcon.png':'../../assets/icons/PeachIconGray.png'}}" mode="widthFix" bindtap="onTapPeach" />
-      <image class="fruit" src="{{fruit==='pear'?'../../assets/icons/PearIcon.png':'../../assets/icons/PearIconGray.png'}}" mode="widthFix" bindtap="onTapPear" />
+      <view class="fruit-background">
+        <image class="fruit" src="{{fruit==='apple'?'../../assets/icons/AppleIcon.png':'../../assets/icons/AppleIconGray.png'}}" mode="widthFix" bindtap="onTapApple" />
+        <image class="fruit" src="{{fruit==='cherry'?'../../assets/icons/CherryIcon.png':'../../assets/icons/CherryIconGray.png'}}" mode="widthFix" bindtap="onTapCherry" />
+        <image class="fruit" src="{{fruit==='orange'?'../../assets/icons/OrangeIcon.png':'../../assets/icons/OrangeIconGray.png'}}" mode="widthFix" bindtap="onTapOrange" />
+        <image class="fruit" src="{{fruit==='peach'?'../../assets/icons/PeachIcon.png':'../../assets/icons/PeachIconGray.png'}}" mode="widthFix" bindtap="onTapPeach" />
+        <image class="fruit" src="{{fruit==='pear'?'../../assets/icons/PearIcon.png':'../../assets/icons/PearIconGray.png'}}" mode="widthFix" bindtap="onTapPear" />
+      </view>
     </view>
-    <view class="personalInfo-row">
-      <text>半球</text>
+    <view class="personalInfo-row">   
+      <image wx:if="{{isNorth}}" class="hemisphere-icon {{isClick? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
+      <image wx:else class="hemisphere-icon {{isClick? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
+      <view class="personalInfo-title">半球</view>
+      <switch checked="{{isNorth}}" bindchange="changeSwitch"></switch>
     </view>
 
-    <button class="done" style="width:100rpx" bindtap="onTapDone">完成</button>
+    <button class="done" style="width:100rpx; " bindtap="onTapDone">完成</button>
   </view>
   <view class="warn" wx:else>
     <text>请先登入信息</text>

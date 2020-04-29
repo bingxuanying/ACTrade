@@ -1,4 +1,7 @@
 /* pages/profile/profile.wxss */
+page {
+  background-color: red;
+}
 .profile {
   background-color: lightyellow;
   width: 100vw;
@@ -17,6 +20,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #f5efd5;
 }
 
 .userinfo-avatar-background {
@@ -44,13 +48,30 @@
   border-radius: 44rpx;
 }
 
-.userinfo-name {
+.userinfo-name-box {
   position: absolute;
-  top: 385rpx;
-  left: 70rpx;
+  top: 355rpx;
+  left: 25rpx;
   transform: rotate(9deg);
   color: #000;
   font-size: 20rpx;
+  border-radius: 15rpx;
+  border-style: double;
+  border-color: #9b764a;
+  padding: 5rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.userinfo-name-box-icon {
+  width: 38rpx;
+  height: 38rpx;
+}
+.userinfo-name-box-name {
+  white-space: nowrap;
+  text-overflow:ellipsis; 
+  overflow:hidden;
 }
 
 .personalInfo {
@@ -69,7 +90,8 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   font-size: inherit;
   margin-bottom: 30rpx;
   padding-bottom: 20rpx;
@@ -80,6 +102,7 @@
   width: 12%;
   margin-top: 9rpx;
 }
+
 
 .personalInfo-title {
   width: 30%;
@@ -97,22 +120,38 @@
   padding: 5rpx 10rpx;
   font-size: inherit;
 }
-
+.fruit-background {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  background-color: #e5c793;
+  border-radius: 15rpx;
+}
 .fruit {
-  width: 15%;
+  /* width: 15%; */
+  width: 68rpx;
+  height: 68rpx;
   margin-left: 15rpx;
 }
 
 .hemisphere {
   font-size: inherit;
 }
-
+.hemisphere-icon {
+  width: 48rpx;
+  height: 48rpx;
+}
 .done {
   position: absolute;
   top: 450rpx;
   left: 300rpx;
   font-size: 30rpx;
   padding: 3rpx;
+  background-color:#f5efd5;
+  border: #000000;
 }
 
 .warn {
@@ -120,3 +159,16 @@
   top: 220rpx;
   left: 400rpx;
 }
+.rotate {
+  animation: half-rotate 0.5s steps(12) 1;
+}
+@keyframes half-rotate {
+  0% {
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  }
+  to {
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+  }
+  }

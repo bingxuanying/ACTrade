@@ -11,6 +11,8 @@ Page({
     islandName: '',
     fruit: 'apple',
     hemishpere: 'north',
+    isNorth: true,
+    isClick: false
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -102,5 +104,15 @@ Page({
         })
       }
     })
-  }
+  },
+  changeSwitch: function(i) {
+    this.setData({isClick:true})
+    if (this.data.hemishpere == "north") {
+      this.setData({hemishpere:"south", isNorth: false});
+    }else {
+      this.setData({hemishpere:"north", isNorth: true})
+    }
+    // console.log(this.data.hemishpere);
+    // console.log(this.data.isNorth);
+  },
 })
