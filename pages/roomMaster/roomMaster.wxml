@@ -14,6 +14,9 @@
 
   <view class="room-box">
     <view class="slaveInfo">
+      <view class="slaveInfo-deleteicon">
+        <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix"/>
+      </view>
       <view class="slaveInfo-head">
         <view class="slaveInfo-head-top-green">
           <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
@@ -23,13 +26,16 @@
           <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix"/>
           <view class="slaveInfo-head-bot-text">恶霸岛</view>
         </view>
-      </view>
+        </view>
       <view class="slaveInfo-tail">
         <view class="slaveInfo-avatar"></view>
         <view class="slaveInfo-playerName">番茄恶霸</view>      
+        </view>   
       </view>
-    </view>
-        <view class="slaveInfo">
+    <view class="slaveInfo">
+      <view class="slaveInfo-deleteicon">
+        <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix"/>
+      </view>
       <view class="slaveInfo-head">
         <view class="slaveInfo-head-top-green">
           <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
@@ -44,8 +50,11 @@
         <view class="slaveInfo-avatar"></view>
         <view class="slaveInfo-playerName">宝宝omg</view>      
       </view>
-    </view>
-        <view class="slaveInfo">
+      </view>
+    <view class="slaveInfo">
+      <view class="slaveInfo-deleteicon">
+        <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix"/>
+      </view>
       <view class="slaveInfo-head">
         <view class="slaveInfo-head-top-gray">
           <view class="slaveInfo-head-top-text">第3位</view>
@@ -59,7 +68,7 @@
         <view class="slaveInfo-avatar"></view>
         <view class="slaveInfo-playerName">Judge Cui</view>      
       </view>
-    </view>
+      </view>
 
   </view>
 
@@ -74,5 +83,5 @@
       <view class="tool-box-text" style="color: #fff7ce">编辑设置</view>
     </view>
     <image class="tool-box-minusicon" src="../../assets/icons/YIcon.png" mode="heightFix"/>
-  </view>
+    </view>
 </view>
