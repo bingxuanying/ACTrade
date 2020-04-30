@@ -1,6 +1,7 @@
 <!--pages/roomMaster/roomMaster.wxml-->
 <view class="roomMaster">
   <view class="info-box">
+    <image class="info-box-lefticon" src="../../assets/icons/LIcon.png" mode="heightFix"/>
     <view class="masterInfo">
       <view class="masterInfo-avatar"></view>
       <view class="masterInfo-masterData">
@@ -8,30 +9,70 @@
         <view class="masterInfo-playerName">BingxuanYing</view>
       </view>
     </view>
-    <view class="lineInfo">
-    </view>
+    <image class="info-box-righticon" src="../../assets/icons/RIcon.png" mode="heightFix"/>
   </view>
 
   <view class="room-box">
     <view class="slaveInfo">
-      <view class="slaveInfo-head"></view>
-      <view class="slaveInfo-avatar"></view>
-      <view class="slaveInfo-playerName"></view>
+      <view class="slaveInfo-head">
+        <view class="slaveInfo-head-top-green">
+          <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
+          <view class="slaveInfo-head-top-text">第1位</view>
+        </view>
+        <view class="slaveInfo-head-bot">
+          <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix"/>
+          <view class="slaveInfo-head-bot-text">恶霸岛</view>
+        </view>
+      </view>
+      <view class="slaveInfo-tail">
+        <view class="slaveInfo-avatar"></view>
+        <view class="slaveInfo-playerName">番茄恶霸</view>      
+      </view>
     </view>
-    <view class="slaveInfo">
-      <view class="slaveInfo-head"></view>
-      <view class="slaveInfo-avatar"></view>
-      <view class="slaveInfo-playerName"></view>
+        <view class="slaveInfo">
+      <view class="slaveInfo-head">
+        <view class="slaveInfo-head-top-green">
+          <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
+          <view class="slaveInfo-head-top-text">第2位</view>
+        </view>
+        <view class="slaveInfo-head-bot">
+          <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix"/>
+          <view class="slaveInfo-head-bot-text">Queensland岛</view>
+        </view>
+      </view>
+      <view class="slaveInfo-tail">
+        <view class="slaveInfo-avatar"></view>
+        <view class="slaveInfo-playerName">宝宝omg</view>      
+      </view>
     </view>
-    <view class="slaveInfo">
-      <view class="slaveInfo-head"></view>
-      <view class="slaveInfo-avatar"></view>
-      <view class="slaveInfo-playerName"></view>
+        <view class="slaveInfo">
+      <view class="slaveInfo-head">
+        <view class="slaveInfo-head-top-gray">
+          <view class="slaveInfo-head-top-text">第3位</view>
+        </view>
+        <view class="slaveInfo-head-bot">
+          <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix"/>
+          <view class="slaveInfo-head-bot-text">Judge岛</view>
+        </view>
+      </view>
+      <view class="slaveInfo-tail">
+        <view class="slaveInfo-avatar"></view>
+        <view class="slaveInfo-playerName">Judge Cui</view>      
+      </view>
     </view>
+
   </view>
 
   <view class="tool-box">
-    <view class="tool-closeBtn"></view>
-    <view class="tool-changeBtn"></view>
+    <view class="tool-closeBtn">
+      <image class="tool-box-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix"/>
+      <view class="tool-box-text">ON</view>
+    </view>
+    <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix"/>
+    <view class="tool-changeBtn">
+      <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix"/>
+      <view class="tool-box-text" style="color: #fff7ce">编辑设置</view>
+    </view>
+    <image class="tool-box-minusicon" src="../../assets/icons/YIcon.png" mode="heightFix"/>
   </view>
 </view>

@@ -1,4 +1,7 @@
 /* pages/roomMaster/roomMaster.wxss */
+page {
+  background-color: #f99d78;
+}
 .roomMaster {
   width: 100vw;
   height: 100%;
@@ -20,7 +23,25 @@
   height: 130rpx;
   justify-content: space-around;
   border-radius: 100rpx;
-  background-color: lightpink;
+  background-color: #f5f7e1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  color: #716a58;
+
+}
+.info-box-lefticon {
+  position: relative;
+  height: 38rpx;
+  left: -13%;
+  bottom: -36%;
+}
+.info-box-righticon {
+  position: relative;
+  height: 38rpx;
+  left: 13%;
+  bottom: -36%;
 }
 
 .masterInfo {
@@ -29,14 +50,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin-left: -50rpx;
+  font-weight: bolder;
+
 }
 
 .masterInfo-avatar{
   width: 110rpx;
   height: 110rpx;
-  background-color: lightyellow;
+  background-color: lightpink;
   border-radius: 50%;
 }
 
@@ -53,23 +76,22 @@
 .masterInfo-islandName {
   width: 100%;
   height: 55%;
-  background-color: lightgreen;
-  font-size: 40rpx;
+  font-size: 35rpx;
   letter-spacing: 3rpx;
   line-height: 80rpx;
+  font-style: bold;
 }
 
 .masterInfo-playerName {
   width: 100%;
   height: 35%;
-  background-color: lightblue;
   font-size: 28rpx;
 }
 
 .room-box {
   width: 94%;
   min-height: 1100rpx;
-  background-color: lightpink;
+  background-color: #f5f7e1;
   border-radius: 50rpx;
   margin-top: 20rpx;
   padding-top: 10rpx;
@@ -82,26 +104,97 @@
 
 .slaveInfo {
   width: 96%;
-  height: 80rpx;
+  height: 100rpx;
   padding-bottom: 7rpx;
   margin-bottom: 7rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+  background-image: linear-gradient(to right, #f89d80 33%, rgba(255,255,255,0) 0%);
   background-position: bottom;
   background-size: 28rpx 4rpx;
   background-repeat: repeat-x;
   overflow: hidden;
+  font-size: 28rpx;
 }
 
 .slaveInfo-head {
-  width: 100rpx;
+  width: 40%;
   height: 90%;
-  background-color: lightblue;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
 }
+.slaveInfo-head-top-green{
+  height: 50%;
+  background-color: #4fb262;
+  border-radius: 30rpx;
+  padding: 5rpx 15rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 2.5rpx;
+  color: #f8f5e6;
 
+}
+.slaveInfo-head-top-gray{
+  height: 50%;
+  background-color: #a4a49c;
+  border-radius: 30rpx;
+  padding: 5rpx 15rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 2.5rpx;
+  color: #bfc0b2;
+}
+.slaveInfo-head-top-icon{
+  height: 32rpx;
+  align-self: center;
+  margin-right: 10rpx;
+}
+.slaveInfo-head-top-text {
+  text-align:center;
+  line-height:100%;
+  align-self: center;
+    overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.slaveInfo-head-bot{
+  height: 50%;
+  color: #716a58;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+.slaveInfo-head-bot-icon {
+  height: 32rpx;
+  align-self: center;
+  margin-right: 10rpx;
+}
+.slaveInfo-head-bot-text {
+  max-width: 220rpx;
+  text-align:center;
+  line-height:150%;
+  align-self: center;
+  color: #7a7359;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.slaveInfo-tail {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+}
 .slaveInfo-avatar {
   width: 72rpx;
   height: 72rpx;
@@ -111,31 +204,63 @@
 }
 
 .slaveInfo-playerName {
-  min-width: 200rpx;
   height: 90%;
-  background-color: lightblue;
   margin-left: 10rpx;
+  color: #e07642;
+  font-weight: bolder;
+  text-align:center;
+  line-height:100%;
+  align-self: center;
+  font-size: 36rpx;
 }
+
 
 .tool-box {
   width: 94%;
   height: 50rpx;
   justify-content: center;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
-
 .tool-closeBtn {
   width: 30%;
   height: 100%;
-  background-color: green;
+  background-color: #4fb262;
   border-radius: 50rpx;
-  border: solid gray 7rpx;
+  border: solid #f5f7e1 7rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
 }
-
+.tool-box-icon {
+  position: relative;
+  height: 80%;
+  top: 10%;
+}
+.tool-box-text{
+  color: #bef4c2;
+  text-align:center;
+  line-height:50rpx;
+  font-size:30rpx;
+}
+.tool-box-minusicon {
+  height: 43rpx;
+  position: relative;
+  right: 35rpx;
+  bottom: -16rpx;
+}
 .tool-changeBtn {
   width: 45%;
   height: 100%;
   margin-left: 30rpx;
-  background-color: orange;
+  background-color: #fda156;
   border-radius: 50rpx;
-  border: solid gray 7rpx;
+  border: solid #f5f7e1 7rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
 }
