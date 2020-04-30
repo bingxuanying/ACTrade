@@ -3,7 +3,7 @@
   <image class="passport" src="../../assets/passport/passport.png" mode="widthFix" />
 
   <view class="userinfo">
-    <!-- <image class="userinfo-avatar-background" src="../../assets/passport/passport头像框.png" mode="widthFix" /> -->
+    <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
     <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 130rpx"> 登入信息 </button>
     <block wx:else>
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
@@ -37,11 +37,24 @@
     <view class="personalInfo-row">   
       <image wx:if="{{hemisphere === 'north'}}" class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
       <image wx:else class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
-      <view class="personalInfo-title">半球</view>
-      <switch checked="{{hemisphere === 'north'}}" bindchange="changeSwitch" />
+      <view class="personalInfo-title">地理位置</view>
+      <!--Swith box Here-->
+      <view class="switch-box" bindtap="changeSwitch" >
+        <view class="switch-btn {{hemisphere==='north' ? 'move-left': 'move-right'}}">
+          <view class="switch-btn-text">
+            <text>{{hemisphere==='north' ? '北半球' : '南半球'}}</text>
+          </view>
+        </view>
+      </view>
     </view>
-
-    <button class="done" style="width:100rpx; " bindtap="onTapDone">完成</button>
+    <!--Switch box Done Here-->
+    <button class="confirm-btn" style="width:150rpx; " bindtap="onTapDone">
+      <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A 
+      </view>
+      <view class="confirm-btn-text">
+        <text>确认</text>
+      </view>
+    </button>
   </view>
   <view class="warn" wx:else>
     <text>请先登入信息</text>

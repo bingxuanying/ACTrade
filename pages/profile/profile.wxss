@@ -1,4 +1,4 @@
-/* pages/profile/profile.wxss */
+/* pages/profile/profile.wxss */ 
 .profile {
   background-color: lightyellow;
   width: 100vw;
@@ -43,7 +43,7 @@
   top: 148rpx;
   left: 57rpx;
   border-radius: 67rpx;
-  border: #faf8e1 solid 10rpx;
+  border: white solid 10rpx;
 }
 
 .userinfo-name-box {
@@ -92,8 +92,8 @@
   align-items: center;
   justify-content: flex-start;
   font-size: inherit;
-  margin-bottom: 30rpx;
-  padding-bottom: 20rpx;
+  margin-bottom: 25rpx;
+  padding-bottom:25rpx;
   border-bottom: white 2px solid;
 }
 
@@ -141,17 +141,31 @@
   font-size: inherit;
 }
 .hemisphere-icon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 38rpx;
+  height: 38rpx;
+  position: relative;
+  top: 2rpx
 }
-.done {
-  position: absolute;
-  top: 450rpx;
-  left: 300rpx;
+.confirm-btn {
+  position: relative;
   font-size: 30rpx;
   padding: 3rpx;
   background-color:#f5efd5;
   border: #000000;
+  border-radius: 32rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.confirm-btn-icon{
+  background-color: #716a58;
+  color:#f5efd5 ;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.confirm-btn-text{
+  color: #716a58;
 }
 
 .warn {
@@ -161,6 +175,7 @@
 }
 .rotate {
   animation: half-rotate 0.5s steps(12) 1;
+  animation-fill-mode: forwards;
 }
 @keyframes half-rotate {
   0% {
@@ -171,4 +186,56 @@
   -webkit-transform: rotate(0);
   transform: rotate(0);
   }
+}
+/* Switch related CSS Below */
+.switch-box {
+  background-color: #ddd1b9;
+  height: 60rpx;
+  width: 180rpx;
+  border-radius: 60rpx;
+  border: #faf7e0 10rpx solid;
+}
+.switch-btn {
+  background-color: #4fb262;
+  height: 60rpx;
+  width: 130rpx;
+  border-radius: 60rpx;
+  animation-fill-mode: forwards;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.switch-btn-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.move-right {
+  /* left: 50rpx; */
+  animation: toright ease-in-out 0.5s;
+  animation-fill-mode: forwards;
+
+} 
+.move-left {
+  animation: toleft ease-in-out 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes toright {
+  from {
+    transform:translate(0,0) ;
+    }
+    to {
+      transform:translate(50rpx,0) ;
+    }
+}
+@keyframes toleft {
+  from {
+    transform:translate(50rpx,0) ;
   }
+    to {
+      transform:translate(0,0) ;
+    }
+}
