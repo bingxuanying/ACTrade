@@ -1,9 +1,0 @@
-<!-- 这是自定义组件的内部WXML结构 -->
-<!--this bindtap link to onTap in js-->
-<view class="switch-box" bindtap="onTap" >
-  <view class="switch-btn {{checked ? 'move-left': 'move-right'}}">
-    <view class="switch-btn-text">
-      <text>{{checked ? 'north' : 'south'}}</text>
-    </view>
-  </view>
-</view>
