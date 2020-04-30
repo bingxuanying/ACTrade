@@ -35,10 +35,10 @@
       </view>
     </view>
     <view class="personalInfo-row">   
-      <image wx:if="{{isNorth}}" class="hemisphere-icon {{isClick? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
-      <image wx:else class="hemisphere-icon {{isClick? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
+      <image wx:if="{{hemisphere === 'north'}}" class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
+      <image wx:else class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
       <view class="personalInfo-title">半球</view>
-      <switch checked="{{isNorth}}" bindchange="changeSwitch"></switch>
+      <switch checked="{{hemisphere === 'north'}}" bindchange="changeSwitch" />
     </view>
 
     <button class="done" style="width:100rpx; " bindtap="onTapDone">完成</button>

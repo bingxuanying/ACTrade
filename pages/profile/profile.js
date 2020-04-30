@@ -10,9 +10,8 @@ Page({
     nickname: '',
     islandName: '',
     fruit: 'apple',
-    hemishpere: 'north',
-    isNorth: true,
-    isClick: false
+    hemisphere: 'north',
+    animActive: false
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -88,14 +87,13 @@ Page({
     })
   },
   changeSwitch: function(i) {
-    this.setData({isClick:true})
-    if (this.data.hemishpere == "north") {
-      this.setData({hemishpere:"south", isNorth: false});
+    this.setData({animActive:true})
+    if (this.data.hemisphere == "north") {
+      this.setData({hemisphere:"south"});
     }else {
-      this.setData({hemishpere:"north", isNorth: true})
+      this.setData({hemisphere:"north"})
     }
-    // console.log(this.data.hemishpere);
-    // console.log(this.data.isNorth);
+    // console.log(this.data.hemisphere);
   },
   onTapDone: function() {
     db.collection('UsersProfile').add({
@@ -104,7 +102,7 @@ Page({
         nickname: this.data.nickname,
         islandName: this.data.islandName,
         fruit: this.data.fruit,
-        hemishpere: this.data.hemishpere,
+        hemisphere: this.data.hemisphere,
       },
       success: function(res) {
         // back to lobby

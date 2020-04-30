@@ -1,7 +1,4 @@
 /* pages/profile/profile.wxss */
-page {
-  background-color: red;
-}
 .profile {
   background-color: lightyellow;
   width: 100vw;
@@ -46,7 +43,7 @@ page {
   top: 148rpx;
   left: 57rpx;
   border-radius: 67rpx;
-  border: white solid 10rpx;
+  border: #faf8e1 solid 10rpx;
 }
 
 .userinfo-name-box {
