@@ -1,46 +1,56 @@
 <!--pages/roomCreate/roomCreate.wxml-->
 <view class="roomCreate">
   <view class="dodoImg-box">
-    <image class="dodoImg" src="../../assets/icons/DodoFlightIcon.png" mode="heightFix"/>
+    <image class="dodoImg" src="../../assets/icons/DodoFlightIconV.png" mode="heightFix"/>
   </view>
   <view class="settings">
-    <view class="flightOpt">
-      <button class="flightOpt-btn {{flight==0?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%">商业航班</button>
+    <view class="settings-box">
+      <view class="flightOpt">
+      <button class="flightOpt-btn {{flight==0?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">商业航班</button>
       <button class="flightOpt-btn {{flight==1?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">私人航班</button>
     </view>
-    <view class="settings-layout">
-      <view class="settings-title">大头菜价格</view>
-      <view class="settings-content">
-        <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
-      </view>
-    </view>
-    <view class="settings-layout">
-      <view class="settings-title">海关密码</view>
-      <view class="settings-content">
-        <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
-      </view>
-    </view>
-    <view class="settings-layout">
-      <view class="settings-title">开放时长</view>
-      <view class="settings-content">
-        <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
-      </view>
-    </view>
-    <view class="settings-layout">
-      <view class="settings-title">在岛人数限制</view>
-      <view class="settings-content">
-        <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
-      </view>
-    </view>
-    <view class="settings-layout">
-      <view class="settings-title">留言板</view>
-      <view class="settings-content ">
-        <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
-      </view>
+        <view class="settings-layout">
+          <view class="settings-title">大头菜价格</view>
+          <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix"/>
+          <view class="settings-content">
+            <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
+          </view>
+        </view>
+        <view class="settings-layout">
+          <view class="settings-title">海关密码</view>
+          <view class="settings-content">
+            <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
+          </view>
+        </view>
+        <view class="settings-layout">
+          <view class="settings-title">开放时长</view>
+          <view class="settings-content">
+            <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
+          </view>
+        </view>
+        <view class="settings-layout">
+          <view class="settings-title">在岛人数限制</view>
+          <view class="settings-content">
+            <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
+          </view>
+        </view>
+        <view class="settings-layout">
+          <view class="settings-title">留言板</view>
+          <view class="settings-content ">
+            <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
+          </view>
+        </view>
     </view>
   </view>
   <view class="bottombar">
-    <button class="bottombar-btn" style="width: 40%" bindtap="onTapBack">返回</button>
-    <button class="bottombar-btn" style="width: 40%" bindtap="onTapCreate" disabled="{{code.length===5?false:true}}">创建</button>
+    <button class="bottombar-btn-left" style="width:40%" bindtap="onTapBack">
+      <image class="bottombar-btn-icon" style="height:40rpx; top:-3rpx" src="../../assets/icons/XIcon.png" mode="heightFix"/>
+      <view class="bottombar-btn-text" style="color: white">返回</view>
+    </button>
+    <button class="bottombar-btn-right" style="width: 40%" bindtap="onTapCreate" disabled="{{code.length===5?false:true}}">
+      <image wx:if="{{code.length===5}}" class="bottombar-btn-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix"/>
+      <image wx:else class="bottombar-btn-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix"/>
+      <view class="bottombar-btn-text {{code.length===5?'':'disable'}}">创建</view>
+    </button>
   </view>
 </view>

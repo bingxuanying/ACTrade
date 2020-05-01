@@ -17,49 +17,108 @@ page {
   align-items: center;
   margin-top: 20rpx;
 }
-
 .info-box {
   width: 84%;
   height: 130rpx;
-  border-radius: 100rpx;
   background-color: #f5f7e1;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
   color: #716a58;
-
+  border-radius: 100rpx;
 }
+.info-box-righticon, 
 .info-box-lefticon {
   position: relative;
-  height: 38rpx;
-  left: -12%;
-  bottom: -36%;
+  height: 45rpx;
+  width: 45rpx;
+  left: 0%;
+  bottom: -33%;
+  color: #f2f4dc;
+  background-color: #8a7b64;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-radius: 15rpx 0 0 0;
+  border: #f2f4dc 2px solid;
 }
 .info-box-righticon {
-  position: relative;
-  height: 38rpx;
-  left: 12%;
-  bottom: -36%;
+  border-radius: 0 15rpx 0 0;
 }
-
-.masterInfo {
-  width: 70%;
+.maintitle{
+  width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.maintitle-box{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+}
+.settingInfo{
+  position: absolute;
+  width: 70%;
+  height: 130rpx - 14rpx;
+  right: 110vw;
+  margin-top: 10rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   font-weight: bolder;
 }
-
+.page-indicator{
+  height: 30rpx;
+  width: 100%;
+  margin: 5rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dot {
+  height: 20rpx;
+  width: 20rpx;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+.circle {
+  height: 15rpx;
+  width: 15rpx;
+  border-radius: 50%;
+  display: inline-block;
+  border: #00bca5 6rpx solid;
+  position: relative;
+  left: -23rpx;
+}
+.masterInfo {
+  position: absolute;
+  left: 10vw;
+  width: 70%;
+  height: 130rpx - 14rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  
+}
 .masterInfo-avatar{
-  width: 110rpx;
-  height: 110rpx;
+  width: 90rpx;
+  height: 90rpx;
   background-color: #fda156;
   border-radius: 50%;
 }
-
 .masterInfo-masterData{
   height: 100%;
   display: flex;
@@ -68,36 +127,50 @@ page {
   justify-content: center;
   margin-left: 10rpx;
 }
-
 .masterInfo-islandName {
   width: 100%;
-  height: 55%;
-  font-size: 35rpx;
+  height: 30rpx;
+  font-size: 30rpx;
   letter-spacing: 3rpx;
-  line-height: 80rpx;
-  font-style: bold;
+  line-height: 30rpx;
+  font-style: bolder;
+  text-align: center;
 }
-
 .masterInfo-playerName {
   width: 100%;
-  height: 35%;
-  font-size: 28rpx;
+  height: 24rpx;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 24rpx;
+  margin-top: 15rpx;
 }
 
 .room-box {
+  position: relative;
   width: 94%;
   height: 80vh;
   background-color: #f5f7e1;
   border-radius: 50rpx;
   margin-top: 20rpx;
   padding-top: 10rpx;
+  overflow: hidden;
+}
+.room-box-left{
+  position: absolute;
+  width: 100%;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   overflow: scroll;
 }
-
+.room-box-right {
+  position: absolute;
+  right: 100vw;
+  width: 100%;
+  height: 80vh;
+}
 .slaveInfo {
   width: 96%;
   height: 100rpx;
@@ -156,7 +229,6 @@ page {
   align-self: center;
   margin-right: 10rpx;
 }
-
 .slaveInfo-head-top-text {
   text-align:center;
   line-height:100%;
@@ -165,7 +237,6 @@ page {
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-
 .slaveInfo-head-bot{
   height: 50%;
   color: #716a58;
@@ -174,7 +245,6 @@ page {
   justify-content: center;
   align-content: center;
 }
-
 .slaveInfo-head-bot-icon {
   height: 32rpx;
   align-self: center;
@@ -190,7 +260,6 @@ page {
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-
 .slaveInfo-tail {
   width: 60%;
   display: flex;
@@ -198,7 +267,6 @@ page {
   align-content: center;
   justify-content: flex-start;
 }
-
 .slaveInfo-avatar {
   width: 72rpx;
   height: 72rpx;
@@ -206,7 +274,6 @@ page {
   background-color: white;
   margin-left: 10rpx;
 }
-
 .slaveInfo-playerName {
   height: 90%;
   margin-left: 10rpx;
@@ -228,20 +295,34 @@ page {
   justify-content: space-evenly;
 }
 .tool-closeBtn {
-  width: 30%;
+  width: 45%;
+  height: 100%;
+  background-color: #ddd1bb;
+  border-radius: 50rpx;
+  border: solid #f5f7e1 7rpx;
+}
+.tool-closeBtn-greenbox{
+  width: 80%;
   height: 100%;
   background-color: #4fb262;
   border-radius: 50rpx;
-  border: solid #f5f7e1 7rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
-}
-.tool-box-icon {
   position: relative;
+  left: 20%;
+}
+.closeBtn-click{
+  animation: toleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.closeBtn-unclick{
+  animation: toright 1s ease-in-out 1;
+  animation-fill-mode: forwards;}
+.tool-box-icon {
   height: 80%;
-  top: 10%;
+  align-self: center;
 }
 .tool-box-text{
   color: #bef4c2;
@@ -254,6 +335,7 @@ page {
   position: relative;
   right: 35rpx;
   bottom: -16rpx;
+  z-index: 100;
 }
 .tool-changeBtn {
   width: 45%;
@@ -266,4 +348,160 @@ page {
   flex-direction: row;
   justify-content: center;
   align-content: center;
+}
+
+.circle-to-right{
+  animation: circletoright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.circle-to-left{
+  animation: circletoleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-to-left {
+  animation: slidetoleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-back-right {
+  animation: slidebackright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-to-right {
+  animation: slidetoright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-back-left {  
+  animation: slidebackleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+@keyframes toleft {
+  from {
+    left: 20%;
+  }
+  to{
+    left: 0%;
+  }
+}
+@keyframes toright {
+  from {
+    left: 0%;
+  }
+  to{
+    left: 20%;
+  }
+}
+@keyframes circletoleft{
+  from{
+    left: 23rpx;
+  }
+  to{
+    left: -23rpx;
+  }
+}
+@keyframes circletoright{
+  from{
+    left: -23rpx;
+  }
+  to{
+    left: 23rpx;
+  }
+}
+@keyframes slidetoleft {
+  from {
+    transform:translate(0,0) ;
+    }
+    to {
+      transform:translate(-100vw,0) ;
+    }
+}
+@keyframes slidebackright{
+  from {
+    transform:translate(-100vw,0) ;
+    }
+    to {
+      transform:translate(0,0) ;
+    }
+}
+@keyframes slidetoright{
+    from {
+      transform:translateX(100vw) ;
+    }
+    to {
+      transform:translateX(200vw) ;
+    }
+}
+@keyframes slidebackleft{
+    from {
+      transform:translateX(200vw);
+    }
+    to {
+      transform:translateX(100vw) ;
+    }
+}
+
+/* Setting css */
+.settings {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rpx 5rpx;
+}
+
+.flightOpt {
+  width: 90%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.settings-box {
+  width: 94%;
+  height: 70vh;
+  border-radius: 50rpx;
+  margin-top: 5rpx;
+  padding-top: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: scroll;
+}
+.flightOpt-btn {
+  background-color: #fca256;
+  height: 70%;
+  border-radius: 15px;
+  padding: 5px
+}
+.flightOpt-btn-active {
+  background-color: lightgreen;
+}
+
+.settings-layout {
+  min-height: 80rpx;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0;
+  font-size: 30rpx;
+  border-bottom: #218ec5 2px dotted;
+}
+.settings-title {
+  width: 35%;
+}
+.settings-content {
+  background-color: #ded8c8;
+  width: 65%;
+  border-radius: 15rpx;
+}
+.extend-text {
+  width: 100%;
+  border-radius: 25rpx;
+  height: 200rpx;
+  padding-left: 10rpx;
+  padding-top: 10rpx;
 }
