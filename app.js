@@ -32,6 +32,26 @@ App({
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
+
+              const db = wx.cloud.database();
+              db.collection('UsersProfile')
+              .get({
+                success: res => {
+                  if (res.data.length > 0){
+                    this.globalData.id = res.data[0]._id
+                    this.globalData.gameProfile = {
+                      nickname: res.data[0].nickname,
+                      islandName: res.data[0].islandName,
+                      fruit: res.data[0].fruit,
+                      hemisphere: res.data[0].hemisphere,
+                    }
+                  }
+                  console.log(this.globalData)
+                },
+                fail: res => {
+                  console.log('fail: ' + res)
+                }
+              })
             }
           })
         }
@@ -39,6 +59,13 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    id: null,
+    userInfo: null,
+    gameProfile: {
+      nickname: '',
+      islandName: '',
+      fruit: 'apple',
+      hemisphere: 'north',
+    }
   }
 })

@@ -49,16 +49,16 @@
     </view>
     <!--Switch box Done Here-->
     <button class="confirm-btn" style="width:150rpx; " bindtap="onTapDone">
-      <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A 
-      </view>
+      <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A</view>
       <view class="confirm-btn-text">
-        <text>确认</text>
+        <text>保存</text>
       </view>
     </button>
   </view>
   <view class="warn" wx:else>
     <text>请先登入信息</text>
   </view>
-
+  <image src="../../assets/icons/EarthLoading.gif" wx:if="{{savingStatus === 'saving'}}" />
+  <image src="../../assets/icons/PearIconGray.png" wx:if="{{savingStatus === 'done'}}" />
   
 </view>

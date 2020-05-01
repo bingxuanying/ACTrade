@@ -1,4 +1,6 @@
 // pages/roomCreate/roomCreate.js
+const app = getApp();
+
 Page({
   data: {
     flight: 0,
@@ -60,6 +62,7 @@ Page({
     const db = wx.cloud.database();
     var dbName = this.data.flight === 0 ? 'BusinessFlights' : 'PrivateFlights';
     var roomNum = Math.floor(Math.random() * 1000).toString();
+    // var roomChar = 
 
     function getDate() {
       var date = new Date(),

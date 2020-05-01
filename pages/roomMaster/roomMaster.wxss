@@ -90,7 +90,7 @@ page {
 
 .room-box {
   width: 94%;
-  min-height: 1100rpx;
+  height: 1100rpx;
   background-color: #f5f7e1;
   border-radius: 50rpx;
   margin-top: 20rpx;
@@ -160,6 +160,7 @@ page {
   align-self: center;
   margin-right: 10rpx;
 }
+
 .slaveInfo-head-top-text {
   text-align:center;
   line-height:100%;
@@ -168,6 +169,7 @@ page {
   text-overflow:ellipsis;
   white-space:nowrap;
 }
+
 .slaveInfo-head-bot{
   height: 50%;
   color: #716a58;
@@ -176,6 +178,7 @@ page {
   justify-content: center;
   align-content: center;
 }
+
 .slaveInfo-head-bot-icon {
   height: 32rpx;
   align-self: center;
@@ -191,6 +194,7 @@ page {
   text-overflow:ellipsis;
   white-space:nowrap;
 }
+
 .slaveInfo-tail {
   width: 60%;
   display: flex;
@@ -198,6 +202,7 @@ page {
   align-content: center;
   justify-content: flex-start;
 }
+
 .slaveInfo-avatar {
   width: 72rpx;
   height: 72rpx;
@@ -216,7 +221,6 @@ page {
   align-self: center;
   font-size: 36rpx;
 }
-
 
 .tool-box {
   width: 94%;

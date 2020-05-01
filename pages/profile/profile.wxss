@@ -1,6 +1,5 @@
 /* pages/profile/profile.wxss */ 
 .profile {
-  background-color: lightyellow;
   width: 100vw;
   height: 100vh;
 }
@@ -119,6 +118,7 @@
   padding: 5rpx 10rpx;
   font-size: inherit;
 }
+
 .fruit-background {
   width: 100%;
   display: flex;
@@ -130,6 +130,7 @@
   border-radius: 15rpx;
   padding: 5rpx;
 }
+
 .fruit {
   /* width: 15%; */
   width: 68rpx;
@@ -158,12 +159,14 @@
   align-items: center;
   justify-content: center;
 }
+
 .confirm-btn-icon{
   background-color: #716a58;
   color:#f5efd5 ;
   border-radius: 50%;
   margin-right: 10rpx;
 }
+
 .confirm-btn-text{
   color: #716a58;
 }
