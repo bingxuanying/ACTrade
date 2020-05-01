@@ -17,7 +17,7 @@ Page({
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
-        userInfo: app.globalData.gameProfile.userInfo,
+        userInfo: app.globalData.userInfo,
         hasUserInfo: true,
         nickname: app.globalData.gameProfile.nickname,
         islandName: app.globalData.gameProfile.islandName,
@@ -120,7 +120,7 @@ Page({
               userInfo: this.data.userInfo
             },
             success: res => {
-              app.globalData.id = res.data[0]._id
+              app.globalData.id = userData.data[0]._id
             }
           })
         }
@@ -134,7 +134,7 @@ Page({
               hemisphere: 'north',
             },
             success: res => {
-              app.globalData.id = res.data[0]._id
+              app.globalData.id = userData.data[0]._id
             }
           })
         }
