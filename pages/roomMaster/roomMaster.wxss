@@ -21,7 +21,6 @@ page {
 .info-box {
   width: 84%;
   height: 130rpx;
-  justify-content: space-around;
   border-radius: 100rpx;
   background-color: #f5f7e1;
   display: flex;
@@ -34,13 +33,13 @@ page {
 .info-box-lefticon {
   position: relative;
   height: 38rpx;
-  left: -13%;
+  left: -12%;
   bottom: -36%;
 }
 .info-box-righticon {
   position: relative;
   height: 38rpx;
-  left: 13%;
+  left: 12%;
   bottom: -36%;
 }
 
@@ -51,20 +50,17 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-left: -50rpx;
   font-weight: bolder;
-
 }
 
 .masterInfo-avatar{
   width: 110rpx;
   height: 110rpx;
-  background-color: lightpink;
+  background-color: #fda156;
   border-radius: 50%;
 }
 
 .masterInfo-masterData{
-  width: calc(100% - 180rpx);
   height: 100%;
   display: flex;
   flex-direction: column;

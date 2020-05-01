@@ -3,16 +3,18 @@
   <view class="info-box">
     <image class="info-box-lefticon" src="../../assets/icons/LIcon.png" mode="heightFix"/>
     <view class="masterInfo">
-      <view class="masterInfo-avatar"></view>
+      <image class="masterInfo-avatar" src="{{MasterInfo.avatar}}" wx:if="{{MasterInfo.avatar}}" mode="widthFix" />
+      <view class="masterInfo-avatar" wx:else />
       <view class="masterInfo-masterData">
-        <view class="masterInfo-islandName">一拳给你撂岛</view>
-        <view class="masterInfo-playerName">BingxuanYing</view>
+        <view class="masterInfo-islandName">{{MasterInfo.islandName}}</view>
+        <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
       </view>
     </view>
     <image class="info-box-righticon" src="../../assets/icons/RIcon.png" mode="heightFix"/>
   </view>
 
   <view class="room-box">
+    <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
     <view class="slaveInfo">
       <view class="slaveInfo-deleteicon">
         <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix"/>
@@ -20,37 +22,21 @@
       <view class="slaveInfo-head">
         <view class="slaveInfo-head-top-green">
           <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
-          <view class="slaveInfo-head-top-text">第1位</view>
+          <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>
         </view>
         <view class="slaveInfo-head-bot">
           <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix"/>
-          <view class="slaveInfo-head-bot-text">恶霸岛</view>
+          <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
         </view>
         </view>
       <view class="slaveInfo-tail">
-        <view class="slaveInfo-avatar"></view>
-        <view class="slaveInfo-playerName">番茄恶霸</view>      
-        </view>   
-      </view>
-    <view class="slaveInfo">
-      <view class="slaveInfo-deleteicon">
-        <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix"/>
-      </view>
-      <view class="slaveInfo-head">
-        <view class="slaveInfo-head-top-green">
-          <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
-          <view class="slaveInfo-head-top-text">第2位</view>
-        </view>
-        <view class="slaveInfo-head-bot">
-          <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix"/>
-          <view class="slaveInfo-head-bot-text">Queensland岛</view>
-        </view>
-      </view>
-      <view class="slaveInfo-tail">
-        <view class="slaveInfo-avatar"></view>
-        <view class="slaveInfo-playerName">宝宝omg</view>      
-      </view>
-      </view>
+        <image class="slaveInfo-avatar" src="{{item.avatar}}" mode="widthFix" />
+        <view class="slaveInfo-playerName">{{item.nickname}}</view>      
+      </view>   
+    </view>
+    </block>
+
+
     <view class="slaveInfo">
       <view class="slaveInfo-deleteicon">
         <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix"/>
@@ -68,7 +54,7 @@
         <view class="slaveInfo-avatar"></view>
         <view class="slaveInfo-playerName">Judge Cui</view>      
       </view>
-      </view>
+    </view>
 
   </view>
 

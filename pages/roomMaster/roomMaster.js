@@ -1,66 +1,52 @@
 // pages/roomMaster/roomMaster.js
+const app = getApp();
+const db = wx.cloud.database();
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    MasterInfo: {
+      avatar: null,
+      islandName: '',
+      masterName: '',
+      fruit: null,
+      hemisphere: null
+    },
+    Slaves: []
+  },
+  onLoad: function () {
+    db.collection(app.globalData.roomInfo.type)
+    .doc(app.globalData.roomInfo.roomID)
+    .get({
+      success: res => {
+        var master = res.data.master
+        console.log(master)
+        this.setData({
+          MasterInfo: {
+            avatar:  master.userInfo.avatarUrl,
+            islandName: master.gameProfile.islandName,
+            masterName: master.gameProfile.nickname,
+            fruit: master.gameProfile.fruit,
+            hemisphere: master.gameProfile.fruit
+          },
+        })
+        
+      }
+    })
 
+    db.collection(app.globalData.roomInfo.type)
+    .doc(app.globalData.roomInfo.roomID)
+    .watch({
+      onChange: (snapshot) => {
+        //监控数据发生变化时触发
+        this.setData({
+          Slaves: snapshot.docs[0].slaves
+        })
+        console.log(this.data.Slaves)
+      },
+      onError:(err) => {
+        console.error(err)
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

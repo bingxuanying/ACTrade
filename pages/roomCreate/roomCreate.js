@@ -59,10 +59,28 @@ Page({
     })
   },
   onTapCreate: function() {
-    const db = wx.cloud.database();
-    var dbName = this.data.flight === 0 ? 'BusinessFlights' : 'PrivateFlights';
-    var roomNum = Math.floor(Math.random() * 1000).toString();
-    // var roomChar = 
+    const db = wx.cloud.database()
+    var dbName = this.data.flight === 0 ? 'BusinessFlights' : 'PrivateFlights'
+    var roomNum = Math.floor(Math.random() * 1000).toString()
+    var roomChar = app.globalData.gameProfile.hemisphere === 'north' ? 'N' : 'S'
+
+    switch(app.globalData.gameProfile.fruit) {
+      case 'apple':
+        roomChar += 'A'
+        break;
+      case 'cherry':
+        roomChar += 'C'
+        break;
+      case 'orange':
+        roomChar += 'O'
+        break;
+      case 'peach':
+        roomChar += 'P'
+        break;
+      case 'pear':
+        roomChar += 'L'
+        break;
+    }
 
     function getDate() {
       var date = new Date(),
@@ -83,21 +101,29 @@ Page({
       milisec = '0'.repeat(3 - milisec.length) + milisec;
   
       return parseInt(month + day + hr + min + sec + milisec, 10);
-    };
+    }
 
     db.collection(dbName).add({
       data: {
+        master: {
+          userInfo: app.globalData.userInfo,
+          gameProfile: app.globalData.gameProfile,
+        },
+        slaves: [],
         price: this.data.price,
         code: this.data.code,
         time: this.data.time,
         people: this.data.people,
         note: this.data.note,
-        roomNum: '0'.repeat(3 - roomNum.length) + roomNum,
+        roomNum: roomChar + '0'.repeat(3 - roomNum.length) + roomNum,
         createTime: getDate()
       },
       success: function(res) {
-        // enter master room
-        console.log(res)
+        app.globalData.roomInfo.roomID = res._id
+        app.globalData.roomInfo.type = dbName
+        wx.redirectTo({
+          url: '/pages/roomMaster/roomMaster',
+        })
       }
     })
   }

@@ -17,12 +17,12 @@ Page({
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
-        userInfo: app.globalData.userInfo,
+        userInfo: app.globalData.gameProfile.userInfo,
         hasUserInfo: true,
-        nickname: app.globalData.nickname,
-        islandName: app.globalData.islandName,
-        fruit: app.globalData.fruit,
-        hemisphere: app.globalData.hemisphere,
+        nickname: app.globalData.gameProfile.nickname,
+        islandName: app.globalData.gameProfile.islandName,
+        fruit: app.globalData.gameProfile.fruit,
+        hemisphere: app.globalData.gameProfile.hemisphere,
       })
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回

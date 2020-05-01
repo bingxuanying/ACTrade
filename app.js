@@ -27,12 +27,6 @@ App({
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-
               const db = wx.cloud.database();
               db.collection('UsersProfile')
               .get({
@@ -46,12 +40,17 @@ App({
                       hemisphere: res.data[0].hemisphere,
                     }
                   }
-                  console.log(this.globalData)
                 },
                 fail: res => {
                   console.log('fail: ' + res)
                 }
               })
+
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
             }
           })
         }
@@ -66,6 +65,10 @@ App({
       islandName: '',
       fruit: 'apple',
       hemisphere: 'north',
+    },
+    roomInfo: {
+      roomID: 'f10018335eab718600317a395487a68a', //f10018335eab718600317a395487a68a
+      type: 'BusinessFlights'
     }
   }
 })
