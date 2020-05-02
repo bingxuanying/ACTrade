@@ -383,22 +383,6 @@ page {
   animation: circletoleft 1s ease-in-out 1;
   animation-fill-mode: forwards;
 }
-.slide-to-left {
-  animation: slidetoleft 1s ease-in-out 1;
-  animation-fill-mode: forwards;
-}
-.slide-back-right {
-  animation: slidebackright 1s ease-in-out 1;
-  animation-fill-mode: forwards;
-}
-.slide-to-right {
-  animation: slidetoright 1s ease-in-out 1;
-  animation-fill-mode: forwards;
-}
-.slide-back-left {
-  animation: slidebackleft 1s ease-in-out 1;
-  animation-fill-mode: forwards;
-}
 .slide-left {
   animation: slideleft 1s ease-in-out 1;
   animation-fill-mode: forwards;
@@ -445,38 +429,6 @@ page {
   }
   to {
     left: 20rpx;
-  }
-}
-@keyframes slidetoleft {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-100vw, 0);
-  }
-}
-@keyframes slidebackright {
-  from {
-    transform: translate(-100vw, 0);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-@keyframes slidetoright {
-  from {
-    transform: translateX(100vw);
-  }
-  to {
-    transform: translateX(200vw);
-  }
-}
-@keyframes slidebackleft {
-  from {
-    transform: translateX(200vw);
-  }
-  to {
-    transform: translateX(100vw);
   }
 }
 @keyframes slideleft {
