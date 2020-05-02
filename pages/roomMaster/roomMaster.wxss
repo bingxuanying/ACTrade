@@ -18,7 +18,7 @@ page {
   margin-top: 20rpx;
 }
 .info-box {
-  width: 84%;
+  width: 84vw;
   height: 130rpx;
   background-color: #f5f7e1;
   display: flex;
@@ -28,7 +28,7 @@ page {
   color: #716a58;
   border-radius: 100rpx;
 }
-.info-box-righticon, 
+.info-box-righticon,
 .info-box-lefticon {
   position: relative;
   height: 45rpx;
@@ -46,7 +46,7 @@ page {
 .info-box-righticon {
   border-radius: 0 15rpx 0 0;
 }
-.maintitle{
+.maintitle {
   width: 100%;
   height: 100%;
   display: flex;
@@ -54,30 +54,38 @@ page {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-.maintitle-box{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
   position: relative;
 }
-.settingInfo{
-  position: absolute;
-  width: 70%;
+.maintitle-box {
+  width: 168vw;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 42vw;
+}
+.settingInfo {
+  width: 50%;
   height: 130rpx - 14rpx;
-  right: 110vw;
   margin-top: 10rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   font-weight: bolder;
+  position: relative;
+  left: 18vw;
 }
-.page-indicator{
-  height: 30rpx;
+.settingInfo-text {
+  margin-left: 10rpx;
+  height: 100%;
+  line-height: 100%;
+  text-align: center;
+}
+.page-indicator {
+  height: 20rpx;
   width: 100%;
   margin: 5rpx 0;
   display: flex;
@@ -86,40 +94,37 @@ page {
   align-items: center;
 }
 .dot {
-  height: 20rpx;
-  width: 20rpx;
+  height: 15rpx;
+  width: 15rpx;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
 }
 .circle {
-  height: 15rpx;
-  width: 15rpx;
+  height: 10rpx;
+  width: 10rpx;
   border-radius: 50%;
   display: inline-block;
   border: #00bca5 6rpx solid;
   position: relative;
-  left: -23rpx;
+  left: -20rpx;
 }
 .masterInfo {
-  position: absolute;
-  left: 10vw;
-  width: 70%;
+  width: 50%;
   height: 130rpx - 14rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   font-weight: bolder;
-  
 }
-.masterInfo-avatar{
+.masterInfo-avatar {
   width: 90rpx;
   height: 90rpx;
   background-color: #fda156;
   border-radius: 50%;
 }
-.masterInfo-masterData{
+.masterInfo-masterData {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -145,9 +150,9 @@ page {
   margin-top: 15rpx;
 }
 
-.room-box {
+.room-box-shader {
   position: relative;
-  width: 94%;
+  width: 94vw;
   height: 80vh;
   background-color: #f5f7e1;
   border-radius: 50rpx;
@@ -155,9 +160,16 @@ page {
   padding-top: 10rpx;
   overflow: hidden;
 }
-.room-box-left{
-  position: absolute;
-  width: 100%;
+.room-box {
+  width: 194vw;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.room-box-left {
+  width: 94vw;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -166,10 +178,11 @@ page {
   overflow-y: scroll;
 }
 .room-box-right {
-  position: absolute;
-  right: 100vw;
-  width: 100%;
+  margin-left: 6vw;
+  width: 94vw;
   height: 80vh;
+  display: flex;
+  justify-content: center;
 }
 .slaveInfo {
   width: 96%;
@@ -180,26 +193,30 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to right, #f89d80 33%, rgba(255,255,255,0) 0%);
+  background-image: linear-gradient(
+    to right,
+    #f89d80 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
   background-position: bottom;
   background-size: 28rpx 4rpx;
   background-repeat: repeat-x;
   overflow: hidden;
   font-size: 28rpx;
 }
-.slaveInfo-deleteicon{
+.slaveInfo-deleteicon {
   width: 8%;
   position: relative;
 }
 .slaveInfo-head {
   width: 32%;
   height: 90%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
 }
-.slaveInfo-head-top-green{
+.slaveInfo-head-top-green {
   height: 50%;
   background-color: #4fb262;
   border-radius: 30rpx;
@@ -210,9 +227,8 @@ page {
   align-content: center;
   margin-bottom: 2.5rpx;
   color: #f8f5e6;
-
 }
-.slaveInfo-head-top-gray{
+.slaveInfo-head-top-gray {
   height: 50%;
   background-color: #a4a49c;
   border-radius: 30rpx;
@@ -224,20 +240,20 @@ page {
   margin-bottom: 2.5rpx;
   color: #bfc0b2;
 }
-.slaveInfo-head-top-icon{
+.slaveInfo-head-top-icon {
   height: 32rpx;
   align-self: center;
   margin-right: 10rpx;
 }
 .slaveInfo-head-top-text {
-  text-align:center;
-  line-height:100%;
+  text-align: center;
+  line-height: 100%;
   align-self: center;
-    overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.slaveInfo-head-bot{
+.slaveInfo-head-bot {
   height: 50%;
   color: #716a58;
   display: flex;
@@ -252,13 +268,13 @@ page {
 }
 .slaveInfo-head-bot-text {
   max-width: 220rpx;
-  text-align:center;
-  line-height:150%;
+  text-align: center;
+  line-height: 150%;
   align-self: center;
   color: #7a7359;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .slaveInfo-tail {
   width: 60%;
@@ -279,8 +295,8 @@ page {
   margin-left: 10rpx;
   color: #e07642;
   font-weight: bolder;
-  text-align:center;
-  line-height:100%;
+  text-align: center;
+  line-height: 100%;
   align-self: center;
   font-size: 36rpx;
 }
@@ -292,7 +308,6 @@ page {
   display: flex;
   flex-direction: row;
   justify-content: center;
-
 }
 .tool-closeBtn {
   width: 45%;
@@ -302,7 +317,7 @@ page {
   border: solid #f5f7e1 7rpx;
   position: relative;
 }
-.tool-closeBtn-greenbox{
+.tool-closeBtn-greenbox {
   width: 80%;
   height: 100%;
   background-color: #4fb262;
@@ -314,34 +329,35 @@ page {
   position: relative;
   left: 20%;
 }
-.closeBtn-click{
+.closeBtn-click {
   animation: toleft 1s ease-in-out 1;
   animation-fill-mode: forwards;
 }
-.closeBtn-unclick{
+.closeBtn-unclick {
   animation: toright 1s ease-in-out 1;
-  animation-fill-mode: forwards;}
+  animation-fill-mode: forwards;
+}
 .tool-box-icon {
   height: 80%;
   align-self: center;
 }
-.tool-box-text{
-  text-align:center;
-  line-height:50rpx;
-  font-size:30rpx;
+.tool-box-text {
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 30rpx;
 }
 .tool-box-minusicon {
   height: 43rpx;
   position: relative;
-  left: 285rpx;
+  left: 300rpx;
   bottom: 34rpx;
   z-index: 100;
 }
 .tool-box-yicon {
   height: 43rpx;
-  position: relative;
-  left: 285rpx;
-  bottom: 34rpx;
+  position: absolute;
+  left: 295rpx;
+  bottom: -10rpx;
   z-index: 100;
 }
 .tool-changeBtn {
@@ -358,11 +374,12 @@ page {
   position: relative;
 }
 
-.circle-to-right{
+/* Animation */
+.circle-to-right {
   animation: circletoright 1s ease-in-out 1;
   animation-fill-mode: forwards;
 }
-.circle-to-left{
+.circle-to-left {
   animation: circletoleft 1s ease-in-out 1;
   animation-fill-mode: forwards;
 }
@@ -378,8 +395,16 @@ page {
   animation: slidetoright 1s ease-in-out 1;
   animation-fill-mode: forwards;
 }
-.slide-back-left {  
+.slide-back-left {
   animation: slidebackleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-left {
+  animation: slideleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-right {
+  animation: slideright 1s ease-in-out 1;
   animation-fill-mode: forwards;
 }
 @keyframes toleft {
@@ -388,10 +413,10 @@ page {
     background-color: #4fb262;
     color: #f8f5e6;
   }
-  to{
+  to {
     left: 0%;
     background-color: #a4a49c;
-    color: #bbbcae ; 
+    color: #bbbcae;
   }
 }
 @keyframes toright {
@@ -400,59 +425,75 @@ page {
     background-color: #a4a49c;
     color: #bbbcae;
   }
-  to{
+  to {
     left: 20%;
     background-color: #4fb262;
     color: #f8f5e6;
   }
 }
-@keyframes circletoleft{
-  from{
-    left: 23rpx;
+@keyframes circletoleft {
+  from {
+    left: 20rpx;
   }
-  to{
-    left: -23rpx;
+  to {
+    left: -20rpx;
   }
 }
-@keyframes circletoright{
-  from{
-    left: -23rpx;
+@keyframes circletoright {
+  from {
+    left: -20rpx;
   }
-  to{
-    left: 23rpx;
+  to {
+    left: 20rpx;
   }
 }
 @keyframes slidetoleft {
   from {
-    transform:translate(0,0) ;
-    }
-    to {
-      transform:translate(-100vw,0) ;
-    }
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-100vw, 0);
+  }
 }
-@keyframes slidebackright{
+@keyframes slidebackright {
   from {
-    transform:translate(-100vw,0) ;
-    }
-    to {
-      transform:translate(0,0) ;
-    }
+    transform: translate(-100vw, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
 }
-@keyframes slidetoright{
-    from {
-      transform:translateX(100vw) ;
-    }
-    to {
-      transform:translateX(200vw) ;
-    }
+@keyframes slidetoright {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(200vw);
+  }
 }
-@keyframes slidebackleft{
-    from {
-      transform:translateX(200vw);
-    }
-    to {
-      transform:translateX(100vw) ;
-    }
+@keyframes slidebackleft {
+  from {
+    transform: translateX(200vw);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+@keyframes slideleft {
+  from {
+    transform: translate(-100vw, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes slideright {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-100vw, 0);
+  }
 }
 
 /* Setting css */
@@ -486,10 +527,10 @@ page {
   overflow: scroll;
 }
 .flightOpt-btn {
-  background-color: #fca256;
+  background-color: #ded8c8;
   height: 70%;
   border-radius: 15px;
-  padding: 5px
+  padding: 5px;
 }
 .flightOpt-btn-active {
   background-color: lightgreen;
@@ -521,5 +562,34 @@ page {
   padding-left: 10rpx;
   padding-top: 10rpx;
 }
-
-
+.settings-saveBtn-box {
+  align-self: flex-end;
+  padding: 10rpx 5rpx;
+  margin-right: 5%;
+}
+.saveBtn {
+  height: 50rpx;
+  margin-left: 20rpx;
+  background-color: #f5f7e1;
+  border-radius: 15rpx;
+  border: #887964 3px solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.saveBtn-icon {
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 30rpx;
+  background-color: #887964;
+  color: #f5f9e2;
+  line-height: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+.saveBtn-text {
+  font-size: 22rpx;
+  color: #837862;
+  margin-left: 5rpx;
+}

@@ -3,8 +3,8 @@
   <view class="info-box">
     <view class="info-box-lefticon" bindtap="LClick">L</view>
     <view class="maintitle">
-      <view class="maintitle-box">
-        <view class="masterInfo {{(firstTimeLoad? '': (page==0? 'slide-back-right':'slide-to-left'))}}">
+      <view class="maintitle-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
+        <view class="masterInfo ">
           <image class="masterInfo-avatar" src="{{MasterInfo.avatar}}" wx:if="{{MasterInfo.avatar}}" mode="widthFix" />
           <view class="masterInfo-avatar" wx:else />
           <view class="masterInfo-masterData">
@@ -12,8 +12,9 @@
             <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
           </view>
         </view>
-        <view class="settingInfo {{(firstTimeLoad? '': (page==0? 'slide-to-right':'slide-back-left'))}}">
+        <view class="settingInfo ">
           <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
+          <text class="settingInfo-text">航班设置</text>
         </view>
       </view>
       <view class="page-indicator">
@@ -24,88 +25,96 @@
     </view>
     <view class="info-box-righticon" bindtap="RClick">R</view>
   </view>
-  <view class="room-box">
-    <view class="room-box-left {{(firstTimeLoad? '': (page==0? 'slide-back-right':'slide-to-left'))}}">
-      <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
+  <view class="room-box-shader">
+    <view class="room-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
+      <view class="room-box-left">
+        <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
+          <view class="slaveInfo">
+            <view class="slaveInfo-deleteicon">
+              <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
+            </view>
+            <view class="slaveInfo-head">
+              <view class="slaveInfo-head-top-green">
+                <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
+                <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>
+              </view>
+              <view class="slaveInfo-head-bot">
+                <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
+                <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+              </view>
+            </view>
+            <view class="slaveInfo-tail">
+              <image class="slaveInfo-avatar" src="{{item.avatar}}" mode="widthFix" />
+              <view class="slaveInfo-playerName">{{item.nickname}}</view>
+            </view>
+          </view>
+        </block>
         <view class="slaveInfo">
           <view class="slaveInfo-deleteicon">
             <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
           </view>
           <view class="slaveInfo-head">
-            <view class="slaveInfo-head-top-green">
-              <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
-              <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>
+            <view class="slaveInfo-head-top-gray">
+              <view class="slaveInfo-head-top-text">第3位</view>
             </view>
             <view class="slaveInfo-head-bot">
               <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-              <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+              <view class="slaveInfo-head-bot-text">Judge岛</view>
             </view>
           </view>
           <view class="slaveInfo-tail">
-            <image class="slaveInfo-avatar" src="{{item.avatar}}" mode="widthFix" />
-            <view class="slaveInfo-playerName">{{item.nickname}}</view>
+            <view class="slaveInfo-avatar"></view>
+            <view class="slaveInfo-playerName">Judge Cui</view>
           </view>
-        </view>
-      </block>
-      <view class="slaveInfo">
-        <view class="slaveInfo-deleteicon">
-          <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
-        </view>
-        <view class="slaveInfo-head">
-          <view class="slaveInfo-head-top-gray">
-            <view class="slaveInfo-head-top-text">第3位</view>
-          </view>
-          <view class="slaveInfo-head-bot">
-            <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-            <view class="slaveInfo-head-bot-text">Judge岛</view>
-          </view>
-        </view>
-        <view class="slaveInfo-tail">
-          <view class="slaveInfo-avatar"></view>
-          <view class="slaveInfo-playerName">Judge Cui</view>
         </view>
       </view>
-    </view>
-    <view class="room-box-right {{(firstTimeLoad? '': (page==0? 'slide-to-right':'slide-back-left'))}}">
-      <view class="settings">
-        <view class="settings-box">
-          <view class="flightOpt">
-            <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
-              商业航班
-            </button>
-            <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
-              私人航班
-            </button>
-          </view>
-          <view class="settings-layout">
-            <view class="settings-title">大头菜价格</view>
-            <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
-            <view class="settings-content">
-              <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
+      <view class="room-box-right ">
+        <view class="settings">
+          <view class="settings-box">
+            <view class="flightOpt">
+              <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
+                商业航班
+              </button>
+              <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
+                私人航班
+              </button>
             </view>
-          </view>
-          <view class="settings-layout">
-            <view class="settings-title">海关密码</view>
-            <view class="settings-content">
-              <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
+            <view class="settings-layout">
+              <view class="settings-title">大头菜价格</view>
+              <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
+              <view class="settings-content">
+                <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
+              </view>
             </view>
-          </view>
-          <view class="settings-layout">
-            <view class="settings-title">开放时长</view>
-            <view class="settings-content">
-              <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
+            <view class="settings-layout">
+              <view class="settings-title">海关密码</view>
+              <view class="settings-content">
+                <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
+              </view>
             </view>
-          </view>
-          <view class="settings-layout">
-            <view class="settings-title">在岛人数限制</view>
-            <view class="settings-content">
-              <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
+            <view class="settings-layout">
+              <view class="settings-title">开放时长</view>
+              <view class="settings-content">
+                <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
+              </view>
             </view>
-          </view>
-          <view class="settings-layout">
-            <view class="settings-title">留言板</view>
-            <view class="settings-content ">
-              <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
+            <view class="settings-layout">
+              <view class="settings-title">在岛人数限制</view>
+              <view class="settings-content">
+                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
+              </view>
+            </view>
+            <view class="settings-layout">
+              <view class="settings-title">留言板</view>
+              <view class="settings-content ">
+                <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
+              </view>
+            </view>
+            <view class="settings-saveBtn-box">
+              <view class="saveBtn">
+                <view class="saveBtn-icon">A</view>
+                <text class="saveBtn-text">保存更改</text>
+              </view>
             </view>
           </view>
         </view>
