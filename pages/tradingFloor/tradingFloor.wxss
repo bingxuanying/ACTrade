@@ -179,6 +179,7 @@
   position: absolute;
   top: 190rpx;
   left: 230rpx;
+  z-index: 21;
 }
 
 .modal-inputBar {
@@ -188,6 +189,7 @@
   top: 210rpx;
   left: 267rpx;
   border: none;
+  z-index: 21;
 }
 
 .modal-btn {
@@ -196,4 +198,5 @@
   padding: 8rpx;
   position: absolute;
   top: 370rpx;
+  z-index: 21;
 }

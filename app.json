@@ -1,14 +1,10 @@
 {
-<<<<<<< HEAD
-  "pages":[  
-=======
   "pages": [
->>>>>>> 6694493db48993e5d19b71201d52b6a41b540454
+    "pages/roomSlave/roomSlave",
     "pages/roomMaster/roomMaster",
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
     "pages/roomCreate/roomCreate",
-    "pages/roomSlave/roomSlave",
     "pages/roomAdd/roomAdd"
   ],
   "window": {

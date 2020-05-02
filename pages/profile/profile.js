@@ -33,6 +33,7 @@ Page({
           hasUserInfo: true
         })
 
+        // onLaunch -> onLoad -> onLaunch: has to get data here
         if (this.data.hasUserInfo) {
           db.collection('UsersProfile')
           .get({
