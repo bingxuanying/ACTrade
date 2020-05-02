@@ -14,18 +14,18 @@ Page({
     Slaves: [],
     closeBtnClick: false,
     // page 0 -> line page, page 1 -> setting page
-    page:0,
+    page: 0,
     firstTimeLoad: true,
     // Here is setting data
-    flight: 0,
+    flight: 'Business',
     price: 500,
     code: '',
     time: 6,
     people: 3,
-    note: '随便带点什么都可以~！'
+    note: ''
   },
   onLoad: function () {
-    db.collection(app.globalData.roomInfo.type)
+    db.collection('Flights')
     .doc(app.globalData.roomInfo.roomID)
     .get({
       success: res => {
@@ -39,12 +39,18 @@ Page({
             fruit: master.gameProfile.fruit,
             hemisphere: master.gameProfile.fruit,
           },
+          flight: res.data.flight,
+          price: res.data.price,
+          code: res.data.code,
+          time: res.data.time,
+          people: res.data.people,
+          note: res.data.note
         })
         
       }
     })
 
-    db.collection(app.globalData.roomInfo.type)
+    db.collection('Flights')
     .doc(app.globalData.roomInfo.roomID)
     .watch({
       onChange: (snapshot) => {
@@ -76,16 +82,6 @@ Page({
   },
 
   // Here is function for setting data
-  setPublic: function() {
-    this.setData({
-      flight: 0
-    })
-  },
-  setPrivate: function() {
-    this.setData({
-      flight: 1
-    })
-  },
   bindPriceInput: function(e) {
     var priceAdjust = e.detail.value.replace(/\D+/g, '')
     this.setData({
@@ -117,71 +113,19 @@ Page({
       note: e.detail.value
     })
   },
-  onTapCreate: function() {
-    const db = wx.cloud.database()
-    var dbName = this.data.flight === 0 ? 'BusinessFlights' : 'PrivateFlights'
-    var roomNum = Math.floor(Math.random() * 1000).toString()
-    var roomChar = app.globalData.gameProfile.hemisphere === 'north' ? 'N' : 'S'
-
-    switch(app.globalData.gameProfile.fruit) {
-      case 'apple':
-        roomChar += 'A'
-        break;
-      case 'cherry':
-        roomChar += 'C'
-        break;
-      case 'orange':
-        roomChar += 'O'
-        break;
-      case 'peach':
-        roomChar += 'P'
-        break;
-      case 'pear':
-        roomChar += 'L'
-        break;
-    }
-    function getDate() {
-      var date = new Date(),
-          month = (date.getMonth() + 1).toString(),
-          day = date.getDate().toString(),
-          hr = date.getHours().toString(),
-          min = date.getMinutes().toString(),
-          sec = date.getSeconds().toString(),
-          milisec = date.getMilliseconds().toString();
-      if (day.length < 2) 
-        day = '0' + day;
-      if (hr.length < 2) 
-        hr = '0' + hr;
-      if (min.length < 2) 
-        min = '0' + min;
-      if (sec.length < 2) 
-        sec = '0' + sec;
-      milisec = '0'.repeat(3 - milisec.length) + milisec;
-  
-      return parseInt(month + day + hr + min + sec + milisec, 10);
-    }
-
-    db.collection(dbName).add({
+  onTapUpdate: function() {
+    db.collection('Flights')
+    .doc(app.globalData.roomInfo.roomID)
+    .update({
       data: {
-        master: {
-          userInfo: app.globalData.userInfo,
-          gameProfile: app.globalData.gameProfile,
-        },
-        slaves: [],
         price: this.data.price,
         code: this.data.code,
         time: this.data.time,
         people: this.data.people,
-        note: this.data.note,
-        roomNum: roomChar + '0'.repeat(3 - roomNum.length) + roomNum,
-        createTime: getDate()
+        note: this.data.note
       },
-      success: function(res) {
-        app.globalData.roomInfo.roomID = res._id
-        app.globalData.roomInfo.type = dbName
-        wx.redirectTo({
-          url: '/pages/roomMaster/roomMaster',
-        })
+      success: res => {
+        console.log(res)
       }
     })
   }

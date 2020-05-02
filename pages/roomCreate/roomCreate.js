@@ -3,7 +3,7 @@ const app = getApp();
 
 Page({
   data: {
-    flight: 0,
+    flight: 'Business',
     price: 500,
     code: '',
     time: 6,
@@ -12,12 +12,12 @@ Page({
   },
   setPublic: function() {
     this.setData({
-      flight: 0
+      flight: 'Business'
     })
   },
   setPrivate: function() {
     this.setData({
-      flight: 1
+      flight: 'Private'
     })
   },
   bindPriceInput: function(e) {
@@ -60,7 +60,6 @@ Page({
   },
   onTapCreate: function() {
     const db = wx.cloud.database()
-    var dbName = this.data.flight === 0 ? 'BusinessFlights' : 'PrivateFlights'
     var roomNum = Math.floor(Math.random() * 1000).toString()
     var roomChar = app.globalData.gameProfile.hemisphere === 'north' ? 'N' : 'S'
 
@@ -103,13 +102,14 @@ Page({
       return parseInt(month + day + hr + min + sec + milisec, 10);
     }
 
-    db.collection(dbName).add({
+    db.collection('Flights').add({
       data: {
         master: {
           userInfo: app.globalData.userInfo,
           gameProfile: app.globalData.gameProfile,
         },
         slaves: [],
+        flight: this.data.flight,
         price: this.data.price,
         code: this.data.code,
         time: this.data.time,
@@ -120,7 +120,6 @@ Page({
       },
       success: function(res) {
         app.globalData.roomInfo.roomID = res._id
-        app.globalData.roomInfo.type = dbName
         wx.redirectTo({
           url: '/pages/roomMaster/roomMaster',
         })
