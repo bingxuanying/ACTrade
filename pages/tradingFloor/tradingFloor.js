@@ -14,7 +14,10 @@ Page({
     this.setData({
       isLoading: true
     })
-    db.collection('BusinessFlights')
+    db.collection('Flights')
+    .where({
+      flight: "Business"
+    })
     .orderBy(this.data.order, 'desc')
     .skip(this.data.offset)
     .limit(10)
@@ -44,34 +47,26 @@ Page({
       })
   
       if (this.data.keyword.length === 5) {
-        db.collection('PrivateFlights')
+        db.collection('Flights')
         .where({
           roomNum: this.data.keyword
         })
         .orderBy(this.data.order, 'desc')
         .get({
           success: res => {
-            var privateData = res.data
-    
-            db.collection('BusinessFlights')
-            .where({
-              roomNum: this.data.keyword
-            })
-            .orderBy(this.data.order, 'desc')
-            .get({
-              success: res => {
-                this.setData({
-                  cards: privateData.concat(res.data),
-                  offset: 0,
-                  isLoading: false
-                })
-              }
+            this.setData({
+              cards: res.data,
+              offset: 0,
+              isLoading: false
             })
           }
         });
       }
       else {
-        db.collection('BusinessFlights')
+        db.collection('Flights')
+        .where({
+          flight: 'Business'
+        })
         .orderBy(this.data.order, 'desc')
         .skip(0)
         .limit(10)
@@ -95,34 +90,26 @@ Page({
       })
   
       if (this.data.keyword.length === 5) {
-        db.collection('PrivateFlights')
+        db.collection('Flights')
         .where({
           roomNum: this.data.keyword
         })
         .orderBy(this.data.order, 'desc')
         .get({
           success: res => {
-            var privateData = res.data
-    
-            db.collection('BusinessFlights')
-            .where({
-              roomNum: this.data.keyword
-            })
-            .orderBy(this.data.order, 'desc')
-            .get({
-              success: res => {
-                this.setData({
-                  cards: privateData.concat(res.data),
-                  offset: 0,
-                  isLoading: false
-                })
-              }
+            this.setData({
+              cards: res.data,
+              offset: 0,
+              isLoading: false
             })
           }
-        });
+        })
       }
       else{
-        db.collection('BusinessFlights')
+        db.collection('Flights')
+        .where({
+          flight: 'Business'
+        })
         .orderBy(this.data.order, 'desc')
         .skip(0)
         .limit(10)
@@ -161,28 +148,17 @@ Page({
       isLoading: true
     })
 
-    db.collection('PrivateFlights')
+    db.collection('Flights')
     .where({
       roomNum: this.data.keyword
     })
     .orderBy(this.data.order, 'desc')
     .get({
       success: res => {
-        var privateData = res.data
-
-        db.collection('BusinessFlights')
-        .where({
-          roomNum: this.data.keyword
-        })
-        .orderBy(this.data.order, 'desc')
-        .get({
-          success: res => {
-            this.setData({
-              cards: privateData.concat(res.data),
-              offset: 0,
-              isLoading: false
-            })
-          }
+        this.setData({
+          cards: res.data,
+          offset: 0,
+          isLoading: false
         })
       }
     });
@@ -193,7 +169,10 @@ Page({
       keyword: ''
     })
 
-    db.collection('BusinessFlights')
+    db.collection('Flights')
+    .where({
+      flight: 'Business'
+    })
     .orderBy(this.data.order, 'desc')
     .skip(0)
     .limit(10)

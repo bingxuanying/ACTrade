@@ -6,8 +6,8 @@
   <view class="settings">
     <view class="settings-box">
       <view class="flightOpt">
-      <button class="flightOpt-btn {{flight==0?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">商业航班</button>
-      <button class="flightOpt-btn {{flight==1?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">私人航班</button>
+      <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">商业航班</button>
+      <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">私人航班</button>
     </view>
         <view class="settings-layout">
           <view class="settings-title">大头菜价格</view>
