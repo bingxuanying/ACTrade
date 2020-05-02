@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "pages":[  
+=======
+  "pages": [
+>>>>>>> 6694493db48993e5d19b71201d52b6a41b540454
     "pages/roomMaster/roomMaster",
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
@@ -7,26 +11,27 @@
     "pages/roomSlave/roomSlave",
     "pages/roomAdd/roomAdd"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "纳斯大头Nasdatou",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/tradingFloor/tradingFloor",
-      "text": "交易大厅",
-      "iconPath": "/assets/tab/ShopIconGray.png",
-      "selectedIconPath": "/assets/tab/ShopIconActive.png"
-    },
-    {
-      "pagePath": "pages/profile/profile",
-      "text": "护照信息",
-      "iconPath": "/assets/tab/PassportIconGray.png",
-      "selectedIconPath": "/assets/tab/PassportIcon.png"
-    }
-  ]
+    "list": [
+      {
+        "pagePath": "pages/tradingFloor/tradingFloor",
+        "text": "交易大厅",
+        "iconPath": "/assets/tab/ShopIconGray.png",
+        "selectedIconPath": "/assets/tab/ShopIconActive.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "护照信息",
+        "iconPath": "/assets/tab/PassportIconGray.png",
+        "selectedIconPath": "/assets/tab/PassportIcon.png"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
