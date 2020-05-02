@@ -1,4 +1,4 @@
-/* pages/roomSlave/roomSlave.wxss */
+/* pages/roomMaster/roomMaster.wxss */
 page {
   background-color: #f99d78;
 }
@@ -449,101 +449,17 @@ page {
 }
 
 /* Setting css */
-.settings {
-  width: 95%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5rpx 5rpx;
-}
-
-.flightOpt {
-  width: 90%;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
 .settings-box {
   width: 94%;
-  height: 70vh;
+  height: 100%;
   border-radius: 50rpx;
-  margin-top: 5rpx;
-  padding-top: 10rpx;
+  padding: 5rpx 5rpx;
+  padding-top: 15rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   overflow: scroll;
-}
-.flightOpt-btn {
-  background-color: #ded8c8;
-  height: 70%;
-  border-radius: 15px;
-  padding: 5px;
-}
-.flightOpt-btn-active {
-  background-color: lightgreen;
-}
-
-.settings-layout {
-  min-height: 80rpx;
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 0;
-  font-size: 30rpx;
-  border-bottom: #218ec5 2px dotted;
-}
-.settings-title {
-  width: 35%;
-}
-.settings-content {
-  background-color: #ded8c8;
-  width: 65%;
-  border-radius: 15rpx;
-}
-.extend-text {
-  width: 100%;
-  border-radius: 25rpx;
-  height: 200rpx;
-  padding-left: 10rpx;
-  padding-top: 10rpx;
-}
-.settings-saveBtn-box {
-  align-self: flex-end;
-  padding: 10rpx 5rpx;
-  margin-right: 5%;
-}
-.saveBtn {
-  height: 50rpx;
-  margin-left: 20rpx;
-  background-color: #f5f7e1;
-  border-radius: 15rpx;
-  border: #887964 3px solid;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.saveBtn-icon {
-  height: 30rpx;
-  width: 30rpx;
-  border-radius: 30rpx;
-  background-color: #887964;
-  color: #f5f9e2;
-  line-height: 30rpx;
-  text-align: center;
-  font-size: 30rpx;
-}
-.saveBtn-text {
-  font-size: 22rpx;
-  color: #837862;
-  margin-left: 5rpx;
 }
 
 /*mask*/

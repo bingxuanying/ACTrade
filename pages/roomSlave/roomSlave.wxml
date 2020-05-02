@@ -31,9 +31,6 @@
       <view class="room-box-left">
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
           <view class="slaveInfo">
-            <view class="slaveInfo-deleteicon" bindtap="modalOpen">
-              <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
-            </view>
             <view class="slaveInfo-head">
               <view class="slaveInfo-head-top-green">
                 <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
@@ -52,9 +49,6 @@
         </block>
         <!-- gray: waiting in line -->
         <view class="slaveInfo">
-          <view class="slaveInfo-deleteicon">
-            <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
-          </view>
           <view class="slaveInfo-head">
             <view class="slaveInfo-head-top-gray">
               <view class="slaveInfo-head-top-text">第3位</view>
@@ -72,54 +66,8 @@
       </view>
       <!-- setting page -->
       <view class="room-box-right ">
-        <view class="settings">
-          <view class="settings-box">
-            <view class="flightOpt">
-              <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
-                商业航班
-              </button>
-              <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
-                私人航班
-              </button>
-            </view>
-            <view class="settings-layout">
-              <view class="settings-title">大头菜价格</view>
-              <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
-              <view class="settings-content">
-                <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
-              </view>
-            </view>
-            <view class="settings-layout">
-              <view class="settings-title">海关密码</view>
-              <view class="settings-content">
-                <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
-              </view>
-            </view>
-            <view class="settings-layout">
-              <view class="settings-title">开放时长</view>
-              <view class="settings-content">
-                <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
-              </view>
-            </view>
-            <view class="settings-layout">
-              <view class="settings-title">在岛人数限制</view>
-              <view class="settings-content">
-                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
-              </view>
-            </view>
-            <view class="settings-layout">
-              <view class="settings-title">留言板</view>
-              <view class="settings-content ">
-                <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
-              </view>
-            </view>
-            <view class="settings-saveBtn-box">
-              <view class="saveBtn">
-                <view class="saveBtn-icon">A</view>
-                <text class="saveBtn-text">保存更改</text>
-              </view>
-            </view>
-          </view>
+        <view class="settings-box" style="background-color: lightpink">
+            
         </view>
       </view>
     </view>
@@ -129,7 +77,7 @@
       <view class="tool-closeBtn-greenbox {{closeBtnClick ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeBtnClick">
         <image wx:if="{{!closeBtnClick}}" class="tool-box-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
         <image wx:else class="tool-box-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix" />
-        <view class="tool-box-text">开岛中</view>
+        <view class="tool-box-text">排队中</view>
       </view>
       <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix" />
     </view>
@@ -141,13 +89,13 @@
   </view>
 
   <!--mask-->
-  <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
+  <view class='mask' wx:if="{{closeBtnClick}}" bindtap='modalHide' />
   <!--modal-->
-  <view class='mymodal' wx:if="{{showModal}}">
-    <view class="modal-text">{{closeBtnClick&&showModal?'确定关闭房间吗？':'确定踢出房间吗？'}}</view>
+  <view class='mymodal' wx:if="{{closeBtnClick}}">
+    <view class="modal-text">确定退出房间吗？</view>
     <view class="modal-options">
       <view class="modal-btn" bindtap="modalHide">返回</view>
-      <view class="modal-btn" bindtap="{{closeBtnClick&&showModal?'onTapClose':'onTapKickOut'}}">确定</view>
+      <view class="modal-btn" bindtap="onTapClose">确定</view>
     </view>
   </view>
 </view>

@@ -13,7 +13,6 @@ Page({
     },
     Slaves: [],
     closeBtnClick: false,
-    showModal: false,
     // page 0 -> line page, page 1 -> setting page
     page: 0,
     firstTimeLoad: true,
@@ -147,19 +146,11 @@ Page({
       }
     })
   },
-  modalOpen: function(e) {
-    this.setData({
-      showModal: true
-    })
-  },
   modalHide: function(e) {
     this.setData({
       closeBtnClick: false,
       showModal: false
     })
-  },
-  onTapKickOut: function() {
-    console.log('kick')
   },
   onTapClose: function() {
     console.log('close')

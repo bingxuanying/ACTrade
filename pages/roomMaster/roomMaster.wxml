@@ -72,7 +72,6 @@
       </view>
       <!-- setting page -->
       <view class="room-box-right ">
-        <view class="settings">
           <view class="settings-box">
             <view class="flightOpt">
               <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
@@ -120,7 +119,6 @@
               </view>
             </view>
           </view>
-        </view>
       </view>
     </view>
   </view>

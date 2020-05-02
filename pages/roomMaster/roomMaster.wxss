@@ -449,12 +449,18 @@ page {
 }
 
 /* Setting css */
-.settings {
-  width: 95%;
+
+.settings-box {
+  width: 94%;
+  height: 100%;
+  border-radius: 50rpx;
+  padding: 5rpx 5rpx;
+  padding-top: 15rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rpx 5rpx;
+  justify-content: flex-start;
+  overflow: scroll;
 }
 
 .flightOpt {
@@ -464,19 +470,6 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-}
-
-.settings-box {
-  width: 94%;
-  height: 70vh;
-  border-radius: 50rpx;
-  margin-top: 5rpx;
-  padding-top: 10rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: scroll;
 }
 .flightOpt-btn {
   background-color: #ded8c8;
