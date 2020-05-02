@@ -110,16 +110,17 @@
   </view>
   <view class="tool-box">
     <view class="tool-closeBtn">
-    <view class="tool-closeBtn-greenbox {{closeBtnClick ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeBtnClick">
-      <image class="tool-box-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix"/>
-      <view class="tool-box-text">开岛中</view></view>
+      <view class="tool-closeBtn-greenbox {{closeBtnClick ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeBtnClick">
+        <image wx:if="{{!closeBtnClick}}" class="tool-box-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix"/>
+        <image wx:else class="tool-box-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix"/>
+        <view class="tool-box-text">开岛中</view>
+      </view>
+      <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix"/>
     </view>
-    <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix"/>
     <view class="tool-changeBtn">
       <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix"/>
-      <view wx:if="{{page==0}}" class="tool-box-text" style="color: #fff7ce">分享</view>
-      <view wx:else class="tool-box-text" style="color: #fff7ce">确认编辑</view>
+      <view class="tool-box-text" style="color: #fff7ce">分享</view>
+      <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix"/>
     </view>
-    <image class="tool-box-minusicon" src="../../assets/icons/YIcon.png" mode="heightFix"/>
-    </view>
+  </view>
 </view>

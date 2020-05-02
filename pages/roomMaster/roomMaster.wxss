@@ -163,7 +163,7 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .room-box-right {
   position: absolute;
@@ -288,11 +288,11 @@ page {
 .tool-box {
   width: 94%;
   height: 50rpx;
-  justify-content: center;
   padding-bottom: 20rpx;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+
 }
 .tool-closeBtn {
   width: 45%;
@@ -300,6 +300,7 @@ page {
   background-color: #ddd1bb;
   border-radius: 50rpx;
   border: solid #f5f7e1 7rpx;
+  position: relative;
 }
 .tool-closeBtn-greenbox{
   width: 80%;
@@ -325,7 +326,6 @@ page {
   align-self: center;
 }
 .tool-box-text{
-  color: #bef4c2;
   text-align:center;
   line-height:50rpx;
   font-size:30rpx;
@@ -333,8 +333,15 @@ page {
 .tool-box-minusicon {
   height: 43rpx;
   position: relative;
-  right: 35rpx;
-  bottom: -16rpx;
+  left: 285rpx;
+  bottom: 34rpx;
+  z-index: 100;
+}
+.tool-box-yicon {
+  height: 43rpx;
+  position: relative;
+  left: 285rpx;
+  bottom: 34rpx;
   z-index: 100;
 }
 .tool-changeBtn {
@@ -348,6 +355,7 @@ page {
   flex-direction: row;
   justify-content: center;
   align-content: center;
+  position: relative;
 }
 
 .circle-to-right{
@@ -377,17 +385,25 @@ page {
 @keyframes toleft {
   from {
     left: 20%;
+    background-color: #4fb262;
+    color: #f8f5e6;
   }
   to{
     left: 0%;
+    background-color: #a4a49c;
+    color: #bbbcae ; 
   }
 }
 @keyframes toright {
   from {
     left: 0%;
+    background-color: #a4a49c;
+    color: #bbbcae;
   }
   to{
     left: 20%;
+    background-color: #4fb262;
+    color: #f8f5e6;
   }
 }
 @keyframes circletoleft{
@@ -505,3 +521,5 @@ page {
   padding-left: 10rpx;
   padding-top: 10rpx;
 }
+
+

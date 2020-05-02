@@ -4,6 +4,12 @@ page {
   font-weight: bolder;
 
 }
+:root {
+  --button-green: #4fb262;
+  --button-gray: #a4a49c;
+  --green-btn-text: #bbf4bd;
+  --gray-btn-text: #bfc0b2;
+}
 .container {
   height: 100%;
   display: flex;
