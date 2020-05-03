@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/roomMaster/roomMaster",
+
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
     "pages/roomCreate/roomCreate",

@@ -1,57 +1,62 @@
-<!--tradingFloor.wxml-->
+<!-- tradingFloor.wxml -->
 <view class="tradingFloor">
-  <!--head bar-->
+  <!-- head bar -->
   <view class="headBar">
-    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="onTapCancel" wx:if="{{keyword.length === 5}}">取消找寻</button>
-    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="modalOpen" wx:else>找寻</button>
+    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="onTapCancel" wx:if="{{keyword.length === 5}}">
+      取消找寻
+    </button>
+    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="modalOpen" wx:else>
+      找寻
+    </button>
     <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapCreate">开岛</button>
-    <button class="headBar-btn-order {{order=='createTime'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapTime">时间排序</button>
-    <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapPrice">价格排序</button>
+    <button class="headBar-btn-order {{order=='createTime'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapTime">
+      时间排序
+    </button>
+    <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapPrice">
+      价格排序
+    </button>
   </view>
-
-  <!--info board-->
+  <!-- info board -->
   <view class="board">
-    <!--if db has data show cards, else show words-->
+    <!-- if db has data show cards, else show words -->
     <block wx:if="{{cards.length>0 && isLoading===false}}">
-      <block  wx:for="{{cards}}" wx:for-item="item" wx:key="_id">
-        <!--Here Cards for Flight-->
+      <block wx:for="{{cards}}" wx:for-item="item" wx:key="_id">
+        <!-- Here Cards for Flight -->
         <view class="card">
           <image class="boardingpass" src="../../assets/boardingpass/boardingpassPink.png" mode="widthFix" />
           <view class="card-number">{{item.roomNum}}</view>
           <view class="card-box">
             <view class="card-main">
-              <view class="card-main-des">To 鹿儿岛</view>
-              <view class="card-main-time">还剩1h</view>
-              <view class="card-main-note">备注</view>
+              <view class="card-main-des">To {{item.master.gameProfile.islandName}}</view>
+              <view class="card-main-time">还剩{{item.time}}小时</view>
+              <view class="card-main-note">{{item.note}}</view>
               <view class="card-main-barcode">
-                <image src="../../assets/boardingpass/barcode.gif" style="height:60rpx" mode="heightFix"/>
+                <image src="../../assets/boardingpass/barcode.gif" style="height:60rpx" mode="heightFix" />
               </view>
             </view>
             <view class="card-sub">
               <view class="card-sub-price">
-                <image class="card-sub-price-icon" src="../../assets/icons/bell.png" mode="heightFix"/>
+                <image class="card-sub-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
                 <view class="card-sub-price-text">{{item.price}}</view>
               </view>
               <view class="card-sub-lineinfo">排队1/1</view>
             </view>
-            </view>
-
+          </view>
         </view>
       </block>
     </block>
-
     <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
   </view>
-
-  <!--mask-->
+  <!-- mask -->
   <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
-  <!--modal-->
+  <!-- modal -->
   <view class='mymodal' wx:if="{{showModal}}">
     <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix" />
     <image class="modal-inputImg" src="../../assets/input框.png" mode="widthFix" />
     <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
     <button class="modal-btn" style="width: 120rpx; left:230rpx" bindtap="modalHide">返回</button>
-    <button class="modal-btn"  style="width: 120rpx; left:410rpx" disabled="{{keyword.length===5?false:true}}" bindtap="onTapSearch">搜索</button>
+    <button class="modal-btn" style="width: 120rpx; left:410rpx" disabled="{{keyword.length===5?false:true}}" bindtap="onTapSearch">
+      搜索
+    </button>
   </view>
-
 </view>
