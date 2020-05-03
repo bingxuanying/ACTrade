@@ -1,6 +1,8 @@
 /* pages/roomMaster/roomMaster.wxss */
+@import "../../utils/font.wxss";
 page {
   background-color: #f99d78;
+  font-family: webfont;
 }
 .roomMaster {
   width: 100vw;
@@ -107,7 +109,7 @@ page {
   display: inline-block;
   border: #00bca5 6rpx solid;
   position: relative;
-  left: -20rpx;
+  left: -18.5rpx;
 }
 .masterInfo {
   width: 50%;
@@ -418,18 +420,18 @@ page {
 }
 @keyframes circletoleft {
   from {
-    left: 20rpx;
+    left: 18.5rpx;
   }
   to {
-    left: -20rpx;
+    left: -18.5rpx;
   }
 }
 @keyframes circletoright {
   from {
-    left: -20rpx;
+    left: -18.5rpx;
   }
   to {
-    left: 20rpx;
+    left: 18.5rpx;
   }
 }
 @keyframes slideleft {
@@ -460,23 +462,147 @@ page {
   justify-content: flex-start;
   overflow-y: scroll;
 }
+.setting-box {
+  width: 94%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    to right,
+    #f89d80 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 28rpx 4rpx;
+  background-repeat: repeat-x;
+  padding: 20rpx 0;
+  position: relative;
+}
+.setting-box-price-text {
+  width: 70%;
+  justify-self: flex-start;
+  color: #ada485;
+}
+.setting-box-price {
+  width: 30%;
+  justify-self: flex-end;
+  color: #49431f;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.setting-box-title {
+  width: 30%;
+  height: 50rpx;
+  background-color: #887c39;
+  color: #f5f7e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.setting-box-info {
+  width: 70%;
+  margin-left: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #877b65;
+}
+.waiting-gray,
+.waiting-green {
+  border-radius: 25rpx;
+  background-color: #4fb262;
+  color: #bfedc6;
+  padding: 5rpx 15rpx;
+}
+.waiting-gray {
+  background-color: #a4a49c;
+  color: #c2c3b5;
+}
+.note-box {
+  width: 94%;
+  padding: 20rpx 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.note-box-title {
+  color: #ada485;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  height: 60rpx;
+}
+.note-box-title-text {
+  width: 25%;
+}
+.note-box-title-dotline {
+  width: 75%;
+  height: 60rpx;
+  position: relative;
+  z-index: 100;
+  top: -50%;
+  background-image: linear-gradient(
+    to right,
+    gray 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 100rpx 6rpx;
+  background-repeat: repeat-x;
+}
+.note-box-note {
+  width: 80vw;
+  align-self: flex-end;
+  position: relative;
+}
+.note-box-note-text,
+.note-box-note-bg {
+  position: absolute;
+  width: 80vw;
+  height: 80vw;
+  z-index: 0;
+}
+.note-box-note-text {
+  width: 68vw;
+  height: 58vw;
+  z-index: 1;
+  word-wrap: break-word;
+  color: #877b65;
+  position: absolute;
+  left: 6vw;
+  top: 11vw;
+  font-size: 32rpx;
+}
+.note-box-note-nook {
+  position: absolute;
+  height: 80rpx;
+  right: 40rpx;
+  bottom: -72vw;
+}
 
 /*mask*/
-.mask{
+.mask {
   position: fixed;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 10;
   transition: all 600ms ease-out;
 }
 
 /*modal*/
-.mymodal{
+.mymodal {
   width: 100%;
   height: 320rpx;
-  background-color: black;
+  background-color: #224153;
   border-radius: 18%;
   opacity: 0.5;
   display: flex;
@@ -510,11 +636,24 @@ page {
   justify-content: center;
 }
 
-.modal-btn{
+.modal-btn {
   width: 25%;
   padding: 0;
   font-size: 30rpx;
   color: white;
   letter-spacing: 5rpx;
   text-align: center;
+}
+
+.fade-in {
+  animation: fadein 0.5s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
 }

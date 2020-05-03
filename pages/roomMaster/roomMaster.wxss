@@ -107,7 +107,7 @@ page {
   display: inline-block;
   border: #00bca5 6rpx solid;
   position: relative;
-  left: -20rpx;
+  left: -18.5rpx;
 }
 .masterInfo {
   width: 50%;
@@ -418,18 +418,18 @@ page {
 }
 @keyframes circletoleft {
   from {
-    left: 20rpx;
+    left: 18.5rpx;
   }
   to {
-    left: -20rpx;
+    left: -18.5rpx;
   }
 }
 @keyframes circletoright {
   from {
-    left: -20rpx;
+    left: -18.5rpx;
   }
   to {
-    left: 20rpx;
+    left: 18.5rpx;
   }
 }
 @keyframes slideleft {
@@ -539,18 +539,18 @@ page {
 }
 
 /*mask*/
-.mask{
+.mask {
   position: fixed;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 10;
   transition: all 600ms ease-out;
 }
 
 /*modal*/
-.mymodal{
+.mymodal {
   width: 100%;
   height: 320rpx;
   background-color: black;
@@ -587,7 +587,7 @@ page {
   justify-content: center;
 }
 
-.modal-btn{
+.modal-btn {
   width: 25%;
   padding: 0;
   font-size: 30rpx;

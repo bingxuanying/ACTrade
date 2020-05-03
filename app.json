@@ -1,9 +1,16 @@
 {
   "pages": [
+<<<<<<< HEAD
     "pages/roomMaster/roomMaster",
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
     "pages/roomSlave/roomSlave",
+=======
+    "pages/roomSlave/roomSlave",
+    "pages/roomMaster/roomMaster",
+    "pages/tradingFloor/tradingFloor",
+    "pages/profile/profile",
+>>>>>>> 9c8b22655fbb1fa5c9e3232c1c01d1ad028aa4a8
     "pages/roomCreate/roomCreate",
     "pages/roomAdd/roomAdd"
   ],
