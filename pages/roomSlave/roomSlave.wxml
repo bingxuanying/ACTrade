@@ -27,8 +27,14 @@
   </view>
   <view class="room-box-shader">
     <view class="room-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
-      <!-- line page -->
+      <!-- setting page -->
       <view class="room-box-left">
+        <view class="settings-box" style="background-color: lightpink">
+            
+        </view>
+      </view>
+      <!-- line page -->
+      <view class="room-box-right">
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
           <view class="slaveInfo">
             <view class="slaveInfo-head">
@@ -62,12 +68,6 @@
             <view class="slaveInfo-avatar"></view>
             <view class="slaveInfo-playerName">Judge Cui</view>
           </view>
-        </view>
-      </view>
-      <!-- setting page -->
-      <view class="room-box-right ">
-        <view class="settings-box" style="background-color: lightpink">
-            
         </view>
       </view>
     </view>

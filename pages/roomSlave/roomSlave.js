@@ -86,66 +86,6 @@ Page({
       });
     }
   },
-
-  // settings: data update
-  setPublic: function() {
-    this.setData({
-      flight: 'Business'
-    })
-  },
-  setPrivate: function() {
-    this.setData({
-      flight: 'Private'
-    })
-  },
-  bindPriceInput: function(e) {
-    var priceAdjust = e.detail.value.replace(/\D+/g, '')
-    this.setData({
-      price: priceAdjust ? parseInt(priceAdjust, 10) : 0
-    })
-    console.log('price: ' + this.data.price)
-  },
-  bindCodeInput: function(e) {
-    this.setData({
-      code: e.detail.value.toUpperCase(),
-    })
-    console.log('code: ' + this.data.code)
-  },
-  bindSliderTime: function(e) {
-    console.log('time: ' + e.detail.value)
-    this.setData({
-      time: e.detail.value
-    })
-  },
-  bindSliderPeople: function(e) {
-    console.log('limitOfPeople: ' + e.detail.value)
-    this.setData({
-      people: e.detail.value
-    })
-  },
-  bindNoteInput: function(e) {
-    console.log('note: ' + e.detail.value)
-    this.setData({
-      note: e.detail.value
-    })
-  },
-  onTapUpdate: function() {
-    db.collection('Flights')
-    .doc(app.globalData.roomInfo.roomID)
-    .update({
-      data: {
-        flight: this.data.flight,
-        price: this.data.price,
-        code: this.data.code,
-        time: this.data.time,
-        people: this.data.people,
-        note: this.data.note
-      },
-      success: res => {
-        console.log(res)
-      }
-    })
-  },
   modalHide: function(e) {
     this.setData({
       closeBtnClick: false,
