@@ -67,8 +67,8 @@ App({
       hemisphere: 'north',
     },
     roomInfo: {
-      roomID: 'f10018335eab718600317a395487a68a', //f10018335eab718600317a395487a68a
-      type: 'Business'
+      roomID: 'f10018335eab718600317a395487a68a', //f10018335eab718600317a395487a68a,
+      timeStamp: null
     }
   }
 })

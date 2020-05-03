@@ -170,7 +170,8 @@ page {
 }
 .room-box-left {
   width: 94vw;
-  height: 80vh;
+  height: calc(100% - 5rpx);
+  padding-bottom: 5rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -449,12 +450,16 @@ page {
 }
 
 /* Setting css */
-.settings {
-  width: 95%;
+
+.settings-box {
+  width: 94%;
+  height: 99%;
+  border-radius: 50rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rpx 5rpx;
+  justify-content: flex-start;
+  overflow-y: scroll;
 }
 
 .flightOpt {
@@ -464,19 +469,6 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-}
-
-.settings-box {
-  width: 94%;
-  height: 70vh;
-  border-radius: 50rpx;
-  margin-top: 5rpx;
-  padding-top: 10rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: scroll;
 }
 .flightOpt-btn {
   background-color: #ded8c8;
@@ -544,4 +536,62 @@ page {
   font-size: 22rpx;
   color: #837862;
   margin-left: 5rpx;
+}
+
+/*mask*/
+.mask{
+  position: fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index: 10;
+  transition: all 600ms ease-out;
+}
+
+/*modal*/
+.mymodal{
+  width: 100%;
+  height: 320rpx;
+  background-color: black;
+  border-radius: 18%;
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 110rpx;
+  z-index: 20;
+  transition: all 600ms ease-out;
+}
+
+.modal-text {
+  width: 100%;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 34rpx;
+  color: white;
+  letter-spacing: 10rpx;
+  margin-left: 40rpx;
+}
+
+.modal-options {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-btn{
+  width: 25%;
+  padding: 0;
+  font-size: 30rpx;
+  color: white;
+  letter-spacing: 5rpx;
+  text-align: center;
 }

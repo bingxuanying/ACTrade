@@ -1,7 +1,10 @@
-/* pages/roomSlave/roomSlave.wxss */
-.roomSlave {
+/* pages/roomMaster/roomMaster.wxss */
+page {
+  background-color: #f99d78;
+}
+.roomMaster {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,34 +17,114 @@
   align-items: center;
   margin-top: 20rpx;
 }
-
 .info-box {
-  width: 84%;
+  width: 84vw;
   height: 130rpx;
-  justify-content: space-around;
+  background-color: #f5f7e1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  color: #716a58;
   border-radius: 100rpx;
-  background-color: lightpink;
 }
-
-.masterInfo {
-  width: 70%;
+.info-box-righticon,
+.info-box-lefticon {
+  position: relative;
+  height: 45rpx;
+  width: 45rpx;
+  left: 0%;
+  bottom: -33%;
+  color: #f2f4dc;
+  background-color: #8a7b64;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-radius: 15rpx 0 0 0;
+  border: #f2f4dc 2px solid;
+}
+.info-box-righticon {
+  border-radius: 0 15rpx 0 0;
+}
+.maintitle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.maintitle-box {
+  width: 168vw;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  margin-left: -50rpx;
+  justify-content: center;
+  position: relative;
+  left: 42vw;
 }
-
-.masterInfo-avatar{
-  width: 110rpx;
-  height: 110rpx;
-  background-color: lightyellow;
+.settingInfo {
+  width: 50%;
+  height: 130rpx - 14rpx;
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  position: relative;
+  left: 18vw;
+}
+.settingInfo-text {
+  margin-left: 10rpx;
+  height: 100%;
+  line-height: 100%;
+  text-align: center;
+}
+.page-indicator {
+  height: 20rpx;
+  width: 100%;
+  margin: 5rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dot {
+  height: 15rpx;
+  width: 15rpx;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+.circle {
+  height: 10rpx;
+  width: 10rpx;
+  border-radius: 50%;
+  display: inline-block;
+  border: #00bca5 6rpx solid;
+  position: relative;
+  left: -20rpx;
+}
+.masterInfo {
+  width: 50%;
+  height: 130rpx - 14rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+}
+.masterInfo-avatar {
+  width: 90rpx;
+  height: 90rpx;
+  background-color: #fda156;
   border-radius: 50%;
 }
-
-.masterInfo-masterData{
-  width: calc(100% - 180rpx);
+.masterInfo-masterData {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -49,59 +132,158 @@
   justify-content: center;
   margin-left: 10rpx;
 }
-
 .masterInfo-islandName {
   width: 100%;
-  height: 55%;
-  background-color: lightgreen;
-  font-size: 40rpx;
+  height: 30rpx;
+  font-size: 30rpx;
   letter-spacing: 3rpx;
-  line-height: 80rpx;
+  line-height: 30rpx;
+  font-style: bolder;
+  text-align: center;
 }
-
 .masterInfo-playerName {
   width: 100%;
-  height: 35%;
-  background-color: lightblue;
-  font-size: 28rpx;
+  height: 24rpx;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 24rpx;
+  margin-top: 15rpx;
 }
 
-.room-box {
-  width: 94%;
-  min-height: 1100rpx;
-  background-color: lightpink;
+.room-box-shader {
+  position: relative;
+  width: 94vw;
+  height: 80vh;
+  background-color: #f5f7e1;
   border-radius: 50rpx;
   margin-top: 20rpx;
   padding-top: 10rpx;
+  overflow: hidden;
+}
+.room-box {
+  width: 194vw;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.room-box-left {
+  width: 94vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.room-box-right {
+  width: 94vw;
+  height: calc(100% - 5rpx);
+  padding-bottom: 5rpx;
+  margin-left: 6vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow: scroll;
+  overflow-y: scroll;
 }
-
 .slaveInfo {
   width: 96%;
-  height: 80rpx;
+  height: 100rpx;
   padding-bottom: 7rpx;
   margin-bottom: 7rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+  background-image: linear-gradient(
+    to right,
+    #f89d80 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
   background-position: bottom;
   background-size: 28rpx 4rpx;
   background-repeat: repeat-x;
   overflow: hidden;
+  font-size: 28rpx;
 }
-
+.slaveInfo-deleteicon {
+  width: 8%;
+  position: relative;
+}
 .slaveInfo-head {
-  width: 100rpx;
+  width: 32%;
   height: 90%;
-  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
 }
-
+.slaveInfo-head-top-green {
+  height: 50%;
+  background-color: #4fb262;
+  border-radius: 30rpx;
+  padding: 5rpx 15rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 2.5rpx;
+  color: #f8f5e6;
+}
+.slaveInfo-head-top-gray {
+  height: 50%;
+  background-color: #a4a49c;
+  border-radius: 30rpx;
+  padding: 5rpx 15rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 2.5rpx;
+  color: #bfc0b2;
+}
+.slaveInfo-head-top-icon {
+  height: 32rpx;
+  align-self: center;
+  margin-right: 10rpx;
+}
+.slaveInfo-head-top-text {
+  text-align: center;
+  line-height: 100%;
+  align-self: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.slaveInfo-head-bot {
+  height: 50%;
+  color: #716a58;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+.slaveInfo-head-bot-icon {
+  height: 32rpx;
+  align-self: center;
+  margin-right: 10rpx;
+}
+.slaveInfo-head-bot-text {
+  max-width: 220rpx;
+  text-align: center;
+  line-height: 150%;
+  align-self: center;
+  color: #7a7359;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.slaveInfo-tail {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+}
 .slaveInfo-avatar {
   width: 72rpx;
   height: 72rpx;
@@ -109,33 +291,230 @@
   background-color: white;
   margin-left: 10rpx;
 }
-
 .slaveInfo-playerName {
-  min-width: 200rpx;
   height: 90%;
-  background-color: lightblue;
   margin-left: 10rpx;
+  color: #e07642;
+  font-weight: bolder;
+  text-align: center;
+  line-height: 100%;
+  align-self: center;
+  font-size: 36rpx;
 }
 
 .tool-box {
   width: 94%;
   height: 50rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
 }
-
 .tool-closeBtn {
-  width: 30%;
+  width: 45%;
   height: 100%;
-  background-color: green;
+  background-color: #ddd1bb;
   border-radius: 50rpx;
-  border: solid gray 7rpx;
+  border: solid #f5f7e1 7rpx;
+  position: relative;
 }
-
+.tool-closeBtn-greenbox {
+  width: 80%;
+  height: 100%;
+  background-color: #4fb262;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  left: 20%;
+}
+.closeBtn-click {
+  animation: toleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.closeBtn-unclick {
+  animation: toright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.tool-box-icon {
+  height: 80%;
+  align-self: center;
+}
+.tool-box-text {
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 30rpx;
+}
+.tool-box-minusicon {
+  height: 43rpx;
+  position: relative;
+  left: 300rpx;
+  bottom: 34rpx;
+  z-index: 100;
+}
+.tool-box-yicon {
+  height: 43rpx;
+  position: absolute;
+  left: 295rpx;
+  bottom: -10rpx;
+  z-index: 100;
+}
 .tool-changeBtn {
   width: 45%;
   height: 100%;
   margin-left: 30rpx;
-  background-color: orange;
+  background-color: #fda156;
   border-radius: 50rpx;
-  border: solid gray 7rpx;
+  border: solid #f5f7e1 7rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+}
+
+/* Animation */
+.circle-to-right {
+  animation: circletoright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.circle-to-left {
+  animation: circletoleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-left {
+  animation: slideleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-right {
+  animation: slideright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+@keyframes toleft {
+  from {
+    left: 20%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+  to {
+    left: 0%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+}
+@keyframes toright {
+  from {
+    left: 0%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+  to {
+    left: 20%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+}
+@keyframes circletoleft {
+  from {
+    left: 20rpx;
+  }
+  to {
+    left: -20rpx;
+  }
+}
+@keyframes circletoright {
+  from {
+    left: -20rpx;
+  }
+  to {
+    left: 20rpx;
+  }
+}
+@keyframes slideleft {
+  from {
+    transform: translate(-100vw, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes slideright {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-100vw, 0);
+  }
+}
+
+/* Setting css */
+.settings-box {
+  width: 100%;
+  height: 99%;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+
+/*mask*/
+.mask{
+  position: fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index: 10;
+  transition: all 600ms ease-out;
+}
+
+/*modal*/
+.mymodal{
+  width: 100%;
+  height: 320rpx;
+  background-color: black;
+  border-radius: 18%;
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 110rpx;
+  z-index: 20;
+  transition: all 600ms ease-out;
+}
+
+.modal-text {
+  width: 100%;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 34rpx;
+  color: white;
+  letter-spacing: 10rpx;
+  margin-left: 40rpx;
+}
+
+.modal-options {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-btn{
+  width: 25%;
+  padding: 0;
+  font-size: 30rpx;
+  color: white;
+  letter-spacing: 5rpx;
+  text-align: center;
 }

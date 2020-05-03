@@ -13,16 +13,17 @@ Page({
     },
     Slaves: [],
     closeBtnClick: false,
+    showModal: false,
     // page 0 -> line page, page 1 -> setting page
     page: 0,
     firstTimeLoad: true,
-    // Here is setting data
+    // settings data
     flight: 'Business',
     price: 500,
     code: '',
     time: 6,
     people: 3,
-    note: ''
+    note: '',
   },
   onLoad: function () {
     db.collection('Flights')
@@ -74,14 +75,30 @@ Page({
   closeBtnClick: function() {
     console.log(this.data.closeBtnClick);
     if (this.data.closeBtnClick == false) {
-      this.setData({closeBtnClick:true});
+      this.setData({
+        closeBtnClick:true,
+        showModal: true
+      });
     }
     else {
-      this.setData({closeBtnClick:false});
+      this.setData({
+        closeBtnClick:false,
+        showModal: false
+      });
     }
   },
 
-  // Here is function for setting data
+  // settings: data update
+  setPublic: function() {
+    this.setData({
+      flight: 'Business'
+    })
+  },
+  setPrivate: function() {
+    this.setData({
+      flight: 'Private'
+    })
+  },
   bindPriceInput: function(e) {
     var priceAdjust = e.detail.value.replace(/\D+/g, '')
     this.setData({
@@ -118,6 +135,7 @@ Page({
     .doc(app.globalData.roomInfo.roomID)
     .update({
       data: {
+        flight: this.data.flight,
         price: this.data.price,
         code: this.data.code,
         time: this.data.time,
@@ -128,5 +146,22 @@ Page({
         console.log(res)
       }
     })
+  },
+  modalOpen: function(e) {
+    this.setData({
+      showModal: true
+    })
+  },
+  modalHide: function(e) {
+    this.setData({
+      closeBtnClick: false,
+      showModal: false
+    })
+  },
+  onTapKickOut: function() {
+    console.log('kick')
+  },
+  onTapClose: function() {
+    console.log('close')
   }
 })

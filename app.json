@@ -1,11 +1,15 @@
 {
   "pages": [
+<<<<<<< HEAD
     "pages/roomMaster/roomMaster",
 
+=======
+>>>>>>> master
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
-    "pages/roomCreate/roomCreate",
     "pages/roomSlave/roomSlave",
+    "pages/roomMaster/roomMaster",
+    "pages/roomCreate/roomCreate",
     "pages/roomAdd/roomAdd"
   ],
   "window": {

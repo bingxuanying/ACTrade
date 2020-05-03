@@ -1,37 +1,101 @@
-<!--pages/roomSlave/roomSlave.wxml-->
-<view class="roomSlave">
+<!-- pages/roomSlave/roomSlave.wxml -->
+<view class="roomMaster">
   <view class="info-box">
-    <view class="masterInfo">
-      <view class="masterInfo-avatar"></view>
-      <view class="masterInfo-masterData">
-        <view class="masterInfo-islandName">一拳给你撂岛</view>
-        <view class="masterInfo-playerName">BingxuanYing</view>
+    <view class="info-box-lefticon" bindtap="LClick">L</view>
+    <view class="maintitle">
+      <view class="maintitle-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
+        <view class="masterInfo ">
+          <image class="masterInfo-avatar" src="{{MasterInfo.avatar}}" wx:if="{{MasterInfo.avatar}}" mode="widthFix" />
+          <view class="masterInfo-avatar" wx:else />
+          <view class="masterInfo-masterData">
+            <view class="masterInfo-islandName">{{MasterInfo.islandName}}</view>
+            <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
+          </view>
+        </view>
+        <view class="settingInfo ">
+          <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
+          <text class="settingInfo-text">航班设置</text>
+        </view>
+      </view>
+      <view class="page-indicator">
+        <view class="dot" />
+        <viwe class="circle {{(firstTimeLoad? '': (page==0? 'circle-to-left':'circle-to-right'))}}" />
+        <view class="dot" />
       </view>
     </view>
-    <view class="lineInfo">
+    <view class="info-box-righticon" bindtap="RClick">R</view>
+  </view>
+  <view class="room-box-shader">
+    <view class="room-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
+      <!-- setting page -->
+      <view class="room-box-left">
+        <view class="settings-box" style="background-color: lightpink">
+            
+        </view>
+      </view>
+      <!-- line page -->
+      <view class="room-box-right">
+        <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
+          <view class="slaveInfo">
+            <view class="slaveInfo-head">
+              <view class="slaveInfo-head-top-green">
+                <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
+                <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>
+              </view>
+              <view class="slaveInfo-head-bot">
+                <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
+                <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+              </view>
+            </view>
+            <view class="slaveInfo-tail">
+              <image class="slaveInfo-avatar" src="{{item.avatar}}" mode="widthFix" />
+              <view class="slaveInfo-playerName">{{item.nickname}}</view>
+            </view>
+          </view>
+        </block>
+        <!-- gray: waiting in line -->
+        <view class="slaveInfo">
+          <view class="slaveInfo-head">
+            <view class="slaveInfo-head-top-gray">
+              <view class="slaveInfo-head-top-text">第3位</view>
+            </view>
+            <view class="slaveInfo-head-bot">
+              <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
+              <view class="slaveInfo-head-bot-text">Judge岛</view>
+            </view>
+          </view>
+          <view class="slaveInfo-tail">
+            <view class="slaveInfo-avatar"></view>
+            <view class="slaveInfo-playerName">Judge Cui</view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
-
-  <view class="room-box">
-    <view class="slaveInfo">
-      <view class="slaveInfo-head"></view>
-      <view class="slaveInfo-avatar"></view>
-      <view class="slaveInfo-playerName"></view>
-    </view>
-    <view class="slaveInfo">
-      <view class="slaveInfo-head"></view>
-      <view class="slaveInfo-avatar"></view>
-      <view class="slaveInfo-playerName"></view>
-    </view>
-    <view class="slaveInfo">
-      <view class="slaveInfo-head"></view>
-      <view class="slaveInfo-avatar"></view>
-      <view class="slaveInfo-playerName"></view>
-    </view>
-  </view>
-
   <view class="tool-box">
-    <view class="tool-closeBtn"></view>
-    <view class="tool-changeBtn"></view>
+    <view class="tool-closeBtn">
+      <view class="tool-closeBtn-greenbox {{closeBtnClick ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeBtnClick">
+        <image wx:if="{{!closeBtnClick}}" class="tool-box-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
+        <image wx:else class="tool-box-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix" />
+        <view class="tool-box-text">排队中</view>
+      </view>
+      <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix" />
+    </view>
+    <view class="tool-changeBtn">
+      <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix" />
+      <view class="tool-box-text" style="color: #fff7ce">分享</view>
+      <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix" />
+    </view>
+  </view>
+
+  <!--mask-->
+  <view class='mask' wx:if="{{closeBtnClick}}" bindtap='modalHide' />
+  <!--modal-->
+  <view class='mymodal' wx:if="{{closeBtnClick}}">
+    <view class="modal-text">确定退出房间吗？</view>
+    <view class="modal-options">
+      <view class="modal-btn" bindtap="modalHide">返回</view>
+      <view class="modal-btn" bindtap="onTapClose">确定</view>
+    </view>
   </view>
 </view>

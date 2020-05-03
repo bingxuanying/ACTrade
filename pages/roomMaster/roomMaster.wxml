@@ -27,10 +27,11 @@
   </view>
   <view class="room-box-shader">
     <view class="room-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
+      <!-- line page -->
       <view class="room-box-left">
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
           <view class="slaveInfo">
-            <view class="slaveInfo-deleteicon">
+            <view class="slaveInfo-deleteicon" bindtap="modalOpen">
               <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
             </view>
             <view class="slaveInfo-head">
@@ -49,6 +50,7 @@
             </view>
           </view>
         </block>
+        <!-- gray: waiting in line -->
         <view class="slaveInfo">
           <view class="slaveInfo-deleteicon">
             <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
@@ -68,8 +70,8 @@
           </view>
         </view>
       </view>
+      <!-- setting page -->
       <view class="room-box-right ">
-        <view class="settings">
           <view class="settings-box">
             <view class="flightOpt">
               <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
@@ -117,7 +119,6 @@
               </view>
             </view>
           </view>
-        </view>
       </view>
     </view>
   </view>
@@ -134,6 +135,17 @@
       <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix" />
       <view class="tool-box-text" style="color: #fff7ce">分享</view>
       <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix" />
+    </view>
+  </view>
+
+  <!--mask-->
+  <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
+  <!--modal-->
+  <view class='mymodal' wx:if="{{showModal}}">
+    <view class="modal-text">{{closeBtnClick&&showModal?'确定关闭房间吗？':'确定踢出房间吗？'}}</view>
+    <view class="modal-options">
+      <view class="modal-btn" bindtap="modalHide">返回</view>
+      <view class="modal-btn" bindtap="{{closeBtnClick&&showModal?'onTapClose':'onTapKickOut'}}">确定</view>
     </view>
   </view>
 </view>
