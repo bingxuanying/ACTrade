@@ -50,16 +50,15 @@ page {
 
 .card {
   width: 94%;
-  height: 425rpx;
   position: relative;
-  margin-bottom: 25rpx;
+  margin-bottom: 50rpx;
   padding: 0;
   color: #de733b;
 }
 .boardingpass {
   position: absolute;
   width: 100%;
-  z-index: -1;
+  /* z-index: -1; */
 }
 .card-number {
   position: absolute;
@@ -68,11 +67,17 @@ page {
   color: black;
   font-size: 40rpx;
 }
-.card-box {
-  position: relative;
-  top: 55rpx;
-  height: 362rpx;
+.card-box-shader {
   width: 100%;
+  height: 360rpx;
+  position: relative;
+  margin-top: 54rpx;
+  overflow: hidden;
+}
+
+.card-box {
+  width: calc(94vw + 20vw);
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -80,10 +85,10 @@ page {
   font-size: 28rpx;
   color: #7b653e;
 }
+
 .card-main {
-  width: 65%;
-  padding-top: 30rpx;
-  padding-left: 20rpx;
+  width: 61vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -113,8 +118,10 @@ page {
 }
 .card-main-barcode {
 }
+
 .card-sub {
-  width: 35%;
+  width: 33vw;
+  height: 100%;
   background-image: linear-gradient(
     to bottom,
     #f89d80 33%,
@@ -123,8 +130,6 @@ page {
   background-position: left;
   background-size: 4rpx 28rpx;
   background-repeat: repeat-y;
-  margin-left: 20rpx;
-  padding-left: 15rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -151,6 +156,12 @@ page {
   height: 50%;
 }
 
+.card-tools {
+  background-color: red;
+  width: 20vw;
+  height: 100%;
+}
+
 .loadingGIF {
   width: 100rpx;
   height: 100rpx;
@@ -159,7 +170,34 @@ page {
   left: 330rpx;
 }
 
-/*mask*/
+/* animation */
+.slide-left {
+  animation: slideleft 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-right {
+  animation: slideright 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+@keyframes slideleft {
+  from {
+    transform: translate(-20vw, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes slideright {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-20vw, 0);
+  }
+}
+
+
+/* mask */
 .mask {
   position: fixed;
   width: 100%;
@@ -171,7 +209,8 @@ page {
   transition: all 300ms ease-out;
 }
 
-/*modal*/
+
+/* modal */
 .mymodal {
   position: fixed;
   width: 100%;

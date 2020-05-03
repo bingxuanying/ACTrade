@@ -1,5 +1,6 @@
 // pages/roomCreate/roomCreate.js
 const app = getApp();
+const util= require('../../utils/util')
 
 Page({
   data: {
@@ -81,27 +82,6 @@ Page({
         break;
     }
 
-    function getDate() {
-      var date = new Date(),
-          month = (date.getMonth() + 1).toString(),
-          day = date.getDate().toString(),
-          hr = date.getHours().toString(),
-          min = date.getMinutes().toString(),
-          sec = date.getSeconds().toString(),
-          milisec = date.getMilliseconds().toString();
-      if (day.length < 2) 
-        day = '0' + day;
-      if (hr.length < 2) 
-        hr = '0' + hr;
-      if (min.length < 2) 
-        min = '0' + min;
-      if (sec.length < 2) 
-        sec = '0' + sec;
-      milisec = '0'.repeat(3 - milisec.length) + milisec;
-  
-      return parseInt(month + day + hr + min + sec + milisec, 10);
-    }
-
     db.collection('Flights').add({
       data: {
         master: {
@@ -116,7 +96,7 @@ Page({
         people: this.data.people,
         note: this.data.note,
         roomNum: roomChar + '0'.repeat(3 - roomNum.length) + roomNum,
-        createTime: getDate()
+        createTime: util.formatTime()
       },
       success: function(res) {
         app.globalData.roomInfo.roomID = res._id

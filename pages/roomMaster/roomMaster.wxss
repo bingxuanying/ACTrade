@@ -161,7 +161,7 @@ page {
   overflow: hidden;
 }
 .room-box {
-  width: 194vw;
+  width: 188vw;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -179,7 +179,6 @@ page {
   overflow-y: scroll;
 }
 .room-box-right {
-  margin-left: 6vw;
   width: 94vw;
   height: 80vh;
   display: flex;
@@ -187,7 +186,7 @@ page {
 }
 .slaveInfo {
   width: 96%;
-  height: 100rpx;
+  height: 86rpx;
   padding-bottom: 7rpx;
   margin-bottom: 7rpx;
   display: flex;
@@ -200,7 +199,7 @@ page {
     rgba(255, 255, 255, 0) 0%
   );
   background-position: bottom;
-  background-size: 28rpx 4rpx;
+  background-size: 29rpx 4rpx;
   background-repeat: repeat-x;
   overflow: hidden;
   font-size: 28rpx;
@@ -434,7 +433,7 @@ page {
 }
 @keyframes slideleft {
   from {
-    transform: translate(-100vw, 0);
+    transform: translate(-94vw, 0);
   }
   to {
     transform: translate(0, 0);
@@ -445,7 +444,7 @@ page {
     transform: translate(0, 0);
   }
   to {
-    transform: translate(-100vw, 0);
+    transform: translate(-94vw, 0);
   }
 }
 

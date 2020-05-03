@@ -1,17 +1,25 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
+const formatTime = () => {
+  var date = new Date(),
+      year = date.getUTCFullYear().toString(),
+      month = (date.getUTCMonth() + 1).toString(),
+      day = date.getUTCDate().toString(),
+      hr = date.getUTCHours().toString(),
+      min = date.getUTCMinutes().toString(),
+      sec = date.getUTCSeconds().toString(),
+      milisec = date.getUTCMilliseconds().toString();
+  if (month.length < 2) 
+    month = '0' + month;
+  if (day.length < 2) 
+    day = '0' + day;
+  if (hr.length < 2) 
+    hr = '0' + hr;
+  if (min.length < 2) 
+    min = '0' + min;
+  if (sec.length < 2) 
+    sec = '0' + sec;
+  milisec = '0'.repeat(3 - milisec.length) + milisec;
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+  return parseInt(year + month + day + hr + min + sec + milisec, 10);
 }
 
 module.exports = {

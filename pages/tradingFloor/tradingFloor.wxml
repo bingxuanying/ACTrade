@@ -20,26 +20,31 @@
   <view class="board">
     <!-- if db has data show cards, else show words -->
     <block wx:if="{{cards.length>0 && isLoading===false}}">
-      <block wx:for="{{cards}}" wx:for-item="item" wx:key="_id">
+      <block wx:for="{{cards}}" wx:for-item="item" wx:key="cards">
         <!-- Here Cards for Flight -->
         <view class="card">
           <image class="boardingpass" src="../../assets/boardingpass/boardingpassPink.png" mode="widthFix" />
           <view class="card-number">{{item.roomNum}}</view>
-          <view class="card-box">
-            <view class="card-main">
-              <view class="card-main-des">To {{item.master.gameProfile.islandName}}</view>
-              <view class="card-main-time">还剩{{item.time}}小时</view>
-              <view class="card-main-note">{{item.note}}</view>
-              <view class="card-main-barcode">
-                <image src="../../assets/boardingpass/barcode.gif" style="height:60rpx" mode="heightFix" />
+          <view id="{{item._id}}" class="card-box-shader" bindtap="onTapCard">
+            <view class="card-box {{item._id===curTool_id?'slide-right':''}} {{item._id===preTool_id?'slide-left':''}}">
+              <view class="card-main">
+                <view class="card-main-des">To {{item.master.gameProfile.islandName}}</view>
+                <view class="card-main-time">还剩{{item.time}}小时</view>
+                <view class="card-main-note">{{item.note}}</view>
+                <view class="card-main-barcode">
+                  <image src="../../assets/boardingpass/barcode.gif" style="height:60rpx" mode="heightFix" />
+                </view>
               </view>
-            </view>
-            <view class="card-sub">
-              <view class="card-sub-price">
-                <image class="card-sub-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
-                <view class="card-sub-price-text">{{item.price}}</view>
+              <view class="card-sub">
+                <view class="card-sub-price">
+                  <image class="card-sub-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
+                  <view class="card-sub-price-text">{{item.price}}</view>
+                </view>
+                <view class="card-sub-lineinfo">排队1/1</view>
               </view>
-              <view class="card-sub-lineinfo">排队1/1</view>
+              <view class="card-tools">
+                <button id="{{item._id}}" style="width: 20vw; font-size: 30rpx; paddding: 0rpx;" bindtap="onTapJoin">加入</button>
+              </view>
             </view>
           </view>
         </view>

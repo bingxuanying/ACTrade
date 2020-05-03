@@ -1,8 +1,12 @@
 // pages/tradingFloor/tradingFloor.js
-const db = wx.cloud.database();
+const app = getApp()
+const db = wx.cloud.database()
+const util= require('../../utils/util')
 
 Page({
   data: {
+    curTool_id: "f10018335eab718600317a395487a68a",
+    preTool_id: '',
     isLoading: false,
     offset: 0,
     order: 'createTime',
@@ -184,6 +188,23 @@ Page({
           isLoading: false
         })
       }
+    })
+  },
+  onTapCard: function(e) {
+    this.setData({preTool_id: this.data.curTool_id})
+    if (e.currentTarget.id === this.data.curTool_id) 
+      this.setData({curTool_id: ''})
+    else 
+      this.setData({curTool_id: e.currentTarget.id})
+  },
+  onTapJoin: function(e) {
+    app.globalData.roomInfo = {
+      roomID: e.currentTarget.id,
+      timeStamp: util.formatTime()
+    }
+    console.log(app.globalData.roomInfo)
+    wx.navigateTo({
+      url: '/pages/roomSlave/roomSlave',
     })
   }
 })
