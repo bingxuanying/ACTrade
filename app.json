@@ -1,14 +1,9 @@
 {
   "pages": [
-<<<<<<< HEAD
     "pages/roomMaster/roomMaster",
-
-=======
->>>>>>> master
     "pages/tradingFloor/tradingFloor",
     "pages/profile/profile",
     "pages/roomSlave/roomSlave",
-    "pages/roomMaster/roomMaster",
     "pages/roomCreate/roomCreate",
     "pages/roomAdd/roomAdd"
   ],
