@@ -4,7 +4,6 @@
     "pages/roomSlave/roomSlave",
     "pages/profile/profile",
     "pages/roomMaster/roomMaster",
-    "pages/roomSlave/roomSlave",
     "pages/roomCreate/roomCreate",
     "pages/roomAdd/roomAdd"
   ],
