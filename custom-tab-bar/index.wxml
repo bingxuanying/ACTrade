@@ -1,0 +1,9 @@
+<!-- miniprogram/custom-tab-bar/index.wxml -->
+<view class="tab-bar" style='height:{{isIphoneX?166:120}}rpx;'>
+    <image class="tab-bar-bg" src="../assets/tab/tabbarbg.png" mode="scaleToFill" />
+    <view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+        <image wx:if="{{selected === index}}" class="tab-bar-icon-active" src="{{item.selectedIconPath}}" />
+        <image wx:else class="tab-bar-icon-inactive" src="{{item.iconPath}}" />
+        <view class="tab-bar-text">{{item.text}}</view>
+    </view>
+</view>

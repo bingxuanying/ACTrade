@@ -1,6 +1,4 @@
 /* pages/tradingFloor/tradingFloor.wxss */
-page {
-}
 .tradingFloor {
   display: flex;
   flex-direction: column;
@@ -157,11 +155,35 @@ page {
 }
 
 .card-tools {
-  background-color: red;
   width: 20vw;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
+.card-tools-share,
+.card-tools-join {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.card-tools-share {
+  background-color: rgba(255, 255, 255, 0);
+}
+.card-tools-icon {
+  height: 60%;
+}
+.card-tools-btn {
+  height: 30%;
+  font-size: 24rpx;
+  background-color: rgba(255, 255, 255, 0);
+  color: #7b653e;
+}
 .loadingGIF {
   width: 100rpx;
   height: 100rpx;

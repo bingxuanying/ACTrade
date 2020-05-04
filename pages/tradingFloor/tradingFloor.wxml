@@ -43,9 +43,16 @@
                 <view class="card-sub-lineinfo">排队1/1</view>
               </view>
               <view class="card-tools">
-                <button id="{{item._id}}" style="width: 20vw; font-size: 30rpx; paddding: 0rpx;" bindtap="onTapJoin">
-                  加入
-                </button>
+                <view class="card-tools-join" id="{{item._id}}" bindtap="onTapJoin">
+                  <image class="card-tools-icon" src="../../assets/icons/AddIcon.png" mode="heightFix" />
+                  <button class="card-tools-btn" style="width: 20vw;  paddding: 0rpx;">加入</button>
+                </view>
+                <view class="card-tools-share" style="width:100%;" id="{{item._id}}" bindtap="onTapJoin">
+                  <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);">
+                    <image class="card-tools-icon" style="height:100%" src="../../assets/icons/ShareIcon.png" mode="heightFix" />
+                  </button>
+                  <view class="card-tools-btn">分享</view>
+                </view>
               </view>
             </view>
           </view>
