@@ -30,10 +30,8 @@
       <!-- line page -->
       <view class="room-box-left">
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
-          <view class="slaveInfo">
-            <view class="slaveInfo-deleteicon" bindtap="modalOpen">
-              <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
-            </view>
+          <!-- green: code appears -->
+          <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
             <view class="slaveInfo-head">
               <view class="slaveInfo-head-top-green">
                 <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
@@ -49,26 +47,23 @@
               <view class="slaveInfo-playerName">{{item.nickname}}</view>
             </view>
           </view>
+          <!-- gray: waiting in line -->
+          <view class="slaveInfo" wx:else>
+            <view class="slaveInfo-head">
+              <view class="slaveInfo-head-top-gray">
+                <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>
+              </view>
+              <view class="slaveInfo-head-bot">
+                <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
+                <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+              </view>
+            </view>
+            <view class="slaveInfo-tail">
+              <image class="slaveInfo-avatar" src="{{item.avatar}}" mode="widthFix" />
+              <view class="slaveInfo-playerName">{{item.nickname}}</view>
+            </view>
+          </view>
         </block>
-        <!-- gray: waiting in line -->
-        <view class="slaveInfo">
-          <view class="slaveInfo-deleteicon">
-            <image src="../../assets/icons/XIcon.png" style="height:40rpx" mode="heightFix" />
-          </view>
-          <view class="slaveInfo-head">
-            <view class="slaveInfo-head-top-gray">
-              <view class="slaveInfo-head-top-text">第3位</view>
-            </view>
-            <view class="slaveInfo-head-bot">
-              <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-              <view class="slaveInfo-head-bot-text">Judge岛</view>
-            </view>
-          </view>
-          <view class="slaveInfo-tail">
-            <view class="slaveInfo-avatar"></view>
-            <view class="slaveInfo-playerName">Judge Cui</view>
-          </view>
-        </view>
       </view>
       <!-- setting page -->
       <view class="room-box-right ">

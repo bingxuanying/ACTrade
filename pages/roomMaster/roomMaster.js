@@ -11,6 +11,10 @@ Page({
       fruit: null,
       hemisphere: null,
     },
+    roomInfo: {
+      code: null,
+      people: 0
+    },
     Slaves: [],
     closeBtnClick: false,
     showModal: false,
@@ -39,6 +43,10 @@ Page({
               masterName: master.gameProfile.nickname,
               fruit: master.gameProfile.fruit,
               hemisphere: master.gameProfile.fruit,
+            },
+            roomInfo: {
+              code: res.data.code,
+              people: res.data.people
             },
             flight: res.data.flight,
             price: res.data.price,

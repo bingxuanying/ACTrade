@@ -11,6 +11,10 @@ Page({
       fruit: null,
       hemisphere: null,
     },
+    roomInfo: {
+      code: null,
+      people: 0
+    },
     Slaves: [],
     closeBtnClick: false,
     // page 0 -> line page, page 1 -> setting page
@@ -38,6 +42,10 @@ Page({
               masterName: master.gameProfile.nickname,
               fruit: master.gameProfile.fruit,
               hemisphere: master.gameProfile.fruit,
+            },
+            roomInfo: {
+              code: res.data.code,
+              people: res.data.people
             },
             flight: res.data.flight,
             price: res.data.price,

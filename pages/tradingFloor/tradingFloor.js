@@ -5,7 +5,7 @@ const util= require('../../utils/util')
 
 Page({
   data: {
-    curTool_id: "f10018335eab718600317a395487a68a",
+    curTool_id: '',
     preTool_id: '',
     isLoading: false,
     offset: 0,
@@ -203,6 +203,20 @@ Page({
       timeStamp: util.formatTime()
     }
     console.log(app.globalData.roomInfo)
+
+    db.collection('Flights')
+    .doc(app.globalData.roomInfo.roomID)
+    .update({
+      data: {
+        slaves: db.command.push({
+          avatar: app.globalData.userInfo.avatarUrl,
+          islandName: app.globalData.gameProfile.islandName,
+          nickname: app.globalData.gameProfile.nickname,
+          timeStamp: app.globalData.roomInfo.timeStamp
+        })
+      }
+    })
+
     wx.navigateTo({
       url: '/pages/roomSlave/roomSlave',
     })
