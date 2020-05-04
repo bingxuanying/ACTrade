@@ -43,7 +43,9 @@
                 <view class="card-sub-lineinfo">排队1/1</view>
               </view>
               <view class="card-tools">
-                <button id="{{item._id}}" style="width: 20vw; font-size: 30rpx; paddding: 0rpx;" bindtap="onTapJoin">加入</button>
+                <button id="{{item._id}}" style="width: 20vw; font-size: 30rpx; paddding: 0rpx;" bindtap="onTapJoin">
+                  加入
+                </button>
               </view>
             </view>
           </view>
@@ -57,7 +59,7 @@
   <!-- modal -->
   <view class='mymodal' wx:if="{{showModal}}">
     <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix" />
-    <image class="modal-inputImg" src="../../assets/input框.png" mode="widthFix" />
+    <image class="modal-inputImg" src="../../assets/inputBar.png" mode="widthFix" />
     <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
     <button class="modal-btn" style="width: 120rpx; left:230rpx" bindtap="modalHide">返回</button>
     <button class="modal-btn" style="width: 120rpx; left:410rpx" disabled="{{keyword.length===5?false:true}}" bindtap="onTapSearch">

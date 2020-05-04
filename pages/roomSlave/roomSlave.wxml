@@ -69,6 +69,12 @@
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
           <!-- green: code appears -->
           <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
+            <view class="slaveInfo-stripebg-shader">
+              <view class="slaveInfo-stripebg-box">
+                <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
+                <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
+              </view>
+            </view>
             <view class="slaveInfo-head">
               <view class="slaveInfo-head-top-green">
                 <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
@@ -86,6 +92,12 @@
           </view>
           <!-- gray: waiting in line -->
           <view class="slaveInfo" wx:else>
+            <view class="slaveInfo-stripebg-shader">
+              <view class="slaveInfo-stripebg-box">
+                <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
+                <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
+              </view>
+            </view>
             <view class="slaveInfo-head">
               <view class="slaveInfo-head-top-gray">
                 <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>

@@ -155,7 +155,7 @@ page {
 .room-box-shader {
   position: relative;
   width: 94vw;
-  height: 80vh;
+  height: calc(100vh - 350rpx);
   background-color: #f5f7e1;
   border-radius: 50rpx;
   margin-top: 20rpx;
@@ -205,6 +205,24 @@ page {
   background-repeat: repeat-x;
   overflow: hidden;
   font-size: 28rpx;
+}
+.slaveInfo-stripebg-shader {
+  height: 100rpx;
+  overflow: hidden;
+  width: 94vw;
+  z-index: -1;
+  position: absolute;
+  border-radius: 35rpx;
+}
+.slaveInfo-stripebg-box {
+  animation: bgmove 2s linear infinite;
+  width: 188vw;
+  position: absolute;
+  left: -47vw;
+}
+.slaveInfo-stripebg {
+  height: 100rpx;
+  width: 94vw;
 }
 .slaveInfo-deleteicon {
   width: 8%;
@@ -447,6 +465,14 @@ page {
   }
   to {
     transform: translate(-94vw, 0);
+  }
+}
+@keyframes bgmove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(272rpx);
   }
 }
 

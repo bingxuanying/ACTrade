@@ -55,6 +55,13 @@ App({
         }
       },
     });
+    // 字体获取
+    // wx.loadFontFace({
+    //   family: "webfont",
+    //   source:
+    //     'url("https://charlesywl.github.io/VegiExchange/STYuanti-SC-Bold.ttf")',
+    //   success: console.log,
+    // });
   },
   globalData: {
     id: null,
