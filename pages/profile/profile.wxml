@@ -1,5 +1,5 @@
 <!-- pages/profile/profile.wxml -->
-<view class="profile">
+<view class="profile" style="visibility:{{isLoading? 'hidden': 'visiable'}}">
   <image class="passport" src="../../assets/passport/passport.png" mode="widthFix" />
   <view class="userinfo" wx:if="{{!isLoading}}">
     <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
