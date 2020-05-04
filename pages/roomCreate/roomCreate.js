@@ -53,11 +53,7 @@ Page({
     })
   },
   onTapBack: function() {
-    wx.navigateBack({
-      complete: (res) => {
-        console.log(res)
-      },
-    })
+    wx.navigateBack()
   },
   onTapCreate: function() {
     const db = wx.cloud.database()

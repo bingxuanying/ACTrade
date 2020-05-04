@@ -104,5 +104,25 @@ Page({
   },
   onTapClose: function () {
     console.log("close");
+
+    db.collection('Flights')
+    .doc(app.globalData.roomInfo.roomID)
+    .update({
+      data: {
+        slaves: db.command.pull({
+          avatar: app.globalData.userInfo.avatarUrl,
+          islandName: app.globalData.gameProfile.islandName,
+          nickname: app.globalData.gameProfile.nickname,
+          timeStamp: app.globalData.roomInfo.timeStamp
+        })
+      }
+    })
+
+    app.globalData.roomInfo = {
+      roomID: null,
+      timeStamp: null,
+    }
+
+    wx.navigateBack()
   },
 });
