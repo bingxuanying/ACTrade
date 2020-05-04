@@ -212,7 +212,7 @@ page {
   width: 94vw;
   z-index: -1;
   position: absolute;
-  border-radius: 35rpx;
+  border-radius: 55rpx;
 }
 .slaveInfo-stripebg-box {
   animation: bgmove 2s linear infinite;

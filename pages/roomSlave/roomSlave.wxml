@@ -69,6 +69,7 @@
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
           <!-- green: code appears -->
           <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
+            <!-- bg alg here -->
             <view class="slaveInfo-stripebg-shader">
               <view class="slaveInfo-stripebg-box">
                 <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
@@ -92,6 +93,7 @@
           </view>
           <!-- gray: waiting in line -->
           <view class="slaveInfo" wx:else>
+            <!-- bg alg here -->
             <view class="slaveInfo-stripebg-shader">
               <view class="slaveInfo-stripebg-box">
                 <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
