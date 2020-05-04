@@ -16,6 +16,7 @@ Page({
       people: 0
     },
     Slaves: [],
+    timeStamp: '',
     closeBtnClick: false,
     // page 0 -> line page, page 1 -> setting page
     page: 0,
@@ -47,6 +48,7 @@ Page({
               code: res.data.code,
               people: res.data.people
             },
+            timeStamp: app.globalData.roomInfo.timeStamp,
             flight: res.data.flight,
             price: res.data.price,
             code: res.data.code,
@@ -125,4 +127,12 @@ Page({
 
     wx.navigateBack()
   },
+  onShareAppMessage: function(res) {
+    console.log(res)
+    return {
+      title: 'test',
+      path: '/page/user?id=123',
+      // imageUrl: 
+    }
+  }
 });

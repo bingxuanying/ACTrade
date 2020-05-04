@@ -5,13 +5,13 @@ const util = require("../../utils/util");
 
 Page({
   data: {
-    curTool_id: "",
-    preTool_id: "",
+    curTool_id: '',
+    preTool_id: '',
     isLoading: false,
     offset: 0,
-    order: "createTime",
+    order: 'createTime',
     showModal: false,
-    keyword: "",
+    keyword: '',
     cards: [],
   },
   onLoad: function () {
@@ -27,13 +27,96 @@ Page({
       .limit(10)
       .get({
         success: (res) => {
-          console.log(res.data);
+          console.log(res.data)
           this.setData({
             cards: res.data,
             isLoading: false,
-          });
+          })
         },
-      });
+      })
+  },
+  onPullDownRefresh: function() {
+    this.setData({
+      isLoading: true,
+    });
+    wx.stopPullDownRefresh({
+      complete: res => {
+        if (this.data.keyword.length === 5) {
+          db.collection("Flights")
+            .where({
+              roomNum: this.data.keyword,
+            })
+            .orderBy(this.data.order, "desc")
+            .skip(0)
+            .limit(10)
+            .get({
+              success: (res) => {
+                this.setData({
+                  cards: res.data,
+                  offset: 0,
+                  isLoading: false,
+                });
+              },
+            });
+        } 
+        else {
+          db.collection("Flights")
+            .where({
+              flight: "Business",
+            })
+            .orderBy(this.data.order, "desc")
+            .skip(0)
+            .limit(10)
+            .get({
+              success: (res) => {
+                this.setData({
+                  cards: res.data,
+                  offset: 0,
+                  isLoading: false,
+                });
+              },
+            });
+        }
+      }
+    })
+  },
+  onReachBottom: function() {
+    if (this.data.keyword.length === 5) {
+      db.collection("Flights")
+        .where({
+          roomNum: this.data.keyword,
+        })
+        .orderBy(this.data.order, "desc")
+        .skip(this.data.offset)
+        .limit(10)
+        .get({
+          success: (res) => {
+            this.setData({
+              cards: this.data.cards.concat(res.data),
+              offset: this.data.offset + 10,
+              isLoading: false,
+            });
+          },
+        });
+    } 
+    else {
+      db.collection("Flights")
+        .where({
+          flight: "Business",
+        })
+        .orderBy(this.data.order, "desc")
+        .skip(this.data.offset)
+        .limit(10)
+        .get({
+          success: (res) => {
+            this.setData({
+              cards: this.data.cards.concat(res.data),
+              offset: this.data.offset + 10,
+              isLoading: false,
+            });
+          },
+        });
+    }
   },
   onTapCreate: function () {
     wx.navigateTo({
@@ -56,6 +139,8 @@ Page({
             roomNum: this.data.keyword,
           })
           .orderBy(this.data.order, "desc")
+          .skip(0)
+          .limit(10)
           .get({
             success: (res) => {
               this.setData({
@@ -65,7 +150,8 @@ Page({
               });
             },
           });
-      } else {
+      } 
+      else {
         db.collection("Flights")
           .where({
             flight: "Business",
@@ -98,6 +184,8 @@ Page({
             roomNum: this.data.keyword,
           })
           .orderBy(this.data.order, "desc")
+          .skip(0)
+          .limit(10)
           .get({
             success: (res) => {
               this.setData({
@@ -107,7 +195,8 @@ Page({
               });
             },
           });
-      } else {
+      } 
+      else {
         db.collection("Flights")
           .where({
             flight: "Business",

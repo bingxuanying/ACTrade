@@ -2,5 +2,7 @@
   "window": {
     "navigationStyle": "default"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 200
 }

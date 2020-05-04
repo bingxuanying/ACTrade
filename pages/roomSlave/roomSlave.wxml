@@ -69,8 +69,7 @@
         <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
           <!-- green: code appears -->
           <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
-            <!-- bg alg here -->
-            <view class="slaveInfo-stripebg-shader">
+            <view class="slaveInfo-stripebg-shader" wx:if="{{timeStamp===item.timeStamp}}">
               <view class="slaveInfo-stripebg-box">
                 <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
                 <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
@@ -93,8 +92,7 @@
           </view>
           <!-- gray: waiting in line -->
           <view class="slaveInfo" wx:else>
-            <!-- bg alg here -->
-            <view class="slaveInfo-stripebg-shader">
+            <view class="slaveInfo-stripebg-shader" wx:if="{{timeStamp===item.timeStamp}}">
               <view class="slaveInfo-stripebg-box">
                 <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
                 <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
@@ -127,11 +125,11 @@
       </view>
       <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix" />
     </view>
-    <view class="tool-changeBtn">
+    <button class="tool-changeBtn" style="width: 45%;" open-type="share">
       <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix" />
       <view class="tool-box-text" style="color: #fff7ce">分享</view>
       <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix" />
-    </view>
+    </button>
   </view>
   <!-- mask -->
   <view class='mask' wx:if="{{closeBtnClick}}" bindtap='modalHide' />
