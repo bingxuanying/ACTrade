@@ -3,7 +3,7 @@
   <view class="info-box">
     <view class="info-box-lefticon" bindtap="LClick">L</view>
     <view class="maintitle">
-      <view class="maintitle-box {{(firstTimeLoad? '': (page==0? 'slide-rightleft':'slide-right'))}}">
+      <view class="maintitle-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
         <view class="masterInfo ">
           <image class="masterInfo-avatar" src="{{MasterInfo.avatar}}" wx:if="{{MasterInfo.avatar}}" mode="widthFix" />
           <view class="masterInfo-avatar" wx:else />
