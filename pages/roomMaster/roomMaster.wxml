@@ -108,7 +108,7 @@
               </view>
             </view>
             <view class="settings-saveBtn-box">
-              <view class="saveBtn">
+              <view class="saveBtn" bindtap="onTapUpdate">
                 <view class="saveBtn-icon">A</view>
                 <text class="saveBtn-text">保存更改</text>
               </view>
