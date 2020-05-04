@@ -1,4 +1,4 @@
-/* pages/profile/profile.wxss */ 
+/* pages/profile/profile.wxss */
 .profile {
   width: 100vw;
   height: 100vh;
@@ -68,8 +68,8 @@
 }
 .userinfo-name-box-name {
   white-space: nowrap;
-  text-overflow:ellipsis; 
-  overflow:hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .personalInfo {
@@ -92,7 +92,7 @@
   justify-content: flex-start;
   font-size: inherit;
   margin-bottom: 25rpx;
-  padding-bottom:25rpx;
+  padding-bottom: 25rpx;
   border-bottom: white 2px solid;
 }
 
@@ -100,7 +100,6 @@
   width: 12%;
   margin-top: 9rpx;
 }
-
 
 .personalInfo-title {
   width: 30%;
@@ -145,13 +144,13 @@
   width: 38rpx;
   height: 38rpx;
   position: relative;
-  top: 2rpx
+  top: 2rpx;
 }
 .confirm-btn {
   position: relative;
   font-size: 30rpx;
   padding: 3rpx;
-  background-color:#f5efd5;
+  background-color: #f5efd5;
   border: #000000;
   border-radius: 32rpx;
   display: flex;
@@ -160,14 +159,14 @@
   justify-content: center;
 }
 
-.confirm-btn-icon{
+.confirm-btn-icon {
   background-color: #716a58;
-  color:#f5efd5 ;
+  color: #f5efd5;
   border-radius: 50%;
   margin-right: 10rpx;
 }
 
-.confirm-btn-text{
+.confirm-btn-text {
   color: #716a58;
 }
 
@@ -182,12 +181,12 @@
 }
 @keyframes half-rotate {
   0% {
-  -webkit-transform: rotate(-180deg);
-  transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
   }
   to {
-  -webkit-transform: rotate(0);
-  transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
   }
 }
 /* Switch related CSS Below */
@@ -220,25 +219,32 @@
   /* left: 50rpx; */
   animation: toright ease-in-out 0.5s;
   animation-fill-mode: forwards;
-
-} 
+}
 .move-left {
   animation: toleft ease-in-out 0.5s;
   animation-fill-mode: forwards;
 }
 @keyframes toright {
   from {
-    transform:translate(0,0) ;
-    }
-    to {
-      transform:translate(50rpx,0) ;
-    }
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(50rpx, 0);
+  }
 }
 @keyframes toleft {
   from {
-    transform:translate(50rpx,0) ;
+    transform: translate(50rpx, 0);
   }
-    to {
-      transform:translate(0,0) ;
-    }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+.loadingGIF {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 450rpx;
+  left: 330rpx;
 }

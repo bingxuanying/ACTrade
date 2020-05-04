@@ -29,13 +29,15 @@
 .tab-bar-icon-active {
   width: 56rpx;
   height: 65.3rpx;
-  position: relative;
-  bottom: 10rpx;
+  position: absolute;
+  bottom: 65.3rpx;
+  z-index: 2;
 }
 .tab-bar-icon-inactive {
   width: 56rpx;
   height: 56rpx;
-  position: relative;
+  position: absolute;
+  z-index: 1;
 }
 .tab-bar-text {
   font-size: 28rpx;

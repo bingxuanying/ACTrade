@@ -31,9 +31,9 @@ Component({
       wx.switchTab({
         url: path,
       });
-      this.setData({
-        selected: index,
-      });
+      // this.setData({
+      //   selected: index,
+      // });
     },
   },
 });
