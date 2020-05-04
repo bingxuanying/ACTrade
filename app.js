@@ -55,13 +55,25 @@ App({
         }
       },
     });
-    // 字体获取
-    // wx.loadFontFace({
-    //   family: "webfont",
-    //   source:
-    //     'url("https://charlesywl.github.io/VegiExchange/STYuanti-SC-Bold.ttf")',
-    //   success: console.log,
-    // });
+    wx.getSystemInfo({
+      success: (res) => {
+        this.globalData.height = res.statusBarHeight;
+      },
+    });
+    // 云函数模板
+    wx.cloud.callFunction({
+      name: "lineNotify",
+      data: {
+        data1: "1",
+        data2: "2",
+      },
+      success: function (res) {
+        console.log(res);
+      },
+      fail: function (res) {
+        console.log(res);
+      },
+    });
   },
   globalData: {
     id: null,
@@ -73,8 +85,9 @@ App({
       hemisphere: "north",
     },
     roomInfo: {
-      roomID: 'f10018335eab718600317a395487a68a',
+      roomID: "f10018335eab718600317a395487a68a",
       timeStamp: null,
     },
+    height: 0,
   },
 });
