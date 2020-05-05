@@ -119,12 +119,19 @@ Page({
     }
   },
   onTapCreate: function () {
-    wx.navigateTo({
-      url: "/pages/roomCreate/roomCreate",
-      complete: (res) => {
-        console.log(res);
-      },
-    });
+    if (app.globalData.userInfo && app.globalData.gameProfile.nickname.length > 0 && app.globalData.gameProfile.islandName.length > 0){
+      wx.navigateTo({
+        url: "/pages/roomCreate/roomCreate",
+        complete: (res) => {
+          console.log(res);
+        },
+      });
+    }
+    else {
+      wx.switchTab({
+        url: '/pages/profile/profile',
+      })
+    }
   },
   onTapTime: function () {
     if (this.data.order === "price") {
@@ -284,28 +291,22 @@ Page({
     else this.setData({ curTool_id: e.currentTarget.id });
   },
   onTapJoin: function (e) {
-    app.globalData.roomInfo = {
-      roomID: e.currentTarget.id,
-      timeStamp: util.formatTime(),
-    };
-    console.log(app.globalData.roomInfo);
-
-    db.collection("Flights")
-      .doc(app.globalData.roomInfo.roomID)
-      .update({
-        data: {
-          slaves: db.command.push({
-            avatar: app.globalData.userInfo.avatarUrl,
-            islandName: app.globalData.gameProfile.islandName,
-            nickname: app.globalData.gameProfile.nickname,
-            timeStamp: app.globalData.roomInfo.timeStamp,
-          }),
-        },
+    if (app.globalData.userInfo && app.globalData.gameProfile.nickname.length > 0 && app.globalData.gameProfile.islandName.length > 0){
+      app.globalData.roomInfo = {
+        roomID: e.currentTarget.id,
+        timeStamp: util.formatTime(),
+      };
+      console.log(app.globalData.roomInfo);
+  
+      wx.navigateTo({
+        url: "/pages/roomSlave/roomSlave",
       });
-
-    wx.navigateTo({
-      url: "/pages/roomSlave/roomSlave",
-    });
+    }
+    else {
+      wx.switchTab({
+        url: '/pages/profile/profile',
+      })
+    }
   },
   // TabBar setting
   onShow() {

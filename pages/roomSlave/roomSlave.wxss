@@ -373,14 +373,14 @@ page {
   position: relative;
   left: 300rpx;
   bottom: 34rpx;
-  z-index: 100;
+  z-index: 9;
 }
 .tool-box-yicon {
   height: 43rpx;
   position: absolute;
   left: 287rpx;
   bottom: -10rpx;
-  z-index: 100;
+  z-index: 9;
 }
 .tool-changeBtn {
   height: 62rpx;
@@ -575,7 +575,7 @@ page {
   width: 75%;
   height: 60rpx;
   position: relative;
-  z-index: 100;
+  z-index: 9;
   top: -50%;
   background-image: linear-gradient(
     to right,
@@ -616,8 +616,39 @@ page {
   bottom: -72vw;
 }
 
+/* join room */
 /*mask*/
-.mask {
+.mask-join {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transition: all 600ms ease-out;
+}
+/*modal_1: no auth*/
+.mymodal-auth {
+  background-color: black;
+  height: 500rpx;
+  width: 100%;
+  position: fixed;
+  top: 300rpx;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: all 600ms ease-out;
+}
+
+
+
+/* leave room */
+/*mask*/
+.mask-leave {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -626,9 +657,8 @@ page {
   z-index: 10;
   transition: all 600ms ease-out;
 }
-
 /*modal*/
-.mymodal {
+.mymodal-leave {
   width: 100%;
   height: 320rpx;
   background-color: #224153;
@@ -640,12 +670,12 @@ page {
   justify-content: center;
   position: fixed;
   left: 0;
-  bottom: 110rpx;
+  bottom: 170rpx;
   z-index: 20;
   transition: all 600ms ease-out;
 }
 
-.modal-text {
+.modal-leave-text {
   width: 100%;
   height: 100rpx;
   text-align: center;
@@ -656,7 +686,7 @@ page {
   margin-left: 40rpx;
 }
 
-.modal-options {
+.modal-leave-options {
   width: 100%;
   height: 100rpx;
   display: flex;
@@ -665,7 +695,7 @@ page {
   justify-content: center;
 }
 
-.modal-btn {
+.modal-leave-btn {
   width: 25%;
   padding: 0;
   font-size: 30rpx;

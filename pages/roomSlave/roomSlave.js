@@ -1,6 +1,7 @@
 // pages/roomSlave/roomSlave.js
 const app = getApp();
 const db = wx.cloud.database();
+const util = require("../../utils/util");
 
 Page({
   data: {
@@ -29,8 +30,82 @@ Page({
     time: 6,
     people: 3,
     note: "",
+    // onLoad check status
+    clientStatus: "no auth", // no auth -> no name -> ok
+    nickname: '',
+    islandName: ''
   },
-  onLoad: function () {
+  onLoad: function (query) {
+    if (query.room_id) {
+      console.log(query.room_id)
+      app.globalData.roomInfo.roomID = query.room_id;
+      // registered
+      if (app.globalData.userInfo) {
+        if (app.globalData.gameProfile.nickname.length > 0 && app.globalData.gameProfile.islandName.length > 0) {
+          app.globalData.roomInfo.timeStamp = util.formatTime();
+          this.checkin()
+        } else {
+          this.setData({clientStatus: "no name"})
+        }
+      } 
+      // has auth
+      else if (this.data.canIUse) {
+        app.userInfoReadyCallback = (res) => {
+          if (res.userInfo) {            
+            db.collection("UsersProfile").get({
+              success: (res) => {
+                if (res.data.length > 0) {
+                  app.globalData.gameProfile = {
+                    nickname: res.data[0].nickname,
+                    islandName: res.data[0].islandName,
+                    fruit: res.data[0].fruit,
+                    hemisphere: res.data[0].hemisphere,
+                  };
+                  if (app.globalData.gameProfile.nickname.length > 0 && app.globalData.gameProfile.islandName.length > 0) {
+                    app.globalData.roomInfo.timeStamp = util.formatTime();
+                    this.checkin()
+                  } else {
+                    this.setData({clientStatus: "no name"})
+                  }
+                }
+              },
+              fail: (res) => {
+                console.log("fail: " + res);
+                wx.switchTab({
+                  url: '/pages/tradingFloor/tradingFloor',
+                })
+              },
+            });
+          } else {
+            this.setData({clientStatus: "no auth"})
+          }
+        };
+      }
+      // no auth or not registered
+      else {
+        this.setData({clientStatus: "no auth"})
+      }
+    }
+    else {
+      this.checkin()
+    }
+  },
+  checkin: function() {
+    console.log(app.globalData)
+
+    db.collection("Flights")
+      .doc(app.globalData.roomInfo.roomID)
+      .update({
+        data: {
+          slaves: db.command.push({
+            avatar: app.globalData.userInfo.avatarUrl,
+            islandName: app.globalData.gameProfile.islandName,
+            nickname: app.globalData.gameProfile.nickname,
+            timeStamp: app.globalData.roomInfo.timeStamp,
+          }),
+        },
+      });
+
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .get({
@@ -100,7 +175,7 @@ Page({
       });
     }
   },
-  modalHide: function (e) {
+  modalLeaveHide: function (e) {
     this.setData({
       closeBtnClick: false,
       showModal: false,
@@ -136,7 +211,7 @@ Page({
     console.log(res)
     return {
       title: 'Join the Room#' + this.data.roomInfo.roomNum,
-      path: '/pages/roomSlave/roomSlave?id=123',
+      path: '/pages/roomSlave/roomSlave?room_id=' + app.globalData.roomInfo.roomID,
       imageUrl: '../../assets/SharePage.png'
     }
   }

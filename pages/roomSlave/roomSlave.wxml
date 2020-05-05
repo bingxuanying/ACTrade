@@ -131,14 +131,28 @@
       <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix" />
     </button>
   </view>
-  <!-- mask -->
-  <view class='mask' wx:if="{{closeBtnClick}}" bindtap='modalHide' />
-  <!-- modal -->
-  <view class='mymodal fade-in' wx:if="{{closeBtnClick}}">
-    <view class="modal-text">确定退出房间吗？</view>
-    <view class="modal-options">
-      <view class="modal-btn" bindtap="modalHide">返回</view>
-      <view class="modal-btn" bindtap="onTapClose">确定</view>
+
+  <!-- join room -->
+    <!-- mask -->
+  <view class='mask-join' wx:if="{{clientStatus==='no auth'||clientStatus==='no name'}}"/>
+    <!-- modal_1: no auth -->
+  <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}">
+  
+  </view>
+    <!-- modal_2: no name -->
+  <view class='mymodal-name' wx:if="{{clientStatus==='no name'}}">
+  
+  </view>
+
+  <!-- leave room -->
+    <!-- mask -->
+  <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap='modalLeaveHide' />
+    <!-- modal -->
+  <view class='mymodal-leave fade-in' wx:if="{{closeBtnClick}}">
+    <view class="modal-leave-text">确定退出房间吗？</view>
+    <view class="modal-leave-options">
+      <view class="modal-leave-btn" bindtap="modalLeaveHide">返回</view>
+      <view class="modal-leave-btn" bindtap="onTapClose">确定</view>
     </view>
   </view>
 </view>
