@@ -13,7 +13,8 @@ Page({
     },
     roomInfo: {
       code: null,
-      people: 0
+      people: 0,
+      roomNum: ''
     },
     Slaves: [],
     timeStamp: '',
@@ -46,7 +47,8 @@ Page({
             },
             roomInfo: {
               code: res.data.code,
-              people: res.data.people
+              people: res.data.people,
+              roomNum: res.data.roomNum
             },
             timeStamp: app.globalData.roomInfo.timeStamp,
             flight: res.data.flight,
@@ -125,14 +127,17 @@ Page({
       timeStamp: null,
     }
 
-    wx.navigateBack()
+    // wx.navigateBack()
+    wx.switchTab({
+      url: '/pages/tradingFloor/tradingFloor',
+    })
   },
   onShareAppMessage: function(res) {
     console.log(res)
     return {
-      title: 'test',
-      path: '/page/user?id=123',
-      // imageUrl: 
+      title: 'Join the Room#' + this.data.roomInfo.roomNum,
+      path: '/pages/roomSlave/roomSlave?id=123',
+      imageUrl: '../../assets/SharePage.png'
     }
   }
 });
