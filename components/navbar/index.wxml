@@ -1,15 +1,7 @@
-<view class="navbar" style="{{'height: ' + navigationBarHeight}}">
-    <view style="{{'height: ' + statusBarHeight}}"></view>
-    <view class='title-container'>
-        <view class='capsule' wx:if="{{ back || home }}">
-            <view bindtap='back' wx:if="{{back}}">
-                <image src='/images/back.png'></image>
-            </view>
-            <view bindtap='backHome' wx:if="{{home}}">
-                <image src='/images/home.png'></image>
-            </view>
-        </view>
-        <view class='title'>{{text}}</view>
-    </view>
-</view>
-<view style="{{'height: ' + navigationBarHeight}};background: white;"></view>
+<cover-view class="navbar">
+    <cover-view style="{{'height: ' + statusBarHeight}}"></cover-view>
+    <cover-view class='title-container'>
+        <cover-view class="title">房间:{{roomNum}}</cover-view>
+    </cover-view>
+</cover-view>
+<cover-view style="{{'height: ' + navigationBarHeight}};background: white;"></cover-view>

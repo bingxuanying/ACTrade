@@ -1,7 +1,7 @@
 <!-- pages/profile/profile.wxml -->
-<view class="profile" style="visibility:{{isLoading? 'hidden': 'visiable'}}">
+<view class="profile">
   <image class="passport" src="../../assets/passport/passport.png" mode="widthFix" />
-  <view class="userinfo" wx:if="{{!isLoading}}">
+  <view class="userinfo">
     <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
     <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 130rpx">
       登入信息
@@ -60,7 +60,7 @@
   <view class="warn" wx:elif="{{!hasUserInfo}}">
     <text>请先登入信息</text>
   </view>
-  <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
+  <!-- <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" /> -->
   <image src="../../assets/icons/EarthLoading.gif" wx:if="{{savingStatus === 'saving'}}" />
   <!-- <image src="../../assets/icons/PearIconGray.png" wx:if="{{savingStatus === 'done'}}" /> -->
 </view>

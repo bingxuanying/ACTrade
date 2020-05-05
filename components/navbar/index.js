@@ -14,6 +14,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    roomNum: {
+      type: Int16Array,
+      value: 0,
+    },
   },
   data: {
     statusBarHeight: app.globalData.statusBarHeight + "px",

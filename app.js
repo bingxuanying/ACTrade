@@ -57,7 +57,11 @@ App({
     });
     wx.getSystemInfo({
       success: (res) => {
-        this.globalData.height = res.statusBarHeight;
+        this.globalData.statusBarHeight = res.statusBarHeight;
+        console.log("statusBarHeight: " + this.globalData.statusBarHeight);
+      },
+      fail: (res) => {
+        console.log("get statusBarHeight Failed");
       },
     });
     // 云函数模板
@@ -88,6 +92,6 @@ App({
       roomID: "f10018335eab718600317a395487a68a",
       timeStamp: null,
     },
-    height: 0,
+    statusBarHeight: 0,
   },
 });

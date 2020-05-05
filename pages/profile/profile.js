@@ -13,10 +13,8 @@ Page({
     hemisphere: "north",
     animActive: false,
     savingStatus: "none", // saving -> done -> none
-    isLoading: true,
   },
   onLoad: function () {
-    console.log(this.data.isLoading);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -25,8 +23,6 @@ Page({
         islandName: app.globalData.gameProfile.islandName,
         fruit: app.globalData.gameProfile.fruit,
         hemisphere: app.globalData.gameProfile.hemisphere,
-        // isLoading
-        isLoading: false,
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -35,7 +31,6 @@ Page({
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true,
-          isLoading: true,
         });
 
         // onLaunch -> onLoad -> onLaunch: has to get data here
@@ -48,7 +43,6 @@ Page({
                   islandName: res.data[0].islandName,
                   fruit: res.data[0].fruit,
                   hemisphere: res.data[0].hemisphere,
-                  isLoading: false,
                 });
               }
             },
@@ -66,7 +60,6 @@ Page({
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true,
-            isLoading: false,
           });
 
           db.collection("UsersProfile").get({
@@ -94,7 +87,6 @@ Page({
         },
       });
     }
-    console.log(this.data.isLoading);
   },
   getUserInfo: function (e) {
     console.log(e);
