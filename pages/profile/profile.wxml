@@ -1,66 +1,67 @@
 <!-- pages/profile/profile.wxml -->
-<view class="profile">
-  <image class="passport" src="../../assets/passport/passport.png" mode="widthFix" />
-  <view class="userinfo">
-    <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
-    <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 130rpx">
-      登入信息
-    </button>
-    <block wx:else>
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
-      <view class="userinfo-name-box">
-        <image class="userinfo-name-box-icon" src="../../assets/icons/AvatarIcon.png" />
-        <text class="userinfo-name-box-name">{{userInfo.nickName}}</text>
+<block style="position:relative;">
+  <view class="profile" hidden="{{isLoading}}">
+    <image class="passport" src="../../assets/passport/passport.png" mode="widthFix" />
+    <view class="userinfo">
+      <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
+      <button class="userinfo-btn" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width: 130rpx">
+        登入信息
+      </button>
+      <block wx:else>
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
+        <view class="userinfo-name-box">
+          <image class="userinfo-name-box-icon" src="../../assets/icons/AvatarIcon.png" />
+          <text class="userinfo-name-box-name">{{userInfo.nickName}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="personalInfo" wx:if="{{hasUserInfo}}">
+      <view class="personalInfo-row">
+        <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
+        <view class="personalInfo-title">游戏昵称</view>
+        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" />
       </view>
-    </block>
-  </view>
-  <view class="personalInfo" wx:if="{{hasUserInfo}}">
-    <view class="personalInfo-row">
-      <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
-      <view class="personalInfo-title">游戏昵称</view>
-      <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" />
-    </view>
-    <view class="personalInfo-row">
-      <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
-      <view class="personalInfo-title">岛名</view>
-      <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
-    </view>
-    <view class="personalInfo-row">
-      <view class="fruit-background">
-        <image class="fruit" src="{{fruit==='apple'?'../../assets/icons/AppleIcon.png':'../../assets/icons/AppleIconGray.png'}}" mode="widthFix" bindtap="onTapApple" />
-        <image class="fruit" src="{{fruit==='cherry'?'../../assets/icons/CherryIcon.png':'../../assets/icons/CherryIconGray.png'}}" mode="widthFix" bindtap="onTapCherry" />
-        <image class="fruit" src="{{fruit==='orange'?'../../assets/icons/OrangeIcon.png':'../../assets/icons/OrangeIconGray.png'}}" mode="widthFix" bindtap="onTapOrange" />
-        <image class="fruit" src="{{fruit==='peach'?'../../assets/icons/PeachIcon.png':'../../assets/icons/PeachIconGray.png'}}" mode="widthFix" bindtap="onTapPeach" />
-        <image class="fruit" src="{{fruit==='pear'?'../../assets/icons/PearIcon.png':'../../assets/icons/PearIconGray.png'}}" mode="widthFix" bindtap="onTapPear" />
+      <view class="personalInfo-row">
+        <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
+        <view class="personalInfo-title">岛名</view>
+        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
       </view>
-    </view>
-    <view class="personalInfo-row">
-      <image wx:if="{{hemisphere === 'north'}}" class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
-      <image wx:else class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
-      <view class="personalInfo-title">地理位置</view>
-      <!-- Swith box Here -->
-      <view class="switch-box" bindtap="changeSwitch">
-        <view class="switch-btn {{hemisphere==='north' ? 'move-left': 'move-right'}}">
-          <view class="switch-btn-text">
-            <text>{{hemisphere==='north' ? '北半球' : '南半球'}}</text>
+      <view class="personalInfo-row">
+        <view class="fruit-background">
+          <image class="fruit" src="{{fruit==='apple'?'../../assets/icons/AppleIcon.png':'../../assets/icons/AppleIconGray.png'}}" mode="widthFix" bindtap="onTapApple" />
+          <image class="fruit" src="{{fruit==='cherry'?'../../assets/icons/CherryIcon.png':'../../assets/icons/CherryIconGray.png'}}" mode="widthFix" bindtap="onTapCherry" />
+          <image class="fruit" src="{{fruit==='orange'?'../../assets/icons/OrangeIcon.png':'../../assets/icons/OrangeIconGray.png'}}" mode="widthFix" bindtap="onTapOrange" />
+          <image class="fruit" src="{{fruit==='peach'?'../../assets/icons/PeachIcon.png':'../../assets/icons/PeachIconGray.png'}}" mode="widthFix" bindtap="onTapPeach" />
+          <image class="fruit" src="{{fruit==='pear'?'../../assets/icons/PearIcon.png':'../../assets/icons/PearIconGray.png'}}" mode="widthFix" bindtap="onTapPear" />
+        </view>
+      </view>
+      <view class="personalInfo-row">
+        <image wx:if="{{hemisphere === 'north'}}" class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
+        <image wx:else class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
+        <view class="personalInfo-title">地理位置</view>
+        <!-- Swith box Here -->
+        <view class="switch-box" bindtap="changeSwitch">
+          <view class="switch-btn {{hemisphere==='north' ? 'move-left': 'move-right'}}">
+            <view class="switch-btn-text">
+              <text>{{hemisphere==='north' ? '北半球' : '南半球'}}</text>
+            </view>
           </view>
         </view>
       </view>
+      <!-- Switch box Done Here -->
+      <button class="confirm-btn" style="width:150rpx; " bindtap="onTapDone">
+        <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
+          A
+        </view>
+        <view class="confirm-btn-text">
+          <text>保存</text>
+        </view>
+      </button>
     </view>
-    <!-- Switch box Done Here -->
-    <button class="confirm-btn" style="width:150rpx; " bindtap="onTapDone">
-      <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-        A
-      </view>
-      <view class="confirm-btn-text">
-        <text>保存</text>
-      </view>
-    </button>
+    <view class="warn" wx:elif="{{!hasUserInfo}}">
+      <text>请先登入信息</text>
+    </view>
   </view>
-  <view class="warn" wx:elif="{{!hasUserInfo}}">
-    <text>请先登入信息</text>
-  </view>
-  <!-- <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" /> -->
-  <!-- <image src="../../assets/icons/EarthLoading.gif" wx:if="{{savingStatus === 'saving'}}" /> -->
-  <!-- <image src="../../assets/icons/PearIconGray.png" wx:if="{{savingStatus === 'done'}}" /> -->
-</view>
+  <image class="loadingGIF" src="../../assets/passport/IslandLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
+  <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" wx:if="{{isSaving}}" />
+</block>

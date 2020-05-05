@@ -12,6 +12,8 @@ Page({
     fruit: "apple",
     hemisphere: "north",
     animActive: false,
+    isLoading: true,
+    isSaving: false,
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -22,6 +24,8 @@ Page({
         islandName: app.globalData.gameProfile.islandName,
         fruit: app.globalData.gameProfile.fruit,
         hemisphere: app.globalData.gameProfile.hemisphere,
+        isLoading: true,
+        isSaving: false,
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -86,6 +90,7 @@ Page({
         },
       });
     }
+    console.log("set isLoading true");
   },
   getUserInfo: function (e) {
     console.log(e);
@@ -187,6 +192,11 @@ Page({
     // console.log(this.data.hemisphere);
   },
   onTapDone: function () {
+    //触发保存动画
+    var that = this;
+    this.setData({
+      isSaving: true,
+    });
     db.collection("UsersProfile")
       .doc(app.globalData.id)
       .update({
@@ -204,7 +214,7 @@ Page({
             fruit: this.data.fruit,
             hemisphere: this.data.hemisphere,
           };
-          console.log(res);
+          this.setData({ isSaving: false });
         },
       });
   },
@@ -215,5 +225,13 @@ Page({
         selected: 1, // 根据tab的索引值设置
       });
     }
+  },
+  onReady() {
+    var that = this;
+    setTimeout(function () {
+      that.setData({
+        isLoading: false,
+      });
+    }, 500);
   },
 });
