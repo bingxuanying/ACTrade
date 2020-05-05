@@ -62,6 +62,6 @@
       <text>请先登入信息</text>
     </view>
   </view>
-  <image class="loadingGIF" src="../../assets/passport/IslandLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
-  <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" wx:if="{{isSaving}}" />
+  <image class="loadingGIF" src="../../assets/passport/PassportLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
+  <image class="loadingGIF" src="{{EarthLoadingUrl}}" hidden="{{!isSaving}}" />
 </block>
