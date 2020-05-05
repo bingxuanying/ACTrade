@@ -12,7 +12,6 @@ Page({
     fruit: "apple",
     hemisphere: "north",
     animActive: false,
-    savingStatus: "none", // saving -> done -> none
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -28,13 +27,13 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = (res) => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true,
-        });
-
         // onLaunch -> onLoad -> onLaunch: has to get data here
-        if (this.data.hasUserInfo) {
+        if (res.userInfo) {
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true,
+          });
+
           db.collection("UsersProfile").get({
             success: (res) => {
               if (res.data.length > 0) {
@@ -90,56 +89,56 @@ Page({
   },
   getUserInfo: function (e) {
     console.log(e);
-    app.globalData.userInfo = e.detail.userInfo;
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true,
-      savingStatus: "saving",
-    });
-    db.collection("UsersProfile").get({
-      success: (userData) => {
-        if (userData.data.length > 0) {
-          app.globalData.id = userData.data[0]._id;
-          app.globalData.gameProfile = {
-            nickname: userData.data[0].nickname,
-            islandName: userData.data[0].islandName,
-            fruit: userData.data[0].fruit,
-            hemisphere: userData.data[0].hemisphere,
-          };
 
-          this.setData({
-            nickname: userData.data[0].nickname,
-            islandName: userData.data[0].islandName,
-            fruit: userData.data[0].fruit,
-            hemisphere: userData.data[0].hemisphere,
-          });
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      app.globalData.userInfo = e.detail.userInfo;
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true,
+      });
+      db.collection("UsersProfile").get({
+        success: (userData) => {
+          if (userData.data.length > 0) {
+            app.globalData.id = userData.data[0]._id;
+            app.globalData.gameProfile = {
+              nickname: userData.data[0].nickname,
+              islandName: userData.data[0].islandName,
+              fruit: userData.data[0].fruit,
+              hemisphere: userData.data[0].hemisphere,
+            };
 
-          db.collection("UsersProfile").update({
-            data: {
-              userInfo: this.data.userInfo,
-            },
-            success: (res) => {
-              app.globalData.id = userData.data[0]._id;
-            },
-          });
-        } else {
-          db.collection("UsersProfile").add({
-            data: {
-              userInfo: this.data.userInfo,
-              nickname: "",
-              islandName: "",
-              fruit: "apple",
-              hemisphere: "north",
-            },
-            success: (res) => {
-              app.globalData.id = userData.data[0]._id;
-            },
-          });
-        }
-      },
-    });
+            this.setData({
+              nickname: userData.data[0].nickname,
+              islandName: userData.data[0].islandName,
+              fruit: userData.data[0].fruit,
+              hemisphere: userData.data[0].hemisphere,
+            });
 
-    this.setData({ savingStatus: "none" });
+            db.collection("UsersProfile").update({
+              data: {
+                userInfo: this.data.userInfo,
+              },
+              success: (res) => {
+                app.globalData.id = userData.data[0]._id;
+              },
+            });
+          } else {
+            db.collection("UsersProfile").add({
+              data: {
+                userInfo: this.data.userInfo,
+                nickname: "",
+                islandName: "",
+                fruit: "apple",
+                hemisphere: "north",
+              },
+              success: (res) => {
+                app.globalData.id = userData.data[0]._id;
+              },
+            });
+          }
+        },
+      });
+    }
   },
   bindNicknameInput: function (e) {
     this.setData({
@@ -188,8 +187,6 @@ Page({
     // console.log(this.data.hemisphere);
   },
   onTapDone: function () {
-    this.setData({ savingStatus: "saving" });
-
     db.collection("UsersProfile")
       .doc(app.globalData.id)
       .update({
@@ -201,7 +198,6 @@ Page({
           hemisphere: this.data.hemisphere,
         },
         success: (res) => {
-          this.setData({ savingStatus: "none" });
           app.globalData.gameProfile = {
             nickname: this.data.nickname,
             islandName: this.data.islandName,

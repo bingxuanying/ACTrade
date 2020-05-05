@@ -61,6 +61,6 @@
     <text>请先登入信息</text>
   </view>
   <!-- <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" /> -->
-  <image src="../../assets/icons/EarthLoading.gif" wx:if="{{savingStatus === 'saving'}}" />
+  <!-- <image src="../../assets/icons/EarthLoading.gif" wx:if="{{savingStatus === 'saving'}}" /> -->
   <!-- <image src="../../assets/icons/PearIconGray.png" wx:if="{{savingStatus === 'done'}}" /> -->
 </view>

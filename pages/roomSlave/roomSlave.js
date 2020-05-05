@@ -1,6 +1,7 @@
 // pages/roomSlave/roomSlave.js
 const app = getApp();
 const db = wx.cloud.database();
+const util = require("../../utils/util");
 
 Page({
   data: {
@@ -17,6 +18,7 @@ Page({
       roomNum: "",
     },
     Slaves: [],
+    timeStamp: "",
     closeBtnClick: false,
     // page 0 -> line page, page 1 -> setting page
     page: 0,
@@ -30,8 +32,87 @@ Page({
     note: "",
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
+    // onLoad check status
+    clientStatus: "ok", // no auth -> no name -> ok
+    nickname: "",
+    islandName: "",
   },
-  onLoad: function () {
+  onLoad: function (query) {
+    if (query.room_id) {
+      console.log(query.room_id);
+      app.globalData.roomInfo.roomID = query.room_id;
+      // registered
+      if (app.globalData.userInfo) {
+        if (
+          app.globalData.gameProfile.nickname.length > 0 &&
+          app.globalData.gameProfile.islandName.length > 0
+        ) {
+          app.globalData.roomInfo.timeStamp = util.formatTime();
+          this.checkin();
+        } else {
+          this.setData({ clientStatus: "no name" });
+        }
+      }
+      // has auth
+      else if (this.data.canIUse) {
+        app.userInfoReadyCallback = (res) => {
+          if (res.userInfo) {
+            db.collection("UsersProfile").get({
+              success: (res) => {
+                if (res.data.length > 0) {
+                  app.globalData.gameProfile = {
+                    nickname: res.data[0].nickname,
+                    islandName: res.data[0].islandName,
+                    fruit: res.data[0].fruit,
+                    hemisphere: res.data[0].hemisphere,
+                  };
+                  if (
+                    app.globalData.gameProfile.nickname.length > 0 &&
+                    app.globalData.gameProfile.islandName.length > 0
+                  ) {
+                    app.globalData.roomInfo.timeStamp = util.formatTime();
+                    this.checkin();
+                  } else {
+                    this.setData({ clientStatus: "no name" });
+                  }
+                }
+              },
+              fail: (res) => {
+                console.log("fail: " + res);
+                wx.switchTab({
+                  url: "/pages/tradingFloor/tradingFloor",
+                });
+              },
+            });
+          } else {
+            this.setData({ clientStatus: "no auth" });
+          }
+        };
+      }
+      // no auth or not registered
+      else {
+        this.setData({ clientStatus: "no auth" });
+      }
+    } else {
+      this.checkin();
+    }
+  },
+  checkin: function () {
+    console.log(app.globalData);
+
+    db.collection("Flights")
+      .doc(app.globalData.roomInfo.roomID)
+      .update({
+        data: {
+          slaves: db.command.push({
+            avatar: app.globalData.userInfo.avatarUrl,
+            islandName: app.globalData.gameProfile.islandName,
+            nickname: app.globalData.gameProfile.nickname,
+            timeStamp: app.globalData.roomInfo.timeStamp,
+          }),
+        },
+      });
+
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .get({
@@ -51,6 +132,7 @@ Page({
               people: res.data.people,
               roomNum: res.data.roomNum,
             },
+            timeStamp: app.globalData.roomInfo.timeStamp,
             flight: res.data.flight,
             price: res.data.price,
             code: res.data.code,
@@ -100,7 +182,7 @@ Page({
       });
     }
   },
-  modalHide: function (e) {
+  modalLeaveHide: function (e) {
     this.setData({
       closeBtnClick: false,
       showModal: false,
@@ -127,6 +209,18 @@ Page({
       timeStamp: null,
     };
 
-    wx.navigateBack();
+    // wx.navigateBack()
+    wx.switchTab({
+      url: "/pages/tradingFloor/tradingFloor",
+    });
+  },
+  onShareAppMessage: function (res) {
+    console.log(res);
+    return {
+      title: "Join the Room#" + this.data.roomInfo.roomNum,
+      path:
+        "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
+      imageUrl: "../../assets/SharePage.png",
+    };
   },
 });

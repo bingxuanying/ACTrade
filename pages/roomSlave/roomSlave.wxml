@@ -129,21 +129,29 @@
         </view>
         <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix" />
       </view>
-      <view class="tool-changeBtn">
+      <button class="tool-changeBtn" style="width: 45%;" open-type="share">
         <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix" />
         <view class="tool-box-text" style="color: #fff7ce">分享</view>
         <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix" />
-      </view>
+      </button>
     </view>
-    <!-- mask -->
-    <view class='mask' wx:if="{{closeBtnClick}}" bindtap='modalHide' />
-    <!-- modal -->
-    <view class='mymodal fade-in' wx:if="{{closeBtnClick}}">
-      <view class="modal-text">确定退出房间吗？</view>
-      <view class="modal-options">
-        <view class="modal-btn" bindtap="modalHide">返回</view>
-        <view class="modal-btn" bindtap="onTapClose">确定</view>
-      </view>
+  </view>
+  <!-- join room -->
+  <!-- mask -->
+  <view class='mask-join' wx:if="{{clientStatus==='no auth'||clientStatus==='no name'}}" />
+  <!-- modal_1: no auth -->
+  <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}"></view>
+  <!-- modal_2: no name -->
+  <view class='mymodal-name' wx:if="{{clientStatus==='no name'}}"></view>
+  <!-- leave room -->
+  <!-- mask -->
+  <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap='modalLeaveHide' />
+  <!-- modal -->
+  <view class='mymodal-leave fade-in' wx:if="{{closeBtnClick}}">
+    <view class="modal-leave-text">确定退出房间吗？</view>
+    <view class="modal-leave-options">
+      <view class="modal-leave-btn" bindtap="modalLeaveHide">返回</view>
+      <view class="modal-leave-btn" bindtap="onTapClose">确定</view>
     </view>
   </view>
 </block>

@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/tradingFloor/tradingFloor",
-    "pages/roomMaster/roomMaster",
     "pages/roomSlave/roomSlave",
+    "pages/roomMaster/roomMaster",
     "pages/profile/profile",
     "pages/roomCreate/roomCreate",
     "pages/roomAdd/roomAdd"
