@@ -13,7 +13,8 @@ Page({
     },
     roomInfo: {
       code: null,
-      people: 0
+      people: 0,
+      roomNum: "",
     },
     Slaves: [],
     closeBtnClick: false,
@@ -28,6 +29,8 @@ Page({
     time: 6,
     people: 3,
     note: "",
+    // nav-bar
+    statusBarHeight: app.globalData.statusBarHeight,
   },
   onLoad: function () {
     db.collection("Flights")
@@ -43,10 +46,12 @@ Page({
               masterName: master.gameProfile.nickname,
               fruit: master.gameProfile.fruit,
               hemisphere: master.gameProfile.fruit,
+              roomNum: res.data.roomNum,
             },
             roomInfo: {
               code: res.data.code,
-              people: res.data.people
+              people: res.data.people,
+              roomNum: res.data.roomNum,
             },
             flight: res.data.flight,
             price: res.data.price,
