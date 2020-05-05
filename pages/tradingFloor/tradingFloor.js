@@ -5,13 +5,13 @@ const util = require("../../utils/util");
 
 Page({
   data: {
-    curTool_id: '',
-    preTool_id: '',
+    curTool_id: "",
+    preTool_id: "",
     isLoading: false,
     offset: 0,
-    order: 'createTime',
+    order: "createTime",
     showModal: false,
-    keyword: '',
+    keyword: "",
     cards: [],
   },
   onLoad: function () {
@@ -27,20 +27,20 @@ Page({
       .limit(10)
       .get({
         success: (res) => {
-          console.log(res.data)
+          console.log(res.data);
           this.setData({
             cards: res.data,
             isLoading: false,
-          })
+          });
         },
-      })
+      });
   },
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.setData({
       isLoading: true,
     });
     wx.stopPullDownRefresh({
-      complete: res => {
+      complete: (res) => {
         if (this.data.keyword.length === 5) {
           db.collection("Flights")
             .where({
@@ -58,8 +58,7 @@ Page({
                 });
               },
             });
-        } 
-        else {
+        } else {
           db.collection("Flights")
             .where({
               flight: "Business",
@@ -77,10 +76,10 @@ Page({
               },
             });
         }
-      }
-    })
+      },
+    });
   },
-  onReachBottom: function() {
+  onReachBottom: function () {
     if (this.data.keyword.length === 5) {
       db.collection("Flights")
         .where({
@@ -98,8 +97,7 @@ Page({
             });
           },
         });
-    } 
-    else {
+    } else {
       db.collection("Flights")
         .where({
           flight: "Business",
@@ -119,18 +117,21 @@ Page({
     }
   },
   onTapCreate: function () {
-    if (app.globalData.userInfo && app.globalData.gameProfile.nickname.length > 0 && app.globalData.gameProfile.islandName.length > 0){
+    if (
+      app.globalData.userInfo &&
+      app.globalData.gameProfile.nickname.length > 0 &&
+      app.globalData.gameProfile.islandName.length > 0
+    ) {
       wx.navigateTo({
         url: "/pages/roomCreate/roomCreate",
         complete: (res) => {
           console.log(res);
         },
       });
-    }
-    else {
+    } else {
       wx.switchTab({
-        url: '/pages/profile/profile',
-      })
+        url: "/pages/profile/profile",
+      });
     }
   },
   onTapTime: function () {
@@ -157,8 +158,7 @@ Page({
               });
             },
           });
-      } 
-      else {
+      } else {
         db.collection("Flights")
           .where({
             flight: "Business",
@@ -202,8 +202,7 @@ Page({
               });
             },
           });
-      } 
-      else {
+      } else {
         db.collection("Flights")
           .where({
             flight: "Business",
@@ -291,21 +290,24 @@ Page({
     else this.setData({ curTool_id: e.currentTarget.id });
   },
   onTapJoin: function (e) {
-    if (app.globalData.userInfo && app.globalData.gameProfile.nickname.length > 0 && app.globalData.gameProfile.islandName.length > 0){
+    if (
+      app.globalData.userInfo &&
+      app.globalData.gameProfile.nickname.length > 0 &&
+      app.globalData.gameProfile.islandName.length > 0
+    ) {
       app.globalData.roomInfo = {
         roomID: e.currentTarget.id,
         timeStamp: util.formatTime(),
       };
       console.log(app.globalData.roomInfo);
-  
+
       wx.navigateTo({
         url: "/pages/roomSlave/roomSlave",
       });
-    }
-    else {
+    } else {
       wx.switchTab({
-        url: '/pages/profile/profile',
-      })
+        url: "/pages/profile/profile",
+      });
     }
   },
   // TabBar setting
@@ -315,5 +317,30 @@ Page({
         selected: 0, // 根据tab的索引值设置
       });
     }
+  },
+
+  // 推送测试
+  // 获取formid
+  getFormid(event) {
+    console.log("获取到的formid", event.detail.formId);
+    this.setData({
+      formid: event.detail.formId,
+    });
+  },
+  // 推送消息
+  sendMsg() {
+    let fromid = this.data.formid;
+    wx.cloud.callFunction({
+      name: "lineNotify",
+      data: {
+        formId: fromid,
+      },
+      success(res) {
+        console.log("推送成功", res);
+      },
+      fail(res) {
+        console.log("推送失败", res);
+      },
+    });
   },
 });

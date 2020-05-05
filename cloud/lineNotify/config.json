@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "openapi": ["wxacode.get", "templateMessage.send", "subscribeMessage.send"]
+  },
+  "triggers": [
+    {
+      "name": "sendMessagerTimer",
+      "type": "timer",
+      "config": "0 * * * * * *"
+    }
+  ]
+}
