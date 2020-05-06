@@ -323,6 +323,14 @@ Page({
       });
     }
   },
+  onShareAppMessage: function (e) {
+    return {
+      title: "Join the Room#" + e.target.dataset.roomnum,
+      path:
+        "/pages/roomSlave/roomSlave?room_id=" + e.target.dataset.id,
+      imageUrl: "../../assets/SharePage.png",
+    };
+  },
   // TabBar setting
   onShow() {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
