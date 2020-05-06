@@ -39,6 +39,8 @@ Page({
   onPullDownRefresh: function () {
     this.setData({
       isLoading: true,
+      curTool_id: "",
+      preTool_id: "",
     });
     wx.stopPullDownRefresh({
       complete: (res) => {

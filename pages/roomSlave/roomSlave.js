@@ -39,7 +39,7 @@ Page({
     fruit: "apple",
     hemisphere: "north",
     // check current status
-    kicked: true,
+    kicked: false,
     closed: false
   },
   onLoad: function (query) {
