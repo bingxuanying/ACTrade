@@ -2,6 +2,7 @@ const cloud = require("wx-server-sdk");
 
 cloud.init();
 const db = cloud.database();
+const _ = db.command;
 
 exports.main = async (event, context) => {
   console.log(event);
@@ -13,23 +14,20 @@ async function sendTemplateMessage(event) {
     const { OPENID } = cloud.getWXContext();
     const result = await cloud.openapi.subscribeMessage.send({
       touser: OPENID,
-      page: "index",
+      page: "tradingFloor",
       lang: "zh_CN",
       data: {
-        number01: {
-          value: "339208499",
+        phrase1: {
+          value: "动森排队",
         },
-        date01: {
+        phrase3: {
           value: "2015年01月05日",
         },
-        site01: {
-          value: "TIT创意园",
-        },
-        site02: {
-          value: "广州市新港中路397号",
+        character_string2: {
+          value: "12345",
         },
       },
-      templateId: "TEMPLATE_ID",
+      templateId: "qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA",
       miniprogramState: "developer",
     });
     return result;
