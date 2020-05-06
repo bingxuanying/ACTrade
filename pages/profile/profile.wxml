@@ -49,7 +49,7 @@
         </view>
       </view>
       <!-- Switch box Done Here -->
-      <button class="confirm-btn" style="width:150rpx; " bindtap="onTapDone">
+      <button class="confirm-btn" style="width:140rpx; " bindtap="onTapDone">
         <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
           A
         </view>

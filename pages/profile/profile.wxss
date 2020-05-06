@@ -42,7 +42,7 @@
   top: 148rpx;
   left: 57rpx;
   border-radius: 67rpx;
-  border: white solid 10rpx;
+  border: #f5efd5 solid 10rpx;
 }
 
 .userinfo-name-box {
@@ -93,7 +93,7 @@
   font-size: inherit;
   margin-bottom: 25rpx;
   padding-bottom: 25rpx;
-  border-bottom: white 2px solid;
+  border-bottom: #f5efd5 2px solid;
 }
 
 .personalInfo-icon {
@@ -150,7 +150,7 @@
   position: relative;
   font-size: 30rpx;
   padding: 3rpx;
-  background-color: #f5efd5;
+  background-color: #faf7e0;
   border: #000000;
   border-radius: 32rpx;
   display: flex;

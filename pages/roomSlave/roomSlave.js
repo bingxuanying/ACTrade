@@ -36,6 +36,8 @@ Page({
     clientStatus: "ok", // no auth -> no name -> ok
     nickname: "",
     islandName: "",
+    fruit: "apple",
+    hemisphere: "north",
   },
   onLoad: function (query) {
     if (query.room_id) {
@@ -48,6 +50,7 @@ Page({
           app.globalData.gameProfile.islandName.length > 0
         ) {
           app.globalData.roomInfo.timeStamp = util.formatTime();
+          this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
           this.checkin();
         } else {
           this.setData({ clientStatus: "no name" });
@@ -71,6 +74,7 @@ Page({
                     app.globalData.gameProfile.islandName.length > 0
                   ) {
                     app.globalData.roomInfo.timeStamp = util.formatTime();
+                    this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
                     this.checkin();
                   } else {
                     this.setData({ clientStatus: "no name" });
@@ -222,5 +226,99 @@ Page({
         "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
       imageUrl: "../../assets/SharePage.png",
     };
+  },
+  onTapBack: function() {
+    app.globalData.roomInfo = {
+      roomID: null,
+      timeStamp: null,
+    };
+
+    // wx.navigateBack()
+    wx.switchTab({
+      url: "/pages/tradingFloor/tradingFloor",
+    });
+  },
+  onTapRegister: function(e) {
+    console.log(e)
+
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      app.globalData.userInfo = e.detail.userInfo;
+
+      db.collection("UsersProfile").get({
+        success: (userData) => {
+          if (userData.data.length > 0) {
+            app.globalData.id = userData.data[0]._id;
+            app.globalData.gameProfile = {
+              nickname: userData.data[0].nickname,
+              islandName: userData.data[0].islandName,
+              fruit: userData.data[0].fruit,
+              hemisphere: userData.data[0].hemisphere,
+            };
+
+            this.setData({
+              nickname: userData.data[0].nickname,
+              islandName: userData.data[0].islandName,
+              fruit: userData.data[0].fruit,
+              hemisphere: userData.data[0].hemisphere,
+            });
+
+            db.collection("UsersProfile")
+            .doc(app.globalData.id)
+            .update({
+              data: {
+                userInfo: app.globalData.userInfo,
+              }
+            });
+
+            this.setData({clientStatus: "no name"});
+
+          } else {
+            db.collection("UsersProfile").add({
+              data: {
+                userInfo: app.globalData.userInfo,
+                nickname: "",
+                islandName: "",
+                fruit: "apple",
+                hemisphere: "north",
+              },
+              success: (userData) => {
+                app.globalData.id = userData.data[0]._id;
+                this.setData({clientStatus: "no name"});
+              },
+            });
+          }
+        },
+      });
+    }
+  },
+  onTapEnter: function() {
+    db.collection("UsersProfile")
+      .doc(app.globalData.id)
+      .update({
+        data: {
+          nickname: this.data.nickname,
+          islandName: this.data.islandName
+        },
+        success: (res) => {
+          app.globalData.gameProfile.nickname = this.data.nickname
+          app.globalData.gameProfile.islandName = this.data.islandName
+          app.globalData.roomInfo.timeStamp = util.formatTime();
+          this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
+          this.checkin()
+          this.setData({ clientStatus: "ok" });
+        },
+      });    
+  },
+  bindNicknameInput: function (e) {
+    this.setData({
+      nickname: e.detail.value,
+    });
+    console.log("nickname: " + this.data.nickname);
+  },
+  bindIslandNameInput: function (e) {
+    this.setData({
+      islandName: e.detail.value,
+    });
+    console.log("islandName: " + this.data.islandName);
   },
 });

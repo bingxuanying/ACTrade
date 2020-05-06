@@ -72,7 +72,7 @@
             <!-- green: code appears -->
             <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
               <!-- bg alg here -->
-              <view class="slaveInfo-stripebg-shader">
+              <view class="slaveInfo-stripebg-shader" wx:if="{{timeStamp===item.timeStamp}}">
                 <view class="slaveInfo-stripebg-box">
                   <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
                   <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
@@ -96,7 +96,7 @@
             <!-- gray: waiting in line -->
             <view class="slaveInfo" wx:else>
               <!-- bg alg here -->
-              <view class="slaveInfo-stripebg-shader">
+              <view class="slaveInfo-stripebg-shader" wx:if="{{timeStamp===item.timeStamp}}">
                 <view class="slaveInfo-stripebg-box">
                   <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
                   <image class="slaveInfo-stripebg" src="../../assets/stripebg.png" mode="aspectFill" />
@@ -136,13 +136,52 @@
       </button>
     </view>
   </view>
+
   <!-- join room -->
   <!-- mask -->
   <view class='mask-join' wx:if="{{clientStatus==='no auth'||clientStatus==='no name'}}" />
   <!-- modal_1: no auth -->
-  <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}"></view>
+  <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}">
+    <view class="auth-name-tag">秉轩</view>
+    <view class="auth-chat-box">请先登入才能进入或者开创房间哦~！</view>
+    <image class="auth-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
+  </view>
   <!-- modal_2: no name -->
-  <view class='mymodal-name' wx:if="{{clientStatus==='no name'}}"></view>
+  <view class='mymodal-name fade-in' wx:if="{{clientStatus==='no name'}}">
+    <view class="name-name-tag">伟力</view>
+    <view class="name-chat-box">
+      <text class="name-chat-content">请登记你游戏中的个人信息~！</text>
+      <view class="name-chat-box-row">
+        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
+        <view class="name-chat-box-title">游戏昵称</view>
+        <input class="name-chat-box-input" value="{{nickname}}" bindinput="bindNicknameInput" />
+      </view>
+      <view class="name-chat-box-row">
+        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
+        <view class="name-chat-box-title">岛名</view>
+        <input class="name-chat-box-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
+      </view>
+    </view>
+    <image class="name-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
+  </view>
+  <!-- modal btn -->
+  <button class="noAuthName-btn noAuthName-btn-register" style="width:140rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(nickname.length>0&&islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
+    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
+      A
+    </view>
+    <view class="confirm-btn-text">
+      <text>{{clientStatus==='no name'?'进房':'登入'}}</text>
+    </view>
+  </button>
+  <button class="noAuthName-btn noAuthName-btn-back" style="width:140rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
+    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
+      B
+    </view>
+    <view class="confirm-btn-text">
+      <text>返回</text>
+    </view>
+  </button>
+
   <!-- leave room -->
   <!-- mask -->
   <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap='modalLeaveHide' />

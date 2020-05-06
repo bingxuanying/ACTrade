@@ -136,24 +136,23 @@ Page({
               hemisphere: userData.data[0].hemisphere,
             });
 
-            db.collection("UsersProfile").update({
+            db.collection("UsersProfile")
+            .doc(app.globalData.id)
+            .update({
               data: {
-                userInfo: this.data.userInfo,
-              },
-              success: (res) => {
-                app.globalData.id = userData.data[0]._id;
-              },
+                userInfo: app.globalData.userInfo,
+              }
             });
           } else {
             db.collection("UsersProfile").add({
               data: {
-                userInfo: this.data.userInfo,
+                userInfo: app.globalData.userInfo,
                 nickname: "",
                 islandName: "",
                 fruit: "apple",
                 hemisphere: "north",
               },
-              success: (res) => {
+              success: (userData) => {
                 app.globalData.id = userData.data[0]._id;
               },
             });
@@ -209,8 +208,6 @@ Page({
     // console.log(this.data.hemisphere);
   },
   onTapDone: function () {
-    //触发保存动画
-    var that = this;
     this.setData({
       isSaving: true,
     });

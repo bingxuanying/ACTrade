@@ -624,7 +624,7 @@ page {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   top: 0;
   left: 0;
   z-index: 10;
@@ -632,11 +632,10 @@ page {
 }
 /*modal_1: no auth*/
 .mymodal-auth {
-  background-color: black;
   height: 500rpx;
   width: 100%;
   position: fixed;
-  top: 300rpx;
+  top: 470rpx;
   left: 0;
   display: flex;
   flex-direction: column;
@@ -645,7 +644,139 @@ page {
   z-index: 20;
   transition: all 600ms ease-out;
 }
-
+.auth-name-tag{
+  background-color: #de8729;
+  height: 60rpx;
+  width: 120rpx;
+  border-radius: 100rpx;
+  position: absolute;
+  top: 60rpx;
+  left: 30rpx;
+  transform: rotate(-9deg);
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  letter-spacing: 4rpx;
+  color: #5f1903;
+  font-weight: 500;
+}
+.auth-chat-box {
+  background-color: #f5efd5;
+  height: 300rpx;
+  width: 96%;
+  border-radius: 100rpx;
+  text-align: center;
+  line-height: 300rpx;
+  color: #756850;
+}
+.auth-chat-icon {
+  width: 40rpx;
+  position: absolute;
+  left: calc(50% - 20rpx);
+  top: 380rpx;
+}
+/*modal_2: no name*/
+.mymodal-name {
+  height: 500rpx;
+  width: 100%;
+  position: fixed;
+  top: 420rpx;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: all 600ms ease-out;
+}
+.name-name-tag{
+  background-color: #de8729;
+  height: 60rpx;
+  width: 120rpx;
+  border-radius: 100rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 30rpx;
+  transform: rotate(-9deg);
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  letter-spacing: 4rpx;
+  color: #5f1903;
+  font-weight: 500;
+}
+.name-chat-box {
+  background-color: #f5efd5;
+  height: 400rpx;
+  width: 96%;
+  border-radius: 100rpx;
+  color: #756850;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.name-chat-content {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+.name-chat-box-row {
+  width: 500rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: inherit;
+  margin-bottom: 20rpx;
+  padding-bottom: 10rpx;
+  border-bottom: #f5efd5 2px solid;
+}
+.name-chat-box-icon {
+  width: 12%;
+  margin-top: 9rpx;
+}
+.name-chat-box-title {
+  width: 30%;
+  margin-top: 7rpx;
+  padding-left: 10rpx;
+  font-size: inherit;
+}
+.name-chat-box-input {
+  width: 58%;
+  height: 35rpx;
+  background-color: lightyellow;
+  border-radius: 10rpx;
+  margin-left: 10rpx;
+  padding: 5rpx 10rpx;
+  font-size: inherit;
+}
+.name-chat-icon {
+  width: 40rpx;
+  position: absolute;
+  left: calc(50% - 20rpx);
+  top: 430rpx;
+}
+/* btn */
+.noAuthName-btn {
+  position: fixed;
+  top: 900rpx;
+  font-size: 30rpx;
+  padding: 3rpx;
+  background-color: #faf7e0;
+  border: #000000;
+  border-radius: 32rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+.noAuthName-btn-register {
+  right: 50rpx;
+}
+.noAuthName-btn-back {
+  right: 230rpx;
+}
 
 
 /* leave room */
@@ -661,10 +792,10 @@ page {
 }
 /*modal*/
 .mymodal-leave {
-  width: 100%;
+  width: 96%;
   height: 320rpx;
   background-color: #224153;
-  border-radius: 18%;
+  border-radius: 100rpx;
   opacity: 0.5;
   display: flex;
   flex-direction: column;
