@@ -38,6 +38,9 @@ Page({
     islandName: "",
     fruit: "apple",
     hemisphere: "north",
+    // check current status
+    kicked: true,
+    closed: false
   },
   onLoad: function (query) {
     if (query.room_id) {
@@ -112,7 +115,7 @@ Page({
             avatar: app.globalData.userInfo.avatarUrl,
             islandName: app.globalData.gameProfile.islandName,
             nickname: app.globalData.gameProfile.nickname,
-            timeStamp: app.globalData.roomInfo.timeStamp,
+            timeStamp: app.globalData.roomInfo.timeStamp
           }),
         },
       });
@@ -155,7 +158,16 @@ Page({
           this.setData({
             Slaves: snapshot.docs[0].slaves,
           });
-          console.log(this.data.Slaves);
+
+          if (snapshot.docs[0].kickedLst && snapshot.docs[0].kickedLst.length > 0) {
+            snapshot.docs[0].kickedLst.forEach(kickedStamp => {
+              if (app.globalData.roomInfo.timeStamp === kickedStamp)
+                this.setData({kicked: true})
+            });
+          }
+
+          if (snapshot.docs[0].status === "closed") 
+            this.setData({closed: true})
         },
         onError: (err) => {
           console.error(err);

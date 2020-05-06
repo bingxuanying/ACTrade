@@ -31,6 +31,8 @@ Page({
     note: "",
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
+    // kicked timeStamp
+    kickedPerson: null
   },
   onLoad: function () {
     db.collection("Flights")
@@ -162,9 +164,10 @@ Page({
         },
       });
   },
-  modalOpen: function (e) {
+  onTapDeleteBtn: function (e) {
     this.setData({
       showModal: true,
+      kickedPerson: e.currentTarget.dataset.x
     });
   },
   modalHide: function (e) {
@@ -174,9 +177,45 @@ Page({
     });
   },
   onTapKickOut: function () {
-    console.log("kick");
+    db.collection("Flights")
+      .doc(app.globalData.roomInfo.roomID)
+      .update({
+        data: {
+          slaves: db.command.pull(this.data.kickedPerson),
+          kickedLst: db.command.push(this.data.kickedPerson.timeStamp)
+        },
+      });
+
+    this.setData({
+      kickedPerson: null,
+      showModal: false,
+    });
   },
   onTapClose: function () {
-    console.log("close");
+    db.collection("Flights")
+      .doc(app.globalData.roomInfo.roomID)
+      .update({
+        data: {
+          status: "closed"
+        },
+      });
+    
+    app.globalData.roomInfo = {
+      roomID: null,
+      timeStamp: null,
+    };
+
+    wx.switchTab({
+      url: '/pages/tradingFloor/tradingFloor',
+    })
+  },
+  onShareAppMessage: function (res) {
+    console.log(res);
+    return {
+      title: "Join the Room#" + this.data.roomInfo.roomNum,
+      path:
+        "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
+      imageUrl: "../../assets/SharePage.png",
+    };
   },
 });

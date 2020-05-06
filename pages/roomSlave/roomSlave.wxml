@@ -184,13 +184,15 @@
 
   <!-- leave room -->
   <!-- mask -->
-  <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap='modalLeaveHide' />
+  <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap="{{!kicked&&!closed?'modalLeaveHide':''}}" />
   <!-- modal -->
-  <view class='mymodal-leave fade-in' wx:if="{{closeBtnClick}}">
-    <view class="modal-leave-text">确定退出房间吗？</view>
+  <view class='mymodal-leave fade-in' wx:if="{{closeBtnClick||closed||kicked}}">
+    <view class="modal-leave-text" wx:if="{{closed}}">改日再来吧，房主关门了...</view>
+    <view class="modal-leave-text" wx:elif="{{kicked}}">对不起，你被房主踢出房间了...</view>
+    <view class="modal-leave-text" wx:else>确定退出房间吗？</view>
     <view class="modal-leave-options">
-      <view class="modal-leave-btn" bindtap="modalLeaveHide">返回</view>
-      <view class="modal-leave-btn" bindtap="onTapClose">确定</view>
+      <view class="modal-leave-btn" bindtap="modalLeaveHide" wx:if="{{!closed&&!kicked}}">返回</view>
+      <view class="modal-leave-btn" bindtap="onTapClose">{{!closed&&!kicked?"确定":"返回大厅"}}</view>
     </view>
   </view>
 </block>

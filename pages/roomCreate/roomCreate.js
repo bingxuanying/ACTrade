@@ -92,7 +92,9 @@ Page({
         people: this.data.people,
         note: this.data.note,
         roomNum: roomChar + '0'.repeat(3 - roomNum.length) + roomNum,
-        createTime: util.formatTime()
+        createTime: util.formatTime(),
+        kickedLst: [],
+        status: 'online'
       },
       success: function(res) {
         app.globalData.roomInfo.roomID = res._id

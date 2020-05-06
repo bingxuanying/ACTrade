@@ -34,6 +34,7 @@
           <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
             <!-- green: code appears -->
             <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
+              <image class="slaveInfo-deleteicon" src="../../assets/icons/XIcon.png" mode="widthFix" bindtap="onTapDeleteBtn" data-x="{{item}}" />
               <view class="slaveInfo-head">
                 <view class="slaveInfo-head-top-green">
                   <image class="slaveInfo-head-top-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
@@ -51,6 +52,7 @@
             </view>
             <!-- gray: waiting in line -->
             <view class="slaveInfo" wx:else>
+              <image class="slaveInfo-deleteicon" src="../../assets/icons/XIcon.png" mode="widthFix" bindtap="onTapDeleteBtn" data-x="{{item}}" />
               <view class="slaveInfo-head">
                 <view class="slaveInfo-head-top-gray">
                   <view class="slaveInfo-head-top-text">第{{idx + 1}}位</view>
@@ -128,7 +130,7 @@
         </view>
         <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix" />
       </view>
-      <button class="tool-changeBtn" style="width: 45%;">
+      <button class="tool-changeBtn" style="width: 45%;" open-type="share">
         <image class="tool-box-icon" src="../../assets/icons/BoardcastIcon.png" mode="heightFix" />
         <view class="tool-box-text" style="color: #fff7ce">分享</view>
         <image class="tool-box-yicon" src="../../assets/icons/YIcon.png" mode="heightFix" />
@@ -138,7 +140,7 @@
   <!-- mask -->
   <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
   <!-- modal -->
-  <view class='mymodal' wx:if="{{showModal}}">
+  <view class='mymodal fade-in' wx:if="{{showModal}}">
     <view class="modal-text">{{closeBtnClick&&showModal?'确定关闭房间吗？':'确定踢出房间吗？'}}</view>
     <view class="modal-options">
       <view class="modal-btn" bindtap="modalHide">返回</view>

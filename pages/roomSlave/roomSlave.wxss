@@ -792,7 +792,7 @@ page {
 }
 /*modal*/
 .mymodal-leave {
-  width: 96%;
+  width: 98%;
   height: 320rpx;
   background-color: #224153;
   border-radius: 100rpx;
@@ -802,7 +802,7 @@ page {
   align-items: center;
   justify-content: center;
   position: fixed;
-  left: 0;
+  left: 1vw;
   bottom: 170rpx;
   z-index: 20;
   transition: all 600ms ease-out;
@@ -816,7 +816,6 @@ page {
   font-size: 34rpx;
   color: white;
   letter-spacing: 10rpx;
-  margin-left: 40rpx;
 }
 
 .modal-leave-options {
