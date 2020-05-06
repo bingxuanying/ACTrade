@@ -53,7 +53,7 @@ Page({
               success: (res) => {
                 this.setData({
                   cards: res.data,
-                  offset: 0,
+                  offset: 10,
                   isLoading: false,
                 });
               },
@@ -70,7 +70,7 @@ Page({
               success: (res) => {
                 this.setData({
                   cards: res.data,
-                  offset: 0,
+                  offset: 10,
                   isLoading: false,
                 });
               },
@@ -153,7 +153,7 @@ Page({
             success: (res) => {
               this.setData({
                 cards: res.data,
-                offset: 0,
+                offset: 10,
                 isLoading: false,
               });
             },
@@ -170,7 +170,7 @@ Page({
             success: (res) => {
               this.setData({
                 cards: res.data,
-                offset: 0,
+                offset: 10,
                 isLoading: false,
               });
             },
@@ -197,7 +197,7 @@ Page({
             success: (res) => {
               this.setData({
                 cards: res.data,
-                offset: 0,
+                offset: 10,
                 isLoading: false,
               });
             },
@@ -214,7 +214,7 @@ Page({
             success: (res) => {
               this.setData({
                 cards: res.data,
-                offset: 0,
+                offset: 10,
                 isLoading: false,
               });
             },
@@ -277,7 +277,7 @@ Page({
         success: (res) => {
           this.setData({
             cards: res.data,
-            offset: 0,
+            offset: 10,
             isLoading: false,
           });
         },
