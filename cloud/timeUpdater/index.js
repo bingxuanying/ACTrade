@@ -2,18 +2,16 @@ const cloud = require("wx-server-sdk");
 
 cloud.init();
 const db = cloud.database();
-
+const _ = db.command;
 exports.main = async (event, context) => {
   console.log("触发timeUpdater");
   try {
-    var myDate = new Date();
-    var mins = myDate.getMinutes();
-    return await db.collection('TimeTest').add({
+    return await db.collection('Flights').where({
+        TimeLeft: _.gt(0)
+    }).update({
       data:{
-        keya:"1",
-        keyb:"2",
-        TimeLeft:mins
-      }
+        TimeLeft: _.inc(-1)
+      }    
     })
   } catch (e) {
     console.log(e)
