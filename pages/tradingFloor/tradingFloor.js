@@ -34,27 +34,27 @@ Page({
           });
         },
       });
-    // 订阅消息授权申请
-    // wx.requestSubscribeMessage({
-    //   // 传入订阅消息的模板id
-    //   tmplIds: [qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA],
-    //   success(res) {
-    //     console.log(res);
-    //     wx.showToast({
-    //       title: "订阅成功",
-    //       icon: "success",
-    //       duration: 2000,
-    //     });
-    //   },
-    //   fail(res) {
-    //     wx.showToast({
-    //       title: "订阅失败",
-    //       icon: "success",
-    //       duration: 2000,
-    //     });
-    //     console.log(res);
-    //   },
-    // });
+    // 订阅消息授权申请;
+    wx.requestSubscribeMessage({
+      // 传入订阅消息的模板id
+      tmplIds: ["qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA"],
+      success(res) {
+        console.log(res);
+        wx.showToast({
+          title: "订阅成功",
+          icon: "success",
+          duration: 2000,
+        });
+      },
+      fail(res) {
+        wx.showToast({
+          title: "订阅失败",
+          icon: "success",
+          duration: 2000,
+        });
+        console.log(res);
+      },
+    });
   },
   onPullDownRefresh: function () {
     this.setData({
