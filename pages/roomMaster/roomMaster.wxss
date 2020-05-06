@@ -208,8 +208,9 @@ page {
   font-size: 28rpx;
 }
 .slaveInfo-deleteicon {
-  width: 8%;
+  width: 7%;
   position: relative;
+  z-index: 5;
 }
 .slaveInfo-head {
   width: 32%;
@@ -555,17 +556,17 @@ page {
 
 /*modal*/
 .mymodal {
-  width: 100%;
+  width: 98%;
   height: 320rpx;
-  background-color: black;
-  border-radius: 18%;
+  background-color: #224153;
+  border-radius: 100rpx;
   opacity: 0.5;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: fixed;
-  left: 0;
+  left: 1vw;
   bottom: 170rpx;
   z-index: 20;
   transition: all 600ms ease-out;
@@ -598,4 +599,17 @@ page {
   color: white;
   letter-spacing: 5rpx;
   text-align: center;
+}
+
+.fade-in {
+  animation: fadein 0.5s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
 }

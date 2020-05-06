@@ -21,6 +21,7 @@ Page({
     db.collection("Flights")
       .where({
         flight: "Business",
+        status: "online"
       })
       .orderBy(this.data.order, "desc")
       .skip(this.data.offset)
@@ -59,6 +60,8 @@ Page({
   onPullDownRefresh: function () {
     this.setData({
       isLoading: true,
+      curTool_id: "",
+      preTool_id: "",
     });
     wx.stopPullDownRefresh({
       complete: (res) => {
@@ -66,6 +69,7 @@ Page({
           db.collection("Flights")
             .where({
               roomNum: this.data.keyword,
+              status: "online"
             })
             .orderBy(this.data.order, "desc")
             .skip(0)
@@ -83,6 +87,7 @@ Page({
           db.collection("Flights")
             .where({
               flight: "Business",
+              status: "online"
             })
             .orderBy(this.data.order, "desc")
             .skip(0)
@@ -105,6 +110,7 @@ Page({
       db.collection("Flights")
         .where({
           roomNum: this.data.keyword,
+          status: "online"
         })
         .orderBy(this.data.order, "desc")
         .skip(this.data.offset)
@@ -122,6 +128,7 @@ Page({
       db.collection("Flights")
         .where({
           flight: "Business",
+          status: "online"
         })
         .orderBy(this.data.order, "desc")
         .skip(this.data.offset)
@@ -166,6 +173,7 @@ Page({
         db.collection("Flights")
           .where({
             roomNum: this.data.keyword,
+            status: "online"
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -183,6 +191,7 @@ Page({
         db.collection("Flights")
           .where({
             flight: "Business",
+            status: "online"
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -210,6 +219,7 @@ Page({
         db.collection("Flights")
           .where({
             roomNum: this.data.keyword,
+            status: "online"
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -227,6 +237,7 @@ Page({
         db.collection("Flights")
           .where({
             flight: "Business",
+            status: "online"
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -269,6 +280,7 @@ Page({
     db.collection("Flights")
       .where({
         roomNum: this.data.keyword,
+        status: "online"
       })
       .orderBy(this.data.order, "desc")
       .get({
@@ -290,6 +302,7 @@ Page({
     db.collection("Flights")
       .where({
         flight: "Business",
+        status: "online"
       })
       .orderBy(this.data.order, "desc")
       .skip(0)
