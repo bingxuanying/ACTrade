@@ -47,14 +47,22 @@
             </view>
           </view>
         </view>
+        <!-- Switch box Done Here -->
       </view>
-      <!-- Switch box Done Here -->
       <button class="confirm-btn" style="width:140rpx; " bindtap="onTapDone">
         <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
           A
         </view>
         <view class="confirm-btn-text">
           <text>保存</text>
+        </view>
+      </button>
+      <button class="confirm-btn" style="width:200rpx; margin-top: 15rpx;" bindtap="onSubscribe">
+        <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
+          Y
+        </view>
+        <view class="confirm-btn-text" style="">
+          <text>推送授权</text>
         </view>
       </button>
     </view>
