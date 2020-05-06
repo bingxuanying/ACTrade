@@ -1,84 +1,85 @@
 // pages/roomCreate/roomCreate.js
 const app = getApp();
-const util= require('../../utils/util')
+const util = require("../../utils/util");
 
 Page({
   data: {
-    flight: 'Business',
+    flight: "Business",
     price: 500,
-    code: '',
+    code: "",
     time: 6,
     people: 3,
-    note: '随便带点什么都可以~！'
+    note: "随便带点什么都可以~！",
   },
-  setPublic: function() {
+  setPublic: function () {
     this.setData({
-      flight: 'Business'
-    })
+      flight: "Business",
+    });
   },
-  setPrivate: function() {
+  setPrivate: function () {
     this.setData({
-      flight: 'Private'
-    })
+      flight: "Private",
+    });
   },
-  bindPriceInput: function(e) {
-    var priceAdjust = e.detail.value.replace(/\D+/g, '')
+  bindPriceInput: function (e) {
+    var priceAdjust = e.detail.value.replace(/\D+/g, "");
     this.setData({
-      price: priceAdjust ? parseInt(priceAdjust, 10) : 0
-    })
-    console.log('price: ' + this.data.price)
+      price: priceAdjust ? parseInt(priceAdjust, 10) : 0,
+    });
+    console.log("price: " + this.data.price);
   },
-  bindCodeInput: function(e) {
+  bindCodeInput: function (e) {
     this.setData({
       code: e.detail.value.toUpperCase(),
-    })
-    console.log('code: ' + this.data.code)
+    });
+    console.log("code: " + this.data.code);
   },
-  bindSliderTime: function(e) {
-    console.log('time: ' + e.detail.value)
+  bindSliderTime: function (e) {
+    console.log("time: " + e.detail.value);
     this.setData({
-      time: e.detail.value
-    })
+      time: e.detail.value,
+    });
   },
-  bindSliderPeople: function(e) {
-    console.log('limitOfPeople: ' + e.detail.value)
+  bindSliderPeople: function (e) {
+    console.log("limitOfPeople: " + e.detail.value);
     this.setData({
-      people: e.detail.value
-    })
+      people: e.detail.value,
+    });
   },
-  bindNoteInput: function(e) {
-    console.log('note: ' + e.detail.value)
+  bindNoteInput: function (e) {
+    console.log("note: " + e.detail.value);
     this.setData({
-      note: e.detail.value
-    })
+      note: e.detail.value,
+    });
   },
-  onTapBack: function() {
-    wx.navigateBack()
+  onTapBack: function () {
+    wx.navigateBack();
   },
-  onTapCreate: function() {
-    const db = wx.cloud.database()
-    var roomNum = Math.floor(Math.random() * 1000).toString()
-    var roomChar = app.globalData.gameProfile.hemisphere === 'north' ? 'N' : 'S'
+  onTapCreate: function () {
+    const db = wx.cloud.database();
+    var roomNum = Math.floor(Math.random() * 1000).toString();
+    var roomChar =
+      app.globalData.gameProfile.hemisphere === "north" ? "N" : "S";
 
-    switch(app.globalData.gameProfile.fruit) {
-      case 'apple':
-        roomChar += 'A'
+    switch (app.globalData.gameProfile.fruit) {
+      case "apple":
+        roomChar += "A";
         break;
-      case 'cherry':
-        roomChar += 'C'
+      case "cherry":
+        roomChar += "C";
         break;
-      case 'orange':
-        roomChar += 'O'
+      case "orange":
+        roomChar += "O";
         break;
-      case 'peach':
-        roomChar += 'P'
+      case "peach":
+        roomChar += "P";
         break;
-      case 'pear':
-        roomChar += 'L'
+      case "pear":
+        roomChar += "L";
         break;
     }
 
-    db.collection('Flights').add({
+    db.collection("Flights").add({
       data: {
         master: {
           userInfo: app.globalData.userInfo,
@@ -89,17 +90,18 @@ Page({
         price: this.data.price,
         code: this.data.code,
         time: this.data.time,
+        timeLeft: this.data.time * 60,
         people: this.data.people,
         note: this.data.note,
-        roomNum: roomChar + '0'.repeat(3 - roomNum.length) + roomNum,
-        createTime: util.formatTime()
+        roomNum: roomChar + "0".repeat(3 - roomNum.length) + roomNum,
+        createTime: util.formatTime(),
       },
-      success: function(res) {
-        app.globalData.roomInfo.roomID = res._id
+      success: function (res) {
+        app.globalData.roomInfo.roomID = res._id;
         wx.redirectTo({
-          url: '/pages/roomMaster/roomMaster',
-        })
-      }
-    })
-  }
-})
+          url: "/pages/roomMaster/roomMaster",
+        });
+      },
+    });
+  },
+});

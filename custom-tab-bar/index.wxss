@@ -27,16 +27,17 @@
 }
 
 .tab-bar-icon-active {
-  width: 56rpx;
-  height: 65.3rpx;
+  width: 65rpx;
+  height: 75.8rpx;
   position: absolute;
-  bottom: 65.3rpx;
+  bottom: 80rpx;
   z-index: 2;
 }
 .tab-bar-icon-inactive {
-  width: 56rpx;
-  height: 56rpx;
+  width: 65rpx;
+  height: 65rpx;
   position: absolute;
+  bottom: 80rpx;
   z-index: 1;
 }
 .tab-bar-text {
@@ -44,8 +45,8 @@
   font-weight: bolder;
   font-family: "webfont";
   position: absolute;
-  top: 70rpx;
   color: #7c644c;
+  top: 50rpx;
 }
 /* Compesenation for larger icon */
 .move-up {
