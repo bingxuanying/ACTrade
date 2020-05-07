@@ -15,6 +15,7 @@
     <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapPrice">
       价格排序
     </button>
+    <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
   </view>
   <!-- info board -->
   <view class="board">

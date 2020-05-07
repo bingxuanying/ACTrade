@@ -34,7 +34,7 @@ Page({
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
     // onLoad check status
-    clientStatus: "no auth", // no auth -> no name -> ok
+    clientStatus: "ok", // no auth -> no name -> ok
     nickname: "",
     islandName: "",
     fruit: "apple",
