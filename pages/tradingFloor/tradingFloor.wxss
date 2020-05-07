@@ -8,15 +8,10 @@
 }
 
 .headBar {
-  background-color: lightblue;
-  width: 94%;
-  height: 80rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 25rpx;
-  overflow: hidden;
+  background-color: transparent;
+  width: 100%;
+  height: 90rpx;
+  overflow: visible;
 }
 
 .headBar-bg {
@@ -28,10 +23,11 @@
 }
 
 .headBar-btn-order {
-  height: 50%;
+  background: transparent;
+  position: absolute;
+  top: 40rpx;
   font-size: 28rpx;
   padding: 0;
-  background: transparent;
   border-radius: 0;
   z-index: 5;
 }
@@ -41,13 +37,22 @@
 }
 
 .headBar-btn-room {
-  height: 70%;
-  float: right;
-  font-size: 28rpx;
-  line-height: 56rpx;
+  background-color: #ddd1b9;
+  width: 94rpx;
+  height: 94rpx;
+  position: absolute;
   padding: 0;
-  border-radius: 30rpx;
+  top: 10rpx;
+  border-radius: 50%;
   z-index: 5;
+  overflow: visible;
+}
+
+.headBar-btn-room-text {
+  position: absolute;
+  font-size: 29rpx;
+  bottom: -6rpx;
+  left: 17rpx;
 }
 
 .board {
@@ -55,7 +60,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 25rpx;
+  margin-top: 55rpx;
 }
 
 .notFound {
@@ -64,7 +69,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 350rpx;
+  margin-top: 390rpx;
   color: #716a58;
   font-size: 30rpx;
 }
@@ -76,27 +81,19 @@
 .card {
   width: 94%;
   position: relative;
-  margin-bottom: 50rpx;
+  margin-bottom: 30rpx;
   padding: 0;
   color: #de733b;
 }
-.boardingpass {
+.postcard {
   position: absolute;
   width: 100%;
   /* z-index: -1; */
 }
-.card-number {
-  position: absolute;
-  top: 18rpx;
-  left: 80rpx;
-  color: black;
-  font-size: 40rpx;
-}
 .card-box-shader {
   width: 100%;
-  height: 360rpx;
+  height: 430rpx;
   position: relative;
-  margin-top: 54rpx;
   overflow: hidden;
 }
 
@@ -112,73 +109,85 @@
 }
 
 .card-main {
-  width: 61vw;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  width: 94vw;
+  position: relative;
 }
-.card-main-des {
+.postcard-inner {
   width: 100%;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-.card-main-time {
-  width: 100%;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+.card-number {
+  position: absolute;
+  top: 18rpx;
+  left: 40rpx;
+  font-size: 38rpx;
 }
-.card-main-note {
-  width: 100%;
-  flex-grow: 3;
-  white-space: nowrap;
-  overflow: hidden;
+.card-note {
+  width: 65%;
+  height: 75rpx;
+  position: absolute;
+  top: 122rpx;
+  left: 120rpx;
+  display: -webkit-box;
   text-overflow: ellipsis;
-  font-size: 22rpx;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 28rpx;
   font-weight: normal;
-  color: #b4974d;
 }
-.card-main-barcode {
-}
-
-.card-sub {
-  width: 33vw;
-  height: 100%;
-  background-image: linear-gradient(
-    to bottom,
-    #f89d80 33%,
-    rgba(255, 255, 255, 0) 0%
-  );
-  background-position: left;
-  background-size: 4rpx 28rpx;
-  background-repeat: repeat-y;
+.card-des {
+  width: 62%;
+  height: 50rpx;
+  position: absolute;
+  top: 200rpx;
+  left: 120rpx;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 26rpx;
+  font-weight: normal;
 }
-.card-sub-price {
-  height: 50%;
-  padding-top: 35rpx;
+.card-time {
+  position: absolute;
+  top: 305rpx;
+  left: 40rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.card-lineinfo {
+  position: absolute;
+  top: 350rpx;
+  left: 40rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.card-price {
+  position: absolute;
+  top: 305rpx;
+  left: 470rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
   justify-items: center;
 }
-.card-sub-price-icon {
+.card-price-icon {
   height: 80rpx;
 }
-.card-sub-price-text {
+.card-price-text {
   line-height: 80rpx;
   text-align: center;
-  margin-left: 20rpx;
+  margin-right: 15rpx;
+  font-size: 40rpx;
+  font-weight: normal;
 }
-.card-sub-lineinfo {
-  height: 50%;
+.card-price-text-bg {
+  /* #faf8e1 */
+  background: linear-gradient(0, orange 65%, transparent 35%);
 }
 
 .card-tools {
@@ -198,15 +207,15 @@
   justify-content: center;
   align-items: center;
   align-content: center;
+  margin-right: 13rpx;
 }
 .card-tools-share {
   background-color: rgba(255, 255, 255, 0);
 }
 .card-tools-icon {
-  height: 60%;
+  height: 100%;
 }
 .card-tools-btn {
-  height: 30%;
   font-size: 24rpx;
   background-color: rgba(255, 255, 255, 0);
   color: #7b653e;

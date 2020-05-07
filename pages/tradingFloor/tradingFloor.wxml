@@ -2,61 +2,61 @@
 <view class="tradingFloor">
   <!-- head bar -->
   <view class="headBar">
-    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="onTapCancel" wx:if="{{keyword.length === 5}}">
-      取消找寻
-    </button>
-    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapAdd" bindtap="modalOpen" wx:else>
-      找寻
-    </button>
-    <button class="headBar-btn-room" style="width: 120rpx" bindtap="onTapCreate">开岛</button>
-    <button class="headBar-btn-order {{order=='createTime'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapTime">
+    <view class="headBar-btn-room" style="left: 113rpx" bindtap="{{keyword.length === 5?'onTapCancel':'modalOpen'}}">
+      <text class="headBar-btn-room-text">{{keyword.length === 5?"取消找寻":"找寻"}}</text>
+    </view>
+    <view class="headBar-btn-room" style="left: 233rpx" bindtap="onTapCreate">
+      <text class="headBar-btn-room-text">开岛</text>
+    </view>
+    <view class="headBar-btn-order {{order=='createTime'?'headBar-btn-order-active':''}}" style="left: 400rpx" bindtap="onTapTime">
       时间排序
-    </button>
-    <button class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="width: 120rpx" bindtap="onTapPrice">
+    </view>
+    <view class="headBar-btn-order {{order=='price'?'headBar-btn-order-active':''}}" style="left: 550rpx" bindtap="onTapPrice">
       价格排序
-    </button>
+    </view>
     <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
   </view>
   <!-- info board -->
   <view class="board">
     <!-- if db has data show cards, else show words -->
     <block wx:if="{{cards.length>0&&isLoading===false}}">
-      <block wx:for="{{cards}}" wx:for-item="item" wx:key="cards">
+      <block wx:for="{{cards}}" wx:for-item="item" wx:for-index="idx" wx:key="cards">
         <!-- Here Cards for Flight -->
         <view class="card">
-          <image class="boardingpass" src="../../assets/boardingpass/boardingpassPink.png" mode="widthFix" />
-          <view class="card-number">{{item.roomNum}}</view>
+          <image class="postcard" src="../../assets/postcards/InfoPage_out.png" mode="widthFix" />
           <view id="{{item._id}}" class="card-box-shader" bindtap="onTapCard">
             <view class="card-box {{item._id===curTool_id?'slide-right':''}} {{item._id===preTool_id?'slide-left':''}}">
+              <!-- postcard start here -->
               <view class="card-main">
-                <view class="card-main-des">To {{item.master.gameProfile.islandName}}岛</view>
-                <view class="card-main-time">
+                <image class="postcard-inner" src="{{idx%3===0?'../../assets/postcards/InfoPageRed_in.png':(idx%3===1?'../../assets/postcards/InfoPageYellow_in.png':'../../assets/postcards/InfoPageBrown_in.png')}}" mode="widthFix" />
+                <view class="card-number">ROOM - {{item.roomNum}}</view>
+                <view class="card-note">{{item.note}}</view>
+                <view class="card-des">- 岛主 {{item.master.gameProfile.nickname}}</view>
+                <view class="card-time">
                   <wxs module="filter" src="../../utils/uti.wxs"></wxs>
                   还剩{{filter.numFixed(item.timeLeft/60,0)}}小时{{item.timeLeft%60}}分
                 </view>
-                <view class="card-main-note">{{item.note}}</view>
-                <view class="card-main-barcode">
-                  <image src="../../assets/boardingpass/barcode.gif" style="height:60rpx" mode="heightFix" />
+                <view class="card-lineinfo" wx:if="{{item.slaves.length > item.people}}">
+                  队伍{{item.people}} 登岛{{item.slaves.length-item.people}}
                 </view>
-              </view>
-              <view class="card-sub">
-                <view class="card-sub-price">
-                  <image class="card-sub-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
-                  <view class="card-sub-price-text">{{item.price}}</view>
+                <view class="card-lineinfo" wx:else>队伍{{item.slaves.length}} 登岛0</view>
+                <view class="card-price">
+                  <view class="card-price-text">
+                    <text class="card-price-text-bg">{{item.price}}</text>
+                  </view>
+                  <image class="card-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
                 </view>
-                <view class="card-sub-lineinfo" wx:if="{{item.slaves.length > item.people}}">
-                  队伍中{{item.people}}/{{item.slaves.length-item.people}}
-                </view>
-                <view class="card-sub-lineinfo" wx:else>队伍中{{item.slaves.length}}/0</view>
               </view>
               <view class="card-tools">
                 <view class="card-tools-join" id="{{item._id}}" bindtap="onTapJoin">
-                  <image class="card-tools-icon" src="../../assets/icons/AddIcon.png" mode="heightFix" />
-                  <button class="card-tools-btn" style="width: 20vw;  paddding: 0rpx;">加入</button>
+                  <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);" data-roomnum="{{item.roomNum}}" data-id="{{item._id}}">
+                    <image class="card-tools-icon" src="../../assets/icons/AddIcon.png" mode="heightFix" />
+                  </button>
+                  <view class="card-tools-btn">加入</view>
                 </view>
                 <view class="card-tools-share" style="width:100%;">
                   <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);" open-type="share" data-roomnum="{{item.roomNum}}" data-id="{{item._id}}">
-                    <image class="card-tools-icon" style="height:100%" src="../../assets/icons/ShareIcon.png" mode="heightFix" />
+                    <image class="card-tools-icon" src="../../assets/icons/ShareIcon.png" mode="heightFix" />
                   </button>
                   <view class="card-tools-btn">分享</view>
                 </view>
