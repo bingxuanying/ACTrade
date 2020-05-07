@@ -36,7 +36,7 @@
               <view class="setting-box" style="padding:50rpx 0">
                 <view class="setting-box-price-text">大头菜价格</view>
                 <view class="setting-box-price">
-                  <text style="padding-right:20rpx">{{price}}</text>
+                  <text style="padding-right:20rpx">{{roomInfo.price}}</text>
                   <image src="../../assets/icons/bell.png" style="height:55rpx;width:55rpx;" />
                 </view>
               </view>
@@ -61,12 +61,12 @@
                 </view>
                 <view class="note-box-note">
                   <image class="note-box-note-bg" src="../../assets/noteFrame.png" mode="scaleToFill" />
-                  <text class="note-box-note-text">{{note}}</text>
+                  <text class="note-box-note-text">{{roomInfo.note}}</text>
                   <image class="note-box-note-nook" src="../../assets/icons/nook.png" mode="heightFix" />
                 </view>
               </view>
             </view>
-          </block>          
+          </block>
           <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
         <!-- line page -->
@@ -139,7 +139,6 @@
       </button>
     </view>
   </view>
-
   <!-- join room -->
   <!-- mask -->
   <view class='mask-join' wx:if="{{clientStatus==='no auth'||clientStatus==='no name'}}" />
@@ -148,9 +147,8 @@
     <view class="auth-name-tag">秉轩</view>
     <view class="auth-chat-box">
       <view>{{isTransfering?"保存中...":"请先登入才能进入或者开创房间哦~！"}}</view>
-      <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isTransfering}}" mode="widthFix" />      
+      <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isTransfering}}" mode="widthFix" />
     </view>
-    
     <image class="auth-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
   </view>
   <!-- modal_2: no name -->
@@ -191,7 +189,6 @@
       <text>返回</text>
     </view>
   </button>
-
   <!-- leave room -->
   <!-- mask -->
   <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap="{{!kicked&&!closed?'modalLeaveHide':''}}" />

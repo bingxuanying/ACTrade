@@ -12,10 +12,15 @@ Page({
       fruit: null,
       hemisphere: null,
     },
+    // settings data
     roomInfo: {
       code: null,
-      people: 0,
       roomNum: "",
+      flight: "Business",
+      price: 500,
+      timeLeft: 6,
+      people: 3,
+      note: "",
     },
     Slaves: [],
     isLoading: false,
@@ -24,17 +29,10 @@ Page({
     // page 0 -> line page, page 1 -> setting page
     page: 0,
     firstTimeLoad: true,
-    // settings data
-    flight: "Business",
-    price: 500,
-    code: "",
-    time: 6,
-    people: 3,
-    note: "",
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
     // onLoad check status
-    clientStatus: "no auth", // no auth -> no name -> ok
+    clientStatus: "ok", // no auth -> no name -> ok
     nickname: "",
     islandName: "",
     fruit: "apple",
@@ -43,20 +41,24 @@ Page({
     isSaving: false,
     // check current status
     kicked: false,
-    closed: false
+    closed: false,
   },
   onLoad: function (query) {
     if (query.room_id) {
       console.log(query.room_id);
       app.globalData.roomInfo.roomID = query.room_id;
       // registered
+      console.log(app.globalData.userInfo);
       if (app.globalData.userInfo) {
         if (
           app.globalData.gameProfile.nickname.length > 0 &&
           app.globalData.gameProfile.islandName.length > 0
         ) {
           app.globalData.roomInfo.timeStamp = util.formatTime();
-          this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
+          this.setData({
+            timeStamp: app.globalData.roomInfo.timeStamp,
+            clientStatus: "ok",
+          });
           this.checkin();
         } else {
           this.setData({ clientStatus: "no name" });
@@ -80,7 +82,9 @@ Page({
                     app.globalData.gameProfile.islandName.length > 0
                   ) {
                     app.globalData.roomInfo.timeStamp = util.formatTime();
-                    this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
+                    this.setData({
+                      timeStamp: app.globalData.roomInfo.timeStamp,
+                    });
                     this.checkin();
                   } else {
                     this.setData({ clientStatus: "no name" });
@@ -108,14 +112,13 @@ Page({
     }
   },
   checkin: function () {
-    this.setData({isLoading: true})
-    
+    this.setData({ isLoading: true });
+
     if (!app.globalData.openid) {
       db.collection("UsersProfile").get({
         success: (res) => {
-          if (res.data.length > 0) 
-            app.globalData.openid = res.data[0]._openid;
-        }
+          if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
+        },
       });
     }
 
@@ -125,10 +128,11 @@ Page({
         data: {
           slaves: db.command.push({
             openid: app.globalData.openid,
+            notified: false,
             avatar: app.globalData.userInfo.avatarUrl,
             islandName: app.globalData.gameProfile.islandName,
             nickname: app.globalData.gameProfile.nickname,
-            timeStamp: app.globalData.roomInfo.timeStamp
+            timeStamp: app.globalData.roomInfo.timeStamp,
           }),
         },
       });
@@ -148,20 +152,18 @@ Page({
               hemisphere: master.gameProfile.fruit,
             },
             roomInfo: {
+              roomNum: res.data.roomNum,
               code: res.data.code,
               people: res.data.people,
-              roomNum: res.data.roomNum,
+              flight: res.data.flight,
+              price: res.data.price,
+              timeLeft: res.data.timeLeft,
+              note: res.data.note,
             },
             timeStamp: app.globalData.roomInfo.timeStamp,
-            flight: res.data.flight,
-            price: res.data.price,
-            code: res.data.code,
-            time: res.data.time,
-            people: res.data.people,
-            note: res.data.note,
           });
-          
-          this.setData({isLoading: false})
+
+          this.setData({ isLoading: false });
         },
       });
 
@@ -172,17 +174,29 @@ Page({
           //监控数据发生变化时触发
           this.setData({
             Slaves: snapshot.docs[0].slaves,
+            roomInfo: {
+              roomNum: snapshot.docs[0].roomNum,
+              code: snapshot.docs[0].code,
+              people: snapshot.docs[0].people,
+              flight: snapshot.docs[0].flight,
+              price: snapshot.docs[0].price,
+              timeLeft: snapshot.docs[0].timeLeft,
+              note: snapshot.docs[0].note,
+            },
           });
 
-          if (snapshot.docs[0].kickedLst && snapshot.docs[0].kickedLst.length > 0) {
-            snapshot.docs[0].kickedLst.forEach(kickedStamp => {
+          if (
+            snapshot.docs[0].kickedLst &&
+            snapshot.docs[0].kickedLst.length > 0
+          ) {
+            snapshot.docs[0].kickedLst.forEach((kickedStamp) => {
               if (app.globalData.roomInfo.timeStamp === kickedStamp)
-                this.setData({kicked: true})
+                this.setData({ kicked: true });
             });
           }
 
-          if (snapshot.docs[0].status === "closed") 
-            this.setData({closed: true})
+          if (snapshot.docs[0].status === "closed")
+            this.setData({ closed: true });
         },
         onError: (err) => {
           console.error(err);
@@ -221,6 +235,8 @@ Page({
   },
   onTapClose: function () {
     console.log("close");
+    let isCall = !this.data.closed;
+    let that = this;
 
     if (this.data.kicked) {
       db.collection("Flights")
@@ -229,29 +245,55 @@ Page({
           data: {
             kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
           },
-        });        
-    } else {    
-      if (!app.globalData.openid) {
-        db.collection("UsersProfile").get({
-          success: (res) => {
-            if (res.data.length > 0) 
-              app.globalData.openid = res.data[0]._openid;
-          }
+        })
+        .then((res) => {
+          wx.cloud
+            .callFunction({
+              name: "lineUpdater",
+              data: {
+                roomNum: that.data.roomInfo.roomNum,
+              },
+            })
+            .then(() => {
+              console.log("kick success");
+            })
+            .catch((err) => {
+              console.log("Err: KickRoom - cloud Function");
+            });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      }
-
+    } else {
       db.collection("Flights")
         .doc(app.globalData.roomInfo.roomID)
         .update({
           data: {
             slaves: db.command.pull({
-              openid: app.globalData.openid,
               avatar: app.globalData.userInfo.avatarUrl,
               islandName: app.globalData.gameProfile.islandName,
               nickname: app.globalData.gameProfile.nickname,
               timeStamp: app.globalData.roomInfo.timeStamp,
             }),
           },
+        })
+        .then((res) => {
+          wx.cloud
+            .callFunction({
+              name: "lineUpdater",
+              data: {
+                roomNum: that.data.roomInfo.roomNum,
+              },
+            })
+            .then(() => {
+              console.log("quit success");
+            })
+            .catch((err) => {
+              console.log("Err: QuitRoom - cloud Function");
+            });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
 
@@ -274,7 +316,7 @@ Page({
       imageUrl: "../../assets/SharePage.png",
     };
   },
-  onTapBack: function() {
+  onTapBack: function () {
     app.globalData.roomInfo = {
       roomID: null,
       timeStamp: null,
@@ -285,12 +327,12 @@ Page({
       url: "/pages/tradingFloor/tradingFloor",
     });
   },
-  onTapRegister: function(e) {
-    console.log(e)
+  onTapRegister: function (e) {
+    console.log(e);
 
     if (e.detail.errMsg === "getUserInfo:ok") {
       app.globalData.userInfo = e.detail.userInfo;
-      this.setData({isTransfering: true});
+      this.setData({ isTransfering: true });
 
       db.collection("UsersProfile").get({
         success: (userData) => {
@@ -311,18 +353,16 @@ Page({
             });
 
             db.collection("UsersProfile")
-            .doc(app.globalData.id)
-            .update({
-              data: {
-                userInfo: app.globalData.userInfo,
-              }
-            });
-
+              .doc(app.globalData.id)
+              .update({
+                data: {
+                  userInfo: app.globalData.userInfo,
+                },
+              });
             this.setData({
               clientStatus: "no name",
-              isTransfering: true
+              isTransfering: true,
             });
-
           } else {
             db.collection("UsersProfile").add({
               data: {
@@ -336,7 +376,7 @@ Page({
                 app.globalData.id = userData.data[0]._id;
                 this.setData({
                   clientStatus: "no name",
-                  isTransfering: true
+                  isTransfering: true,
                 });
               },
             });
@@ -345,27 +385,27 @@ Page({
       });
     }
   },
-  onTapEnter: function() {
-    this.setData({isSaving: true})
+  onTapEnter: function () {
+    this.setData({ isSaving: true });
     db.collection("UsersProfile")
       .doc(app.globalData.id)
       .update({
         data: {
           nickname: this.data.nickname,
-          islandName: this.data.islandName
+          islandName: this.data.islandName,
         },
         success: (res) => {
-          app.globalData.gameProfile.nickname = this.data.nickname
-          app.globalData.gameProfile.islandName = this.data.islandName
+          app.globalData.gameProfile.nickname = this.data.nickname;
+          app.globalData.gameProfile.islandName = this.data.islandName;
           app.globalData.roomInfo.timeStamp = util.formatTime();
-          this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
-          this.checkin()
-          this.setData({ 
+          this.setData({ timeStamp: app.globalData.roomInfo.timeStamp });
+          this.checkin();
+          this.setData({
             clientStatus: "ok",
-            isSaving: false
+            isSaving: false,
           });
         },
-      });    
+      });
   },
   bindNicknameInput: function (e) {
     this.setData({

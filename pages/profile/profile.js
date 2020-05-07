@@ -91,23 +91,6 @@ Page({
         },
       });
     }
-    // 获取在线gif
-    // wx.cloud.getTempFileURL({
-    //   fileList: [
-    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
-    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
-    //   ],
-    //   success: (res) => {
-    //     this.setData({
-    //       EarthLoadingUrl: res.fileList[0].tempFileURL,
-    //       PassportImgUrl: res.fileList[1].tempFileURL,
-    //     });
-    //     console.log("成功获取gif url");
-    //   },
-    //   fail: (err) => {
-    //     console.log("获取在线gif失败");
-    //   },
-    // });
   },
   getUserInfo: function (e) {
     console.log(e);

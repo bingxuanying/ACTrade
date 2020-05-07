@@ -16,13 +16,14 @@ Page({
     cards: [],
   },
   onLoad: function () {
+    var app = getApp();
     this.setData({
       isLoading: true,
     });
     db.collection("Flights")
       .where({
         flight: "Business",
-        status: "online"
+        status: "online",
       })
       .orderBy(this.data.order, "desc")
       .skip(this.data.offset)
@@ -38,6 +39,30 @@ Page({
           });
         },
       });
+    // // 获取在线gif
+    // wx.cloud.getTempFileURL({
+    //   fileList: [
+    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
+    //   ],
+    //   success: (res) => {
+    //     this.setData({
+    //       EarthLoadingUrl: res.fileList[0].tempFileURL,
+    //     });
+    //     console.log("tradingFloor成功获取imgUrl");
+    //   },
+    //   fail: (err) => {
+    //     console.log("获取在线gif失败");
+    //   },
+    // });
+    //
+    /***************** CallBack function Template Here ******************** */
+    var that = this;
+    app.UrlCallBack(function (res) {
+      that.setData({
+        EarthLoadingUrl: res.EarthLoadingUrl,
+      });
+    }, "EarthLoadingUrl");
+    /*************************************************** */
   },
   onPullDownRefresh: function () {
     this.setData({
@@ -51,7 +76,7 @@ Page({
           db.collection("Flights")
             .where({
               roomNum: this.data.keyword,
-              status: "online"
+              status: "online",
             })
             .orderBy(this.data.order, "desc")
             .skip(0)
@@ -69,7 +94,7 @@ Page({
           db.collection("Flights")
             .where({
               flight: "Business",
-              status: "online"
+              status: "online",
             })
             .orderBy(this.data.order, "desc")
             .skip(0)
@@ -88,13 +113,13 @@ Page({
     });
   },
   onReachBottom: function () {
-    this.setData({isBottomLoading: true});
+    this.setData({ isBottomLoading: true });
 
     if (this.data.keyword.length === 5) {
       db.collection("Flights")
         .where({
           roomNum: this.data.keyword,
-          status: "online"
+          status: "online",
         })
         .orderBy(this.data.order, "desc")
         .skip(this.data.offset)
@@ -112,7 +137,7 @@ Page({
       db.collection("Flights")
         .where({
           flight: "Business",
-          status: "online"
+          status: "online",
         })
         .orderBy(this.data.order, "desc")
         .skip(this.data.offset)
@@ -157,7 +182,7 @@ Page({
         db.collection("Flights")
           .where({
             roomNum: this.data.keyword,
-            status: "online"
+            status: "online",
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -175,7 +200,7 @@ Page({
         db.collection("Flights")
           .where({
             flight: "Business",
-            status: "online"
+            status: "online",
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -203,7 +228,7 @@ Page({
         db.collection("Flights")
           .where({
             roomNum: this.data.keyword,
-            status: "online"
+            status: "online",
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -221,7 +246,7 @@ Page({
         db.collection("Flights")
           .where({
             flight: "Business",
-            status: "online"
+            status: "online",
           })
           .orderBy(this.data.order, "desc")
           .skip(0)
@@ -264,7 +289,7 @@ Page({
     db.collection("Flights")
       .where({
         roomNum: this.data.keyword,
-        status: "online"
+        status: "online",
       })
       .orderBy(this.data.order, "desc")
       .skip(0)
@@ -288,7 +313,7 @@ Page({
     db.collection("Flights")
       .where({
         flight: "Business",
-        status: "online"
+        status: "online",
       })
       .orderBy(this.data.order, "desc")
       .skip(0)
@@ -333,8 +358,7 @@ Page({
   onShareAppMessage: function (e) {
     return {
       title: "来卖大头菜啦！！房间号是" + e.target.dataset.roomnum,
-      path:
-        "/pages/roomSlave/roomSlave?room_id=" + e.target.dataset.id,
+      path: "/pages/roomSlave/roomSlave?room_id=" + e.target.dataset.id,
       imageUrl: "../../assets/SharePage.png",
     };
   },

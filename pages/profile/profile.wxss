@@ -160,6 +160,11 @@
   align-items: center;
   justify-content: center;
 }
+.confirm-btn2 {
+  position: absolute;
+  top: 470rpx;
+  right: 150rpx;
+}
 
 .confirm-btn-icon {
   background-color: #716a58;

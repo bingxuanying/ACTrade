@@ -57,19 +57,19 @@
           <text>保存</text>
         </view>
       </button>
-      <!-- <button class="confirm-btn" style="width:200rpx; margin-top: 15rpx;" bindtap="onSubscribe">
+      <button class="confirm-btn2" style="width:200rpx; margin-top: 15rpx;" bindtap="onSubscribe">
         <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
           Y
         </view>
         <view class="confirm-btn-text" style="">
           <text>推送授权</text>
         </view>
-      </button> -->
+      </button>
     </view>
     <view class="warn" wx:elif="{{!hasUserInfo}}">
       <text>请先登入信息</text>
     </view>
   </view>
-  <image class="loadingGIF" src="../../assets/passport/PassportLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
+  <image class="loadingGIF" src="../../assets/passport/PassportLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
   <image class="savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isSaving}}" mode="widthFix" />
 </block>

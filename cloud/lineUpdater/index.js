@@ -6,35 +6,69 @@ const _ = db.command;
 
 exports.main = async (event, context) => {
   console.log("触发lineUpdater");
+  var flightNum = event.roomNum;
+  console.log(flightNum);
   try {
     // 需要引入OPENID才能实现
-    const flights = await db.collection('NotifyTest').get();
-    flights.data.map(async flight => {
-      var _slaves = flight.slaves;
-      for (const idx in _slaves) {
-        if (!_slaves[idx].notified && idx < flight.maxPeople) {
-          _slaves[idx].notified = true;
-          // 发送通知
-          cloud.callFunction({
-            name: 'lineNotify',
-            data:{
-              openid: "fakeopenid",
-              roomNum:"fakeRoomNum",
-            }
-          });
-        } 
+    const flights = await db.collection("Flights").where({roomNum:flightNum}).get();
+    const flight = flights.data[0];
+    console.log(flight);
+    var _slaves = flight.slaves;
+    console.log(_slaves);
+    for (const idx in _slaves) {
+      if (!_slaves[idx].notified && idx < flight.people) {
+        _slaves[idx].notified = true;
+        console.log("now change notified for user"+idx+" in flihgt"+" "+ flight.roomNum);
+        // 发送通知
+        cloud.callFunction({
+          name: "lineNotify",
+          data: {
+            openid: _slaves[idx].openid,
+            roomNum: flight.roomNum,
+            password: flight.code
+          },
+        });
       }
-      await db.collection('NotifyTest').doc(flight._id).update({
-        data: {
-          slaves: _slaves
-        }
-      });
-      return null;
-    });
+      else {
+        console.log("nofitied no change");
+      }
+    }
+    await db.collection("Flights").where({roomNum:flightNum}).update({
+        data: {slaves: _slaves,},});
     return null;
+    // flights.data.map(async (flight) => {
+    //   var _slaves = flight.slaves;
+    //   console.log(_slaves);
+    //   for (const idx in _slaves) {
+    //     if (!_slaves[idx].notified && idx < flight.people) {
+    //       _slaves[idx].notified = true;
+    //       console.log("now change notified for user"+idx+" in flihgt"+" "+ flight.roomNum);
+    //       // 发送通知
+    //       cloud.callFunction({
+    //         name: "lineNotify",
+    //         data: {
+    //           openid: _slaves[idx].openid,
+    //           roomNum: flight.roomNum,
+    //           password: flight.code
+    //         },
+    //       });
+    //     }
+    //     else {
+    //       console.log("nofitied no change");
+    //     }
+    //   }
+    //   await db
+    //     .collection("Flights")
+    //     .doc(flight._id)
+    //     .update({
+    //       data: {
+    //         slaves: _slaves,
+    //       },
+    //     });
+    //   return null;
+    // });
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
   return null;
 };
-

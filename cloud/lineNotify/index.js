@@ -7,21 +7,21 @@ const _ = db.command;
 exports.main = async (event, context) => {
   console.log(event);
   try {
-    // const { OPENID } = cloud.getWXContext();
-    OPENID = "opMPF5Nv70STC8faolY9uaIATfF8"
+    OPENID = event.openid;
     return await cloud.openapi.subscribeMessage.send({
       touser: OPENID,
       page: "tradingFloor",
       lang: "zh_CN",
       data: {
         phrase1: {
-          "value": "动森排队",
+          value: "动森排队",
         },
         phrase3: {
-          "value": "我傻了",
+          // value: event.roomNum,
+          value:"不能英文偶"
         },
         character_string2: {
-          "value": "12345",
+          value: 12345,
         },
       },
       templateId: "qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA",
@@ -32,6 +32,4 @@ exports.main = async (event, context) => {
   }
 };
 
-async function sendTemplateMessage(event) {
-
-}
+async function sendTemplateMessage(event) {}

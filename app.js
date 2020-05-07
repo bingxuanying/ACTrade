@@ -65,6 +65,41 @@ App({
         console.log("get statusBarHeight Failed");
       },
     });
+    // // 获取在线gif
+    // wx.cloud.getTempFileURL({
+    //   fileList: [
+    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
+    //   ],
+    //   success: (res) => {
+    //     this.globalData.EarthLoadingUrl = res.fileList[0].tempFileURL;
+    //     console.log("AppJS成功获取ImgUrl" + this.globalData.EarthLoadingUrl);
+    //   },
+    //   fail: (err) => {
+    //     console.log("获取在线gif失败");
+    //   },
+    // });
+  },
+  // URL call back
+  UrlCallBack: function (callback, imgName) {
+    console.log("getting imgUrl of " + imgName);
+    var that = this;
+    if (that.globalData[imgName]) {
+      typeof callback == "function" && callback(that.globalData);
+      console.log("执行callback时已经有url了!");
+    } else {
+      wx.cloud.getTempFileURL({
+        fileList: [
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
+        ],
+        success: (res) => {
+          that.globalData.EarthLoadingUrl = res.fileList[0].tempFileURL;
+          typeof callback == "function" && callback(that.globalData);
+        },
+        fail: (err) => {
+          console.log("获取在线gif失败");
+        },
+      });
+    }
   },
   globalData: {
     id: null,

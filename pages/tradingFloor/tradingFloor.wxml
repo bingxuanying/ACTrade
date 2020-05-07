@@ -60,7 +60,7 @@
       </block>
       <view class="card-bottom" style="line-height: {{isBottomLoading?'65rpx':'50rpx'}};">
         <block wx:if="{{isBottomLoading}}">
-          <image class="card-bottom-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" />
+          <image class="card-bottom-loading" src="{{EarthLoadingUrl}}" mode="widthFix" />
           <text>加载更多...</text>
         </block>
         <block wx:else>
@@ -77,7 +77,7 @@
         <image class="notFound-nook" src="../../assets/icons/nook.png" mode="widthFix" />
       </view>
     </block>
-    <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
+    <image class="loadingGIF" src="{{EarthLoadingUrl}}" mode="widthFix" wx:if="{{isLoading}}" />
   </view>
   <!-- mask -->
   <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
