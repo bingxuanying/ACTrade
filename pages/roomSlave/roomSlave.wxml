@@ -43,16 +43,17 @@
               <view class="setting-box">
                 <view class="setting-box-title">排队状态</view>
                 <view class="setting-box-info">
-                  <!-- 等待中为灰，在房里为绿色+密码 -->
-                  <!-- TODO: implement inLine in JS -->
                   <view class="{{inLine? 'waiting-green' : 'waiting-gray'}}">
-                    {{inLine? '密码':'排队中'}}
+                    {{inLine? roomInfo.code:'排队中'}}
                   </view>
                 </view>
               </view>
               <view class="setting-box">
                 <view class="setting-box-title">剩余时间</view>
-                <view class="setting-box-info">6 h 45 min</view>
+                <view class="setting-box-info">
+                  <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                  {{filter.numFixed(roomInfo.timeLeft/60,0)}}小时{{roomInfo.timeLeft%60}}分
+                </view>
               </view>
               <view class="note-box">
                 <view class="note-box-title">

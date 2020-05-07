@@ -18,7 +18,7 @@ Page({
       roomNum: "",
       flight: "Business",
       price: 500,
-      timeLeft: 6,
+      timeLeft: 300,
       people: 3,
       note: "",
     },
@@ -42,6 +42,7 @@ Page({
     // check current status
     kicked: false,
     closed: false,
+    inLine: false,
   },
   onLoad: function (query) {
     if (query.room_id) {
@@ -184,6 +185,25 @@ Page({
               note: snapshot.docs[0].note,
             },
           });
+          //判断在列队拿到code
+          var i = 10;
+          var svs = this.data.Slaves;
+          for (const idx in svs) {
+            if (svs[idx].timeStamp === app.globalData.roomInfo.timeStamp) {
+              i = idx;
+            }
+          }
+          if (i < this.data.roomInfo.people) {
+            this.setData({
+              inLine: true,
+            });
+            console.log("inLIne True");
+          } else {
+            this.setData({
+              inLine: false,
+            });
+            console.log("inLine false");
+          }
 
           if (
             snapshot.docs[0].kickedLst &&

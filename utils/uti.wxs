@@ -1,0 +1,10 @@
+// 支持es4语法
+var filter = {
+  numFixed: function (value, n) {
+    return value.toFixed(n);
+  },
+};
+// 导出对外暴露的属性
+module.exports = {
+  numFixed: filter.numFixed,
+};
