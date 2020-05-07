@@ -32,6 +32,7 @@ App({
                 success: (res) => {
                   if (res.data.length > 0) {
                     this.globalData.id = res.data[0]._id;
+                    this.globalData.openid = res.data[0]._openid;
                     this.globalData.gameProfile = {
                       nickname: res.data[0].nickname,
                       islandName: res.data[0].islandName,
@@ -67,6 +68,7 @@ App({
   },
   globalData: {
     id: null,
+    openid: null,
     userInfo: null,
     gameProfile: {
       nickname: "",

@@ -41,6 +41,7 @@ Page({
           db.collection("UsersProfile").get({
             success: (res) => {
               if (res.data.length > 0) {
+                app.globalData.id = res.data[0]._id;
                 this.setData({
                   nickname: res.data[0].nickname,
                   islandName: res.data[0].islandName,
@@ -68,8 +69,8 @@ Page({
           db.collection("UsersProfile").get({
             success: (res) => {
               if (res.data.length > 0) {
-                this.globalData.id = res.data[0]._id;
-                this.globalData.gameProfile = {
+                app.globalData.id = res.data[0]._id;
+                app.globalData.gameProfile = {
                   nickname: res.data[0].nickname,
                   islandName: res.data[0].islandName,
                   fruit: res.data[0].fruit,

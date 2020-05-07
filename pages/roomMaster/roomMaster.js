@@ -79,7 +79,6 @@ Page({
           this.setData({
             Slaves: snapshot.docs[0].slaves,
           });
-          console.log(this.data.Slaves);
         },
         onError: (err) => {
           console.error(err);
@@ -212,7 +211,7 @@ Page({
   onShareAppMessage: function (res) {
     console.log(res);
     return {
-      title: "Join the Room#" + this.data.roomInfo.roomNum,
+      title: "来卖大头菜啦！！房间号是" + this.data.roomInfo.roomNum,
       path:
         "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
       imageUrl: "../../assets/SharePage.png",

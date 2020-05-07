@@ -146,7 +146,11 @@
   <!-- modal_1: no auth -->
   <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}">
     <view class="auth-name-tag">秉轩</view>
-    <view class="auth-chat-box">请先登入才能进入或者开创房间哦~！</view>
+    <view class="auth-chat-box">
+      <view>{{isTransfering?"保存中...":"请先登入才能进入或者开创房间哦~！"}}</view>
+      <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isTransfering}}" mode="widthFix" />      
+    </view>
+    
     <image class="auth-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
   </view>
   <!-- modal_2: no name -->

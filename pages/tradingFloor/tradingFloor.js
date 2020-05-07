@@ -332,7 +332,7 @@ Page({
   },
   onShareAppMessage: function (e) {
     return {
-      title: "Join the Room#" + e.target.dataset.roomnum,
+      title: "来卖大头菜啦！！房间号是" + e.target.dataset.roomnum,
       path:
         "/pages/roomSlave/roomSlave?room_id=" + e.target.dataset.id,
       imageUrl: "../../assets/SharePage.png",

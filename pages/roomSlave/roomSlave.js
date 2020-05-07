@@ -34,11 +34,12 @@ Page({
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
     // onLoad check status
-    clientStatus: "ok", // no auth -> no name -> ok
+    clientStatus: "no auth", // no auth -> no name -> ok
     nickname: "",
     islandName: "",
     fruit: "apple",
     hemisphere: "north",
+    isTransfering: false,
     isSaving: false,
     // check current status
     kicked: false,
@@ -108,12 +109,22 @@ Page({
   },
   checkin: function () {
     this.setData({isLoading: true})
+    
+    if (!app.globalData.openid) {
+      db.collection("UsersProfile").get({
+        success: (res) => {
+          if (res.data.length > 0) 
+            app.globalData.openid = res.data[0]._openid;
+        }
+      });
+    }
 
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .update({
         data: {
           slaves: db.command.push({
+            openid: app.globalData.openid,
             avatar: app.globalData.userInfo.avatarUrl,
             islandName: app.globalData.gameProfile.islandName,
             nickname: app.globalData.gameProfile.nickname,
@@ -219,12 +230,22 @@ Page({
             kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
           },
         });        
-    } else {
+    } else {    
+      if (!app.globalData.openid) {
+        db.collection("UsersProfile").get({
+          success: (res) => {
+            if (res.data.length > 0) 
+              app.globalData.openid = res.data[0]._openid;
+          }
+        });
+      }
+
       db.collection("Flights")
         .doc(app.globalData.roomInfo.roomID)
         .update({
           data: {
             slaves: db.command.pull({
+              openid: app.globalData.openid,
               avatar: app.globalData.userInfo.avatarUrl,
               islandName: app.globalData.gameProfile.islandName,
               nickname: app.globalData.gameProfile.nickname,
@@ -247,7 +268,7 @@ Page({
   onShareAppMessage: function (res) {
     console.log(res);
     return {
-      title: "Join the Room#" + this.data.roomInfo.roomNum,
+      title: "来卖大头菜啦！！房间号是" + this.data.roomInfo.roomNum,
       path:
         "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
       imageUrl: "../../assets/SharePage.png",
@@ -269,6 +290,7 @@ Page({
 
     if (e.detail.errMsg === "getUserInfo:ok") {
       app.globalData.userInfo = e.detail.userInfo;
+      this.setData({isTransfering: true});
 
       db.collection("UsersProfile").get({
         success: (userData) => {
@@ -296,7 +318,10 @@ Page({
               }
             });
 
-            this.setData({clientStatus: "no name"});
+            this.setData({
+              clientStatus: "no name",
+              isTransfering: true
+            });
 
           } else {
             db.collection("UsersProfile").add({
@@ -309,7 +334,10 @@ Page({
               },
               success: (userData) => {
                 app.globalData.id = userData.data[0]._id;
-                this.setData({clientStatus: "no name"});
+                this.setData({
+                  clientStatus: "no name",
+                  isTransfering: true
+                });
               },
             });
           }

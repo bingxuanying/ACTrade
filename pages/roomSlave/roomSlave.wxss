@@ -668,6 +668,12 @@ page {
   line-height: 300rpx;
   color: #756850;
 }
+.auth-savingGIF {
+  width: 260rpx;
+  position: absolute;
+  top: 170rpx;
+  left: 120rpx;
+}
 .auth-chat-icon {
   width: 40rpx;
   position: absolute;
