@@ -29,8 +29,11 @@
           <view id="{{item._id}}" class="card-box-shader" bindtap="onTapCard">
             <view class="card-box {{item._id===curTool_id?'slide-right':''}} {{item._id===preTool_id?'slide-left':''}}">
               <view class="card-main">
-                <view class="card-main-des">To {{item.master.gameProfile.islandName}}</view>
-                <view class="card-main-time">还剩{{item.time}}小时</view>
+                <view class="card-main-des">To {{item.master.gameProfile.islandName}}岛</view>
+                <view class="card-main-time">
+                  <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                  还剩{{filter.numFixed(item.timeLeft/60,0)}}小时{{item.timeLeft%60}}分
+                </view>
                 <view class="card-main-note">{{item.note}}</view>
                 <view class="card-main-barcode">
                   <image src="../../assets/boardingpass/barcode.gif" style="height:60rpx" mode="heightFix" />
@@ -41,7 +44,10 @@
                   <image class="card-sub-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
                   <view class="card-sub-price-text">{{item.price}}</view>
                 </view>
-                <view class="card-sub-lineinfo">排队1/1</view>
+                <view class="card-sub-lineinfo" wx:if="{{item.slaves.length > item.people}}">
+                  队伍中{{item.people}}/{{item.slaves.length-item.people}}
+                </view>
+                <view class="card-sub-lineinfo" wx:else>队伍中{{item.slaves.length}}/0</view>
               </view>
               <view class="card-tools">
                 <view class="card-tools-join" id="{{item._id}}" bindtap="onTapJoin">

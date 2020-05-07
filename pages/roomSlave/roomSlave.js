@@ -197,12 +197,10 @@ Page({
             this.setData({
               inLine: true,
             });
-            console.log("inLIne True");
           } else {
             this.setData({
               inLine: false,
             });
-            console.log("inLine false");
           }
 
           if (
@@ -234,7 +232,6 @@ Page({
     }
   },
   closeBtnClick: function () {
-    console.log(this.data.closeBtnClick);
     if (this.data.closeBtnClick == false) {
       this.setData({
         closeBtnClick: true,
@@ -254,7 +251,6 @@ Page({
     });
   },
   onTapClose: function () {
-    console.log("close");
     let isCall = !this.data.closed;
     let that = this;
 
