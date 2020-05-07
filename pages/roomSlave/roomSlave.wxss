@@ -19,7 +19,7 @@ page {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 20rpx;
+  margin-top: 25rpx;
 }
 .info-box {
   width: 84vw;
@@ -328,7 +328,6 @@ page {
 .tool-box {
   width: 94%;
   height: 50rpx;
-  padding-bottom: 20rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -756,6 +755,11 @@ page {
   left: calc(50% - 20rpx);
   top: 430rpx;
 }
+.name-savingGIF {
+  width: 260rpx;
+  position: relative;
+  margin-top: -30rpx;
+}
 /* btn */
 .noAuthName-btn {
   position: fixed;
@@ -803,7 +807,7 @@ page {
   justify-content: center;
   position: fixed;
   left: 1vw;
-  bottom: 170rpx;
+  bottom: 180rpx;
   z-index: 20;
   transition: all 600ms ease-out;
 }
@@ -836,6 +840,14 @@ page {
   text-align: center;
 }
 
+.modal-leave-icon {
+  width: 40rpx;
+  position: fixed;
+  left: calc(50% - 20rpx);
+  bottom: 160rpx;
+  z-index: 20;
+}
+
 .fade-in {
   animation: fadein 0.5s ease-in-out 1;
   animation-fill-mode: forwards;
@@ -847,4 +859,11 @@ page {
   to {
     opacity: 0.9;
   }
+}
+
+.data-loading {
+  width: 100rpx;
+  position: absolute;
+  top: 450rpx;
+  left: calc(50% - 50rpx);
 }

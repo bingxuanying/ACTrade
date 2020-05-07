@@ -18,6 +18,7 @@ Page({
       roomNum: "",
     },
     Slaves: [],
+    isLoading: false,
     timeStamp: "",
     closeBtnClick: false,
     // page 0 -> line page, page 1 -> setting page
@@ -38,6 +39,7 @@ Page({
     islandName: "",
     fruit: "apple",
     hemisphere: "north",
+    isSaving: false,
     // check current status
     kicked: false,
     closed: false
@@ -105,7 +107,7 @@ Page({
     }
   },
   checkin: function () {
-    console.log(app.globalData);
+    this.setData({isLoading: true})
 
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
@@ -147,6 +149,8 @@ Page({
             people: res.data.people,
             note: res.data.note,
           });
+          
+          this.setData({isLoading: false})
         },
       });
 
@@ -314,6 +318,7 @@ Page({
     }
   },
   onTapEnter: function() {
+    this.setData({isSaving: true})
     db.collection("UsersProfile")
       .doc(app.globalData.id)
       .update({
@@ -327,7 +332,10 @@ Page({
           app.globalData.roomInfo.timeStamp = util.formatTime();
           this.setData({timeStamp: app.globalData.roomInfo.timeStamp})
           this.checkin()
-          this.setData({ clientStatus: "ok" });
+          this.setData({ 
+            clientStatus: "ok",
+            isSaving: false
+          });
         },
       });    
   },

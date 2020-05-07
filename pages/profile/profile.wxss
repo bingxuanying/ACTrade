@@ -147,7 +147,9 @@
   top: 2rpx;
 }
 .confirm-btn {
-  position: relative;
+  position: absolute;
+  top: 470rpx;
+  right: 10rpx;
   font-size: 30rpx;
   padding: 3rpx;
   background-color: #faf7e0;
@@ -248,4 +250,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.savingGIF {
+  width: 200rpx;
+  position: absolute;
+  top: 570rpx;
+  right: 130rpx;
 }

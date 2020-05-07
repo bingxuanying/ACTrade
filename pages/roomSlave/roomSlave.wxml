@@ -31,40 +31,43 @@
       <view class="room-box {{(firstTimeLoad? '': (page===0? 'slide-left':'slide-right'))}}">
         <!-- setting page -->
         <view class="room-box-left">
-          <view class="settings-box">
-            <view class="setting-box" style="padding:50rpx 0">
-              <view class="setting-box-price-text">大头菜价格</view>
-              <view class="setting-box-price">
-                <text style="padding-right:20rpx">{{price}}</text>
-                <image src="../../assets/icons/bell.png" style="height:55rpx;width:55rpx;" />
+          <block wx:if="{{!isLoading}}">
+            <view class="settings-box">
+              <view class="setting-box" style="padding:50rpx 0">
+                <view class="setting-box-price-text">大头菜价格</view>
+                <view class="setting-box-price">
+                  <text style="padding-right:20rpx">{{price}}</text>
+                  <image src="../../assets/icons/bell.png" style="height:55rpx;width:55rpx;" />
+                </view>
               </view>
-            </view>
-            <view class="setting-box">
-              <view class="setting-box-title">排队状态</view>
-              <view class="setting-box-info">
-                <!-- 等待中为灰，在房里为绿色+密码 -->
-                <!-- TODO: implement inLine in JS -->
-                <view class="{{inLine? 'waiting-green' : 'waiting-gray'}}">
-                  {{inLine? '密码':'排队中'}}
+              <view class="setting-box">
+                <view class="setting-box-title">排队状态</view>
+                <view class="setting-box-info">
+                  <!-- 等待中为灰，在房里为绿色+密码 -->
+                  <!-- TODO: implement inLine in JS -->
+                  <view class="{{inLine? 'waiting-green' : 'waiting-gray'}}">
+                    {{inLine? '密码':'排队中'}}
+                  </view>
+                </view>
+              </view>
+              <view class="setting-box">
+                <view class="setting-box-title">剩余时间</view>
+                <view class="setting-box-info">6 h 45 min</view>
+              </view>
+              <view class="note-box">
+                <view class="note-box-title">
+                  <view class="note-box-title-text">岛主留言</view>
+                  <view class="note-box-title-dotline" />
+                </view>
+                <view class="note-box-note">
+                  <image class="note-box-note-bg" src="../../assets/noteFrame.png" mode="scaleToFill" />
+                  <text class="note-box-note-text">{{note}}</text>
+                  <image class="note-box-note-nook" src="../../assets/icons/nook.png" mode="heightFix" />
                 </view>
               </view>
             </view>
-            <view class="setting-box">
-              <view class="setting-box-title">剩余时间</view>
-              <view class="setting-box-info">6 h 45 min</view>
-            </view>
-            <view class="note-box">
-              <view class="note-box-title">
-                <view class="note-box-title-text">岛主留言</view>
-                <view class="note-box-title-dotline" />
-              </view>
-              <view class="note-box-note">
-                <image class="note-box-note-bg" src="../../assets/noteFrame.png" mode="scaleToFill" />
-                <text class="note-box-note-text">{{note}}</text>
-                <image class="note-box-note-nook" src="../../assets/icons/nook.png" mode="heightFix" />
-              </view>
-            </view>
-          </view>
+          </block>          
+          <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
         <!-- line page -->
         <view class="room-box-right">
@@ -150,17 +153,20 @@
   <view class='mymodal-name fade-in' wx:if="{{clientStatus==='no name'}}">
     <view class="name-name-tag">伟力</view>
     <view class="name-chat-box">
-      <text class="name-chat-content">请登记你游戏中的个人信息~！</text>
-      <view class="name-chat-box-row">
-        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
-        <view class="name-chat-box-title">游戏昵称</view>
-        <input class="name-chat-box-input" value="{{nickname}}" bindinput="bindNicknameInput" />
-      </view>
-      <view class="name-chat-box-row">
-        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
-        <view class="name-chat-box-title">岛名</view>
-        <input class="name-chat-box-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
-      </view>
+      <text class="name-chat-content">{{isSaving?"保存中...":"请登记你游戏中的个人信息~！"}}</text>
+      <block wx:if="{{!isSaving}}">
+        <view class="name-chat-box-row">
+          <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
+          <view class="name-chat-box-title">游戏昵称</view>
+          <input class="name-chat-box-input" value="{{nickname}}" bindinput="bindNicknameInput" />
+        </view>
+        <view class="name-chat-box-row">
+          <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
+          <view class="name-chat-box-title">岛名</view>
+          <input class="name-chat-box-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
+        </view>
+      </block>
+      <image class="name-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isSaving}}" mode="widthFix" />
     </view>
     <image class="name-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
   </view>
@@ -195,4 +201,5 @@
       <view class="modal-leave-btn" bindtap="onTapClose">{{!closed&&!kicked?"确定":"返回大厅"}}</view>
     </view>
   </view>
+  <image class="modal-leave-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" wx:if="{{closeBtnClick||closed||kicked}}" />
 </block>

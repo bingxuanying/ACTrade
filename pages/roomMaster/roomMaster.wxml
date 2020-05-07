@@ -31,7 +31,7 @@
       <view class="room-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
         <!-- line page -->
         <view class="room-box-left">
-          <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">
+          <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave" wx:if="{{!isLoading}}">
             <!-- green: code appears -->
             <view class="slaveInfo" wx:if="{{idx < roomInfo.people}}">
               <image class="slaveInfo-deleteicon" src="../../assets/icons/XIcon.png" mode="widthFix" bindtap="onTapDeleteBtn" data-x="{{item}}" />
@@ -68,6 +68,11 @@
               </view>
             </view>
           </block>
+          <view class="waiting-text" wx:if="{{Slaves.length===0&&!isLoading}}">
+            <text>等等，马上就有客人来了~！</text>
+            <image class="waiting-nook" src="../../assets/icons/nook.png" mode="widthFix"/>
+          </view>
+          <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
         <!-- setting page -->
         <view class="room-box-right ">
@@ -138,9 +143,9 @@
     </view>
   </view>
   <!-- mask -->
-  <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
+  <view class="mask" wx:if="{{showModal}}" bindtap="modalHide" />
   <!-- modal -->
-  <view class='mymodal fade-in' wx:if="{{showModal}}">
+  <view class="mymodal fade-in" wx:if="{{showModal}}">
     <view class="modal-text">{{closeBtnClick&&showModal?'确定关闭房间吗？':'确定踢出房间吗？'}}</view>
     <view class="modal-options">
       <view class="modal-btn" bindtap="modalHide">返回</view>
@@ -149,4 +154,5 @@
       </view>
     </view>
   </view>
+  <image class="modal-leave-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" wx:if="{{showModal}}" />
 </block>

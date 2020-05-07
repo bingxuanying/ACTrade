@@ -17,7 +17,7 @@ page {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 20rpx;
+  margin-top: 25rpx;
 }
 .info-box {
   width: 84vw;
@@ -304,11 +304,30 @@ page {
   align-self: center;
   font-size: 36rpx;
 }
+.waiting-text {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #716a58;
+  font-size: 30rpx;
+}
+.waiting-nook {
+  width: 60rpx;
+}
+.data-loading {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 450rpx;
+  left: calc(50% - 50rpx);
+}
 
 .tool-box {
   width: 94%;
   height: 50rpx;
-  padding-bottom: 20rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -567,7 +586,7 @@ page {
   justify-content: center;
   position: fixed;
   left: 1vw;
-  bottom: 170rpx;
+  bottom: 180rpx;
   z-index: 20;
   transition: all 600ms ease-out;
 }
@@ -599,6 +618,14 @@ page {
   color: white;
   letter-spacing: 5rpx;
   text-align: center;
+}
+
+.modal-leave-icon {
+  width: 40rpx;
+  position: fixed;
+  left: calc(50% - 20rpx);
+  bottom: 160rpx;
+  z-index: 20;
 }
 
 .fade-in {

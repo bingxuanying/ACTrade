@@ -8,6 +8,7 @@ Page({
     curTool_id: "",
     preTool_id: "",
     isLoading: false,
+    isBottomLoading: false,
     offset: 0,
     order: "createTime",
     showModal: false,
@@ -31,7 +32,9 @@ Page({
           console.log(res.data);
           this.setData({
             cards: res.data,
+            // cards: [],
             isLoading: false,
+            offset: this.data.offset + 10,
           });
         },
       });
@@ -85,6 +88,8 @@ Page({
     });
   },
   onReachBottom: function () {
+    this.setData({isBottomLoading: true});
+
     if (this.data.keyword.length === 5) {
       db.collection("Flights")
         .where({
@@ -99,7 +104,7 @@ Page({
             this.setData({
               cards: this.data.cards.concat(res.data),
               offset: this.data.offset + 10,
-              isLoading: false,
+              isBottomLoading: false,
             });
           },
         });
@@ -117,7 +122,7 @@ Page({
             this.setData({
               cards: this.data.cards.concat(res.data),
               offset: this.data.offset + 10,
-              isLoading: false,
+              isBottomLoading: false,
             });
           },
         });
@@ -262,11 +267,13 @@ Page({
         status: "online"
       })
       .orderBy(this.data.order, "desc")
+      .skip(0)
+      .limit(10)
       .get({
         success: (res) => {
           this.setData({
             cards: res.data,
-            offset: 0,
+            offset: 10,
             isLoading: false,
           });
         },

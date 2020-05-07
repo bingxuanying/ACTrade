@@ -19,7 +19,7 @@
   <!-- info board -->
   <view class="board">
     <!-- if db has data show cards, else show words -->
-    <block wx:if="{{cards.length>0 && isLoading===false}}">
+    <block wx:if="{{cards.length>0&&isLoading===false}}">
       <block wx:for="{{cards}}" wx:for-item="item" wx:key="cards">
         <!-- Here Cards for Flight -->
         <view class="card">
@@ -58,6 +58,24 @@
           </view>
         </view>
       </block>
+      <view class="card-bottom" style="line-height: {{isBottomLoading?'65rpx':'50rpx'}};">
+        <block wx:if="{{isBottomLoading}}">
+          <image class="card-bottom-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" />
+          <text>加载更多...</text>
+        </block>
+        <block wx:else>
+          <text>---</text>
+          <text style="margin-left: 20rpx">到底啦~！</text>
+          <image class="card-bottom-nook" src="../../assets/icons/nook.png" mode="widthFix" style="margin-right: 20rpx" />
+          <text>---</text>
+        </block>
+      </view>
+    </block>
+    <block wx:elif="{{cards.length===0&&isLoading===false}}">
+      <view class="notFound">
+        <text>找不到？！试试下拉刷新~！</text>
+        <image class="notFound-nook" src="../../assets/icons/nook.png" mode="widthFix" />
+      </view>
     </block>
     <image class="loadingGIF" src="../../assets/icons/EarthLoading.gif" mode="widthFix" wx:if="{{isLoading}}" />
   </view>

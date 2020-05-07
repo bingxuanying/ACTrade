@@ -26,7 +26,6 @@ Page({
         fruit: app.globalData.gameProfile.fruit,
         hemisphere: app.globalData.gameProfile.hemisphere,
         isLoading: true,
-        isSaving: false,
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -92,22 +91,22 @@ Page({
       });
     }
     // 获取在线gif
-    wx.cloud.getTempFileURL({
-      fileList: [
-        "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
-        "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
-      ],
-      success: (res) => {
-        this.setData({
-          EarthLoadingUrl: res.fileList[0].tempFileURL,
-          PassportImgUrl: res.fileList[1].tempFileURL,
-        });
-        console.log("成功获取gif url");
-      },
-      fail: (err) => {
-        console.log("获取在线gif失败");
-      },
-    });
+    // wx.cloud.getTempFileURL({
+    //   fileList: [
+    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
+    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
+    //   ],
+    //   success: (res) => {
+    //     this.setData({
+    //       EarthLoadingUrl: res.fileList[0].tempFileURL,
+    //       PassportImgUrl: res.fileList[1].tempFileURL,
+    //     });
+    //     console.log("成功获取gif url");
+    //   },
+    //   fail: (err) => {
+    //     console.log("获取在线gif失败");
+    //   },
+    // });
   },
   getUserInfo: function (e) {
     console.log(e);

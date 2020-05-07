@@ -17,6 +17,7 @@ Page({
       roomNum: "",
     },
     Slaves: [],
+    isLoading: false,
     closeBtnClick: false,
     showModal: false,
     // page 0 -> line page, page 1 -> setting page
@@ -35,6 +36,8 @@ Page({
     kickedPerson: null,
   },
   onLoad: function () {
+    this.setData({isLoading: true})
+
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .get({
@@ -55,6 +58,7 @@ Page({
               people: res.data.people,
               roomNum: res.data.roomNum,
             },
+            Slaves: res.data.slaves,
             flight: res.data.flight,
             price: res.data.price,
             code: res.data.code,
@@ -62,6 +66,8 @@ Page({
             people: res.data.people,
             note: res.data.note,
           });
+          
+          this.setData({isLoading: false})
         },
       });
 
