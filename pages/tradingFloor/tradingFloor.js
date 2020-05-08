@@ -57,11 +57,15 @@ Page({
     //
     /***************** CallBack function Template Here ******************** */
     var that = this;
-    app.UrlCallBack(function (res) {
-      that.setData({
-        EarthLoadingUrl: res.EarthLoadingUrl,
-      });
-    }, "EarthLoadingUrl");
+    app.UrlCallBack(
+      function (res) {
+        that.setData({
+          EarthLoadingUrl: res.EarthLoadingUrl,
+        });
+      },
+      "img",
+      "EarthLoadingUrl"
+    );
     /*************************************************** */
   },
   onPullDownRefresh: function () {

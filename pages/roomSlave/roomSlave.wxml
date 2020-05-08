@@ -14,7 +14,7 @@
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
-          <view class="settingInfo ">
+          <view class="settingInfo">
             <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
             <text class="settingInfo-text">队伍列表</text>
           </view>

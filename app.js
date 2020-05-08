@@ -80,7 +80,7 @@ App({
     // });
   },
   // URL call back
-  UrlCallBack: function (callback, imgName) {
+  UrlCallBack: function (callback, imgType, imgName) {
     console.log("getting imgUrl of " + imgName);
     var that = this;
     if (that.globalData[imgName]) {
@@ -116,5 +116,20 @@ App({
       timeStamp: null,
     },
     statusBarHeight: 0,
+    imgUrl: {
+      gif: {
+        EarthLoadingUrl: "",
+        FlightLoadingUrl: "",
+        IslandLoadingUrl: "",
+      },
+      icons: {},
+      img: {
+        InfoPageBrown_in: "",
+        InfoPageRed_in: "",
+        InfoPageYellow_in: "",
+        InfoPage_out: "",
+        passport: "",
+      },
+    },
   },
 });
