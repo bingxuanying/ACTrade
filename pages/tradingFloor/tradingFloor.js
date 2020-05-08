@@ -39,25 +39,9 @@ Page({
           });
         },
       });
-    // // 获取在线gif
-    // wx.cloud.getTempFileURL({
-    //   fileList: [
-    //     "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
-    //   ],
-    //   success: (res) => {
-    //     this.setData({
-    //       EarthLoadingUrl: res.fileList[0].tempFileURL,
-    //     });
-    //     console.log("tradingFloor成功获取imgUrl");
-    //   },
-    //   fail: (err) => {
-    //     console.log("获取在线gif失败");
-    //   },
-    // });
-    //
     /***************** CallBack function Template Here ******************** */
     var that = this;
-    app.UrlCallBack(function (res) {
+    app.UrlCallBack(res => {
       that.setData({
         EarthLoadingUrl: res.EarthLoadingUrl,
       });

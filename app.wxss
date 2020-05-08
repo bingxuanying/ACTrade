@@ -2,8 +2,7 @@
 @import "/utils/font.wxss";
 
 page {
-  /* background: #faf8e1; */
-  background: #bac8ef;
+  background: #faf8e1;
   font-family: "webfont";
 }
 :root {
