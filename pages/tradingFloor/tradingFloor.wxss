@@ -324,7 +324,7 @@ page {
 .mymodal {
   position: fixed;
   width: 100%;
-  top: 200rpx;
+  top: 300rpx;
   background-color: transparent;
   z-index: 20;
   transition: all 300ms ease-out;
@@ -340,22 +340,22 @@ page {
 .modal-search {
   width: 100rpx;
   position: absolute;
-  top: 30rpx;
+  top: 50rpx;
   left: 30rpx;
 }
 
 .modal-search-text {
   position: absolute;
-  top: 60rpx;
-  left: 150rpx;
+  top: 80rpx;
+  left: 145rpx;
   font-size: 34rpx;
-  color: #746b26;
+  color: #846046;
 }
 
 .modal-inputImg {
   width: 300rpx;
   position: absolute;
-  top: 150rpx;
+  top: 190rpx;
   left: 230rpx;
   z-index: 21;
 }
@@ -364,17 +364,47 @@ page {
   width: 230rpx;
   height: 50rpx;
   position: absolute;
-  top: 170rpx;
+  top: 210rpx;
   left: 267rpx;
   border: none;
   z-index: 21;
 }
 
 .modal-btn {
-  font-size: 30rpx;
-  border-radius: 27rpx;
+  background-color: #eebb4e;
+  height: 100rpx;
+  border-radius: 20rpx;
   padding: 8rpx;
   position: absolute;
-  top: 300rpx;
+  top: 350rpx;
+  font-size: 28rpx;
+  color: #d1a346;
   z-index: 21;
+  text-align: center;
+  line-height: 84rpx;
+}
+
+.modal-btn[disabled] {
+  background-color: #c1d5d3 !important;
+  color: #d7e3e1 !important;
+}
+
+.modal-btn-icon {
+  color: #eebb4e;
+  background-color: #d1a346;
+  border: #eebb4e solid 5rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  height:30rpx; 
+  width:30rpx;font-size:
+  30rpx; text-align:center; 
+  line-height:30rpx;
+  position: absolute;
+  z-index: 22;
+}
+
+.modal-btn-icon-disabled {
+  color: #c1d5d3;
+  background-color: #d7e3e1;
+  border-color: #c1d5d3;
 }

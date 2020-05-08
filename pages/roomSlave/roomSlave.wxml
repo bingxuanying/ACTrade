@@ -16,7 +16,7 @@
           </view>
           <view class="maintitle-box-mid" />
           <view class="settingInfo">
-            <image src="../../assets/icons/SettingIcon.png" style="height:100rpx" mode="heightFix" />
+            <image src="../../assets/icons/SettingIcon.png" style="height:70rpx" mode="heightFix" />
             <text class="settingInfo-text">队伍列表</text>
           </view>
         </view>

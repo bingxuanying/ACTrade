@@ -11,7 +11,7 @@ Page({
     isBottomLoading: false,
     offset: 0,
     order: "createTime",
-    showModal: true,
+    showModal: false,
     keyword: "",
     cards: [],
   },
