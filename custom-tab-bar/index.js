@@ -12,6 +12,12 @@ Component({
         selectedIconPath: "../assets/tab/ShopIconActive.png",
       },
       {
+        pagePath: "/pages/diyExchange/diyExchange",
+        text: "狸家",
+        iconPath: "../assets/tab/DiyIconGray.png",
+        selectedIconPath: "../assets/tab/DiyIconActive.png",
+      },
+      {
         pagePath: "/pages/profile/profile",
         text: "护照信息",
         iconPath: "../assets/tab/PassportIconGray.png",

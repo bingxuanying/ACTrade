@@ -1,0 +1,13 @@
+page {
+  background-color: #fbfbdf;
+}
+.nookea {
+  width: 100%;
+  height: calc(100vh - 120rpx);
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.con-img {
+}

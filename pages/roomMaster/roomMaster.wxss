@@ -650,3 +650,10 @@ page {
     opacity: 0.9;
   }
 }
+
+.savingGIF {
+  width: 200rpx;
+  position: absolute;
+  bottom: 20vh;
+  right: calc(50vw - 100rpx);
+}

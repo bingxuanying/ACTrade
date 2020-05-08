@@ -33,6 +33,13 @@
   bottom: 80rpx;
   z-index: 2;
 }
+.tab-bar-icon-active-xl {
+  width: 69.8rpx;
+  height: 65rpx;
+  position: absolute;
+  bottom: 80rpx;
+  z-index: 2;
+}
 .tab-bar-icon-inactive {
   width: 65rpx;
   height: 65rpx;

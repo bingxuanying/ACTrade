@@ -1,6 +1,6 @@
 <!-- pages/roomSlave/roomSlave.wxml -->
 <block>
-  <nav-bar roomNum="{{roomInfo.roomNum}}"></nav-bar>
+  <nav-bar navInfo="房间：{{roomInfo.roomNum}}"></nav-bar>
   <view class="roomMaster" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="info-box">
       <view class="info-box-lefticon" bindtap="LClick">L</view>

@@ -95,6 +95,7 @@ App({
           "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageRed_in.png",
           "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageYellow_in.png",
           "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/IslandLoading.gif",
         ],
         success: (res) => {
           that.globalData.imgUrl.gif.EarthLoading = res.fileList[0].tempFileURL;
@@ -109,6 +110,8 @@ App({
             res.fileList[3].tempFileURL;
           // console.log(res.fileList[3]);
           that.globalData.imgUrl.img.passport = res.fileList[4].tempFileURL;
+          that.globalData.imgUrl.gif.IslandLoading =
+            res.fileList[5].tempFileURL;
           typeof callback == "function" && callback(that.globalData.imgUrl);
         },
         fail: (err) => {

@@ -1,17 +1,23 @@
-<!--pages/roomCreate/roomCreate.wxml-->
-<view class="roomCreate">
-  <view class="dodoImg-box">
-    <image class="dodoImg" src="../../assets/icons/DodoFlightIconV.png" mode="heightFix"/>
-  </view>
-  <view class="settings">
-    <view class="settings-box">
-      <view class="flightOpt">
-      <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">商业航班</button>
-      <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">私人航班</button>
+<!-- pages/roomCreate/roomCreate.wxml -->
+<block>
+  <nav-bar navInfo="快来开岛吧"></nav-bar>
+  <view class="roomCreate">
+    <view class="dodoImg-box">
+      <image class="dodoImg" src="../../assets/icons/DodoFlightIconV.png" mode="heightFix" />
     </view>
+    <view class="settings">
+      <view class="settings-box">
+        <view class="flightOpt">
+          <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
+            商业航班
+          </button>
+          <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
+            私人航班
+          </button>
+        </view>
         <view class="settings-layout">
           <view class="settings-title">大头菜价格</view>
-          <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix"/>
+          <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
           <view class="settings-content">
             <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
           </view>
@@ -40,17 +46,18 @@
             <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
           </view>
         </view>
+      </view>
+    </view>
+    <view class="bottombar">
+      <button class="bottombar-btn-left" style="width:40%" bindtap="onTapBack">
+        <image class="bottombar-btn-icon" style="height:40rpx; top:-3rpx" src="../../assets/icons/XIcon.png" mode="heightFix" />
+        <view class="bottombar-btn-text" style="color: white">返回</view>
+      </button>
+      <button class="bottombar-btn-right" style="width: 40%" bindtap="onTapCreate" disabled="{{code.length===5?false:true}}">
+        <image wx:if="{{code.length===5}}" class="bottombar-btn-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
+        <image wx:else class="bottombar-btn-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix" />
+        <view class="bottombar-btn-text {{code.length===5?'':'disable'}}">创建</view>
+      </button>
     </view>
   </view>
-  <view class="bottombar">
-    <button class="bottombar-btn-left" style="width:40%" bindtap="onTapBack">
-      <image class="bottombar-btn-icon" style="height:40rpx; top:-3rpx" src="../../assets/icons/XIcon.png" mode="heightFix"/>
-      <view class="bottombar-btn-text" style="color: white">返回</view>
-    </button>
-    <button class="bottombar-btn-right" style="width: 40%" bindtap="onTapCreate" disabled="{{code.length===5?false:true}}">
-      <image wx:if="{{code.length===5}}" class="bottombar-btn-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix"/>
-      <image wx:else class="bottombar-btn-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix"/>
-      <view class="bottombar-btn-text {{code.length===5?'':'disable'}}">创建</view>
-    </button>
-  </view>
-</view>
+</block>

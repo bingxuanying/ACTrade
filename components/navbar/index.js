@@ -14,9 +14,9 @@ Component({
       type: Boolean,
       value: false,
     },
-    roomNum: {
-      type: Int16Array,
-      value: 0,
+    navInfo: {
+      type: String,
+      value: "",
     },
   },
   data: {

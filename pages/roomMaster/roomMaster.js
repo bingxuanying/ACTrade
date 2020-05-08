@@ -34,6 +34,7 @@ Page({
     statusBarHeight: app.globalData.statusBarHeight,
     // kicked timeStamp
     kickedPerson: null,
+    isSaving: false,
   },
   onLoad: function () {
     this.setData({ isLoading: true });
@@ -90,6 +91,7 @@ Page({
       function (res) {
         that.setData({
           EarthLoadingUrl: res.gif.EarthLoading,
+          IslandLoadingUrl: res.gif.IslandLoading,
         });
       },
       "gif",
@@ -158,6 +160,9 @@ Page({
     });
   },
   onTapUpdate: function () {
+    this.setData({
+      isSaving: true,
+    });
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .update({
@@ -171,6 +176,9 @@ Page({
         },
         success: (res) => {
           console.log(res);
+          this.setData({
+            isSaving: false,
+          });
         },
       });
   },
