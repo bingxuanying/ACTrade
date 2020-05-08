@@ -14,8 +14,9 @@
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
+          <view class="maintitle-box-mid" />
           <view class="settingInfo">
-            <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
+            <image src="../../assets/icons/SettingIcon.png" style="height:100rpx" mode="heightFix" />
             <text class="settingInfo-text">队伍列表</text>
           </view>
         </view>
@@ -67,6 +68,7 @@
           </block>
           <image class="data-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
+        <view class="room-box-mid" />
         <!-- line page -->
         <view class="room-box-right">
           <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">

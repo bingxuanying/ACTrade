@@ -14,8 +14,9 @@
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
+          <view class="maintitle-box-mid" />
           <view class="settingInfo ">
-            <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
+            <image src="../../assets/icons/SettingIcon.png" style="height:100rpx" mode="heightFix" />
             <text class="settingInfo-text">航班设置</text>
           </view>
         </view>
@@ -74,6 +75,7 @@
           </view>
           <image class="data-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
+        <view class="room-box-mid" />
         <!-- setting page -->
         <view class="room-box-right ">
           <view class="settings-box">
