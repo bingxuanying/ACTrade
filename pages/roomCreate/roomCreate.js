@@ -10,6 +10,8 @@ Page({
     time: 6,
     people: 3,
     note: "随便带点什么都可以~！",
+    // nav-bar
+    statusBarHeight: app.globalData.statusBarHeight,
   },
   setPublic: function () {
     this.setData({

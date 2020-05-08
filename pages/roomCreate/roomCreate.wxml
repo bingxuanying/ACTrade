@@ -1,62 +1,61 @@
 <!-- pages/roomCreate/roomCreate.wxml -->
 <block>
-  <nav-bar navInfo="快来开岛吧"></nav-bar>
-  <view class="roomCreate">
-    <view class="dodoImg-box">
-      <image class="dodoImg" src="../../assets/icons/DodoFlightIconV.png" mode="heightFix" />
-    </view>
-    <view class="settings">
-      <view class="settings-box">
-        <view class="flightOpt">
-          <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
-            商业航班
-          </button>
-          <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
-            私人航班
-          </button>
+  <nav-bar navInfo="快来开岛吧"/>
+  <view class="roomCreate" style="height: calc(100vh - {{statusBarHeight}}px - 44px)" >
+    <view class="header-box">
+      <image class="header-bg" src="../../assets/roomCreate/header-bg.png" mode="widthFix" />
+    </view>    
+    <view class="settings-box">
+      <view class="flightOpt">
+        <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
+          商业航班
+        </button>
+        <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
+          私人航班
+        </button>
+      </view>
+      <view class="settings-layout">
+        <view class="settings-title">大头菜价格</view>
+        <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
+        <view class="settings-content">
+          <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
         </view>
-        <view class="settings-layout">
-          <view class="settings-title">大头菜价格</view>
-          <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
-          <view class="settings-content">
-            <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
-          </view>
+      </view>
+      <view class="settings-layout">
+        <view class="settings-title">海关密码</view>
+        <view class="settings-content">
+          <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
         </view>
-        <view class="settings-layout">
-          <view class="settings-title">海关密码</view>
-          <view class="settings-content">
-            <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
-          </view>
+      </view>
+      <view class="settings-layout">
+        <view class="settings-title">开放时长</view>
+        <view class="settings-content">
+          <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
         </view>
-        <view class="settings-layout">
-          <view class="settings-title">开放时长</view>
-          <view class="settings-content">
-            <slider bindchange="bindSliderTime" step="1" min="0" max="12" block-size="16" value="{{time}}" show-value />
-          </view>
+      </view>
+      <view class="settings-layout">
+        <view class="settings-title">在岛人数限制</view>
+        <view class="settings-content">
+          <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
         </view>
-        <view class="settings-layout">
-          <view class="settings-title">在岛人数限制</view>
-          <view class="settings-content">
-            <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
-          </view>
-        </view>
-        <view class="settings-layout">
-          <view class="settings-title">留言板</view>
-          <view class="settings-content ">
-            <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
-          </view>
+      </view>
+      <view class="settings-layout">
+        <view class="settings-title">留言板</view>
+        <view class="settings-content ">
+          <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
         </view>
       </view>
     </view>
-    <view class="bottombar">
-      <button class="bottombar-btn-left" style="width:40%" bindtap="onTapBack">
-        <image class="bottombar-btn-icon" style="height:40rpx; top:-3rpx" src="../../assets/icons/XIcon.png" mode="heightFix" />
-        <view class="bottombar-btn-text" style="color: white">返回</view>
+
+    <view class="footer-box">
+      <image class="footer-bg" src="../../assets/roomCreate/footer-bg.png" mode="widthFix" />
+      <button class="footer-btn" style="width:160rpx; left: 0;" bindtap="onTapBack">
+        <view class="footer-btn-icon">B</view>
+        <view class="confirm-btn-text">返回</view>
       </button>
-      <button class="bottombar-btn-right" style="width: 40%" bindtap="onTapCreate" disabled="{{code.length===5?false:true}}">
-        <image wx:if="{{code.length===5}}" class="bottombar-btn-icon" src="../../assets/icons/WifiIcon.png" mode="heightFix" />
-        <image wx:else class="bottombar-btn-icon" src="../../assets/icons/WifiIconGray.png" mode="heightFix" />
-        <view class="bottombar-btn-text {{code.length===5?'':'disable'}}">创建</view>
+      <button class="footer-btn" style="width:160rpx; left: 300rpx;" bindtap="onTapCreate" disabled="{{code.length===5?false:true}}">
+        <view class="footer-btn-icon {{code.length===5?'':'footer-btn-icon-disabled'}}">A</view>
+        <view class="confirm-btn-text" style="{{code.length===5?'':'color: gray;'}}">创建</view>
       </button>
     </view>
   </view>

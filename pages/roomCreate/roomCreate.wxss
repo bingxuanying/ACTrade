@@ -1,38 +1,35 @@
 /* pages/roomCreate/roomCreate.wxss */
-page {
-  background-color: #218ec5;
-  color: #218ec5;
-
-}
 .roomCreate {
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  justify-content: space-between;
+  overflow-x: hidden;
 }
-.dodoImg-box {
-  margin-top: 25rpx;
-  background-color: lightblue;
-  width: 84%;
-  height: 130rpx;
-  padding: 5rpx;
-  padding-top: 15rpx;
+.header-box {
+  width: 160vw;
+  height: 200rpx;
+  position: relative;
   display: flex;
   justify-content: center;
-  border-radius: 100rpx;
+  overflow: visible;
 }
-.dodoImg {
-  height: 100%;
+.header-bg {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: -30vw;
 }
 
-.settings {
-  background-color: #218ec5;
-  width: 95%;
+.settings-box {
+  background-color: lightblue;
+  width: calc(100% - 40rpx);
+  padding: 0 20rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rpx 5rpx;
+  justify-content: flex-start;
 }
 
 .flightOpt {
@@ -43,20 +40,6 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-}
-
-.settings-box {
-  width: 94%;
-  height: 70vh;
-  background-color: lightblue;
-  border-radius: 50rpx;
-  margin-top: 5rpx;
-  padding-top: 10rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: scroll;
 }
 .flightOpt-btn {
   background-color: #218ec5;
@@ -77,7 +60,14 @@ page {
   justify-content: center;
   padding: 5px 0;
   font-size: 30rpx;
-  border-bottom: #218ec5 2px dotted;
+  background-image: linear-gradient(
+    to right,
+    #f89d80 40%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 28rpx 3rpx;
+  background-repeat: repeat-x;
 }
 .settings-title {
   width: 35%;
@@ -96,47 +86,64 @@ page {
   padding-top: 10rpx;
 }
 
-.bottombar {
-  margin-top: 20rpx;
-  width: 94%;
-  height: 70rpx;
-  justify-content: center;
-  padding-bottom: 20rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-.bottombar-btn-left {
-  height: 100%;
-  background-color: #fda156;
-  border-radius: 50rpx;
-  border: solid #f5f7e1 7rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-}
-.bottombar-btn-right {
-  height: 100%;
-  background-color: #4fb262;
-  border-radius: 50rpx;
-  border: solid #f5f7e1 7rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-}
-.bottombar-btn-icon {
+.footer-box {
+  width: 130vw;
+  height: 6vh;
   position: relative;
-  height: 30rpx;
-  margin-right: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow: hidden;
 }
-.bottombar-btn-text{
-  color: #bef4c2;
-  text-align:center;
-  line-height:30rpx;
-  font-size:30rpx;
+
+.footer-bg {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: -15vw;
 }
+
+.footer-btn {
+  height: 60rpx;
+  position: absolute;
+  top: 0rpx;
+  font-size: 34rpx;
+  padding: 3rpx;
+  background-color: #faf7e0;
+  border: #000000;
+  border-radius: 27rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-btn[disabled] {
+  background-color: lightgrey !important;
+}
+
+.footer-btn-icon {
+  background-color: #716a58;
+  color: #f5efd5;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  height:40rpx; 
+  width:40rpx;
+  font-size:27rpx; 
+  text-align:center; 
+  line-height:40rpx;
+}
+
+.footer-btn-icon-disabled {
+  background-color: gray;
+  color: lightgrey;
+}
+
+.footer-btn-text{
+  color: #716a58;
+}
+
 .disable {
   color: gray;
 }

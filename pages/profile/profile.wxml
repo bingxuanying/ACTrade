@@ -50,20 +50,8 @@
         <!-- Switch box Done Here -->
       </view>
       <button class="confirm-btn" style="width:130rpx;" bindtap="onTapDone">
-        <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-          A
-        </view>
-        <view class="confirm-btn-text">
-          <text>保存</text>
-        </view>
-      </button>
-      <button class="confirm-btn2" style="width:200rpx; margin-top: 15rpx;" bindtap="onSubscribe">
-        <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-          Y
-        </view>
-        <view class="confirm-btn-text" style="">
-          <text>推送授权</text>
-        </view>
+        <view class="confirm-btn-icon">A</view>
+        <view class="confirm-btn-text">保存</view>
       </button>
     </view>
     <view class="warn" wx:elif="{{!hasUserInfo}}">

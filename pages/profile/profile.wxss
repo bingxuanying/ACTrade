@@ -160,17 +160,17 @@
   align-items: center;
   justify-content: center;
 }
-.confirm-btn2 {
-  position: absolute;
-  top: 470rpx;
-  right: 150rpx;
-}
 
 .confirm-btn-icon {
   background-color: #716a58;
   color: #f5efd5;
   border-radius: 50%;
   margin-right: 10rpx;
+  height:35rpx; 
+  width:35rpx;
+  font-size:25rpx; 
+  text-align:center; 
+  line-height:35rpx;
 }
 
 .confirm-btn-text {
@@ -249,12 +249,10 @@
 }
 
 .loadingGIF {
-  width: 450rpx;
-  height: 450rpx;
+  width: 360rpx;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: calc(50% - 180rpx);
+  left: calc(50% - 180rpx);
 }
 
 .savingGIF {
