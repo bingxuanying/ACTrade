@@ -1,6 +1,6 @@
 <!-- pages/roomMaster/roomMaster.wxml -->
 <block>
-  <nav-bar roomNum="{{roomInfo.roomNum}}"></nav-bar>
+  <nav-bar navInfo="房间：{{roomInfo.roomNum}}"></nav-bar>
   <view class="roomMaster" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="info-box">
       <view class="info-box-lefticon" bindtap="LClick">L</view>
@@ -14,8 +14,9 @@
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
+          <view class="maintitle-box-mid" />
           <view class="settingInfo ">
-            <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
+            <image src="../../assets/icons/SettingIcon.png" style="height:100rpx" mode="heightFix" />
             <text class="settingInfo-text">航班设置</text>
           </view>
         </view>
@@ -70,10 +71,11 @@
           </block>
           <view class="waiting-text" wx:if="{{Slaves.length===0&&!isLoading}}">
             <text>等等，马上就有客人来了~！</text>
-            <image class="waiting-nook" src="../../assets/icons/nook.png" mode="widthFix"/>
+            <image class="waiting-nook" src="../../assets/icons/nook.png" mode="widthFix" />
           </view>
-          <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
+          <image class="data-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
+        <view class="room-box-mid" />
         <!-- setting page -->
         <view class="room-box-right ">
           <view class="settings-box">
@@ -155,4 +157,5 @@
     </view>
   </view>
   <image class="modal-leave-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" wx:if="{{showModal}}" />
+  <image class="savingGIF" src="{{IslandLoadingUrl}}" hidden="{{!isSaving}}" mode="widthFix" />
 </block>

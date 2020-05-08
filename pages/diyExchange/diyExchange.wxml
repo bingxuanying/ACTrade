@@ -1,0 +1,3 @@
+<view class="nookea">
+    <image class="con-img" src="{{constructPage}}" style="width:100%" mode="widthFix" />
+</view>

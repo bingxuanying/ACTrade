@@ -12,11 +12,15 @@
     </view>
     <view class="headBar-btn-order" style="left: 430rpx" bindtap="onTapTime">
       <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='createTime'}}" />
-      <text class="headBar-btn-order-text {{order==='createTime'?'headBar-btn-order-active':''}}">时间排序</text>
+      <text class="headBar-btn-order-text {{order==='createTime'?'headBar-btn-order-active':''}}">
+        时间排序
+      </text>
     </view>
     <view class="headBar-btn-order" style="left: 570rpx" bindtap="onTapPrice">
       <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='price'}}" />
-      <text class="headBar-btn-order-text {{order==='price'?'headBar-btn-order-active':''}}">价格排序</text>
+      <text class="headBar-btn-order-text {{order==='price'?'headBar-btn-order-active':''}}">
+        价格排序
+      </text>
     </view>
     <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
   </view>
@@ -32,7 +36,7 @@
             <view class="card-box {{item._id===curTool_id?'slide-right':''}} {{item._id===preTool_id?'slide-left':''}}">
               <!-- postcard start here -->
               <view class="card-main">
-                <image class="postcard-inner" src="{{idx%3===0?'../../assets/postcards/InfoPageRed_in.png':(idx%3===1?'../../assets/postcards/InfoPageYellow_in.png':'../../assets/postcards/InfoPageBrown_in.png')}}" mode="widthFix" />
+                <image class="postcard-inner" src="{{idx%3===0? InfoPageRed_in:(idx%3===1?InfoPageYellow_in:InfoPageBrown_in)}}" mode="widthFix" />
                 <view class="card-number">ROOM - {{item.roomNum}}</view>
                 <view class="card-note">{{item.note}}</view>
                 <view class="card-des">- 岛主 {{item.master.gameProfile.nickname}}</view>

@@ -41,11 +41,18 @@ Page({
       });
     /***************** CallBack function Template Here ******************** */
     var that = this;
-    app.UrlCallBack(res => {
-      that.setData({
-        EarthLoadingUrl: res.EarthLoadingUrl,
-      });
-    }, "EarthLoadingUrl");
+    app.UrlCallBack(
+      function (res) {
+        that.setData({
+          EarthLoadingUrl: res.gif.EarthLoading,
+          InfoPageBrown_in: res.img.InfoPageBrown_in,
+          InfoPageRed_in: res.img.InfoPageRed_in,
+          InfoPageYellow_in: res.img.InfoPageYellow_in,
+        });
+      },
+      "gif",
+      "EarthLoadingUrl"
+    );
     /*************************************************** */
   },
   onPullDownRefresh: function () {

@@ -1,6 +1,6 @@
 <!-- pages/roomSlave/roomSlave.wxml -->
 <block>
-  <nav-bar roomNum="{{roomInfo.roomNum}}"></nav-bar>
+  <nav-bar navInfo="房间：{{roomInfo.roomNum}}"></nav-bar>
   <view class="roomMaster" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="info-box">
       <view class="info-box-lefticon" bindtap="LClick">L</view>
@@ -14,8 +14,9 @@
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
-          <view class="settingInfo ">
-            <image src="../../assets/icons/DodoFlightIconV.png" style="height:80rpx" mode="heightFix" />
+          <view class="maintitle-box-mid" />
+          <view class="settingInfo">
+            <image src="../../assets/icons/SettingIcon.png" style="height:100rpx" mode="heightFix" />
             <text class="settingInfo-text">队伍列表</text>
           </view>
         </view>
@@ -65,8 +66,9 @@
               </view>
             </view>
           </block>
-          <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
+          <image class="data-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
+        <view class="room-box-mid" />
         <!-- line page -->
         <view class="room-box-right">
           <block wx:for="{{Slaves}}" wx:for-item="item" wx:for-index="idx" wx:key="slave">

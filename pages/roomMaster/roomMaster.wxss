@@ -59,17 +59,21 @@ page {
   position: relative;
 }
 .maintitle-box {
-  width: 168vw;
+  width: calc(184vw - 90rpx);
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   position: relative;
-  left: 42vw;
+  left: calc(42vw + 45rpx);
+}
+.maintitle-box-mid {
+  width: calc(16vw + 90rpx);
+  height: 100%;
 }
 .settingInfo {
-  width: 50%;
+  width: calc(84vw - 90rpx);
   height: 130rpx - 14rpx;
   margin-top: 10rpx;
   display: flex;
@@ -78,7 +82,6 @@ page {
   justify-content: center;
   font-weight: bolder;
   position: relative;
-  left: 18vw;
 }
 .settingInfo-text {
   margin-left: 10rpx;
@@ -94,6 +97,8 @@ page {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 0;
 }
 .dot {
   height: 15rpx;
@@ -112,7 +117,7 @@ page {
   left: -18.5rpx;
 }
 .masterInfo {
-  width: 50%;
+  width: calc(84vw - 90rpx);
   height: 130rpx - 14rpx;
   display: flex;
   flex-direction: row;
@@ -121,10 +126,12 @@ page {
   font-weight: bolder;
 }
 .masterInfo-avatar {
-  width: 90rpx;
-  height: 90rpx;
+  width: 110rpx;
+  height: 110rpx;
   background-color: #fda156;
   border-radius: 50%;
+  position: relative;
+  right: 50rpx;
 }
 .masterInfo-masterData {
   height: 100%;
@@ -132,23 +139,24 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 10rpx;
+  position: relative;
+  right: 35rpx;
 }
 .masterInfo-islandName {
   width: 100%;
   height: 30rpx;
-  font-size: 30rpx;
+  font-size: 34rpx;
   letter-spacing: 3rpx;
-  line-height: 30rpx;
+  line-height: 34rpx;
   font-style: bolder;
   text-align: center;
 }
 .masterInfo-playerName {
   width: 100%;
-  height: 24rpx;
+  height: 28rpx;
   font-size: 24rpx;
   text-align: center;
-  line-height: 24rpx;
+  line-height: 28rpx;
   margin-top: 15rpx;
 }
 
@@ -163,7 +171,7 @@ page {
   overflow: hidden;
 }
 .room-box {
-  width: 188vw;
+  width: 194vw;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -179,6 +187,9 @@ page {
   align-items: center;
   justify-content: flex-start; */
   overflow-y: scroll;
+}
+.room-box-mid {
+  width: 6vw;
 }
 .room-box-right {
   width: 94vw;
@@ -457,7 +468,7 @@ page {
 }
 @keyframes slideleft {
   from {
-    transform: translate(-94vw, 0);
+    transform: translate(-100vw, 0);
   }
   to {
     transform: translate(0, 0);
@@ -468,7 +479,7 @@ page {
     transform: translate(0, 0);
   }
   to {
-    transform: translate(-94vw, 0);
+    transform: translate(-100vw, 0);
   }
 }
 
@@ -638,4 +649,11 @@ page {
   to {
     opacity: 0.9;
   }
+}
+
+.savingGIF {
+  width: 200rpx;
+  position: absolute;
+  bottom: 20vh;
+  right: calc(50vw - 100rpx);
 }

@@ -91,6 +91,17 @@ Page({
         },
       });
     }
+    // cloud url
+    var that = this;
+    app.UrlCallBack(
+      function (res) {
+        that.setData({
+          passport: res.img.passport,
+        });
+      },
+      "img",
+      "passport"
+    );
   },
   getUserInfo: function (e) {
     console.log(e);
@@ -219,7 +230,7 @@ Page({
   onShow() {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: 1, // 根据tab的索引值设置
+        selected: 2, // 根据tab的索引值设置
       });
     }
   },
