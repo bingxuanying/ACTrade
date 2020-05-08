@@ -81,19 +81,35 @@ App({
   },
   // URL call back
   UrlCallBack: function (callback, imgType, imgName) {
-    console.log("getting imgUrl of " + imgName);
+    console.log("getting imgUrl of " + imgType + ":" + imgName);
     var that = this;
-    if (that.globalData[imgName]) {
-      typeof callback == "function" && callback(that.globalData);
+    if (that.globalData.imgUrl[imgType][imgName]) {
+      typeof callback == "function" && callback(that.globalData.imgUrl);
       console.log("执行callback时已经有url了!");
     } else {
+      console.log("获取url。。。。。。");
       wx.cloud.getTempFileURL({
         fileList: [
           "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageBrown_in.png",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageRed_in.png",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageYellow_in.png",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
         ],
         success: (res) => {
-          that.globalData.EarthLoadingUrl = res.fileList[0].tempFileURL;
-          typeof callback == "function" && callback(that.globalData);
+          that.globalData.imgUrl.gif.EarthLoading = res.fileList[0].tempFileURL;
+          // console.log(res.fileList[0]);
+          that.globalData.imgUrl.img.InfoPageBrown_in =
+            res.fileList[1].tempFileURL;
+          // console.log(res.fileList[1]);
+          that.globalData.imgUrl.img.InfoPageRed_in =
+            res.fileList[2].tempFileURL;
+          // console.log(res.fileList[2]);
+          that.globalData.imgUrl.img.InfoPageYellow_in =
+            res.fileList[3].tempFileURL;
+          // console.log(res.fileList[3]);
+          that.globalData.imgUrl.img.passport = res.fileList[4].tempFileURL;
+          typeof callback == "function" && callback(that.globalData.imgUrl);
         },
         fail: (err) => {
           console.log("获取在线gif失败");
@@ -118,11 +134,13 @@ App({
     statusBarHeight: 0,
     imgUrl: {
       gif: {
-        EarthLoadingUrl: "",
-        FlightLoadingUrl: "",
-        IslandLoadingUrl: "",
+        EarthLoading: "",
+        FlightLoading: "",
+        IslandLoading: "",
       },
-      icons: {},
+      icons: {
+        nook: "",
+      },
       img: {
         InfoPageBrown_in: "",
         InfoPageRed_in: "",

@@ -70,9 +70,9 @@
           </block>
           <view class="waiting-text" wx:if="{{Slaves.length===0&&!isLoading}}">
             <text>等等，马上就有客人来了~！</text>
-            <image class="waiting-nook" src="../../assets/icons/nook.png" mode="widthFix"/>
+            <image class="waiting-nook" src="../../assets/icons/nook.png" mode="widthFix" />
           </view>
-          <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
+          <image class="data-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
         <!-- setting page -->
         <view class="room-box-right ">

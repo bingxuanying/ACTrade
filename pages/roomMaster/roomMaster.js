@@ -36,7 +36,7 @@ Page({
     kickedPerson: null,
   },
   onLoad: function () {
-    this.setData({isLoading: true})
+    this.setData({ isLoading: true });
 
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
@@ -66,8 +66,8 @@ Page({
             people: res.data.people,
             note: res.data.note,
           });
-          
-          this.setData({isLoading: false})
+
+          this.setData({ isLoading: false });
         },
       });
 
@@ -84,6 +84,17 @@ Page({
           console.error(err);
         },
       });
+    // cloud url
+    var that = this;
+    app.UrlCallBack(
+      function (res) {
+        that.setData({
+          EarthLoadingUrl: res.gif.EarthLoading,
+        });
+      },
+      "gif",
+      "EarthLoadingUrl"
+    );
   },
   LClick: function () {
     if (this.data.page == 1) {

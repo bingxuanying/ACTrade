@@ -111,6 +111,17 @@ Page({
     } else {
       this.checkin();
     }
+    // cloud files
+    var that = this;
+    app.UrlCallBack(
+      function (res) {
+        that.setData({
+          EarthLoadingUrl: res.gif.EarthLoading,
+        });
+      },
+      "gif",
+      "EarthLoadingUrl"
+    );
   },
   checkin: function () {
     this.setData({ isLoading: true });

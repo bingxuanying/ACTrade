@@ -65,7 +65,7 @@
               </view>
             </view>
           </block>
-          <image class="data-loading" src="../../assets/icons/EarthLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
+          <image class="data-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!isLoading}}" />
         </view>
         <!-- line page -->
         <view class="room-box-right">

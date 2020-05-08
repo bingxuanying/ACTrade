@@ -91,6 +91,17 @@ Page({
         },
       });
     }
+    // cloud url
+    var that = this;
+    app.UrlCallBack(
+      function (res) {
+        that.setData({
+          passport: res.img.passport,
+        });
+      },
+      "img",
+      "passport"
+    );
   },
   getUserInfo: function (e) {
     console.log(e);

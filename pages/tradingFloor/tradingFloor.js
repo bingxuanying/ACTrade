@@ -44,10 +44,13 @@ Page({
     app.UrlCallBack(
       function (res) {
         that.setData({
-          EarthLoadingUrl: res.EarthLoadingUrl,
+          EarthLoadingUrl: res.gif.EarthLoading,
+          InfoPageBrown_in: res.img.InfoPageBrown_in,
+          InfoPageRed_in: res.img.InfoPageRed_in,
+          InfoPageYellow_in: res.img.InfoPageYellow_in,
         });
       },
-      "img",
+      "gif",
       "EarthLoadingUrl"
     );
     /*************************************************** */
