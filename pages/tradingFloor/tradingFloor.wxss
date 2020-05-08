@@ -1,4 +1,8 @@
 /* pages/tradingFloor/tradingFloor.wxss */
+page {
+  background: #bac8ef;
+}
+
 .tradingFloor {
   display: flex;
   flex-direction: column;
@@ -24,20 +28,41 @@
 
 .headBar-btn-order {
   background: transparent;
+  width: 143rpx;
+  height: 51rpx;
   position: absolute;
   top: 40rpx;
   font-size: 28rpx;
+  text-align: center;
+  line-height: 50rpx;
   padding: 0;
-  border-radius: 0;
+  border-radius: 30%;
   z-index: 5;
+  overflow: visible;
+}
+
+.headBar-btn-order-text {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #716a58;
 }
 
 .headBar-btn-order-active {
-  background: linear-gradient(0, orange 56%, transparent 44%);
+  color: #bad6fe;
+  transform: rotate(2deg);
+}
+
+.headBar-btn-order-icon {
+  width: 100%;
+  position: absolute;
+  top: -35rpx;
+  left: 0;
 }
 
 .headBar-btn-room {
-  background-color: #ddd1b9;
+  background-color: #ece5c9;
   width: 94rpx;
   height: 94rpx;
   position: absolute;
@@ -48,11 +73,21 @@
   overflow: visible;
 }
 
+.headBar-btn-room-icon {
+  width: 82%;
+  position: absolute;
+  left: 9%;
+  top: 9%
+}
+
 .headBar-btn-room-text {
   position: absolute;
   font-size: 29rpx;
-  bottom: -6rpx;
-  left: 17rpx;
+  top: 60rpx;
+  left: 18rpx;
+  color: #716a58;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10rpx;
 }
 
 .board {

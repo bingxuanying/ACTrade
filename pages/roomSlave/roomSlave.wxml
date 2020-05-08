@@ -33,14 +33,14 @@
         <view class="room-box-left">
           <block wx:if="{{!isLoading}}">
             <view class="settings-box">
-              <view class="setting-box" style="padding:50rpx 0">
-                <view class="setting-box-price-text">大头菜价格</view>
-                <view class="setting-box-price">
+              <view class="setting-box-row">
+                <view class="setting-box-title">大头菜价格</view>
+                <view class="setting-box-info">
                   <text style="padding-right:20rpx">{{roomInfo.price}}</text>
                   <image src="../../assets/icons/bell.png" style="height:55rpx;width:55rpx;" />
                 </view>
               </view>
-              <view class="setting-box">
+              <view class="setting-box-row">
                 <view class="setting-box-title">排队状态</view>
                 <view class="setting-box-info">
                   <view class="{{inLine? 'waiting-green' : 'waiting-gray'}}">
@@ -48,7 +48,7 @@
                   </view>
                 </view>
               </view>
-              <view class="setting-box">
+              <view class="setting-box-row">
                 <view class="setting-box-title">剩余时间</view>
                 <view class="setting-box-info">
                   <wxs module="filter" src="../../utils/uti.wxs"></wxs>
@@ -56,10 +56,7 @@
                 </view>
               </view>
               <view class="note-box">
-                <view class="note-box-title">
-                  <view class="note-box-title-text">岛主留言</view>
-                  <view class="note-box-title-dotline" />
-                </view>
+                <view class="setting-box-title">岛主留言</view>
                 <view class="note-box-note">
                   <image class="note-box-note-bg" src="../../assets/noteFrame.png" mode="scaleToFill" />
                   <text class="note-box-note-text">{{roomInfo.note}}</text>

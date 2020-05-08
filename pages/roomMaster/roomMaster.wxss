@@ -319,9 +319,8 @@ page {
 }
 .data-loading {
   width: 100rpx;
-  height: 100rpx;
   position: absolute;
-  top: 450rpx;
+  top: calc(50% - 50rpx);
   left: calc(50% - 50rpx);
 }
 
