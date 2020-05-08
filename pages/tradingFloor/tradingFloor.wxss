@@ -95,7 +95,7 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 55rpx;
+  margin-top: 50rpx;
 }
 
 .notFound {
@@ -188,15 +188,15 @@ page {
 }
 .card-time {
   position: absolute;
-  top: 305rpx;
-  left: 40rpx;
+  top: 300rpx;
+  left: 50rpx;
   font-size: 28rpx;
   font-weight: normal;
 }
 .card-lineinfo {
   position: absolute;
-  top: 350rpx;
-  left: 40rpx;
+  top: 340rpx;
+  left: 50rpx;
   font-size: 28rpx;
   font-weight: normal;
 }
@@ -332,14 +332,30 @@ page {
 
 .modal-img {
   width: 100%;
+  position: absolute;
   top: 0;
   left: 0;
+}
+
+.modal-search {
+  width: 100rpx;
+  position: absolute;
+  top: 30rpx;
+  left: 30rpx;
+}
+
+.modal-search-text {
+  position: absolute;
+  top: 60rpx;
+  left: 150rpx;
+  font-size: 34rpx;
+  color: #746b26;
 }
 
 .modal-inputImg {
   width: 300rpx;
   position: absolute;
-  top: 190rpx;
+  top: 150rpx;
   left: 230rpx;
   z-index: 21;
 }
@@ -348,7 +364,7 @@ page {
   width: 230rpx;
   height: 50rpx;
   position: absolute;
-  top: 210rpx;
+  top: 170rpx;
   left: 267rpx;
   border: none;
   z-index: 21;
@@ -359,6 +375,6 @@ page {
   border-radius: 27rpx;
   padding: 8rpx;
   position: absolute;
-  top: 370rpx;
+  top: 300rpx;
   z-index: 21;
 }

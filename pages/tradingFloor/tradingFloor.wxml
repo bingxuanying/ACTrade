@@ -95,6 +95,8 @@
   <!-- modal -->
   <view class='mymodal' wx:if="{{showModal}}">
     <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix" />
+    <image class="modal-search" src="../../assets/lobby/modalSearchIcon.png" mode="widthFix" />
+    <text class="modal-search-text">输入要搜索房间的关键字吧！</text>
     <image class="modal-inputImg" src="../../assets/inputBar.png" mode="widthFix" />
     <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
     <button class="modal-btn" style="width: 120rpx; left:230rpx" bindtap="modalHide">返回</button>
