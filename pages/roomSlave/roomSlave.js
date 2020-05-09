@@ -33,6 +33,7 @@ Page({
     statusBarHeight: app.globalData.statusBarHeight,
     // onLoad check status
     clientStatus: "ok", // no auth -> no name -> ok
+    subscription: false,
     nickname: "",
     islandName: "",
     fruit: "apple",
@@ -134,6 +135,18 @@ Page({
       });
     }
 
+    db.collection("UsersProfile").watch({
+      onChange: (snapshot) => {
+        //监控数据发生变化时触发
+        this.setData({
+          subscription: snapshot.docs[0].subscription,
+        });
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    });
+
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .update({
@@ -197,8 +210,8 @@ Page({
             },
           });
           //判断在列队拿到code
-          var i = 10;
           var svs = this.data.Slaves;
+          var i = null;
           for (const idx in svs) {
             if (svs[idx].timeStamp === app.globalData.roomInfo.timeStamp) {
               i = idx;
@@ -447,6 +460,7 @@ Page({
     console.log("islandName: " + this.data.islandName);
   },
   onSubscribe() {
+    var that = this;
     // 订阅消息授权申请;
     wx.requestSubscribeMessage({
       // 传入订阅消息的模板id
@@ -458,7 +472,22 @@ Page({
           icon: "success",
           duration: 1000,
         });
-        //
+        // 修改db的subscription
+        db.collection("UsersProfile")
+          .where({
+            _openid: app.globalData.openid,
+          })
+          .update({
+            data: {
+              subscription: true,
+            },
+            success: (res) => {
+              console.log("成功订阅");
+            },
+            fail: (res) => {
+              console.log("订阅失败");
+            },
+          });
       },
       fail(res) {
         wx.showToast({

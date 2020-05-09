@@ -56,6 +56,15 @@
                   {{filter.numFixed(roomInfo.timeLeft/60,0)}}小时{{roomInfo.timeLeft%60}}分
                 </view>
               </view>
+              <view class="setting-box-row">
+                <view class="setting-box-title">消息通知状态</view>
+                <view class="setting-box-info">
+                  <view class="sub-status"></view>
+                  <view class="sub-btn" bindtap="onSubscribe">
+                    {{subscription?'已启动排队叫号':'请点击启动排队叫号'}}
+                  </view>
+                </view>
+              </view>
               <view class="note-box">
                 <view class="setting-box-title">岛主留言</view>
                 <view class="note-box-note">
