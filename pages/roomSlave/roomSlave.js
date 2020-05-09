@@ -411,6 +411,7 @@ Page({
                 islandName: "",
                 fruit: "apple",
                 hemisphere: "north",
+                subscription: false,
               },
               success: (userData) => {
                 app.globalData.id = userData.data[0]._id;

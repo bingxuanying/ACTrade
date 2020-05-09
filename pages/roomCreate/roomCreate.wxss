@@ -1,15 +1,23 @@
 /* pages/roomCreate/roomCreate.wxss */
+@import "../../utils/font.wxss";
+page {
+  font-family: webfont;
+}
+
 .roomCreate {
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  color: #756e2a;
+  background-color: #fffbb4;
   overflow-x: hidden;
 }
+
 .header-box {
-  width: 160vw;
-  height: 200rpx;
+  height: 8%;
+  width: 120vw;
   position: relative;
   display: flex;
   justify-content: center;
@@ -17,52 +25,55 @@
 }
 .header-bg {
   width: 100%;
+  height: 100rpx;
   position: absolute;
   top: 0;
-  left: -30vw;
+  left: -10vw;
 }
 
 .settings-box {
-  background-color: lightblue;
-  width: calc(100% - 40rpx);
-  padding: 0 20rpx;
+  width: calc(100% - 60rpx);
+  min-height: calc(84% - 40rpx);
+  padding: 0 30rpx;
+  margin: 0 20rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
 
-.flightOpt {
-  background-color: lightblue;
-  width: 90%;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
 .flightOpt-btn {
-  background-color: #218ec5;
-  height: 70%;
-  border-radius: 15px;
-  padding: 5px
+  font-size: 30rpx;
+  text-align: center;
+  float: left;
 }
+
 .flightOpt-btn-active {
-  background-color: lightgreen;
+  color: #fdfbf1;
+  transform: rotate(3deg);
+}
+
+.flightOpt-btn-icon {
+  width: 170rpx;
+  height: 70rpx;
+  position: absolute;
+  top: -15rpx;
+  z-index: 0;
 }
 
 .settings-layout {
   min-height: 80rpx;
   width: 90%;
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 5px 0;
+  padding: 10px 0;
   font-size: 30rpx;
   background-image: linear-gradient(
     to right,
-    #f89d80 40%,
+    #9f9a56 40%,
     rgba(255, 255, 255, 0) 0%
   );
   background-position: bottom;
@@ -72,47 +83,60 @@
 .settings-title {
   width: 35%;
 }
+.settings-title text {
+  padding: 10rpx;
+  background-color: #bfaa4d;
+  color: #fdfbf1;
+  border-radius: 10rpx;
+}
 .settings-content {
-  background-color: lightblue;
-  width: 65%;
+  width: calc(65% - 20rpx);
+  margin-left: 20rpx;
   border-radius: 15rpx;
+  position: relative;
 }
 .extend-text {
   width: 100%;
-  border-radius: 25rpx;
+  border-radius: 30rpx;
   height: 200rpx;
-  background-color: lightcyan;
+  background: rgba(255, 255, 255, 0.5);
   padding-left: 10rpx;
   padding-top: 10rpx;
 }
+.price-icon {
+  width: 45rpx; 
+  height: 45rpx; 
+  margin-right: 10rpx;
+  float: left;
+}
 
 .footer-box {
-  width: 130vw;
-  height: 6vh;
+  height: 8%;
+  width: 220vw;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .footer-bg {
   width: 100%;
+  height: 100rpx;
   position: absolute;
   bottom: 0;
-  left: -15vw;
+  left: -60vw;
 }
 
 .footer-btn {
   height: 60rpx;
   position: absolute;
-  top: 0rpx;
+  top: -20rpx;
   font-size: 34rpx;
   padding: 3rpx;
   background-color: #faf7e0;
-  border: #000000;
-  border-radius: 27rpx;
+  border-radius: 30rpx;
   display: flex;
   flex-direction: row;
   align-items: center;

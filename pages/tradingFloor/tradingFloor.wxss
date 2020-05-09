@@ -1,5 +1,7 @@
 /* pages/tradingFloor/tradingFloor.wxss */
+@import "../../utils/font.wxss";
 page {
+  font-family: webfont;
   background: #bac8ef;
 }
 
@@ -9,6 +11,7 @@ page {
   align-items: center;
   width: 100vw;
   background-color: transparent;
+  overflow-x: hidden;
 }
 
 .headBar {

@@ -16,7 +16,7 @@
           </view>
           <view class="maintitle-box-mid" />
           <view class="settingInfo ">
-            <image src="../../assets/icons/SettingIcon.png" style="height:100rpx" mode="heightFix" />
+            <image src="../../assets/icons/SettingIcon.png" style="height:70rpx; width: 70rpx;" mode="heightFix" />
             <text class="settingInfo-text">航班设置</text>
           </view>
         </view>
@@ -80,17 +80,18 @@
         <view class="room-box-right ">
           <view class="settings-box">
             <view class="flightOpt">
-              <button class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" bindtap="setPublic" style="width: 40%;">
-                商业航班
-              </button>
-              <button class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" bindtap="setPrivate" style="width: 40%">
-                私人航班
-              </button>
+              <image class="flightOpt-btn-icon" src="../../assets/roomCreate/typeIcon.png" mode="widthFix" style="{{flight=='Business'?'left: 90rpx;':'left: 365rpx;'}}" />
+              <view class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" style="padding-left: 20rpx;" bindtap="setPublic">
+                <text>公开观光</text>
+              </view>
+              <view class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" style="padding-left: 70rpx;" bindtap="setPrivate">
+                <text>私人聚会</text>
+              </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">大头菜价格</view>
-              <image src="../../assets/icons/bell.png" style="height:35rpx; margin-right: 10rpx" mode="heightFix" />
               <view class="settings-content">
+                <image src="../../assets/icons/bell.png" style="height:45rpx; margin-right: 10rpx; float: left" mode="heightFix" />
                 <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
               </view>
             </view>
@@ -103,13 +104,13 @@
             <view class="settings-layout">
               <view class="settings-title" style="color: gray">开放时长</view>
               <view class="settings-content">
-                <slider step="1" min="0" max="12" block-size="16" value="{{time}}" show-value disabled="{{true}}" />
+                <slider step="1" min="0" max="12" block-size="16" value="{{time}}" style="padding: 0; margin: 0;" show-value disabled="{{true}}" />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">在岛人数限制</view>
               <view class="settings-content">
-                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
+                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" style="padding: 0; margin: 0;" show-value />
               </view>
             </view>
             <view class="settings-layout">

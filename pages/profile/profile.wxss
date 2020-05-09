@@ -2,10 +2,12 @@
 .profile {
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .passport {
   width: 100%;
+  height: 300rpx;
 }
 
 .userinfo {
@@ -98,6 +100,7 @@
 
 .personalInfo-icon {
   width: 12%;
+  height: 100rpx;
   margin-top: 9rpx;
 }
 
@@ -120,6 +123,7 @@
 
 .fruit-background {
   width: 100%;
+  height: 50rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -250,6 +254,7 @@
 
 .loadingGIF {
   width: 360rpx;
+  height: 360rpx;
   position: absolute;
   top: calc(50% - 180rpx);
   left: calc(50% - 180rpx);
@@ -257,6 +262,7 @@
 
 .savingGIF {
   width: 200rpx;
+  height: 200rpx;
   position: absolute;
   top: 570rpx;
   right: 130rpx;

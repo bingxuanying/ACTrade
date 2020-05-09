@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/tradingFloor/tradingFloor",
-    "pages/roomCreate/roomCreate",
-    "pages/roomSlave/roomSlave",
     "pages/profile/profile",
     "pages/roomMaster/roomMaster",
+    "pages/roomSlave/roomSlave",
+    "pages/roomCreate/roomCreate",
     "pages/roomAdd/roomAdd",
     "pages/diyExchange/diyExchange"
   ],
