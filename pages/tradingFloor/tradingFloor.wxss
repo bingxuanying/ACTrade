@@ -329,7 +329,7 @@ page {
 .mymodal {
   position: fixed;
   width: 100%;
-  top: 300rpx;
+  top: 32vh;
   background-color: transparent;
   z-index: 20;
   transition: all 300ms ease-out;

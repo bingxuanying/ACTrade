@@ -1,4 +1,4 @@
-<nav-bar navInfo="欢迎来到狸家"></nav-bar>
+<nav-bar navInfo="-- 欢迎来到狸家! --"></nav-bar>
 <block style="height: calc(100vh - {{statusBarHeight}}px - 44px); position: relative;">
     <view class="nookea" >
         <image class="con-img" src="{{constructPage}}" mode="widthFix" />
