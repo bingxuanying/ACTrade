@@ -7,6 +7,7 @@
   justify-content: flex-start;
   position: relative;
   background-color: #f99d78;
+  overflow-x: hidden;
 }
 
 .info-box,

@@ -11,6 +11,7 @@ page {
   align-items: center;
   width: 100vw;
   background-color: transparent;
+  overflow-x: hidden;
 }
 
 .headBar {

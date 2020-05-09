@@ -11,6 +11,7 @@ page {
   align-items: center;
   justify-content: flex-start;
   position: relative;
+  overflow-x: hidden;
 }
 
 .info-box,
