@@ -113,6 +113,7 @@ App({
           that.globalData.imgUrl.gif.IslandLoading =
             res.fileList[5].tempFileURL;
           typeof callback == "function" && callback(that.globalData.imgUrl);
+          console.log("获取url成功");
         },
         fail: (err) => {
           console.log("获取在线gif失败");
@@ -143,6 +144,7 @@ App({
       },
       icons: {
         nook: "",
+        SettingIcon: "",
       },
       img: {
         InfoPageBrown_in: "",

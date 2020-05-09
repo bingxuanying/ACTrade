@@ -16,7 +16,7 @@
           </view>
           <view class="maintitle-box-mid" />
           <view class="settingInfo ">
-            <image src="../../assets/icons/SettingIcon.png" style="height:70rpx; width: 70rpx;" mode="heightFix" />
+            <image src="../../assets/icons/settingIcon.png" style="height:70rpx; width: 70rpx;" mode="heightFix" />
             <text class="settingInfo-text">航班设置</text>
           </view>
         </view>

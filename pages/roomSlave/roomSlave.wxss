@@ -80,7 +80,7 @@ page {
   position: relative;
 }
 .settingInfo-logo {
-  height:70rpx;
+  height: 70rpx;
   width: 70rpx;
 }
 .settingInfo-text {
@@ -529,6 +529,7 @@ page {
   justify-content: center;
   align-items: center;
   color: #877b65;
+  font-size: 28rpx;
 }
 .waiting-green {
   border-radius: 25rpx;
@@ -834,4 +835,39 @@ page {
   position: fixed;
   top: calc(50% - 50rpx);
   left: calc(50% - 50rpx);
+}
+
+.sub-btn {
+  border-radius: 25rpx;
+  padding: 10rpx;
+  background-color: #a4a49c;
+  color: #c2c3b5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.sub-btn-icon {
+  background-color: #716a58;
+  color: #f5efd5;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  height: 40rpx;
+  width: 40rpx;
+  font-size: 27rpx;
+  text-align: center;
+  line-height: 40rpx;
+}
+.green {
+  animation: togreen 1s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+@keyframes togreen {
+  from {
+    background-color: #a4a49c;
+    color: #c2c3b5;
+  }
+  to {
+    background-color: #4fb262;
+    color: #bfedc6;
+  }
 }

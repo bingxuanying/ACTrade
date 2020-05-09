@@ -8,21 +8,24 @@ exports.main = async (event, context) => {
   console.log(event);
   try {
     OPENID = event.openid;
+    password = event.password;
+    roomNum = event.roomNum;
+    roomId = event.roomId;
     return await cloud.openapi.subscribeMessage
       .send({
         touser: OPENID,
-        page: "tradingFloor",
+        page: "/pages/roomSlave/roomSlave?room_id="+roomId,
         lang: "zh_CN",
         data: {
           phrase1: {
-            value: "动森排队",
+            value: "动森叫号",
           },
           phrase3: {
             // value: event.roomNum,
-            value: "不能英文偶",
+            value: "密码如下",
           },
           character_string2: {
-            value: 12345,
+            value: password,
           },
         },
         templateId: "qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA",

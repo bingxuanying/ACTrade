@@ -16,7 +16,7 @@
           </view>
           <view class="maintitle-box-mid" />
           <view class="settingInfo">
-            <image class="settingInfo-logo" src="../../assets/icons/SettingIcon.png" mode="heightFix" />
+            <image class="settingInfo-logo" src="../../assets/icons/settingIcon.png" mode="heightFix" />
             <text class="settingInfo-text">队伍列表</text>
           </view>
         </view>
@@ -44,10 +44,10 @@
               <view class="setting-box-row">
                 <view class="setting-box-title">排队状态</view>
                 <view class="setting-box-info">
-                  <view class="{{inLine? 'waiting-green' : 'waiting-gray'}}">
+                  <view class="waiting-gray {{inLine? 'green' : ''}}">
                     {{inLine? '排到啦!':'排队中...'}}
                   </view>
-                  <view hidden="{{!inLine}}">{{roomInfo.code}}</view>
+                  <view hidden="{{!inLine}}">{{' ' + roomInfo.code}}</view>
                 </view>
               </view>
               <view class="setting-box-row">
@@ -58,11 +58,11 @@
                 </view>
               </view>
               <view class="setting-box-row">
-                <view class="setting-box-title">消息通知状态</view>
+                <view class="setting-box-title">排队叫号</view>
                 <view class="setting-box-info">
-                  <view class="sub-status"></view>
-                  <view class="sub-btn" bindtap="onSubscribe">
-                    {{subscription?'已启动排队叫号':'请点击启动排队叫号'}}
+                  <view class="sub-btn {{subscription?'green':''}}" bindtap="onSubscribe">
+                    <view class="sub-btn-icon" wx:if="{{!subscription}}">A</view>
+                    {{subscription?'已启动':'未启动'}}
                   </view>
                 </view>
               </view>

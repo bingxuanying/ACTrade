@@ -382,7 +382,7 @@ page {
   position: absolute;
   top: 350rpx;
   font-size: 28rpx;
-  color: #d1a346;
+  color: #846046;
   z-index: 21;
   text-align: center;
   line-height: 84rpx;

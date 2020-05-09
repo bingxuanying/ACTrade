@@ -32,6 +32,7 @@ exports.main = async (event, context) => {
             openid: _slaves[idx].openid,
             roomNum: flight.roomNum,
             password: flight.code,
+            roomId: roomID
           },
         });
       } else {

@@ -45,9 +45,9 @@
                   还剩{{filter.numFixed(item.timeLeft/60,0)}}小时{{item.timeLeft%60}}分
                 </view>
                 <view class="card-lineinfo" wx:if="{{item.slaves.length > item.people}}">
-                  队伍{{item.people}} 登岛{{item.slaves.length-item.people}}
+                  岛内{{item.people}} 队伍{{item.slaves.length-item.people}}
                 </view>
-                <view class="card-lineinfo" wx:else>队伍{{item.slaves.length}} 登岛0</view>
+                <view class="card-lineinfo" wx:else>岛内{{item.slaves.length}} 队伍0</view>
                 <view class="card-price">
                   <view class="card-price-text">
                     <text class="card-price-text-bg">{{item.price}}</text>
