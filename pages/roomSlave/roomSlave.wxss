@@ -299,7 +299,7 @@ page {
   margin-right: 10rpx;
 }
 .slaveInfo-head-bot-text {
-  max-width: 220rpx;
+  max-width: 180rpx;
   text-align: center;
   line-height: 150%;
   align-self: center;
@@ -324,6 +324,10 @@ page {
 }
 .slaveInfo-playerName {
   height: 90%;
+  max-width: calc(47vw - 36rpx);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin-left: 10rpx;
   color: #e07642;
   font-weight: bolder;
