@@ -7,34 +7,42 @@ const _ = db.command;
 exports.main = async (event, context) => {
   console.log("触发lineUpdater");
   var flightNum = event.roomNum;
+  var roomID = event.roomID;
   console.log(flightNum);
   try {
-    // 需要引入OPENID才能实现
-    const flights = await db.collection("Flights").where({roomNum:flightNum}).get();
-    const flight = flights.data[0];
+    const flight = await db.collection("Flights").doc(roomID).get();
     console.log(flight);
     var _slaves = flight.slaves;
     console.log(_slaves);
     for (const idx in _slaves) {
       if (!_slaves[idx].notified && idx < flight.people) {
         _slaves[idx].notified = true;
-        console.log("now change notified for user"+idx+" in flihgt"+" "+ flight.roomNum);
+        console.log(
+          "now change notified for user" +
+            idx +
+            " in flihgt" +
+            " " +
+            flight.roomNum
+        );
         // 发送通知
         cloud.callFunction({
           name: "lineNotify",
           data: {
             openid: _slaves[idx].openid,
             roomNum: flight.roomNum,
-            password: flight.code
+            password: flight.code,
           },
         });
-      }
-      else {
+      } else {
         console.log("nofitied no change");
       }
     }
-    await db.collection("Flights").where({roomNum:flightNum}).update({
-        data: {slaves: _slaves,},});
+    await db
+      .collection("Flights")
+      .where({ roomNum: flightNum })
+      .update({
+        data: { slaves: _slaves },
+      });
     return null;
     // flights.data.map(async (flight) => {
     //   var _slaves = flight.slaves;
