@@ -81,7 +81,7 @@
         <block wx:else>
           <text>---</text>
           <text style="margin-left: 20rpx">到底啦~！</text>
-          <image class="card-bottom-nook" src="../../assets/icons/nook.png" mode="widthFix" style="margin-right: 20rpx" />
+          <image class="card-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
           <text>---</text>
         </block>
       </view>
@@ -103,12 +103,8 @@
     <text class="modal-search-text">输入要搜索房间的关键字吧！</text>
     <image class="modal-inputImg" src="../../assets/inputBar.png" mode="widthFix" />
     <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
-
-    <view class="modal-btn-icon" style="top: 345rpx;left: 331rpx;">
-      -
-    </view>
+    <view class="modal-btn-icon" style="top: 345rpx;left: 331rpx;">-</view>
     <button class="modal-btn" style="width: 150rpx; left:215rpx" bindtap="modalHide">返回</button>
-
     <view class="modal-btn-icon {{keyword.length===5?'':'modal-btn-icon-disabled'}}" style="top: 345rpx;left: 511rpx;">
       +
     </view>
