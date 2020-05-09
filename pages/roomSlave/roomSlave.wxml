@@ -10,7 +10,7 @@
             <image class="masterInfo-avatar" src="{{MasterInfo.avatar}}" wx:if="{{MasterInfo.avatar}}" mode="widthFix" />
             <view class="masterInfo-avatar" wx:else />
             <view class="masterInfo-masterData">
-              <view class="masterInfo-islandName">{{MasterInfo.islandName}}</view>
+              <view class="masterInfo-islandName">{{MasterInfo.islandName}}岛</view>
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
@@ -69,8 +69,7 @@
               <view class="note-box">
                 <view class="setting-box-title">岛主留言</view>
                 <view class="note-box-note">
-                  <image class="note-box-note-bg" src="../../assets/noteFrame.png" mode="scaleToFill" />
-                  <text class="note-box-note-text">{{roomInfo.note}}</text>
+                  <view class="note-box-note-text">{{roomInfo.note}}</view>
                   <image class="note-box-note-nook" src="../../assets/icons/nook.png" mode="heightFix" />
                 </view>
               </view>
@@ -98,7 +97,7 @@
                 </view>
                 <view class="slaveInfo-head-bot">
                   <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-                  <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+                  <view class="slaveInfo-head-bot-text">{{item.islandName}}岛</view>
                 </view>
               </view>
               <view class="slaveInfo-tail">
@@ -121,7 +120,7 @@
                 </view>
                 <view class="slaveInfo-head-bot">
                   <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-                  <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+                  <view class="slaveInfo-head-bot-text">{{item.islandName}}岛</view>
                 </view>
               </view>
               <view class="slaveInfo-tail">

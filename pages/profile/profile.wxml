@@ -19,12 +19,12 @@
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
         <view class="personalInfo-title">游戏昵称</view>
-        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" />
+        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写"/>
       </view>
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
         <view class="personalInfo-title">岛名</view>
-        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
+        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写"/>
       </view>
       <view class="personalInfo-row">
         <view class="fruit-background">

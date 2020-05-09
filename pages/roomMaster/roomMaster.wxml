@@ -10,7 +10,7 @@
             <image class="masterInfo-avatar" src="{{MasterInfo.avatar}}" wx:if="{{MasterInfo.avatar}}" mode="widthFix" />
             <view class="masterInfo-avatar" wx:else />
             <view class="masterInfo-masterData">
-              <view class="masterInfo-islandName">{{MasterInfo.islandName}}</view>
+              <view class="masterInfo-islandName">{{MasterInfo.islandName}}岛</view>
               <view class="masterInfo-playerName">{{MasterInfo.masterName}}</view>
             </view>
           </view>
@@ -43,7 +43,7 @@
                 </view>
                 <view class="slaveInfo-head-bot">
                   <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-                  <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+                  <view class="slaveInfo-head-bot-text">{{item.islandName}}岛</view>
                 </view>
               </view>
               <view class="slaveInfo-tail">
@@ -60,7 +60,7 @@
                 </view>
                 <view class="slaveInfo-head-bot">
                   <image class="slaveInfo-head-bot-icon" src="../../assets/icons/IslandIcon.png" mode="heightFix" />
-                  <view class="slaveInfo-head-bot-text">{{item.islandName}}</view>
+                  <view class="slaveInfo-head-bot-text">{{item.islandName}}岛</view>
                 </view>
               </view>
               <view class="slaveInfo-tail">
