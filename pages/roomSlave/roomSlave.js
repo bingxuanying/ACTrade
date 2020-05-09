@@ -287,19 +287,21 @@ Page({
           },
         })
         .then((res) => {
-          wx.cloud
-            .callFunction({
-              name: "lineUpdater",
-              data: {
-                roomNum: that.data.roomInfo.roomNum,
-              },
-            })
-            .then(() => {
-              console.log("kick success");
-            })
-            .catch((err) => {
-              console.log("Err: KickRoom - cloud Function");
-            });
+          if (this.data.inLine) {
+            wx.cloud
+              .callFunction({
+                name: "lineUpdater",
+                data: {
+                  roomNum: that.data.roomInfo.roomNum,
+                },
+              })
+              .then(() => {
+                console.log("kick success");
+              })
+              .catch((err) => {
+                console.log("Err: KickRoom - cloud Function");
+              });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -318,19 +320,21 @@ Page({
           },
         })
         .then((res) => {
-          wx.cloud
-            .callFunction({
-              name: "lineUpdater",
-              data: {
-                roomNum: that.data.roomInfo.roomNum,
-              },
-            })
-            .then(() => {
-              console.log("quit success");
-            })
-            .catch((err) => {
-              console.log("Err: QuitRoom - cloud Function");
-            });
+          if (this.data.inLine) {
+            wx.cloud
+              .callFunction({
+                name: "lineUpdater",
+                data: {
+                  roomNum: that.data.roomInfo.roomNum,
+                },
+              })
+              .then(() => {
+                console.log("quit success");
+              })
+              .catch((err) => {
+                console.log("Err: QuitRoom - cloud Function");
+              });
+          }
         })
         .catch((err) => {
           console.log(err);

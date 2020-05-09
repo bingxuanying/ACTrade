@@ -1,6 +1,6 @@
 const cloud = require("wx-server-sdk");
 
-cloud.init();
+cloud.init()
 const db = cloud.database();
 const _ = db.command;
 
@@ -27,22 +27,20 @@ exports.main = async (event, context) => {
         },
         templateId: "qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA",
         miniprogramState: "developer",
-      })
-      .then(() => {
-        db.collection("UsersProfile")
-          .doc(OPENID)
-          .update({
-            data: {
-              subscription: false,
-            },
-          })
-          .then(() => {
-            console.log("更新profile.sub成功");
-          })
-          .catch(() => {
-            console.log("更新profile.sub失败");
-          });
-      });
+      }).then( db.collection('UsersProfile').where({
+        _openid:OPENID
+      }).update({data:{
+          subscription: false
+        }}).then(res=>{
+        console.log("进入db.collection.get的then");
+      }).catch(err =>{console.log("进入db.collection.get的catch")})
+      , function(err){
+        console.log("进入失败 callbakc");
+        console.log(err);
+        console.log("失败cb end");
+      }
+      )
+
   } catch (err) {
     console.log(err);
     return err;
