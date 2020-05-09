@@ -1,6 +1,6 @@
 <!-- pages/roomMaster/roomMaster.wxml -->
 <block>
-  <nav-bar navInfo="房间：{{roomInfo.roomNum}}"></nav-bar>
+  <nav-bar navInfo="-- 商铺 {{roomInfo.roomNum}} 号 --"></nav-bar>
   <view class="roomMaster" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="info-box">
       <view class="info-box-lefticon" bindtap="LClick">L</view>
@@ -104,13 +104,13 @@
             <view class="settings-layout">
               <view class="settings-title" style="color: gray">开放时长</view>
               <view class="settings-content">
-                <slider step="1" min="0" max="12" block-size="16" value="{{time}}" style="padding: 0; margin: 0;" show-value disabled="{{true}}" />
+                <slider step="1" min="1" max="12" block-size="16" value="{{time}}" style="padding: 0; margin: 0;" show-value disabled="{{true}}" />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">在岛人数限制</view>
               <view class="settings-content">
-                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" style="padding: 0; margin: 0;" show-value />
+                <slider bindchange="bindSliderPeople" step="1" min="1" max="7" block-size="16" value="{{people}}" style="padding: 0; margin: 0;" show-value />
               </view>
             </view>
             <view class="settings-layout">

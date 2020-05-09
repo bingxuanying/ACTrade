@@ -2,7 +2,9 @@
   "window": {
     "navigationStyle": "default"
   },
-  "usingComponents": {},
+  "usingComponents": {
+    "nav-bar": "../../components/navbar"
+  },
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 200
 }

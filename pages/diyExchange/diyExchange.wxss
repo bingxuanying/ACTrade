@@ -3,11 +3,15 @@ page {
 }
 .nookea {
   width: 100%;
-  height: calc(100vh - 120rpx);
   overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 }
 .con-img {
+  width: 94%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

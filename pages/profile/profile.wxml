@@ -1,5 +1,6 @@
 <!-- pages/profile/profile.wxml -->
-<block style="position:relative;">
+<nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
+<block style="height: calc(100vh - {{statusBarHeight}}px - 44px);position:relative;">
   <view class="profile" hidden="{{isLoading}}">
     <image class="passport" src="{{passport}}" mode="widthFix" />
     <view class="userinfo">
@@ -19,12 +20,12 @@
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
         <view class="personalInfo-title">游戏昵称</view>
-        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写"/>
+        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写" />
       </view>
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
         <view class="personalInfo-title">岛名</view>
-        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写"/>
+        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写" />
       </view>
       <view class="personalInfo-row">
         <view class="fruit-background">

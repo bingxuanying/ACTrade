@@ -16,8 +16,8 @@ page {
 }
 
 .header-box {
-  height: 8%;
-  width: 120vw;
+  height: 11%;
+  width: 180vw;
   position: relative;
   display: flex;
   justify-content: center;
@@ -30,10 +30,18 @@ page {
   top: 0;
   left: -10vw;
 }
+.header-bg-icon {
+  width: 300rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .settings-box {
   width: calc(100% - 60rpx);
-  min-height: calc(84% - 40rpx);
+  min-height: calc(81% - 40rpx);
   padding: 0 30rpx;
   margin: 0 20rpx;
   display: flex;

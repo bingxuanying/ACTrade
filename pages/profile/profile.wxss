@@ -1,8 +1,9 @@
 /* pages/profile/profile.wxss */
 .profile {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 .passport {
@@ -264,6 +265,6 @@
   width: 200rpx;
   height: 200rpx;
   position: absolute;
-  top: 570rpx;
+  top: 760rpx;
   right: 130rpx;
 }
