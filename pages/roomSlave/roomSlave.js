@@ -323,6 +323,7 @@ Page({
               name: "lineUpdater",
               data: {
                 roomNum: that.data.roomInfo.roomNum,
+                roomID: app.globalData.roomInfo.roomID,
               },
             })
             .then(() => {
