@@ -103,13 +103,13 @@
             <view class="settings-layout">
               <view class="settings-title" style="color: gray">开放时长</view>
               <view class="settings-content">
-                <slider step="1" min="0" max="12" block-size="16" value="{{time}}" show-value disabled="{{true}}" />
+                <slider step="1" min="0" max="12" block-size="16" value="{{time}}" style="padding: 0; margin: 0;" show-value disabled="{{true}}" />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">在岛人数限制</view>
               <view class="settings-content">
-                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" show-value />
+                <slider bindchange="bindSliderPeople" step="1" min="0" max="7" block-size="16" value="{{people}}" style="padding: 0; margin: 0;" show-value />
               </view>
             </view>
             <view class="settings-layout">

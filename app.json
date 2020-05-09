@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/roomCreate/roomCreate",
+    "pages/roomCreate/roomCreate", 
     "pages/tradingFloor/tradingFloor",
     "pages/roomSlave/roomSlave",
     "pages/profile/profile",
