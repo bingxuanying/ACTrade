@@ -1,5 +1,7 @@
 /* pages/tradingFloor/tradingFloor.wxss */
+@import "../../utils/font.wxss";
 page {
+  font-family: webfont;
   background: #bac8ef;
 }
 

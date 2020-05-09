@@ -1,10 +1,10 @@
 /* pages/roomMaster/roomMaster.wxss */
 @import "../../utils/font.wxss";
 page {
-  background-color: #f99d78;
   font-family: webfont;
 }
 .roomMaster {
+  background-color: #f99d78;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -130,7 +130,6 @@ page {
 .masterInfo-avatar {
   width: 110rpx;
   height: 110rpx;
-  background-color: #fda156;
   border-radius: 50%;
   position: relative;
   right: 50rpx;
@@ -528,18 +527,21 @@ page {
 .setting-box-info {
   width: 70%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   color: #877b65;
 }
-.waiting-gray,
 .waiting-green {
   border-radius: 25rpx;
   background-color: #4fb262;
   color: #bfedc6;
-  padding: 5rpx 15rpx;
+  padding: 10rpx;
+  margin-right: 20rpx;
 }
 .waiting-gray {
+  border-radius: 25rpx;
+  padding: 10rpx;
   background-color: #a4a49c;
   color: #c2c3b5;
 }

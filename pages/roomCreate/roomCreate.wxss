@@ -1,7 +1,7 @@
 /* pages/roomCreate/roomCreate.wxss */
+@import "../../utils/font.wxss";
 page {
-  background-color: #fffbb4;
-  color: #756e2a;
+  font-family: webfont;
 }
 
 .roomCreate {
@@ -11,6 +11,8 @@ page {
   align-items: center;
   justify-content: space-between;
   overflow-x: hidden;
+  color: #756e2a;
+  background-color: #fffbb4;
 }
 
 .header-box {
@@ -55,7 +57,7 @@ page {
   height: 70rpx;
   position: absolute;
   top: -15rpx;
-  z-index: -1;
+  z-index: 0;
 }
 
 .settings-layout {

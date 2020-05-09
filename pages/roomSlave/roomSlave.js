@@ -32,7 +32,7 @@ Page({
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
     // onLoad check status
-    clientStatus: "ok", // no auth -> no name -> ok
+    clientStatus: "no auth", // no auth -> no name -> ok
     nickname: "",
     islandName: "",
     fruit: "apple",
@@ -398,6 +398,7 @@ Page({
                 islandName: "",
                 fruit: "apple",
                 hemisphere: "north",
+                subscription: false,
               },
               success: (userData) => {
                 app.globalData.id = userData.data[0]._id;

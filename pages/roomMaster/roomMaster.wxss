@@ -1,7 +1,4 @@
 /* pages/roomMaster/roomMaster.wxss */
-page {
-  background-color: #f99d78;
-}
 .roomMaster {
   width: 100vw;
   display: flex;
@@ -9,6 +6,7 @@ page {
   align-items: center;
   justify-content: flex-start;
   position: relative;
+  background-color: #f99d78;
 }
 
 .info-box,
@@ -127,7 +125,6 @@ page {
 .masterInfo-avatar {
   width: 110rpx;
   height: 110rpx;
-  background-color: #fda156;
   border-radius: 50%;
   position: relative;
   right: 50rpx;
@@ -219,6 +216,7 @@ page {
 }
 .slaveInfo-deleteicon {
   width: 7%;
+  height: 50rpx;
   position: relative;
   z-index: 5;
 }
@@ -276,6 +274,7 @@ page {
   align-content: center;
 }
 .slaveInfo-head-bot-icon {
+  width: 32rpx;
   height: 32rpx;
   align-self: center;
   margin-right: 10rpx;
@@ -370,6 +369,7 @@ page {
   animation-fill-mode: forwards;
 }
 .tool-box-icon {
+  width: 100rpx;
   height: 80%;
   align-self: center;
 }
@@ -379,6 +379,7 @@ page {
   font-size: 30rpx;
 }
 .tool-box-minusicon {
+  width: 43rpx;
   height: 43rpx;
   position: relative;
   left: 300rpx;
@@ -386,6 +387,7 @@ page {
   z-index: 100;
 }
 .tool-box-yicon {
+  width: 43rpx;
   height: 43rpx;
   position: absolute;
   left: 287rpx;
@@ -502,15 +504,27 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  margin-top: 25rpx;
+  position: relative;
 }
+
 .flightOpt-btn {
-  background-color: #ded8c8;
-  height: 70%;
-  border-radius: 15px;
-  padding: 5px;
+  font-size: 30rpx;
+  text-align: center;
+  float: left;
 }
+
 .flightOpt-btn-active {
-  background-color: lightgreen;
+  color: #fdfbf1;
+  transform: rotate(3deg);
+}
+
+.flightOpt-btn-icon {
+  width: 170rpx;
+  height: 70rpx;
+  position: absolute;
+  top: -22rpx;
+  z-index: 0;
 }
 
 .settings-layout {
@@ -522,15 +536,16 @@ page {
   justify-content: center;
   padding: 5px 0;
   font-size: 30rpx;
-  border-bottom: #218ec5 2px dotted;
 }
 .settings-title {
   width: 35%;
+  color: #403232;
 }
 .settings-content {
   background-color: #ded8c8;
   width: 65%;
   border-radius: 15rpx;
+  color: #554444;
 }
 .extend-text {
   width: 100%;
@@ -538,36 +553,38 @@ page {
   height: 200rpx;
   padding-left: 10rpx;
   padding-top: 10rpx;
+  font-size: 28rpx;
 }
 .settings-saveBtn-box {
   align-self: flex-end;
   padding: 10rpx 5rpx;
+  margin-top: 10rpx;
   margin-right: 5%;
 }
 .saveBtn {
   height: 50rpx;
   margin-left: 20rpx;
-  background-color: #f5f7e1;
+  background-color: #887964;
   border-radius: 15rpx;
-  border: #887964 3px solid;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 0 10rpx;
 }
 .saveBtn-icon {
   height: 30rpx;
   width: 30rpx;
   border-radius: 30rpx;
-  background-color: #887964;
-  color: #f5f9e2;
+  background-color: #f5f9e2;
+  color: #887964;
   line-height: 30rpx;
   text-align: center;
   font-size: 30rpx;
 }
 .saveBtn-text {
-  font-size: 22rpx;
-  color: #837862;
+  font-size: 24rpx;
+  color: #f5f7e1;
   margin-left: 5rpx;
 }
 
@@ -652,7 +669,8 @@ page {
 
 .savingGIF {
   width: 200rpx;
+  height: 200rpx;
   position: absolute;
-  bottom: 20vh;
-  right: calc(50vw - 100rpx);
+  bottom: 17vh;
+  right: 5vw;
 }
