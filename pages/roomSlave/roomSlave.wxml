@@ -3,7 +3,7 @@
   <nav-bar navInfo="房间：{{roomInfo.roomNum}}"></nav-bar>
   <view class="roomMaster" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="info-box">
-      <view class="info-box-lefticon" bindtap="LClick">L</view>
+      <view class="info-box-clickIcon" style="border-radius: 15rpx 0 0 0;" bindtap="LClick">L</view>
       <view class="maintitle">
         <view class="maintitle-box {{(firstTimeLoad? '': (page==0? 'slide-left':'slide-right'))}}">
           <view class="masterInfo">
@@ -16,7 +16,7 @@
           </view>
           <view class="maintitle-box-mid" />
           <view class="settingInfo">
-            <image src="../../assets/icons/SettingIcon.png" style="height:70rpx" mode="heightFix" />
+            <image class="settingInfo-logo" src="../../assets/icons/SettingIcon.png" mode="heightFix" />
             <text class="settingInfo-text">队伍列表</text>
           </view>
         </view>
@@ -26,7 +26,7 @@
           <view class="dot" />
         </view>
       </view>
-      <view class="info-box-righticon" bindtap="RClick">R</view>
+      <view class="info-box-clickIcon" style="border-radius: 0 15rpx 0 0;" bindtap="RClick">R</view>
     </view>
     <view class="room-box-shader">
       <view class="room-box {{(firstTimeLoad? '': (page===0? 'slide-left':'slide-right'))}}">

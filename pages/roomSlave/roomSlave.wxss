@@ -32,51 +32,45 @@ page {
   color: #716a58;
   border-radius: 100rpx;
 }
-.info-box-righticon,
-.info-box-lefticon {
+
+.info-box-clickIcon {
   position: relative;
   height: 45rpx;
   width: 45rpx;
-  left: 0%;
   bottom: -33%;
   color: #f2f4dc;
   background-color: #8a7b64;
   display: flex;
   align-content: center;
   justify-content: center;
-  border-radius: 15rpx 0 0 0;
   border: #f2f4dc 2px solid;
 }
-.info-box-righticon {
-  border-radius: 0 15rpx 0 0;
-}
+
 .maintitle {
-  width: 100%;
+  width: calc(84vw - 90rpx - 8rpx);
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
   position: relative;
 }
 .maintitle-box {
-  width: calc(184vw - 90rpx);
+  width: calc(184vw - 90rpx - 4rpx);
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   position: relative;
-  left: calc(42vw + 45rpx);
 }
 .maintitle-box-mid {
-  width: calc(16vw + 90rpx);
+  width: calc(16vw + 90rpx + 8rpx);
   height: 100%;
 }
 .settingInfo {
-  width: calc(84vw - 90rpx);
-  height: 130rpx - 14rpx;
+  width: calc(84vw - 94rpx);
   margin-top: 10rpx;
   display: flex;
   flex-direction: row;
@@ -84,6 +78,10 @@ page {
   justify-content: center;
   font-weight: bolder;
   position: relative;
+}
+.settingInfo-logo {
+  height:70rpx;
+  width: 70rpx;
 }
 .settingInfo-text {
   margin-left: 10rpx;
@@ -119,8 +117,7 @@ page {
   left: -18.5rpx;
 }
 .masterInfo {
-  width: calc(84vw - 90rpx);
-  height: 130rpx - 14rpx;
+  width: calc(84vw - 94rpx);
   display: flex;
   flex-direction: row;
   align-items: center;
