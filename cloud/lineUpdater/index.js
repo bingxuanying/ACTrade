@@ -8,9 +8,10 @@ exports.main = async (event, context) => {
   console.log("触发lineUpdater");
   var flightNum = event.roomNum;
   var roomID = event.roomID;
-  console.log(flightNum);
+  console.log(typeof(roomID));
   try {
-    const flight = await db.collection("Flights").doc(roomID).get();
+    const flights = await db.collection("Flights").where({_id:roomID}).get();
+    const flight = flights.data[0];
     console.log(flight);
     var _slaves = flight.slaves;
     console.log(_slaves);

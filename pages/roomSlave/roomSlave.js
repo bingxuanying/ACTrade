@@ -293,10 +293,15 @@ Page({
                 name: "lineUpdater",
                 data: {
                   roomNum: that.data.roomInfo.roomNum,
+                  roomID: app.globalData.roomInfo.roomID
                 },
               })
               .then(() => {
                 console.log("kick success");
+                app.globalData.roomInfo = {
+                  roomID: null,
+                  timeStamp: null,
+                };
               })
               .catch((err) => {
                 console.log("Err: KickRoom - cloud Function");
@@ -319,36 +324,35 @@ Page({
             }),
           },
         })
-        .then((res) => {
-          if (this.data.inLine) {
-            wx.cloud
-              .callFunction({
-                name: "lineUpdater",
-                data: {
-                  roomNum: that.data.roomInfo.roomNum,
-                },
-              })
-              .then(() => {
-                console.log("quit success");
-              })
-              .catch((err) => {
-                console.log("Err: QuitRoom - cloud Function");
-              });
-          }
-        })
+        .then(
+          wx.cloud
+          .callFunction({
+            name: "lineUpdater",
+            data: {
+              roomNum: that.data.roomInfo.roomNum,
+              roomID: app.globalData.roomInfo.roomID
+            },
+          })
+          .then(() => {
+            console.log("quit success");
+            app.globalData.roomInfo = {
+              roomID: null,
+              timeStamp: null,
+            };
+          })
+          .catch((err) => {
+            console.log("Err: QuitRoom - cloud Function");
+          })
+        )
         .catch((err) => {
           console.log(err);
         });
     }
 
-    app.globalData.roomInfo = {
-      roomID: null,
-      timeStamp: null,
-    };
-
+    
     // wx.navigateBack()
     wx.switchTab({
-      url: "/pages/tradingFloor/tradingFloor",
+      url: "/pages/tradingFloor/tradingFloor"
     });
   },
   onShareAppMessage: function (res) {
