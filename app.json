@@ -14,10 +14,6 @@
     "navigationBarTitleText": "纳斯大头Nasdatou",
     "navigationBarTextStyle": "black"
   },
-  "usingComponents": {
-    "nav-bar": "/components/navbar"
-  },
-  "navigationStyle": "custom",
   "tabBar": {
     "custom": true,
     "list": [
