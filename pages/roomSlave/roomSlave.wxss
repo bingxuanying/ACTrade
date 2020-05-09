@@ -556,12 +556,10 @@ page {
 }
 
 .note-box-note-text {
-  width: 56vw;
+  width: calc(100% - 40rpx);
   height: 56vw;
   word-wrap: break-word;
   color: #877b65;
-  position: absolute;
-  left: calc(50% - 28vw);
   font-size: 32rpx;
   overflow-y: scroll;
   background: rgba(255, 194, 0, 0.1);
@@ -571,8 +569,8 @@ page {
 .note-box-note-nook {
   position: absolute;
   height: 80rpx;
-  top: 53vw;
-  right: 10vw;
+  top: 57vw;
+  right: 5vw;
 }
 
 /* join room */
@@ -844,7 +842,7 @@ page {
   background-color: #716a58;
   color: #f5efd5;
   border-radius: 50%;
-  margin-right: 10rpx;
+  margin-right: 5rpx;
   height: 40rpx;
   width: 40rpx;
   font-size: 27rpx;
