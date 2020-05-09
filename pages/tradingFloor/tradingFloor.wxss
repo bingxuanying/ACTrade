@@ -269,6 +269,7 @@ page {
 }
 .card-bottom-nook {
   width: 50rpx;
+  height: 50rpx;
 }
 .card-bottom-loading {
   width: 65rpx;
@@ -395,10 +396,11 @@ page {
   border: #eebb4e solid 5rpx;
   border-radius: 50%;
   margin-right: 10rpx;
-  height:30rpx; 
-  width:30rpx;font-size:
-  30rpx; text-align:center; 
-  line-height:30rpx;
+  height: 30rpx;
+  width: 30rpx;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 30rpx;
   position: absolute;
   z-index: 22;
 }

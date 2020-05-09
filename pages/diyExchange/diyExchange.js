@@ -10,7 +10,7 @@ Page({
         fileList: [
           {
             fileID:
-              "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/施工页面.png",
+              "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/施工页面.jpg",
           },
         ],
       })
