@@ -146,6 +146,7 @@ Page({
                 fruit: "apple",
                 hemisphere: "north",
                 subscription: false,
+                curRoomid: null,
               },
               success: (userData) => {
                 app.globalData.id = userData.data[0]._id;

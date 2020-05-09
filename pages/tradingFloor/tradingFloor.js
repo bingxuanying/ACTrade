@@ -333,13 +333,22 @@ Page({
     ) {
       app.globalData.roomInfo = {
         roomID: e.currentTarget.id,
-        timeStamp: util.formatTime(),
+        timeStamp: null,
       };
       console.log(app.globalData.roomInfo);
 
-      wx.navigateTo({
-        url: "/pages/roomSlave/roomSlave",
-      });
+      db.collection("UsersProfile")
+        .doc(app.globalData.id)
+        .update({
+          data:{
+            curRoomid: e.currentTarget.id
+          },
+          success: res => {
+            wx.navigateTo({
+              url: "/pages/roomSlave/roomSlave",
+            });
+          }
+        })
     } else {
       wx.switchTab({
         url: "/pages/profile/profile",

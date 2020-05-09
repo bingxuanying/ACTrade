@@ -131,7 +131,7 @@ App({
       hemisphere: "north",
     },
     roomInfo: {
-      roomID: "e2297d935eb47f3a003a1b4c3b440706",
+      roomID: null,
       timeStamp: null,
     },
     statusBarHeight: 0,

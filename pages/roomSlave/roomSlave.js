@@ -55,11 +55,7 @@ Page({
           app.globalData.gameProfile.nickname.length > 0 &&
           app.globalData.gameProfile.islandName.length > 0
         ) {
-          app.globalData.roomInfo.timeStamp = util.formatTime();
-          this.setData({
-            timeStamp: app.globalData.roomInfo.timeStamp,
-            clientStatus: "ok",
-          });
+          this.setData({clientStatus: "ok"});
           this.checkin();
         } else {
           this.setData({ clientStatus: "no name" });
@@ -82,10 +78,7 @@ Page({
                     app.globalData.gameProfile.nickname.length > 0 &&
                     app.globalData.gameProfile.islandName.length > 0
                   ) {
-                    app.globalData.roomInfo.timeStamp = util.formatTime();
-                    this.setData({
-                      timeStamp: app.globalData.roomInfo.timeStamp,
-                    });
+                    this.setData({clientStatus: "ok"});
                     this.checkin();
                   } else {
                     this.setData({ clientStatus: "no name" });
@@ -126,58 +119,94 @@ Page({
   checkin: function () {
     this.setData({ isLoading: true });
 
-    if (!app.globalData.openid) {
-      db.collection("UsersProfile").get({
-        success: (res) => {
-          if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
-        },
-      });
-    }
-
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
-      .update({
-        data: {
-          slaves: db.command.push({
-            openid: app.globalData.openid,
-            notified: false,
-            avatar: app.globalData.userInfo.avatarUrl,
-            islandName: app.globalData.gameProfile.islandName,
-            nickname: app.globalData.gameProfile.nickname,
-            timeStamp: app.globalData.roomInfo.timeStamp,
-          }),
-        },
-      });
+      .get()
+      .then( res => {
+        console.log('step 1')
+        var master = res.data.master;
+        console.log(res);
+        this.setData({
+          MasterInfo: {
+            avatar: master.userInfo.avatarUrl,
+            islandName: master.gameProfile.islandName,
+            masterName: master.gameProfile.nickname,
+            fruit: master.gameProfile.fruit,
+            hemisphere: master.gameProfile.fruit,
+          },
+          roomInfo: {
+            roomNum: res.data.roomNum,
+            code: res.data.code,
+            people: res.data.people,
+            flight: res.data.flight,
+            price: res.data.price,
+            timeLeft: res.data.timeLeft,
+            note: res.data.note,
+          },
+        });
+      })
+      .then( () => {
+        console.log('step 2')
+        console.log('openid: ' + app.globalData.openid)
+        if (!app.globalData.openid) {
+          console.log('no openid')
+          db.collection("UsersProfile").get()
+          .then( res => {
+            if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
+          })
+          console.log('now openid')
+        }
+      })
+      .then( () => {
+        console.log('step 3')
+        // Check if the user has already been in line
+        if (!app.globalData.roomInfo.timeStamp) {
+          console.log('no local time data')
+          db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .get()
+          .then( res => {
+            console.log(res)
+            var _slaves = res.data.slaves
+            _slaves.forEach(item => {
+              if (item.openid === app.globalData.openid)
+                app.globalData.roomInfo.timeStamp = item.timeStamp
+            })
+            console.log('fetched time data from db' + app.globalData.roomInfo.timeStamp)
+          })
+          .then( () => {
+            console.log('step 4')
+            if (!app.globalData.roomInfo.timeStamp) {
+              console.log('init time data')
+              app.globalData.roomInfo.timeStamp = util.formatTime();
+              db.collection("Flights")
+              .doc(app.globalData.roomInfo.roomID)
+              .update({
+                data: {
+                  slaves: db.command.push({
+                    openid: app.globalData.openid,
+                    notified: false,
+                    avatar: app.globalData.userInfo.avatarUrl,
+                    islandName: app.globalData.gameProfile.islandName,
+                    nickname: app.globalData.gameProfile.nickname,
+                    timeStamp: app.globalData.roomInfo.timeStamp,
+                  }),
+                },
+              });
+              console.log('done update time data')
+            }
+          })
+          .then( () => {
+            console.log('step 5')
+            console.log(app.globalData.roomInfo.timeStamp)
+            this.setData({ 
+              timeStamp: app.globalData.roomInfo.timeStamp,
+              isLoading: false 
+            });
+          })
+        }
+      })
 
-    db.collection("Flights")
-      .doc(app.globalData.roomInfo.roomID)
-      .get({
-        success: (res) => {
-          var master = res.data.master;
-          console.log(res);
-          this.setData({
-            MasterInfo: {
-              avatar: master.userInfo.avatarUrl,
-              islandName: master.gameProfile.islandName,
-              masterName: master.gameProfile.nickname,
-              fruit: master.gameProfile.fruit,
-              hemisphere: master.gameProfile.fruit,
-            },
-            roomInfo: {
-              roomNum: res.data.roomNum,
-              code: res.data.code,
-              people: res.data.people,
-              flight: res.data.flight,
-              price: res.data.price,
-              timeLeft: res.data.timeLeft,
-              note: res.data.note,
-            },
-            timeStamp: app.globalData.roomInfo.timeStamp,
-          });
-
-          this.setData({ isLoading: false });
-        },
-      });
 
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
@@ -425,8 +454,6 @@ Page({
         success: (res) => {
           app.globalData.gameProfile.nickname = this.data.nickname;
           app.globalData.gameProfile.islandName = this.data.islandName;
-          app.globalData.roomInfo.timeStamp = util.formatTime();
-          this.setData({ timeStamp: app.globalData.roomInfo.timeStamp });
           this.checkin();
           this.setData({
             clientStatus: "ok",
