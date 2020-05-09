@@ -37,7 +37,7 @@
               <view class="setting-box-row">
                 <view class="setting-box-title">大头菜价格</view>
                 <view class="setting-box-info">
-                  <text style="padding-right:20rpx">{{roomInfo.price}}</text>
+                  <text style="padding-right:10rpx; font-size: 32rpx;">{{roomInfo.price}}</text>
                   <image src="../../assets/icons/bell.png" style="height:55rpx;width:55rpx;" />
                 </view>
               </view>
