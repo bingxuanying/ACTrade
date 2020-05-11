@@ -47,10 +47,10 @@
                     还剩{{filter.numFixed(item.timeLeft/60,0)}}小时{{item.timeLeft%60}}分
                   </view>
                   <view class="card-lineinfo" wx:if="{{item.slaves.length > item.people}}">
-                    空位0 等候{{item.slaves.length - item.people}} 在岛{{item.people}}
+                    空位0 等候{{item.slaves.length - item.people}} 在岛{{item.slaves.length}}
                   </view>
                   <view class="card-lineinfo" wx:else>
-                    空位{{item.people - item.slaves.length}} 等候0 在岛{{item.people}}
+                    空位{{item.people - item.slaves.length}} 等候0 在岛{{item.slaves.length}}
                   </view>
                   <view class="card-price">
                     <view class="card-price-text">

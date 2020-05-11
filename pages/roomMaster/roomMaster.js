@@ -178,26 +178,28 @@ Page({
     this.setData({
       isSaving: true,
     });
+
+    console.log(app.globalData.roomInfo.roomID)
+
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .update({
         data: {
-          roomInfo: {
-            roomNum: this.data.roomNum,
-            flight: this.data.flight,
-            price: this.data.price,
-            code: this.data.code,
-            time: this.data.time,
-            people: this.data.people,
-            note: this.data.note,
-          },
+          flight: this.data.roomInfo.flight,
+          price: this.data.roomInfo.price,
+          code: this.data.roomInfo.code,
+          people: this.data.roomInfo.people,
+          note: this.data.roomInfo.note,
+        },
+        success: res => {
+          console.log(res);
+          this.setData({
+            isSaving: false,
+          });
+        },
+        fail: err => {
+          console.log(err)
         }
-      })
-      .then(res => {
-        console.log(res);
-        this.setData({
-          isSaving: false,
-        });
       })
   },
   onTapDeleteBtn: function (e) {

@@ -150,12 +150,34 @@ Page({
       app.globalData.gameProfile.nickname.length > 0 &&
       app.globalData.gameProfile.islandName.length > 0
     ) {
-      wx.navigateTo({
-        url: "/pages/roomCreate/roomCreate",
-        complete: (res) => {
-          console.log(res);
-        },
-      });
+      db.collection("UsersProfile")
+      .doc(app.globalData.id)
+      .get()
+      .then(res => {
+        console.log(res.data.curRoomid)
+        if (res.data.curRoomid) {
+          console.log('redirect needed: either original or master')
+          app.globalData.roomInfo.roomID = res.data.curRoomid
+          if (res.data.isMaster){
+            wx.navigateTo({
+              url: "/pages/roomMaster/roomMaster",
+            });
+          }
+          else{
+            wx.navigateTo({
+              url: "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
+            });
+          }
+        }
+        else {
+          wx.navigateTo({
+            url: "/pages/roomCreate/roomCreate",
+            complete: (res) => {
+              console.log(res);
+            },
+          });
+        }
+      })
     } else {
       wx.switchTab({
         url: "/pages/profile/profile",
@@ -331,24 +353,6 @@ Page({
       app.globalData.gameProfile.nickname.length > 0 &&
       app.globalData.gameProfile.islandName.length > 0
     ) {
-      // app.globalData.roomInfo = {
-      //   roomID: e.currentTarget.id,
-      //   timeStamp: null,
-      // };
-      // console.log(app.globalData.roomInfo);
-
-      // db.collection("UsersProfile")
-      //   .doc(app.globalData.id)
-      //   .update({
-      //     data:{
-      //       curRoomid: e.currentTarget.id
-      //     },
-      //     success: res => {
-      //       wx.navigateTo({
-      //         url: "/pages/roomSlave/roomSlave",
-      //       });
-      //     }
-      //   })
       wx.navigateTo({
         url: "/pages/roomSlave/roomSlave?room_id=" + e.currentTarget.id,
       });

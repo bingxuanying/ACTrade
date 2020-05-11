@@ -101,183 +101,183 @@ Page({
     this.setData({ isLoading: true });
 
     db.collection("UsersProfile")
-    .doc(app.globalData.id)
-    .get()
-    .then( res => {
-      console.log(res.data.curRoomid)
-      if (res.data.curRoomid) {
-        console.log('redirect needed: either original or master')
-        app.globalData.roomInfo.roomID = res.data.curRoomid
-        if (res.data.isMaster)
-          throw "master redirect"
-      }
-      else {
-        console.log('update room_id')
-        db.collection("UsersProfile")
-          .doc(app.globalData.id)
-          .update({
-            data:{
-              curRoomid: app.globalData.roomInfo.roomID
-            }
-          })
-      }
-    })
-    .then(() => {
-      db.collection("Flights")
-        .doc(app.globalData.roomInfo.roomID)
-        .get()
-        .then( res => {
-          console.log('step 1')
-          var master = res.data.master;
-          console.log(res);
-          this.setData({
-            MasterInfo: {
-              avatar: master.userInfo.avatarUrl,
-              islandName: master.gameProfile.islandName,
-              masterName: master.gameProfile.nickname,
-              fruit: master.gameProfile.fruit,
-              hemisphere: master.gameProfile.fruit,
-            },
-            roomInfo: {
-              roomNum: res.data.roomNum,
-              code: res.data.code,
-              people: res.data.people,
-              flight: res.data.flight,
-              price: res.data.price,
-              timeLeft: res.data.timeLeft,
-              note: res.data.note,
-            },
-          });
-        })
-        .then( () => {
-          console.log('step 2')
-          console.log('openid: ' + app.globalData.openid)
-          if (!app.globalData.openid) {
-            console.log('no openid')
-            db.collection("UsersProfile").get()
-            .then( res => {
-              if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
-            })
-            console.log('now openid')
-          }
-        })
-        .then( () => {
-          console.log('step 3')
-          // Check if the user has already been in line
-          db.collection("Flights")
-            .doc(app.globalData.roomInfo.roomID)
-            .get()
-            .then( res => {
-              console.log(res)
-              var _slaves = res.data.slaves
-              _slaves.forEach(item => {
-                if (item.openid === app.globalData.openid)
-                  app.globalData.roomInfo.timeStamp = item.timeStamp
-              })
-            console.log('fetched time data from db' + app.globalData.roomInfo.timeStamp)
-            })
-            .then( () => {
-              console.log('step 4')
-              if (!app.globalData.roomInfo.timeStamp) {
-                console.log('init time data')
-                app.globalData.roomInfo.timeStamp = util.formatTime();
-                db.collection("Flights")
-                .doc(app.globalData.roomInfo.roomID)
-                .update({
-                  data: {
-                    slaves: db.command.push({
-                      openid: app.globalData.openid,
-                      notified: false,
-                      avatar: app.globalData.userInfo.avatarUrl,
-                      islandName: app.globalData.gameProfile.islandName,
-                      nickname: app.globalData.gameProfile.nickname,
-                      timeStamp: app.globalData.roomInfo.timeStamp,
-                    }),
-                  },
-                });
-                console.log('done update time data')
+      .doc(app.globalData.id)
+      .get()
+      .then(res => {
+        console.log(res.data.curRoomid)
+        if (res.data.curRoomid) {
+          console.log('redirect needed: either original or master')
+          app.globalData.roomInfo.roomID = res.data.curRoomid
+          if (res.data.isMaster)
+            throw "to master"
+        }
+        else {
+          console.log('update room_id')
+          db.collection("UsersProfile")
+            .doc(app.globalData.id)
+            .update({
+              data:{
+                curRoomid: app.globalData.roomInfo.roomID
               }
             })
-            .then( () => {
-              console.log('step 5')
-              console.log(app.globalData.roomInfo.timeStamp)
-              this.setData({ 
-                timeStamp: app.globalData.roomInfo.timeStamp,
-                isLoading: false 
-              });
-            })
-        })
-        
+        }
+      })
+      .then(() => {
+        db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .get()
+          .then(res => {
+            console.log('step 1')
+            var master = res.data.master;
+            console.log(res);
+            this.setData({
+              MasterInfo: {
+                avatar: master.userInfo.avatarUrl,
+                islandName: master.gameProfile.islandName,
+                masterName: master.gameProfile.nickname,
+                fruit: master.gameProfile.fruit,
+                hemisphere: master.gameProfile.fruit,
+              },
+              roomInfo: {
+                roomNum: res.data.roomNum,
+                code: res.data.code,
+                people: res.data.people,
+                flight: res.data.flight,
+                price: res.data.price,
+                timeLeft: res.data.timeLeft,
+                note: res.data.note,
+              },
+            });
+          })
+          .then(() => {
+            console.log('step 2')
+            console.log('openid: ' + app.globalData.openid)
+            if (!app.globalData.openid) {
+              console.log('no openid')
+              db.collection("UsersProfile").get()
+              .then(res => {
+                if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
+              })
+              console.log('now openid')
+            }
+          })
+          .then(() => {
+            console.log('step 3')
+            // Check if the user has already been in line
+            db.collection("Flights")
+              .doc(app.globalData.roomInfo.roomID)
+              .get()
+              .then(res => {
+                console.log(res)
+                var _slaves = res.data.slaves
+                _slaves.forEach(item => {
+                  if (item.openid === app.globalData.openid)
+                    app.globalData.roomInfo.timeStamp = item.timeStamp
+                })
+              console.log('fetched time data from db' + app.globalData.roomInfo.timeStamp)
+              })
+              .then(() => {
+                console.log('step 4')
+                if (!app.globalData.roomInfo.timeStamp) {
+                  console.log('init time data')
+                  app.globalData.roomInfo.timeStamp = util.formatTime();
+                  db.collection("Flights")
+                  .doc(app.globalData.roomInfo.roomID)
+                  .update({
+                    data: {
+                      slaves: db.command.push({
+                        openid: app.globalData.openid,
+                        notified: false,
+                        avatar: app.globalData.userInfo.avatarUrl,
+                        islandName: app.globalData.gameProfile.islandName,
+                        nickname: app.globalData.gameProfile.nickname,
+                        timeStamp: app.globalData.roomInfo.timeStamp,
+                      }),
+                    },
+                  });
+                  console.log('done update time data')
+                }
+              })
+              .then(() => {
+                console.log('step 5')
+                console.log(app.globalData.roomInfo.timeStamp)
+                this.setData({ 
+                  timeStamp: app.globalData.roomInfo.timeStamp,
+                  isLoading: false 
+                });
+              })
+          })
+          
 
-      db.collection("UsersProfile").watch({
-        onChange: (snapshot) => {
-          //监控数据发生变化时触发
-          this.setData({
-            subscription: snapshot.docs[0].subscription,
-          });
-        },
-        onError: (err) => {
-          console.error(err);
-        },
-      });
-  
-      db.collection("Flights")
-        .doc(app.globalData.roomInfo.roomID)
-        .watch({
+        db.collection("UsersProfile").watch({
           onChange: (snapshot) => {
             //监控数据发生变化时触发
             this.setData({
-              Slaves: snapshot.docs[0].slaves,
-              roomInfo: {
-                roomNum: snapshot.docs[0].roomNum,
-                code: snapshot.docs[0].code,
-                people: snapshot.docs[0].people,
-                flight: snapshot.docs[0].flight,
-                price: snapshot.docs[0].price,
-                timeLeft: snapshot.docs[0].timeLeft,
-                note: snapshot.docs[0].note,
-              },
+              subscription: snapshot.docs[0].subscription,
             });
-            //判断在列队拿到code
-            var svs = this.data.Slaves;
-            var i = null;
-            for (const idx in svs) {
-              if (svs[idx].timeStamp === app.globalData.roomInfo.timeStamp) {
-                i = idx;
-              }
-            }
-            if (i < this.data.roomInfo.people) {
-              this.setData({ inLine: true });
-            } else {
-              this.setData({ inLine: false });
-            }
-  
-            if (
-              snapshot.docs[0].kickedLst &&
-              snapshot.docs[0].kickedLst.length > 0
-            ) {
-              snapshot.docs[0].kickedLst.forEach((kickedStamp) => {
-                if (app.globalData.roomInfo.timeStamp === kickedStamp)
-                  this.setData({ kicked: true });
-              });
-            }
-    
-            if (snapshot.docs[0].status === "closed")
-              this.setData({ closed: true });
           },
           onError: (err) => {
             console.error(err);
           },
         });
-    })
-    .catch(err => {
-      console.log(err)
-      if (err === "master redirect") {
-        wx.redirectTo({
-          url: "/pages/roomMaster/roomMaster",
-        });
-      }
-    })
+    
+        db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .watch({
+            onChange: (snapshot) => {
+              //监控数据发生变化时触发
+              this.setData({
+                Slaves: snapshot.docs[0].slaves,
+                roomInfo: {
+                  roomNum: snapshot.docs[0].roomNum,
+                  code: snapshot.docs[0].code,
+                  people: snapshot.docs[0].people,
+                  flight: snapshot.docs[0].flight,
+                  price: snapshot.docs[0].price,
+                  timeLeft: snapshot.docs[0].timeLeft,
+                  note: snapshot.docs[0].note,
+                },
+              });
+              //判断在列队拿到code
+              var svs = this.data.Slaves;
+              var i = null;
+              for (const idx in svs) {
+                if (svs[idx].timeStamp === app.globalData.roomInfo.timeStamp) {
+                  i = idx;
+                }
+              }
+              if (i < this.data.roomInfo.people) {
+                this.setData({ inLine: true });
+              } else {
+                this.setData({ inLine: false });
+              }
+    
+              if (
+                snapshot.docs[0].kickedLst &&
+                snapshot.docs[0].kickedLst.length > 0
+              ) {
+                snapshot.docs[0].kickedLst.forEach((kickedStamp) => {
+                  if (app.globalData.roomInfo.timeStamp === kickedStamp)
+                    this.setData({ kicked: true });
+                });
+              }
+      
+              if (snapshot.docs[0].status === "closed")
+                this.setData({ closed: true });
+            },
+            onError: (err) => {
+              console.error(err);
+            },
+          });
+      })
+      .catch(err => {
+        console.log(err)
+        if (err === "to master") {
+          wx.redirectTo({
+            url: "/pages/roomMaster/roomMaster",
+          });
+        }
+      })
   },
   LClick: function () {
     if (this.data.page == 1) {
@@ -316,7 +316,7 @@ Page({
       url: "/pages/tradingFloor/tradingFloor"
     });
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       db.collection("UsersProfile")
         .doc(app.globalData.id)
         .update({
@@ -326,7 +326,7 @@ Page({
         })
 
       if (this.data.kicked) {
-        db.collection("Flights")
+        await db.collection("Flights")
           .doc(app.globalData.roomInfo.roomID)
           .update({
             data: {
@@ -334,7 +334,7 @@ Page({
             },
           })
       } else {
-        db.collection("Flights")
+        await db.collection("Flights")
           .doc(app.globalData.roomInfo.roomID)
           .update({
             data: {
@@ -346,11 +346,14 @@ Page({
               }),
             },
           })
+          .then(() => {
+            console.log('exit success')
+          })
         }
       
-
       return Promise.resolve()
-        .then( () => {
+        .then(() => {
+          console.log('call cloud')
           if (this.data.inLine) {
             wx.cloud
               .callFunction({
@@ -361,7 +364,7 @@ Page({
                 },
               })
               .then(() => {
-                console.log("kick success");
+                console.log("finish sending notification");
                 app.globalData.roomInfo = {
                   roomID: null,
                   timeStamp: null,
@@ -407,6 +410,7 @@ Page({
       db.collection("UsersProfile").get({
         success: (userData) => {
           if (userData.data.length > 0) {
+            console.log('has previous user')
             app.globalData.id = userData.data[0]._id;
             app.globalData.gameProfile = {
               nickname: userData.data[0].nickname,
@@ -434,6 +438,7 @@ Page({
               isTransfering: true,
             });
           } else {
+            console.log('no previous user')
             db.collection("UsersProfile").add({
               data: {
                 userInfo: app.globalData.userInfo,
