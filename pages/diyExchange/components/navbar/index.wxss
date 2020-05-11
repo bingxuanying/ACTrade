@@ -1,0 +1,25 @@
+.navbar {
+  width: 100%;
+  background-color: #f2f4dc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.title-container {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+.title {
+  color: #927f6e;
+  font-weight: bolder;
+  font-family: "webfont";
+  font-size: 14px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

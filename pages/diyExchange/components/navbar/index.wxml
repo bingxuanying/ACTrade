@@ -1,0 +1,7 @@
+<cover-view class="navbar">
+    <cover-view style="{{'height: ' + statusBarHeight}}"></cover-view>
+    <cover-view class='title-container'>
+        <cover-view class="title">{{navInfo}}</cover-view>
+    </cover-view>
+</cover-view>
+<cover-view style="{{'height: ' + navigationBarHeight}};background: white;"></cover-view>
