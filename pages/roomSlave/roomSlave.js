@@ -46,65 +46,45 @@ Page({
     inLine: false,
   },
   onLoad: function (query) {
-    if (query.room_id) {
-      console.log(query.room_id);
-      app.globalData.roomInfo.roomID = query.room_id;
-      // registered
-      console.log(app.globalData.userInfo);
-      if (app.globalData.userInfo) {
-        if (
-          app.globalData.gameProfile.nickname.length > 0 &&
-          app.globalData.gameProfile.islandName.length > 0
-        ) {
-          this.setData({clientStatus: "ok"});
-          this.checkin();
+    console.log(query.room_id);
+    app.globalData.roomInfo.roomID = query.room_id;
+    // registered
+    console.log(app.globalData.userInfo);
+    if (app.globalData.userInfo) {
+      if (
+        app.globalData.gameProfile.nickname.length > 0 &&
+        app.globalData.gameProfile.islandName.length > 0
+      ) {
+        this.setData({clientStatus: "ok"});
+        this.checkin();
+      } else {
+        this.setData({ clientStatus: "no name" });
+      }
+    }
+    // has auth
+    else if (this.data.canIUse) {
+      app.userInfoReadyCallback = (res) => {
+        if (res.userInfo) {
+          if (
+            app.globalData.gameProfile.nickname.length > 0 &&
+            app.globalData.gameProfile.islandName.length > 0
+          ) {
+            this.setData({clientStatus: "ok"});
+            this.checkin();
+          } else {
+            this.setData({ clientStatus: "no name" });
+          }
         } else {
-          this.setData({ clientStatus: "no name" });
+          this.setData({ clientStatus: "no auth" });
         }
       }
-      // has auth
-      else if (this.data.canIUse) {
-        app.userInfoReadyCallback = (res) => {
-          if (res.userInfo) {
-            db.collection("UsersProfile").get({
-              success: (res) => {
-                if (res.data.length > 0) {
-                  app.globalData.gameProfile = {
-                    nickname: res.data[0].nickname,
-                    islandName: res.data[0].islandName,
-                    fruit: res.data[0].fruit,
-                    hemisphere: res.data[0].hemisphere,
-                  };
-                  if (
-                    app.globalData.gameProfile.nickname.length > 0 &&
-                    app.globalData.gameProfile.islandName.length > 0
-                  ) {
-                    this.setData({clientStatus: "ok"});
-                    this.checkin();
-                  } else {
-                    this.setData({ clientStatus: "no name" });
-                  }
-                }
-              },
-              fail: (res) => {
-                console.log("fail: " + res);
-                wx.switchTab({
-                  url: "/pages/tradingFloor/tradingFloor",
-                });
-              },
-            });
-          } else {
-            this.setData({ clientStatus: "no auth" });
-          }
-        };
-      }
-      // no auth or not registered
-      else {
-        this.setData({ clientStatus: "no auth" });
-      }
-    } else {
-      this.checkin();
     }
+    // no auth or not registered
+    else {
+      this.setData({ clientStatus: "no auth" });
+    }
+
+
     // cloud files
     var that = this;
     app.UrlCallBack(
@@ -117,161 +97,187 @@ Page({
       "EarthLoadingUrl"
     );
   },
-  checkin: function () {
+  checkin: function() {
     this.setData({ isLoading: true });
 
-    db.collection("Flights")
-      .doc(app.globalData.roomInfo.roomID)
-      .get()
-      .then( res => {
-        console.log('step 1')
-        var master = res.data.master;
-        console.log(res);
-        this.setData({
-          MasterInfo: {
-            avatar: master.userInfo.avatarUrl,
-            islandName: master.gameProfile.islandName,
-            masterName: master.gameProfile.nickname,
-            fruit: master.gameProfile.fruit,
-            hemisphere: master.gameProfile.fruit,
-          },
-          roomInfo: {
-            roomNum: res.data.roomNum,
-            code: res.data.code,
-            people: res.data.people,
-            flight: res.data.flight,
-            price: res.data.price,
-            timeLeft: res.data.timeLeft,
-            note: res.data.note,
-          },
-        });
-      })
-      .then( () => {
-        console.log('step 2')
-        console.log('openid: ' + app.globalData.openid)
-        if (!app.globalData.openid) {
-          console.log('no openid')
-          db.collection("UsersProfile").get()
-          .then( res => {
-            if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
-          })
-          console.log('now openid')
-        }
-      })
-      .then( () => {
-        console.log('step 3')
-        // Check if the user has already been in line
-        if (!app.globalData.roomInfo.timeStamp) {
-          console.log('no local time data')
-          db.collection("Flights")
-          .doc(app.globalData.roomInfo.roomID)
-          .get()
-          .then( res => {
-            console.log(res)
-            var _slaves = res.data.slaves
-            _slaves.forEach(item => {
-              if (item.openid === app.globalData.openid)
-                app.globalData.roomInfo.timeStamp = item.timeStamp
-            })
-            console.log('fetched time data from db' + app.globalData.roomInfo.timeStamp)
-          })
-          .then( () => {
-            console.log('step 4')
-            if (!app.globalData.roomInfo.timeStamp) {
-              console.log('init time data')
-              app.globalData.roomInfo.timeStamp = util.formatTime();
-              db.collection("Flights")
-              .doc(app.globalData.roomInfo.roomID)
-              .update({
-                data: {
-                  slaves: db.command.push({
-                    openid: app.globalData.openid,
-                    notified: false,
-                    avatar: app.globalData.userInfo.avatarUrl,
-                    islandName: app.globalData.gameProfile.islandName,
-                    nickname: app.globalData.gameProfile.nickname,
-                    timeStamp: app.globalData.roomInfo.timeStamp,
-                  }),
-                },
-              });
-              console.log('done update time data')
+    db.collection("UsersProfile")
+    .doc(app.globalData.id)
+    .get()
+    .then( res => {
+      console.log(res.data.curRoomid)
+      if (res.data.curRoomid) {
+        console.log('redirect needed: either original or master')
+        app.globalData.roomInfo.roomID = res.data.curRoomid
+        if (res.data.isMaster)
+          throw "master redirect"
+      }
+      else {
+        console.log('update room_id')
+        db.collection("UsersProfile")
+          .doc(app.globalData.id)
+          .update({
+            data:{
+              curRoomid: app.globalData.roomInfo.roomID
             }
           })
-          .then( () => {
-            console.log('step 5')
-            console.log(app.globalData.roomInfo.timeStamp)
-            this.setData({ 
-              timeStamp: app.globalData.roomInfo.timeStamp,
-              isLoading: false 
-            });
-          })
-        }
-      })
-      
-    db.collection("UsersProfile").watch({
-      onChange: (snapshot) => {
-        //监控数据发生变化时触发
-        this.setData({
-          subscription: snapshot.docs[0].subscription,
-        });
-      },
-      onError: (err) => {
-        console.error(err);
-      },
-    });
+      }
+    })
+    .then(() => {
+      db.collection("Flights")
+        .doc(app.globalData.roomInfo.roomID)
+        .get()
+        .then( res => {
+          console.log('step 1')
+          var master = res.data.master;
+          console.log(res);
+          this.setData({
+            MasterInfo: {
+              avatar: master.userInfo.avatarUrl,
+              islandName: master.gameProfile.islandName,
+              masterName: master.gameProfile.nickname,
+              fruit: master.gameProfile.fruit,
+              hemisphere: master.gameProfile.fruit,
+            },
+            roomInfo: {
+              roomNum: res.data.roomNum,
+              code: res.data.code,
+              people: res.data.people,
+              flight: res.data.flight,
+              price: res.data.price,
+              timeLeft: res.data.timeLeft,
+              note: res.data.note,
+            },
+          });
+        })
+        .then( () => {
+          console.log('step 2')
+          console.log('openid: ' + app.globalData.openid)
+          if (!app.globalData.openid) {
+            console.log('no openid')
+            db.collection("UsersProfile").get()
+            .then( res => {
+              if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
+            })
+            console.log('now openid')
+          }
+        })
+        .then( () => {
+          console.log('step 3')
+          // Check if the user has already been in line
+          db.collection("Flights")
+            .doc(app.globalData.roomInfo.roomID)
+            .get()
+            .then( res => {
+              console.log(res)
+              var _slaves = res.data.slaves
+              _slaves.forEach(item => {
+                if (item.openid === app.globalData.openid)
+                  app.globalData.roomInfo.timeStamp = item.timeStamp
+              })
+            console.log('fetched time data from db' + app.globalData.roomInfo.timeStamp)
+            })
+            .then( () => {
+              console.log('step 4')
+              if (!app.globalData.roomInfo.timeStamp) {
+                console.log('init time data')
+                app.globalData.roomInfo.timeStamp = util.formatTime();
+                db.collection("Flights")
+                .doc(app.globalData.roomInfo.roomID)
+                .update({
+                  data: {
+                    slaves: db.command.push({
+                      openid: app.globalData.openid,
+                      notified: false,
+                      avatar: app.globalData.userInfo.avatarUrl,
+                      islandName: app.globalData.gameProfile.islandName,
+                      nickname: app.globalData.gameProfile.nickname,
+                      timeStamp: app.globalData.roomInfo.timeStamp,
+                    }),
+                  },
+                });
+                console.log('done update time data')
+              }
+            })
+            .then( () => {
+              console.log('step 5')
+              console.log(app.globalData.roomInfo.timeStamp)
+              this.setData({ 
+                timeStamp: app.globalData.roomInfo.timeStamp,
+                isLoading: false 
+              });
+            })
+        })
+        
 
-    db.collection("Flights")
-      .doc(app.globalData.roomInfo.roomID)
-      .watch({
+      db.collection("UsersProfile").watch({
         onChange: (snapshot) => {
           //监控数据发生变化时触发
           this.setData({
-            Slaves: snapshot.docs[0].slaves,
-            roomInfo: {
-              roomNum: snapshot.docs[0].roomNum,
-              code: snapshot.docs[0].code,
-              people: snapshot.docs[0].people,
-              flight: snapshot.docs[0].flight,
-              price: snapshot.docs[0].price,
-              timeLeft: snapshot.docs[0].timeLeft,
-              note: snapshot.docs[0].note,
-            },
+            subscription: snapshot.docs[0].subscription,
           });
-          //判断在列队拿到code
-          var svs = this.data.Slaves;
-          var i = null;
-          for (const idx in svs) {
-            if (svs[idx].timeStamp === app.globalData.roomInfo.timeStamp) {
-              i = idx;
-            }
-          }
-          if (i < this.data.roomInfo.people) {
-            this.setData({
-              inLine: true,
-            });
-          } else {
-            this.setData({
-              inLine: false,
-            });
-          }
-
-          if (
-            snapshot.docs[0].kickedLst &&
-            snapshot.docs[0].kickedLst.length > 0
-          ) {
-            snapshot.docs[0].kickedLst.forEach((kickedStamp) => {
-              if (app.globalData.roomInfo.timeStamp === kickedStamp)
-                this.setData({ kicked: true });
-            });
-          }
-
-          if (snapshot.docs[0].status === "closed")
-            this.setData({ closed: true });
         },
         onError: (err) => {
           console.error(err);
         },
       });
+  
+      db.collection("Flights")
+        .doc(app.globalData.roomInfo.roomID)
+        .watch({
+          onChange: (snapshot) => {
+            //监控数据发生变化时触发
+            this.setData({
+              Slaves: snapshot.docs[0].slaves,
+              roomInfo: {
+                roomNum: snapshot.docs[0].roomNum,
+                code: snapshot.docs[0].code,
+                people: snapshot.docs[0].people,
+                flight: snapshot.docs[0].flight,
+                price: snapshot.docs[0].price,
+                timeLeft: snapshot.docs[0].timeLeft,
+                note: snapshot.docs[0].note,
+              },
+            });
+            //判断在列队拿到code
+            var svs = this.data.Slaves;
+            var i = null;
+            for (const idx in svs) {
+              if (svs[idx].timeStamp === app.globalData.roomInfo.timeStamp) {
+                i = idx;
+              }
+            }
+            if (i < this.data.roomInfo.people) {
+              this.setData({ inLine: true });
+            } else {
+              this.setData({ inLine: false });
+            }
+  
+            if (
+              snapshot.docs[0].kickedLst &&
+              snapshot.docs[0].kickedLst.length > 0
+            ) {
+              snapshot.docs[0].kickedLst.forEach((kickedStamp) => {
+                if (app.globalData.roomInfo.timeStamp === kickedStamp)
+                  this.setData({ kicked: true });
+              });
+            }
+    
+            if (snapshot.docs[0].status === "closed")
+              this.setData({ closed: true });
+          },
+          onError: (err) => {
+            console.error(err);
+          },
+        });
+    })
+    .catch(err => {
+      console.log(err)
+      if (err === "master redirect") {
+        wx.redirectTo({
+          url: "/pages/roomMaster/roomMaster",
+        });
+      }
+    })
   },
   LClick: function () {
     if (this.data.page == 1) {
@@ -303,18 +309,47 @@ Page({
     });
   },
   onTapClose: function () {
-    let isCall = !this.data.closed;
     let that = this;
+    
+    // wx.navigateBack()
+    wx.switchTab({
+      url: "/pages/tradingFloor/tradingFloor"
+    });
 
-    if (this.data.kicked) {
-      db.collection("Flights")
-        .doc(app.globalData.roomInfo.roomID)
+    return new Promise((resolve, reject) => {
+      db.collection("UsersProfile")
+        .doc(app.globalData.id)
         .update({
           data: {
-            kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
+            curRoomid: null
           },
         })
-        .then((res) => {
+
+      if (this.data.kicked) {
+        db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .update({
+            data: {
+              kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
+            },
+          })
+      } else {
+        db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .update({
+            data: {
+              slaves: db.command.pull({
+                avatar: app.globalData.userInfo.avatarUrl,
+                islandName: app.globalData.gameProfile.islandName,
+                nickname: app.globalData.gameProfile.nickname,
+                timeStamp: app.globalData.roomInfo.timeStamp,
+              }),
+            },
+          })
+        }
+
+      return Promise.resolve()
+        .then( () => {
           if (this.data.inLine) {
             wx.cloud
               .callFunction({
@@ -339,49 +374,7 @@ Page({
         .catch((err) => {
           console.log(err);
         });
-    } else {
-      db.collection("Flights")
-        .doc(app.globalData.roomInfo.roomID)
-        .update({
-          data: {
-            slaves: db.command.pull({
-              avatar: app.globalData.userInfo.avatarUrl,
-              islandName: app.globalData.gameProfile.islandName,
-              nickname: app.globalData.gameProfile.nickname,
-              timeStamp: app.globalData.roomInfo.timeStamp,
-            }),
-          },
-        })
-        .then(
-          wx.cloud
-          .callFunction({
-            name: "lineUpdater",
-            data: {
-              roomNum: that.data.roomInfo.roomNum,
-              roomID: app.globalData.roomInfo.roomID
-            },
-          })
-          .then(() => {
-            console.log("quit success");
-            app.globalData.roomInfo = {
-              roomID: null,
-              timeStamp: null,
-            };
-          })
-          .catch((err) => {
-            console.log("Err: QuitRoom - cloud Function");
-          })
-        )
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
-    
-    // wx.navigateBack()
-    wx.switchTab({
-      url: "/pages/tradingFloor/tradingFloor"
-    });
+    })
   },
   onShareAppMessage: function (res) {
     console.log(res);
@@ -448,9 +441,12 @@ Page({
                 fruit: "apple",
                 hemisphere: "north",
                 subscription: false,
+                curRoomid: null,
+                isMaster: false,
               },
               success: (userData) => {
-                app.globalData.id = userData.data[0]._id;
+                console.log(userData)
+                app.globalData.id = userData._id
                 this.setData({
                   clientStatus: "no name",
                   isTransfering: true,

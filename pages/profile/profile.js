@@ -36,23 +36,10 @@ Page({
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true,
-          });
-
-          db.collection("UsersProfile").get({
-            success: (res) => {
-              if (res.data.length > 0) {
-                app.globalData.id = res.data[0]._id;
-                this.setData({
-                  nickname: res.data[0].nickname,
-                  islandName: res.data[0].islandName,
-                  fruit: res.data[0].fruit,
-                  hemisphere: res.data[0].hemisphere,
-                });
-              }
-            },
-            fail: (res) => {
-              console.log("fail: " + res);
-            },
+            nickname: app.globalData.gameProfile.nickname,
+            islandName: app.globalData.gameProfile.islandName,
+            fruit: app.globalData.gameProfile.fruit,
+            hemisphere: app.globalData.gameProfile.hemisphere,
           });
         }
       };
@@ -66,27 +53,27 @@ Page({
             hasUserInfo: true,
           });
 
-          db.collection("UsersProfile").get({
-            success: (res) => {
-              if (res.data.length > 0) {
-                app.globalData.id = res.data[0]._id;
-                app.globalData.gameProfile = {
-                  nickname: res.data[0].nickname,
-                  islandName: res.data[0].islandName,
-                  fruit: res.data[0].fruit,
-                  hemisphere: res.data[0].hemisphere,
-                };
-                this.setData({
-                  nickname: res.data[0].nickname,
-                  islandName: res.data[0].islandName,
-                  fruit: res.data[0].fruit,
-                  hemisphere: res.data[0].hemisphere,
-                });
-              }
-            },
-            fail: (res) => {
-              console.log("fail: " + res);
-            },
+          db.collection("UsersProfile").get()
+          .then( res => {
+            if (res.data.length > 0) {
+              app.globalData.id = res.data[0]._id;
+              app.globalData.gameProfile = {
+                nickname: res.data[0].nickname,
+                islandName: res.data[0].islandName,
+                fruit: res.data[0].fruit,
+                hemisphere: res.data[0].hemisphere,
+              };
+              this.setData({
+                nickname: res.data[0].nickname,
+                islandName: res.data[0].islandName,
+                fruit: res.data[0].fruit,
+                hemisphere: res.data[0].hemisphere,
+              });
+            }
+          })
+          .catch( err => {
+            console("profile onload getuserinfo err: ")
+            console(err)
           });
         },
       });
@@ -115,6 +102,7 @@ Page({
       db.collection("UsersProfile").get({
         success: (userData) => {
           if (userData.data.length > 0) {
+            console.log('if')
             app.globalData.id = userData.data[0]._id;
             app.globalData.gameProfile = {
               nickname: userData.data[0].nickname,
@@ -138,6 +126,7 @@ Page({
                 },
               });
           } else {
+            console.log('else')
             db.collection("UsersProfile").add({
               data: {
                 userInfo: app.globalData.userInfo,
@@ -147,13 +136,18 @@ Page({
                 hemisphere: "north",
                 subscription: false,
                 curRoomid: null,
+                isMaster: false,
               },
               success: (userData) => {
-                app.globalData.id = userData.data[0]._id;
-              },
+                console.log(userData)
+                app.globalData.id = userData._id
+              }
             });
           }
         },
+        fail: (res) => {
+          console.log(res)
+        }
       });
     }
   },

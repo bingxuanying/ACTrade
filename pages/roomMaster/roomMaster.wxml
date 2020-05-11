@@ -80,11 +80,11 @@
         <view class="room-box-right ">
           <view class="settings-box">
             <view class="flightOpt">
-              <image class="flightOpt-btn-icon" src="../../assets/roomCreate/typeIcon.png" mode="widthFix" style="{{flight=='Business'?'left: 90rpx;':'left: 365rpx;'}}" />
-              <view class="flightOpt-btn {{flight=='Business'?'flightOpt-btn-active':''}}" style="padding-left: 20rpx;" bindtap="setPublic">
+              <image class="flightOpt-btn-icon" src="../../assets/roomCreate/typeIcon.png" mode="widthFix" style="{{roomInfo.flight=='Business'?'left: 90rpx;':'left: 365rpx;'}}" />
+              <view class="flightOpt-btn {{roomInfo.flight==='Business'?'flightOpt-btn-active':''}}" style="padding-left: 20rpx;" bindtap="setPublic">
                 <text>公开观光</text>
               </view>
-              <view class="flightOpt-btn {{flight=='Private'?'flightOpt-btn-active':''}}" style="padding-left: 70rpx;" bindtap="setPrivate">
+              <view class="flightOpt-btn {{roomInfo.flight==='Private'?'flightOpt-btn-active':''}}" style="padding-left: 70rpx;" bindtap="setPrivate">
                 <text>私人聚会</text>
               </view>
             </view>
@@ -92,31 +92,31 @@
               <view class="settings-title">大头菜价格</view>
               <view class="settings-content">
                 <image src="../../assets/icons/bell.png" style="height:45rpx; margin-right: 10rpx; float: left" mode="heightFix" />
-                <input value="{{price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
+                <input value="{{roomInfo.price}}" type="number" placeholder="之后可更改" maxlength="3" bindinput="bindPriceInput" />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">海关密码</view>
               <view class="settings-content">
-                <input value="{{code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
+                <input value="{{roomInfo.code}}" placeholder="之后可更改" maxlength="5" bindinput="bindCodeInput" />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title" style="color: gray">开放时长</view>
               <view class="settings-content">
-                <slider step="1" min="1" max="12" block-size="16" value="{{time}}" style="padding: 0; margin: 0;" show-value disabled="{{true}}" />
+                <slider step="1" min="1" max="12" block-size="16" value="{{roomInfo.time}}" style="padding: 0; margin: 0;" show-value disabled="{{true}}" />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">在岛人数限制</view>
               <view class="settings-content">
-                <slider bindchange="bindSliderPeople" step="1" min="1" max="7" block-size="16" value="{{people}}" style="padding: 0; margin: 0;" show-value />
+                <slider bindchange="bindSliderPeople" step="1" min="1" max="7" block-size="16" value="{{roomInfo.people}}" style="padding: 0; margin: 0;" show-value />
               </view>
             </view>
             <view class="settings-layout">
               <view class="settings-title">留言板</view>
               <view class="settings-content ">
-                <textarea class="extend-text" value="{{note}}" bindinput="bindNoteInput" />
+                <textarea class="extend-text" value="{{roomInfo.note}}" bindinput="bindNoteInput" />
               </view>
             </view>
             <view class="settings-saveBtn-box">

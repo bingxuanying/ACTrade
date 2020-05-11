@@ -12,9 +12,14 @@ Page({
       hemisphere: null,
     },
     roomInfo: {
+      roomNum: "",
+      // settings data
+      flight: "Business",
+      price: 500,
+      time: 6,
+      note: "",
       code: null,
       people: 0,
-      roomNum: "",
     },
     Slaves: [],
     isLoading: false,
@@ -23,13 +28,6 @@ Page({
     // page 0 -> line page, page 1 -> setting page
     page: 0,
     firstTimeLoad: true,
-    // settings data
-    flight: "Business",
-    price: 500,
-    code: "",
-    time: 6,
-    people: 3,
-    note: "",
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
     // kicked timeStamp
@@ -58,14 +56,12 @@ Page({
               code: res.data.code,
               people: res.data.people,
               roomNum: res.data.roomNum,
+              flight: res.data.flight,
+              price: res.data.price,
+              time: res.data.time,
+              note: res.data.note,
             },
             Slaves: res.data.slaves,
-            flight: res.data.flight,
-            price: res.data.price,
-            code: res.data.code,
-            time: res.data.time,
-            people: res.data.people,
-            note: res.data.note,
           });
 
           this.setData({ isLoading: false });
@@ -126,38 +122,57 @@ Page({
   // settings: data update
   setPublic: function () {
     this.setData({
-      flight: "Business",
+      roomInfo: {
+        ...this.data.roomInfo,   
+        flight: "Business",
+      }
     });
   },
   setPrivate: function () {
     this.setData({
-      flight: "Private",
+      roomInfo: {
+        ...this.data.roomInfo,      
+        flight: "Private",
+      }
     });
   },
   bindPriceInput: function (e) {
     var priceAdjust = e.detail.value.replace(/\D+/g, "");
     this.setData({
-      price: priceAdjust ? parseInt(priceAdjust, 10) : 0,
+      roomInfo: {
+        ...this.data.roomInfo,
+        price: priceAdjust ? parseInt(priceAdjust, 10) : 0,
+      }
     });
     console.log("price: " + this.data.price);
   },
   bindCodeInput: function (e) {
     this.setData({
-      code: e.detail.value.toUpperCase(),
+      roomInfo: {
+        ...this.data.roomInfo,
+        code: e.detail.value.toUpperCase(),
+      }
     });
-    console.log("code: " + this.data.code);
+    console.log("code: " + this.data.roomInfo.code);
   },
   bindSliderPeople: function (e) {
     console.log("limitOfPeople: " + e.detail.value);
     this.setData({
-      people: e.detail.value,
+      roomInfo: {
+        ...this.data.roomInfo,
+        people: e.detail.value,
+      }
     });
   },
   bindNoteInput: function (e) {
     console.log("note: " + e.detail.value);
     this.setData({
-      note: e.detail.value,
+      roomInfo: {
+        ...this.data.roomInfo,
+        note: e.detail.value,
+      } 
     });
+    console.log(this.data.roomInfo)
   },
   onTapUpdate: function () {
     this.setData({
@@ -167,20 +182,23 @@ Page({
       .doc(app.globalData.roomInfo.roomID)
       .update({
         data: {
-          flight: this.data.flight,
-          price: this.data.price,
-          code: this.data.code,
-          time: this.data.time,
-          people: this.data.people,
-          note: this.data.note,
-        },
-        success: (res) => {
-          console.log(res);
-          this.setData({
-            isSaving: false,
-          });
-        },
-      });
+          roomInfo: {
+            roomNum: this.data.roomNum,
+            flight: this.data.flight,
+            price: this.data.price,
+            code: this.data.code,
+            time: this.data.time,
+            people: this.data.people,
+            note: this.data.note,
+          },
+        }
+      })
+      .then(res => {
+        console.log(res);
+        this.setData({
+          isSaving: false,
+        });
+      })
   },
   onTapDeleteBtn: function (e) {
     this.setData({
@@ -202,12 +220,17 @@ Page({
           slaves: db.command.pull(this.data.kickedPerson),
           kickedLst: db.command.push(this.data.kickedPerson.timeStamp),
         },
+      })
+      .then(() => {
+        this.setData({
+          kickedPerson: null,
+          showModal: false,
+        });
+      })
+      .catch(err => {
+        console.log('kick out err: ')
+        console.log(err)
       });
-
-    this.setData({
-      kickedPerson: null,
-      showModal: false,
-    });
   },
   onTapClose: function () {
     db.collection("Flights")
@@ -217,6 +240,15 @@ Page({
           status: "closed",
         },
       });
+
+    db.collection("UsersProfile")
+    .doc(app.globalData.id)
+    .update({
+      data: {
+        curRoomid: null,
+        isMaster: false
+      },
+    });
 
     app.globalData.roomInfo = {
       roomID: null,
