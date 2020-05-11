@@ -102,6 +102,17 @@ Page({
       },
       success: function (res) {
         app.globalData.roomInfo.roomID = res._id;
+        var _roomID = res._id;
+
+        db.collection("UsersProfile")
+          .doc(app.globalData.id)
+          .update({
+            data:{
+              curRoomid: _roomID,
+              isMaster: true
+            }
+          })
+
         wx.redirectTo({
           url: "/pages/roomMaster/roomMaster",
         });

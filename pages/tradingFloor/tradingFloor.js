@@ -331,24 +331,27 @@ Page({
       app.globalData.gameProfile.nickname.length > 0 &&
       app.globalData.gameProfile.islandName.length > 0
     ) {
-      app.globalData.roomInfo = {
-        roomID: e.currentTarget.id,
-        timeStamp: null,
-      };
-      console.log(app.globalData.roomInfo);
+      // app.globalData.roomInfo = {
+      //   roomID: e.currentTarget.id,
+      //   timeStamp: null,
+      // };
+      // console.log(app.globalData.roomInfo);
 
-      db.collection("UsersProfile")
-        .doc(app.globalData.id)
-        .update({
-          data:{
-            curRoomid: e.currentTarget.id
-          },
-          success: res => {
-            wx.navigateTo({
-              url: "/pages/roomSlave/roomSlave",
-            });
-          }
-        })
+      // db.collection("UsersProfile")
+      //   .doc(app.globalData.id)
+      //   .update({
+      //     data:{
+      //       curRoomid: e.currentTarget.id
+      //     },
+      //     success: res => {
+      //       wx.navigateTo({
+      //         url: "/pages/roomSlave/roomSlave",
+      //       });
+      //     }
+      //   })
+      wx.navigateTo({
+        url: "/pages/roomSlave/roomSlave?room_id=" + e.currentTarget.id,
+      });
     } else {
       wx.switchTab({
         url: "/pages/profile/profile",
