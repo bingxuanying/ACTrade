@@ -50,7 +50,7 @@
                     空位0 等候{{item.slaves.length - item.people}} 在岛{{item.people}}
                   </view>
                   <view class="card-lineinfo" wx:else>
-                    空位{{item.people - item.slaves.length}} 等候0 在岛{{item.people}}
+                    空位{{item.people - item.slaves.length}} 等候0 在岛{{item.slaves.length}}
                   </view>
                   <view class="card-price">
                     <view class="card-price-text">

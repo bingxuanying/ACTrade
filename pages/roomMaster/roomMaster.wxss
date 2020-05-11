@@ -651,6 +651,7 @@
 
 .modal-leave-icon {
   width: 40rpx;
+  height: 40rpx;
   position: fixed;
   left: calc(50% - 20rpx);
   bottom: 160rpx;

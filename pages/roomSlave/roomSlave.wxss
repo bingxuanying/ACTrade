@@ -632,6 +632,7 @@ page {
 }
 .auth-chat-icon {
   width: 40rpx;
+  height: 40rpx;
   position: absolute;
   left: calc(50% - 20rpx);
   top: 380rpx;
@@ -714,6 +715,7 @@ page {
 }
 .name-chat-icon {
   width: 40rpx;
+  height: 40rpx;
   position: absolute;
   left: calc(50% - 20rpx);
   top: 430rpx;
@@ -804,6 +806,7 @@ page {
 
 .modal-leave-icon {
   width: 40rpx;
+  height: 40rpx;
   position: fixed;
   left: calc(50% - 20rpx);
   bottom: 160rpx;
