@@ -34,6 +34,16 @@ exports.main = async (event, context) => {
             password: flight.code,
             roomId: roomID
           },
+          success: res => {
+            console.log('sucsess')
+          },
+          fail: err => {
+            console.log('err: ')
+            console.log(err)
+          },
+          complete: res => {
+            console.log('complete')
+          }
         });
       } else {
         console.log("nofitied no change");

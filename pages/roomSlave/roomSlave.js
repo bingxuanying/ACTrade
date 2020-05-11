@@ -347,6 +347,7 @@ Page({
             },
           })
         }
+      
 
       return Promise.resolve()
         .then( () => {
