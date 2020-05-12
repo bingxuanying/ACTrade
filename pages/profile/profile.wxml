@@ -1,7 +1,7 @@
 <!-- pages/profile/profile.wxml -->
 <block>
   <nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
-  <view class="profile" hidden="{{isLoading}}" style="height: calc(100vh - {{statusBarHeight}}px - 44px);">
+  <view class="profile" hidden="{{isLoading}}" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px);">
     <image class="passport" src="{{passport}}" mode="widthFix" />
     <view class="userinfo">
       <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />

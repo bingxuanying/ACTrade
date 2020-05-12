@@ -4,31 +4,93 @@ const db = wx.cloud.database();
 
 Page({
   data: {
-    // statusBarHeight: 0,
+    page: 'cat', // cat, specs
+    catDeck: ['A', 'B', 'C'],
+    specsDeck: [],
+    curtain: {
+      activateFilter: false,
+      filter: false,
+      activateSearch: false,
+      search: false,
+    },
+    loading: {
+      isPull: false,
+      isBottom: false
+    }
   },
   onLoad: function () {
     this.setData({ statusBarHeight: app.globalData.statusBarHeight })
 
-    wx.cloud
-      .getTempFileURL({
-        fileList: [
-          {
-            fileID:
-              "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/施工页面.jpg",
-          },
-        ],
+    /***************** CallBack function Template Here ******************** */
+    var that = this;
+    app.UrlCallBack(
+      function (res) {
+        that.setData({ EarthLoadingUrl: res.gif.EarthLoading  });
+      },
+      "gif",
+      "EarthLoadingUrl"
+    );
+    /*************************************************** */
+  },
+  onTapFilter: function() {
+    if (this.data.curtain.activateFilter === false) {
+      this.setData({  
+        curtain: {
+          ...this.data.curtain,
+          activateFilter: true
+        }  
       })
-      .then((res) => {
-        // get temp file URL
-        console.log(res.fileList[0]);
-        this.setData({
-          constructPage: res.fileList[0].tempFileURL,
-        });
+    }
+
+    if (this.data.curtain.filter === false) {
+      this.setData({  
+        curtain: {
+          ...this.data.curtain,
+          filter: true,
+          search: false,
+        }  
       })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+    } else {
+      this.setData({  
+        curtain: {
+          ...this.data.curtain,
+          filter: false,
+          search: false,
+        }  
+      })
+    }
+
+    console.log(this.data.curtain)
+  },
+  onTapSearch: function() {
+    if (this.data.curtain.activateSearch === false) {
+      this.setData({  
+        curtain: {
+          ...this.data.curtain,
+          activateSearch: true
+        }  
+      })
+    }
+
+    if (this.data.curtain.search === false) {
+      this.setData({  
+        curtain: {
+          ...this.data.curtain,
+          filter: false,
+          search: true,
+        }  
+      })
+    } else {
+      this.setData({  
+        curtain: {
+          ...this.data.curtain,
+          filter: false,
+          search: false,
+        }  
+      })
+    }
+
+    console.log(this.data.curtain)
   },
   onShow() {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
