@@ -289,11 +289,11 @@ page {
 
 /* animation */
 .slide-left {
-  animation: slideleft 1s ease-in-out 1;
+  animation: slideleft 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 .slide-right {
-  animation: slideright 1s ease-in-out 1;
+  animation: slideright 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 @keyframes slideleft {

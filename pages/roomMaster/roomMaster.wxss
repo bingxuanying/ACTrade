@@ -364,11 +364,11 @@
   left: 20%;
 }
 .closeBtn-click {
-  animation: toleft 1s ease-in-out 1;
+  animation: toleft 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 .closeBtn-unclick {
-  animation: toright 1s ease-in-out 1;
+  animation: toright 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 .tool-box-icon {
@@ -415,19 +415,19 @@
 
 /* Animation */
 .circle-to-right {
-  animation: circletoright 1s ease-in-out 1;
+  animation: circletoright 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 .circle-to-left {
-  animation: circletoleft 1s ease-in-out 1;
+  animation: circletoleft 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 .slide-left {
-  animation: slideleft 1s ease-in-out 1;
+  animation: slideleft 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 .slide-right {
-  animation: slideright 1s ease-in-out 1;
+  animation: slideright 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 @keyframes toleft {

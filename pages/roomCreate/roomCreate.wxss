@@ -103,6 +103,16 @@ page {
   border-radius: 15rpx;
   position: relative;
 }
+.settings-content-slider {
+  width: 75%; 
+  padding: 0; 
+  margin: 0; 
+  float: left;
+}
+.settings-content-slider-text {
+  font-size: 26rpx;
+  margin-left: 15rpx;
+}
 .extend-text {
   width: 100%;
   border-radius: 30rpx;
