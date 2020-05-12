@@ -1,65 +1,67 @@
 <!-- pages/profile/profile.wxml -->
-<nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
-<block style="height: calc(100vh - {{statusBarHeight}}px - 44px);position:relative;">
-  <view class="profile" hidden="{{isLoading}}">
-    <image class="passport" src="{{passport}}" mode="widthFix" />
-    <view class="userinfo">
-      <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
-      <button class="userinfo-btn" style="width:200rpx;" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
-        <view class="confirm-btn-icon">A</view>
-        <view class="confirm-btn-text">登入信息</view>
-      </button>
-      <block wx:else>
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
-        <view class="userinfo-name-box">
-          <image class="userinfo-name-box-icon" src="../../assets/icons/AvatarIcon.png" />
-          <text class="userinfo-name-box-name">{{userInfo.nickName}}</text>
+<block>
+  <nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
+  <block style="height: calc(100vh - {{statusBarHeight}}px - 44px);position:relative;">
+    <view class="profile" hidden="{{isLoading}}">
+      <image class="passport" src="{{passport}}" mode="widthFix" />
+      <view class="userinfo">
+        <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
+        <button class="userinfo-btn" style="width:200rpx;" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+          <view class="confirm-btn-icon">A</view>
+          <view class="confirm-btn-text">登入信息</view>
+        </button>
+        <block wx:else>
+          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover" />
+          <view class="userinfo-name-box">
+            <image class="userinfo-name-box-icon" src="../../assets/icons/AvatarIcon.png" />
+            <text class="userinfo-name-box-name">{{userInfo.nickName}}</text>
+          </view>
+        </block>
+      </view>
+      <view class="personalInfo" wx:if="{{hasUserInfo}}">
+        <view class="personalInfo-row">
+          <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
+          <view class="personalInfo-title">游戏昵称</view>
+          <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写" />
         </view>
-      </block>
-    </view>
-    <view class="personalInfo" wx:if="{{hasUserInfo}}">
-      <view class="personalInfo-row">
-        <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
-        <view class="personalInfo-title">游戏昵称</view>
-        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写" />
-      </view>
-      <view class="personalInfo-row">
-        <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
-        <view class="personalInfo-title">岛名</view>
-        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写" />
-      </view>
-      <view class="personalInfo-row">
-        <view class="fruit-background">
-          <image class="fruit" src="{{fruit==='apple'?'../../assets/icons/AppleIcon.png':'../../assets/icons/AppleIconGray.png'}}" mode="widthFix" bindtap="onTapApple" />
-          <image class="fruit" src="{{fruit==='cherry'?'../../assets/icons/CherryIcon.png':'../../assets/icons/CherryIconGray.png'}}" mode="widthFix" bindtap="onTapCherry" />
-          <image class="fruit" src="{{fruit==='orange'?'../../assets/icons/OrangeIcon.png':'../../assets/icons/OrangeIconGray.png'}}" mode="widthFix" bindtap="onTapOrange" />
-          <image class="fruit" src="{{fruit==='peach'?'../../assets/icons/PeachIcon.png':'../../assets/icons/PeachIconGray.png'}}" mode="widthFix" bindtap="onTapPeach" />
-          <image class="fruit" src="{{fruit==='pear'?'../../assets/icons/PearIcon.png':'../../assets/icons/PearIconGray.png'}}" mode="widthFix" bindtap="onTapPear" />
+        <view class="personalInfo-row">
+          <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
+          <view class="personalInfo-title">岛名</view>
+          <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写" />
         </view>
-      </view>
-      <view class="personalInfo-row">
-        <image wx:if="{{hemisphere === 'north'}}" class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
-        <image wx:else class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
-        <view class="personalInfo-title">地理位置</view>
-        <!-- Swith box Here -->
-        <view class="switch-box" bindtap="changeSwitch">
-          <view class="switch-btn {{hemisphere==='north' ? 'move-left': 'move-right'}}">
-            <view class="switch-btn-text">
-              <text>{{hemisphere==='north' ? '北半球' : '南半球'}}</text>
-            </view>
+        <view class="personalInfo-row">
+          <view class="fruit-background">
+            <image class="fruit" src="{{fruit==='apple'?'../../assets/icons/AppleIcon.png':'../../assets/icons/AppleIconGray.png'}}" mode="widthFix" bindtap="onTapApple" />
+            <image class="fruit" src="{{fruit==='cherry'?'../../assets/icons/CherryIcon.png':'../../assets/icons/CherryIconGray.png'}}" mode="widthFix" bindtap="onTapCherry" />
+            <image class="fruit" src="{{fruit==='orange'?'../../assets/icons/OrangeIcon.png':'../../assets/icons/OrangeIconGray.png'}}" mode="widthFix" bindtap="onTapOrange" />
+            <image class="fruit" src="{{fruit==='peach'?'../../assets/icons/PeachIcon.png':'../../assets/icons/PeachIconGray.png'}}" mode="widthFix" bindtap="onTapPeach" />
+            <image class="fruit" src="{{fruit==='pear'?'../../assets/icons/PearIcon.png':'../../assets/icons/PearIconGray.png'}}" mode="widthFix" bindtap="onTapPear" />
           </view>
         </view>
-        <!-- Switch box Done Here -->
+        <view class="personalInfo-row">
+          <image wx:if="{{hemisphere === 'north'}}" class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/NorthHemishpere.png" mode="widthFix" />
+          <image wx:else class="hemisphere-icon {{animActive? 'rotate': ''}}" src="../../assets/icons/SouthHemishpere.png" mode="widthFix" />
+          <view class="personalInfo-title">地理位置</view>
+          <!-- Swith box Here -->
+          <view class="switch-box" bindtap="changeSwitch">
+            <view class="switch-btn {{hemisphere==='north' ? 'move-left': 'move-right'}}">
+              <view class="switch-btn-text">
+                <text>{{hemisphere==='north' ? '北半球' : '南半球'}}</text>
+              </view>
+            </view>
+          </view>
+          <!-- Switch box Done Here -->
+        </view>
+        <button class="confirm-btn" style="width:130rpx;" bindtap="onTapDone">
+          <view class="confirm-btn-icon">A</view>
+          <view class="confirm-btn-text">保存</view>
+        </button>
       </view>
-      <button class="confirm-btn" style="width:130rpx;" bindtap="onTapDone">
-        <view class="confirm-btn-icon">A</view>
-        <view class="confirm-btn-text">保存</view>
-      </button>
+      <view class="warn" wx:elif="{{!hasUserInfo}}">
+        <text>请先登入信息</text>
+      </view>
     </view>
-    <view class="warn" wx:elif="{{!hasUserInfo}}">
-      <text>请先登入信息</text>
-    </view>
-  </view>
-  <image class="loadingGIF" src="../../assets/passport/PassportLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
-  <image class="savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isSaving}}" mode="widthFix" />
+    <image class="loadingGIF" src="../../assets/passport/PassportLoading.gif" mode="widthFix" hidden="{{!isLoading}}" />
+    <image class="savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isSaving}}" mode="widthFix" />
+  </block>
 </block>

@@ -1,10 +1,14 @@
-// pages/diyExchange/diyExchange
+// pages/nookea/nookea
 const app = getApp();
 const db = wx.cloud.database();
 
 Page({
-  data: {},
+  data: {
+    // statusBarHeight: 0,
+  },
   onLoad: function () {
+    this.setData({ statusBarHeight: app.globalData.statusBarHeight })
+
     wx.cloud
       .getTempFileURL({
         fileList: [

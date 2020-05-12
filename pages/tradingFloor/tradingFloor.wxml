@@ -1,120 +1,122 @@
 <!-- tradingFloor.wxml -->
-<nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
-<block style="height: calc(100vh - {{statusBarHeight}}px - 44px); position:relative">
-  <view class="tradingFloor">
-    <!-- head bar -->
-    <view class="headBar">
-      <view class="headBar-btn-room" style="left: 113rpx" bindtap="{{keyword.length === 5?'onTapCancel':'modalOpen'}}">
-        <image class="headBar-btn-room-icon" src="../../assets/lobby/searchIcon.png" mode="widthFix" />
-        <text class="headBar-btn-room-text">{{keyword.length === 5?"取消找寻":"找寻"}}</text>
+<block>
+  <nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
+  <block style="height: calc(100vh - {{statusBarHeight}}px - 44px); ">
+    <view class="tradingFloor">
+      <!-- head bar -->
+      <view class="headBar">
+        <view class="headBar-btn-room" style="left: 113rpx" bindtap="{{keyword.length === 5?'onTapCancel':'modalOpen'}}">
+          <image class="headBar-btn-room-icon" src="../../assets/lobby/searchIcon.png" mode="widthFix" />
+          <text class="headBar-btn-room-text">{{keyword.length === 5?"取消找寻":"找寻"}}</text>
+        </view>
+        <view class="headBar-btn-room" style="left: 233rpx" bindtap="onTapCreate">
+          <image class="headBar-btn-room-icon" src="../../assets/lobby/createIcon.png" mode="widthFix" />
+          <text class="headBar-btn-room-text">开岛</text>
+        </view>
+        <view class="headBar-btn-order" style="left: 430rpx" bindtap="onTapTime">
+          <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='createTime'}}" />
+          <text class="headBar-btn-order-text {{order==='createTime'?'headBar-btn-order-active':''}}">
+            时间排序
+          </text>
+        </view>
+        <view class="headBar-btn-order" style="left: 570rpx" bindtap="onTapPrice">
+          <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='price'}}" />
+          <text class="headBar-btn-order-text {{order==='price'?'headBar-btn-order-active':''}}">
+            价格排序
+          </text>
+        </view>
+        <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
       </view>
-      <view class="headBar-btn-room" style="left: 233rpx" bindtap="onTapCreate">
-        <image class="headBar-btn-room-icon" src="../../assets/lobby/createIcon.png" mode="widthFix" />
-        <text class="headBar-btn-room-text">开岛</text>
-      </view>
-      <view class="headBar-btn-order" style="left: 430rpx" bindtap="onTapTime">
-        <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='createTime'}}" />
-        <text class="headBar-btn-order-text {{order==='createTime'?'headBar-btn-order-active':''}}">
-          时间排序
-        </text>
-      </view>
-      <view class="headBar-btn-order" style="left: 570rpx" bindtap="onTapPrice">
-        <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='price'}}" />
-        <text class="headBar-btn-order-text {{order==='price'?'headBar-btn-order-active':''}}">
-          价格排序
-        </text>
-      </view>
-      <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
-    </view>
-    <!-- info board -->
-    <view class="board">
-      <!-- if db has data show cards, else show words -->
-      <block wx:if="{{cards.length>0&&isLoading===false}}">
-        <block wx:for="{{cards}}" wx:for-item="item" wx:for-index="idx" wx:key="cards">
-          <!-- Here Cards for Flight -->
-          <view class="card">
-            <image class="postcard" src="../../assets/postcards/InfoPage_out.png" mode="widthFix" />
-            <view id="{{item._id}}" class="card-box-shader" bindtap="onTapCard">
-              <view class="card-box {{item._id===curTool_id?'slide-right':''}} {{item._id===preTool_id?'slide-left':''}}">
-                <!-- postcard start here -->
-                <view class="card-main">
-                  <image class="postcard-inner" src="{{idx%3===0? InfoPageRed_in:(idx%3===1?InfoPageYellow_in:InfoPageBrown_in)}}" mode="widthFix" />
-                  <view class="card-number">ROOM - {{item.roomNum}}</view>
-                  <view class="card-note">{{item.note}}</view>
-                  <view class="card-des">- 岛主 {{item.master.gameProfile.nickname}}</view>
-                  <view class="card-time">
-                    <wxs module="filter" src="../../utils/uti.wxs"></wxs>
-                    还剩{{filter.numFixed(item.timeLeft/60,0)}}小时{{item.timeLeft%60}}分
-                  </view>
-                  <view class="card-lineinfo" wx:if="{{item.slaves.length > item.people}}">
-                    空位0 等候{{item.slaves.length - item.people}} 在岛{{item.slaves.length}}
-                  </view>
-                  <view class="card-lineinfo" wx:else>
-                    空位{{item.people - item.slaves.length}} 等候0 在岛{{item.slaves.length}}
-                  </view>
-                  <view class="card-price">
-                    <view class="card-price-text">
-                      <text class="card-price-text-bg">{{item.price}}</text>
+      <!-- info board -->
+      <view class="board">
+        <!-- if db has data show cards, else show words -->
+        <block wx:if="{{cards.length>0&&isLoading===false}}">
+          <block wx:for="{{cards}}" wx:for-item="item" wx:for-index="idx" wx:key="cards">
+            <!-- Here Cards for Flight -->
+            <view class="card">
+              <image class="postcard" src="../../assets/postcards/InfoPage_out.png" mode="widthFix" />
+              <view id="{{item._id}}" class="card-box-shader" bindtap="onTapCard">
+                <view class="card-box {{item._id===curTool_id?'slide-right':''}} {{item._id===preTool_id?'slide-left':''}}">
+                  <!-- postcard start here -->
+                  <view class="card-main">
+                    <image class="postcard-inner" src="{{idx%3===0? InfoPageRed_in:(idx%3===1?InfoPageYellow_in:InfoPageBrown_in)}}" mode="widthFix" />
+                    <view class="card-number">ROOM - {{item.roomNum}}</view>
+                    <view class="card-note">{{item.note}}</view>
+                    <view class="card-des">- 岛主 {{item.master.gameProfile.nickname}}</view>
+                    <view class="card-time">
+                      <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                      还剩{{filter.numFixed(item.timeLeft/60,0)}}小时{{item.timeLeft%60}}分
                     </view>
-                    <image class="card-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
+                    <view class="card-lineinfo" wx:if="{{item.slaves.length > item.people}}">
+                      空位0 等候{{item.slaves.length - item.people}} 在岛{{item.slaves.length}}
+                    </view>
+                    <view class="card-lineinfo" wx:else>
+                      空位{{item.people - item.slaves.length}} 等候0 在岛{{item.slaves.length}}
+                    </view>
+                    <view class="card-price">
+                      <view class="card-price-text">
+                        <text class="card-price-text-bg">{{item.price}}</text>
+                      </view>
+                      <image class="card-price-icon" src="../../assets/icons/bell.png" mode="heightFix" />
+                    </view>
                   </view>
-                </view>
-                <view class="card-tools">
-                  <view class="card-tools-join" id="{{item._id}}" bindtap="onTapJoin">
-                    <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);" data-roomnum="{{item.roomNum}}" data-id="{{item._id}}">
-                      <image class="card-tools-icon" src="../../assets/icons/AddIcon.png" mode="heightFix" />
-                    </button>
-                    <view class="card-tools-btn">加入</view>
-                  </view>
-                  <view class="card-tools-share" style="width:100%;">
-                    <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);" open-type="share" data-roomnum="{{item.roomNum}}" data-id="{{item._id}}">
-                      <image class="card-tools-icon" src="../../assets/icons/ShareIcon.png" mode="heightFix" />
-                    </button>
-                    <view class="card-tools-btn">分享</view>
+                  <view class="card-tools">
+                    <view class="card-tools-join" id="{{item._id}}" bindtap="onTapJoin">
+                      <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);" data-roomnum="{{item.roomNum}}" data-id="{{item._id}}">
+                        <image class="card-tools-icon" src="../../assets/icons/AddIcon.png" mode="heightFix" />
+                      </button>
+                      <view class="card-tools-btn">加入</view>
+                    </view>
+                    <view class="card-tools-share" style="width:100%;">
+                      <button style="margin:0 0; padding: 0 0; width:100%; height:60%; background-color:rgba(0,0,0,0);" open-type="share" data-roomnum="{{item.roomNum}}" data-id="{{item._id}}">
+                        <image class="card-tools-icon" src="../../assets/icons/ShareIcon.png" mode="heightFix" />
+                      </button>
+                      <view class="card-tools-btn">分享</view>
+                    </view>
                   </view>
                 </view>
               </view>
             </view>
+          </block>
+          <view class="card-bottom" style="line-height: {{isBottomLoading?'65rpx':'50rpx'}};">
+            <block wx:if="{{isBottomLoading}}">
+              <image class="card-bottom-loading" src="{{EarthLoadingUrl}}" mode="widthFix" />
+              <text>加载更多...</text>
+            </block>
+            <block wx:else>
+              <text>---</text>
+              <text style="margin-left: 20rpx">到底啦~！</text>
+              <image class="card-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
+              <text>---</text>
+            </block>
           </view>
         </block>
-        <view class="card-bottom" style="line-height: {{isBottomLoading?'65rpx':'50rpx'}};">
-          <block wx:if="{{isBottomLoading}}">
-            <image class="card-bottom-loading" src="{{EarthLoadingUrl}}" mode="widthFix" />
-            <text>加载更多...</text>
-          </block>
-          <block wx:else>
-            <text>---</text>
-            <text style="margin-left: 20rpx">到底啦~！</text>
-            <image class="card-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
-            <text>---</text>
-          </block>
-        </view>
-      </block>
-      <block wx:elif="{{cards.length===0&&isLoading===false}}">
-        <view class="notFound">
-          <text>找不到？！试试下拉刷新~！</text>
-          <image class="notFound-nook" src="../../assets/icons/nook.png" mode="widthFix" />
-        </view>
-      </block>
-      <image class="loadingGIF" src="{{EarthLoadingUrl}}" mode="widthFix" wx:if="{{isLoading}}" />
-    </view>
-    <!-- mask -->
-    <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
-    <!-- modal -->
-    <view class='mymodal' wx:if="{{showModal}}">
-      <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix" />
-      <image class="modal-search" src="../../assets/lobby/modalSearchIcon.png" mode="widthFix" />
-      <text class="modal-search-text">输入要搜索房间的关键字吧！</text>
-      <image class="modal-inputImg" src="../../assets/inputBar.png" mode="widthFix" />
-      <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
-      <view class="modal-btn-icon" style="top: 345rpx;left: 331rpx;">-</view>
-      <button class="modal-btn" style="width: 150rpx; left:215rpx" bindtap="modalHide">返回</button>
-      <view class="modal-btn-icon {{keyword.length===5?'':'modal-btn-icon-disabled'}}" style="top: 345rpx;left: 511rpx;">
-        +
+        <block wx:elif="{{cards.length===0&&isLoading===false}}">
+          <view class="notFound">
+            <text>找不到？！试试下拉刷新~！</text>
+            <image class="notFound-nook" src="../../assets/icons/nook.png" mode="widthFix" />
+          </view>
+        </block>
+        <image class="loadingGIF" src="{{EarthLoadingUrl}}" mode="widthFix" wx:if="{{isLoading}}" />
       </view>
-      <button class="modal-btn" style="width: 150rpx; left:395rpx" disabled="{{keyword.length===5?false:true}}" bindtap="onTapSearch">
-        搜索
-      </button>
+      <!-- mask -->
+      <view class='mask' wx:if="{{showModal}}" bindtap='modalHide' />
+      <!-- modal -->
+      <view class='mymodal' wx:if="{{showModal}}">
+        <image class="modal-img" src="../../assets/roomJoinModal.png" mode="widthFix" />
+        <image class="modal-search" src="../../assets/lobby/modalSearchIcon.png" mode="widthFix" />
+        <text class="modal-search-text">输入要搜索房间的关键字吧！</text>
+        <image class="modal-inputImg" src="../../assets/inputBar.png" mode="widthFix" />
+        <input class="modal-inputBar" value="{{keyword}}" maxlength="5" bindinput="bindSearchBar" />
+        <view class="modal-btn-icon" style="top: 345rpx;left: 331rpx;">-</view>
+        <button class="modal-btn" style="width: 150rpx; left:215rpx" bindtap="modalHide">返回</button>
+        <view class="modal-btn-icon {{keyword.length===5?'':'modal-btn-icon-disabled'}}" style="top: 345rpx;left: 511rpx;">
+          +
+        </view>
+        <button class="modal-btn" style="width: 150rpx; left:395rpx" disabled="{{keyword.length===5?false:true}}" bindtap="onTapSearch">
+          搜索
+        </button>
+      </view>
     </view>
-  </view>
+  </block>
 </block>
