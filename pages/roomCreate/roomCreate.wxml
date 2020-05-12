@@ -43,7 +43,8 @@
           <text>开放时长</text>
         </view>
         <view class="settings-content">
-          <slider bindchange="bindSliderTime" step="1" min="1" max="12" block-size="16" selected-color="#756e2a" value="{{time}}" style="padding: 0; margin: 0;" show-value />
+          <slider class="settings-content-slider" bindchange="bindSliderTime" step="1" min="1" max="12" block-size="16" selected-color="#756e2a" value="{{time}}" />
+          <text class="settings-content-slider-text">{{time}}小时</text>
         </view>
       </view>
       <view class="settings-layout">
@@ -51,7 +52,8 @@
           <text>在岛人数限制</text>
         </view>
         <view class="settings-content">
-          <slider bindchange="bindSliderPeople" step="1" min="1" max="7" block-size="16" selected-color="#756e2a" value="{{people}}" style="padding: 0; margin: 0;" show-value />
+          <slider class="settings-content-slider" bindchange="bindSliderPeople" step="1" min="1" max="7" block-size="16" selected-color="#756e2a" value="{{people}}" />
+          <text class="settings-content-slider-text">{{people}}个人</text>
         </view>
       </view>
       <view class="settings-layout">

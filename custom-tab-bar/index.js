@@ -12,7 +12,7 @@ Component({
         selectedIconPath: "../assets/tab/ShopIconActive.png",
       },
       {
-        pagePath: "/pages/diyExchange/diyExchange",
+        pagePath: "/pages/nookea/nookea",
         text: "狸家",
         iconPath: "../assets/tab/DiyIconGray.png",
         selectedIconPath: "../assets/tab/DiyIconActive.png",

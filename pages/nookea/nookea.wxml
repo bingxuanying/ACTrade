@@ -1,0 +1,18 @@
+<!-- pages/nookea/nookea.wxml -->
+<block>
+    <nav-bar navInfo="-- 欢迎来到狸家! --" />
+    <view class="nookea" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
+        <view class="header-bar">
+        </view>
+
+        <view class="tool-bar">
+            <view class="tool-tag-box"></view>
+            <view class="tool-btn-box">
+                <view class="tool-btn"></view>
+            </view>
+        </view>
+
+        <view class="filter-curtain"></view>
+        <view class="search-curtain"></view>
+    </view>
+</block>

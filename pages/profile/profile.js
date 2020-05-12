@@ -17,6 +17,9 @@ Page({
     loadingGifUrl: "",
   },
   onLoad: function () {
+    this.setData({
+      statusBarHeight: app.globalData.statusBarHeight,
+    });
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -53,28 +56,29 @@ Page({
             hasUserInfo: true,
           });
 
-          db.collection("UsersProfile").get()
-          .then( res => {
-            if (res.data.length > 0) {
-              app.globalData.id = res.data[0]._id;
-              app.globalData.gameProfile = {
-                nickname: res.data[0].nickname,
-                islandName: res.data[0].islandName,
-                fruit: res.data[0].fruit,
-                hemisphere: res.data[0].hemisphere,
-              };
-              this.setData({
-                nickname: res.data[0].nickname,
-                islandName: res.data[0].islandName,
-                fruit: res.data[0].fruit,
-                hemisphere: res.data[0].hemisphere,
-              });
-            }
-          })
-          .catch( err => {
-            console("profile onload getuserinfo err: ")
-            console(err)
-          });
+          db.collection("UsersProfile")
+            .get()
+            .then((res) => {
+              if (res.data.length > 0) {
+                app.globalData.id = res.data[0]._id;
+                app.globalData.gameProfile = {
+                  nickname: res.data[0].nickname,
+                  islandName: res.data[0].islandName,
+                  fruit: res.data[0].fruit,
+                  hemisphere: res.data[0].hemisphere,
+                };
+                this.setData({
+                  nickname: res.data[0].nickname,
+                  islandName: res.data[0].islandName,
+                  fruit: res.data[0].fruit,
+                  hemisphere: res.data[0].hemisphere,
+                });
+              }
+            })
+            .catch((err) => {
+              console("profile onload getuserinfo err: ");
+              console(err);
+            });
         },
       });
     }
@@ -102,7 +106,7 @@ Page({
       db.collection("UsersProfile").get({
         success: (userData) => {
           if (userData.data.length > 0) {
-            console.log('if')
+            console.log("if");
             app.globalData.id = userData.data[0]._id;
             app.globalData.gameProfile = {
               nickname: userData.data[0].nickname,
@@ -126,7 +130,7 @@ Page({
                 },
               });
           } else {
-            console.log('else')
+            console.log("else");
             db.collection("UsersProfile").add({
               data: {
                 userInfo: app.globalData.userInfo,
@@ -139,15 +143,15 @@ Page({
                 isMaster: false,
               },
               success: (userData) => {
-                console.log(userData)
-                app.globalData.id = userData._id
-              }
+                console.log(userData);
+                app.globalData.id = userData._id;
+              },
             });
           }
         },
         fail: (res) => {
-          console.log(res)
-        }
+          console.log(res);
+        },
       });
     }
   },

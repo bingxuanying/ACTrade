@@ -35,7 +35,10 @@ Page({
     isSaving: false,
   },
   onLoad: function () {
-    this.setData({ isLoading: true });
+    this.setData({
+      isLoading: true,
+      statusBarHeight: app.globalData.statusBarHeight,
+    });
 
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
@@ -123,17 +126,17 @@ Page({
   setPublic: function () {
     this.setData({
       roomInfo: {
-        ...this.data.roomInfo,   
+        ...this.data.roomInfo,
         flight: "Business",
-      }
+      },
     });
   },
   setPrivate: function () {
     this.setData({
       roomInfo: {
-        ...this.data.roomInfo,      
+        ...this.data.roomInfo,
         flight: "Private",
-      }
+      },
     });
   },
   bindPriceInput: function (e) {
@@ -142,7 +145,7 @@ Page({
       roomInfo: {
         ...this.data.roomInfo,
         price: priceAdjust ? parseInt(priceAdjust, 10) : 0,
-      }
+      },
     });
     console.log("price: " + this.data.price);
   },
@@ -151,7 +154,7 @@ Page({
       roomInfo: {
         ...this.data.roomInfo,
         code: e.detail.value.toUpperCase(),
-      }
+      },
     });
     console.log("code: " + this.data.roomInfo.code);
   },
@@ -161,7 +164,7 @@ Page({
       roomInfo: {
         ...this.data.roomInfo,
         people: e.detail.value,
-      }
+      },
     });
   },
   bindNoteInput: function (e) {
@@ -170,35 +173,37 @@ Page({
       roomInfo: {
         ...this.data.roomInfo,
         note: e.detail.value,
-      } 
+      },
     });
-    console.log(this.data.roomInfo)
+    console.log(this.data.roomInfo);
   },
   onTapUpdate: function () {
     this.setData({
       isSaving: true,
     });
+
+    console.log(app.globalData.roomInfo.roomID);
+
     db.collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .update({
         data: {
-          roomInfo: {
-            roomNum: this.data.roomNum,
-            flight: this.data.flight,
-            price: this.data.price,
-            code: this.data.code,
-            time: this.data.time,
-            people: this.data.people,
-            note: this.data.note,
-          },
-        }
-      })
-      .then(res => {
-        console.log(res);
-        this.setData({
-          isSaving: false,
-        });
-      })
+          flight: this.data.roomInfo.flight,
+          price: this.data.roomInfo.price,
+          code: this.data.roomInfo.code,
+          people: this.data.roomInfo.people,
+          note: this.data.roomInfo.note,
+        },
+        success: (res) => {
+          console.log(res);
+          this.setData({
+            isSaving: false,
+          });
+        },
+        fail: (err) => {
+          console.log(err);
+        },
+      });
   },
   onTapDeleteBtn: function (e) {
     this.setData({
@@ -227,9 +232,9 @@ Page({
           showModal: false,
         });
       })
-      .catch(err => {
-        console.log('kick out err: ')
-        console.log(err)
+      .catch((err) => {
+        console.log("kick out err: ");
+        console.log(err);
       });
   },
   onTapClose: function () {
@@ -242,13 +247,13 @@ Page({
       });
 
     db.collection("UsersProfile")
-    .doc(app.globalData.id)
-    .update({
-      data: {
-        curRoomid: null,
-        isMaster: false
-      },
-    });
+      .doc(app.globalData.id)
+      .update({
+        data: {
+          curRoomid: null,
+          isMaster: false,
+        },
+      });
 
     app.globalData.roomInfo = {
       roomID: null,
