@@ -1,18 +1,51 @@
 <!-- pages/nookea/nookea.wxml -->
 <block>
     <nav-bar navInfo="-- 欢迎来到狸家! --" />
-    <view class="nookea" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
+    <view class="nookea" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
         <view class="header-bar">
         </view>
 
         <view class="tool-bar">
             <view class="tool-tag-box"></view>
-            <view class="tool-btn-box">
-                <view class="tool-btn"></view>
+            <view class="tool-btn-box {{curtain.activateFilter?(curtain.filter?'curtain-slide-down':'curtain-slide-up'):''}}" style="height: 115%; right: 124rpx; z-index: 1;">
+                <view class="tool-btn" bindtap="onTapFilter"></view>
+            </view>
+            <view class="tool-btn-box {{curtain.activateSearch?(curtain.search?'curtain-slide-down':'curtain-slide-up'):''}}" style="height: 100%; right: 15rpx;">
+                <view class="tool-btn" bindtap="onTapSearch"></view>
             </view>
         </view>
 
-        <view class="filter-curtain"></view>
-        <view class="search-curtain"></view>
+        <view class="board" hidden="{{loading.isPull}}">
+            <view class="deck">
+                <view class="card">1</view>
+                <view class="card">2</view>
+                <view class="card">3</view>
+                <view class="card">4</view>
+                <view class="card">5</view>
+                <view class="card">6</view>
+                <view class="card">7</view>
+                <view class="card">8</view>
+                <view class="card">9</view>
+                <view class="card">10</view>
+                <view class="card">11</view>
+            </view>
+            <view class="board-bottom" style="line-height: {{loading.isBottom?'65rpx':'50rpx'}};" hidden="{{(catDeck.length===0&&page==='cat')||(specsDeck.length===0&&page==='specs')}}">
+            <block wx:if="{{loading.isBottom}}">
+                <image class="board-bottom-loading" src="{{EarthLoadingUrl}}" mode="widthFix" />
+                <text>加载更多...</text>
+            </block>
+            <block wx:else>
+                <text>---</text>
+                <text style="margin-left: 20rpx">到底啦~！</text>
+                <image class="board-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
+                <text>---</text>
+            </block>
+            </view>
+        </view>
+        
+        <image class="pull-loading" src="{{EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isPull}}" />
+
+        <view class="filter-curtain {{curtain.activateFilter?(curtain.filter?'curtain-slide-down':'curtain-slide-up'):''}}"></view>
+        <view class="search-curtain {{curtain.activateSearch?(curtain.search?'curtain-slide-down':'curtain-slide-up'):''}}"></view>
     </view>
 </block>

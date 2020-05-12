@@ -3,7 +3,6 @@ page {
 }
 .nookea {
   width: 100%;
-  height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -12,13 +11,17 @@ page {
   overflow-x: hidden;
 }
 
+
+/* --- HEADER BAR --- */
 .header-bar {
   background-color: lightpink;
   height: 120rpx;
   width: 100%;
-  z-index: 1;
+  z-index: 5;
 }
 
+
+/* --- TOOL BAR --- */
 .tool-bar {
   background-color: lightblue;
   height: 110rpx;
@@ -39,14 +42,12 @@ page {
 }
 
 .tool-btn-box {
-  height: 100%;
   width: 94rpx;
   background-image: linear-gradient(90deg, transparent 45%, black 45%, black 60%, transparent 60%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: absolute;
   top: 0;
-  right: 10rpx;
 }
 
 .tool-btn {
@@ -58,12 +59,113 @@ page {
   left: 0;
 }
 
+
+/* --- BOARD  --- */
+.board {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.deck {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.card {
+  width: 28%;
+  height: 300rpx;
+  background-color: peru;
+  margin-top: 20rpx;
+  /* (full-width - 3 * self.width / 4) */
+  margin-left: 4%;
+}
+
+
+/* --- BOTTOM --- */
+.board-bottom {
+  width: 100%;
+  height: 220rpx;
+  margin-top: 35rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  color: #716a58;
+  font-size: 30rpx;
+}
+.board-bottom-nook {
+  width: 50rpx;
+  height: 50rpx;
+}
+.board-bottom-loading {
+  width: 65rpx;
+  height: 65rpx;
+  margin-right: 20rpx;
+}
+
+
+/* --- MODAL LIKE --- */
 .filter-curtain {
+  width: 96%;
+  height: 400rpx;
+  background-color: lightslategray;
+  position: absolute;
+  left: 2%;
+  /* -(self.height - header.height) */
+  top: -280rpx;
+  z-index: 1;
+}
+
+.search-curtain {
   width: 96%;
   height: 400rpx;
   background-color: lightcoral;
   position: absolute;
   left: 2%;
-  top: 0;
-  z-index: 5;
+  /* -(self.height - header.height) */
+  top: -280rpx;
+}
+
+.curtain-slide-down {
+  animation: curtainslidedown 500ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+.curtain-slide-up {
+  animation: curtainslideup 500ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes curtainslidedown {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, 400rpx);
+  }
+}
+
+@keyframes curtainslideup {
+  from {
+    transform: translate(0, 400rpx);
+  }
+  to {
+    transform: translate(0, -0);
+  }
+}
+
+
+/* --- Loading GIF --- */
+.pull-loading {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

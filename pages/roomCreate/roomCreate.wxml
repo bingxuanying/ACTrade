@@ -1,7 +1,7 @@
 <!-- pages/roomCreate/roomCreate.wxml -->
 <block>
   <nav-bar navInfo="开发者 Y：快来开岛吧~！" />
-  <view class="roomCreate" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
+  <view class="roomCreate" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="header-box">
       <image class="header-bg" src="../../assets/roomCreate/header-bg.png" mode="widthFix" />
       <image class="header-bg-icon" src="../../assets/roomCreate/header-icon.png" mode="widthFix" />

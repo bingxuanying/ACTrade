@@ -278,6 +278,7 @@ page {
 }
 .card-bottom-loading {
   width: 65rpx;
+  height: 65rpx;
   margin-right: 20rpx;
 }
 .loadingGIF {
