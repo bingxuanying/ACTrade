@@ -1,0 +1,26 @@
+<!--pages/nookeaGoods/nookeaGoods.wxml-->
+<block>
+    <nav-bar navInfo="-- 商品 xxx --" />
+    <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+      <view class="header"></view>
+
+      <view class="item-box">
+        <view class="item-img-box"></view>
+        <view class="item-info">
+          <view class="item-tile"></view>
+          <view class="item-subtile"></view>
+          <view class="item-madeof"></view>
+        </view>
+      </view>
+
+      <view class="board">
+        <view class="board-options"></view>
+        <view class="board-content">
+          <view class="record"></view>
+          <view class="record"></view>
+          <view class="record"></view>
+          <view class="record"></view>
+        </view>
+      </view>
+    </view>
+</block>
