@@ -1,7 +1,6 @@
 // pages/tradingFloor/tradingFloor.js
 const app = getApp();
 const db = wx.cloud.database();
-const util = require("../../utils/util");
 
 Page({
   data: {
@@ -40,20 +39,31 @@ Page({
           });
         },
       });
+
+    // 直接从本地拉取imgUrl
+    const json = require("../../utils/imgUrl");
+    console.log(json.default.imgUrl.tradingFloor)
+    const iu = json.default.imgUrl;
+    this.setData({
+      EarthLoadingUrl: iu.gif.EarthLoading,
+      InfoPageBrown_in: iu.tradingFloor.InfoPageBrown_in,
+      InfoPageRed_in: iu.tradingFloor.InfoPageRed_in,
+      InfoPageYellow_in: iu.tradingFloor.InfoPageYellow_in,
+    })
     /***************** CallBack function Template Here ******************** */
-    var that = this;
-    app.UrlCallBack(
-      function (res) {
-        that.setData({
-          EarthLoadingUrl: res.gif.EarthLoading,
-          InfoPageBrown_in: res.img.InfoPageBrown_in,
-          InfoPageRed_in: res.img.InfoPageRed_in,
-          InfoPageYellow_in: res.img.InfoPageYellow_in,
-        });
-      },
-      "gif",
-      "EarthLoadingUrl"
-    );
+    // var that = this;
+    // app.UrlCallBack(
+    //   function (res) {
+    //     that.setData({
+    //       // EarthLoadingUrl: res.gif.EarthLoading,
+    //       // InfoPageBrown_in: res.img.InfoPageBrown_in,
+    //       // InfoPageRed_in: res.img.InfoPageRed_in,
+    //       // InfoPageYellow_in: res.img.InfoPageYellow_in,
+    //     });
+    //   },
+    //   "gif",
+    //   "EarthLoadingUrl"
+    // );
     /*************************************************** */
   },
   onPullDownRefresh: function () {
