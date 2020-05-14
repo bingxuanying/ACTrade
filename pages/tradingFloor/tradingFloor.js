@@ -130,7 +130,7 @@ Page({
           success: (res) => {
             this.setData({
               cards: this.data.cards.concat(res.data),
-              offset: this.data.offset + 10,
+              offset: this.data.offset + res.data.length,
               isBottomLoading: false,
             });
           },
@@ -148,7 +148,7 @@ Page({
           success: (res) => {
             this.setData({
               cards: this.data.cards.concat(res.data),
-              offset: this.data.offset + 10,
+              offset: this.data.offset + res.data.length,
               isBottomLoading: false,
             });
           },

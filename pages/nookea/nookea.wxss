@@ -14,10 +14,25 @@ page {
 
 /* --- HEADER BAR --- */
 .header-bar {
-  background-color: lightpink;
   height: 120rpx;
   width: 100%;
-  z-index: 5;
+  z-index: 15;
+}
+
+.head-bar-bg {
+  height: 120rpx;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.head-bar-logo {
+  height: 120rpx;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 
@@ -43,20 +58,41 @@ page {
 
 .tool-btn-box {
   width: 94rpx;
-  background-image: linear-gradient(90deg, transparent 45%, black 45%, black 60%, transparent 60%);
+  background-image: linear-gradient(90deg, transparent 40%, black 40%, black 60%, transparent 60%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: absolute;
-  top: 0;
+  top: -30rpx;
+  overflow: visible;
+  z-index: 11;
 }
 
 .tool-btn {
-  background-color: gray;
+  background-color: #ece5c9;
   height: 94rpx;
   width: 94rpx;
   position: absolute;
   bottom: 0;
   left: 0;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.tool-btn-icon {
+  width: 82%;
+  position: absolute;
+  left: 9%;
+  top: 9%;
+}
+
+.tool-btn-text {
+  position: absolute;
+  font-size: 29rpx;
+  top: 60rpx;
+  left: 18rpx;
+  color: #716a58;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10rpx;
 }
 
 
@@ -98,65 +134,194 @@ page {
   color: #716a58;
   font-size: 30rpx;
 }
+
 .board-bottom-nook {
   width: 50rpx;
   height: 50rpx;
 }
+
 .board-bottom-loading {
   width: 65rpx;
   height: 65rpx;
   margin-right: 20rpx;
 }
 
+.board-cant-find {
+  width: 100%;
+  /* 100% - header.height - toolbox.height */
+  height: 500rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 30rpx;
+}
+
+.board-cant-find-nook {
+  width: 80rpx;
+  height: 80rpx;
+  margin-left: 300rpx;
+}
+
 
 /* --- MODAL LIKE --- */
 .filter-curtain {
   width: 96%;
-  height: 400rpx;
-  background-color: lightslategray;
+  height: 800rpx;
+  background-color: #ff977f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   position: absolute;
   left: 2%;
   /* -(self.height - header.height) */
-  top: -280rpx;
-  z-index: 1;
+  top: -710rpx;
+  z-index: 11;
+}
+
+.curtain-filter-slide-down {
+  animation: curtainslidedown-filter 500ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+.curtain-filter-slide-up {
+  animation: curtainslideup-filter 500ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes curtainslidedown-filter {
+  from {  transform: translate(0, 0);  }
+  to {  transform: translate(0, 800rpx);  }
+}
+
+@keyframes curtainslideup-filter {
+  from {  transform: translate(0, 800rpx);  }
+  to {  transform: translate(0, 0);  }
 }
 
 .search-curtain {
   width: 96%;
-  height: 400rpx;
-  background-color: lightcoral;
+  height: 500rpx;
+  background-color: #ff977f;
   position: absolute;
   left: 2%;
   /* -(self.height - header.height) */
-  top: -280rpx;
+  top: -410rpx;
+  z-index: 11;
 }
 
-.curtain-slide-down {
-  animation: curtainslidedown 500ms ease-in-out 1;
+.curtain-search-slide-down {
+  animation: curtainslidedown-search 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 
-.curtain-slide-up {
-  animation: curtainslideup 500ms ease-in-out 1;
+.curtain-search-slide-up {
+  animation: curtainslideup-search 500ms ease-in-out 1;
   animation-fill-mode: forwards;
 }
 
-@keyframes curtainslidedown {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(0, 400rpx);
-  }
+@keyframes curtainslidedown-search {
+  from {  transform: translate(0, 0);  }
+  to {  transform: translate(0, 500rpx);  }
 }
 
-@keyframes curtainslideup {
-  from {
-    transform: translate(0, 400rpx);
-  }
-  to {
-    transform: translate(0, -0);
-  }
+@keyframes curtainslideup-search {
+  from {  transform: translate(0, 500rpx);  }
+  to {  transform: translate(0, 0);  }
+}
+
+
+/* --- Modal: Search --- */
+.search-box {
+  width: 80%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(90deg, #fbf6e0 75%, #d0e684 25%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 50rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.search-box input {
+  width: calc(75% - 40rpx);
+  height: 100%;
+  padding-left: 40rpx;
+  overflow-x: scroll;
+}
+
+.search-btn {
+  width: 25%;
+  height: 100%;
+  background-color: transparent;
+  position: relative;
+}
+
+.search-btn-icon {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* --- Modal: Filter --- */
+.filter-board {
+  /* filter-curtain.height: 800rpx */
+  width: 90%;
+  height: 650rpx;
+  background-color: lightyellow;
+  margin-top: 50rpx;
+  overflow-y: scroll;
+}
+
+.filter-board-row {
+  width: 100%;
+  margin-bottom: 20rpx;
+  background-color: lightblue;
+}
+
+.filter-board-row-tile {
+
+}
+
+.filter-board-row-content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.filter-curtain-bottom-bar {
+  width: 90%;
+  height: 80rpx;
+  background-color: lightblue;
+  margin-top: 10rpx;
+}
+
+.filter-board-row-tag {
+  margin-right: 20rpx;
+}
+
+
+/* --- Mask --- */
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 
