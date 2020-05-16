@@ -13,7 +13,7 @@
                 <block wx:for="{{keyword.tags}}" wx:for-index="key" wx:for-item="tag" wx:key="tag_card">
                     <view class="{{key==='collection'?'tool-tag-box-collection':'tool-tag-box'}}" data-tag="{{key}}" bindtap="onTapDeleteTag">
                         <text>{{tag}}</text>
-                        <image class="tool-tag-icon" src="../../assets/icons/XIcon.png" mode="widthFix" />
+                        <image class="tool-tag-icon" src="{{key==='collection'?'../../assets/icons/XIconWhite.png':'../../assets/icons/XIcon.png'}}" mode="widthFix" />
                     </view>
                 </block>      
             </block>
@@ -47,7 +47,12 @@
             <!-- CARDS -->
             <view class="deck">
                 <block wx:for="{{page==='cat'?catDeck:specsDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="cat_cards">
-                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':''}}">{{item.zh_name}}</view>
+                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':''}}">
+                        <view class="card-content">
+                            <image class="card-content-item" src="{{item.img_url}}" mode="widthFix"></image>
+                        </view>
+                        <view class="card-title">{{item.zh_name}}</view>
+                    </view>
                 </block>
             </view>
             <!-- Reminders -->
