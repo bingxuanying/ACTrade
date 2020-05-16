@@ -47,6 +47,7 @@ Page({
 
     db.collection("Nookea")
       .orderBy('disable', 'asc')
+      .orderBy('order', 'asc')
       .get()
       .then(res => {
         console.log(res.data)

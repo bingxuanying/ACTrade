@@ -1,5 +1,5 @@
 page {
-  background-color: #e5dec2;
+  background-color: #f8f5e6;
 }
 .nookea {
   width: 100%;
@@ -147,8 +147,9 @@ page {
 }
 
 .card {
-  width: 28%;
-  height: 335rpx;
+  width: 28vw;
+  /* height: 335rpx; */
+  height: 260rpx;
   margin-top: 20rpx;
   /* (full-width - 3 * self.width / 4) */
   margin-left: 4%;
@@ -160,16 +161,28 @@ page {
 
 .card-content {
   width: 100%;
-  height: 86%;
-  background-color: #faf5e1;
+  /* height: 86%; */
+  height:28vw;  
+  background-color: white;
   border-radius: 20rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content-bg {
+  width: 90%;
+  height: 90%;
+  border-radius: 10rpx;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .card-content-item {
-  width: 95%;
+  width: 60%;
+  height: 100rpx;
 }
 
 .card-title {

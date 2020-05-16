@@ -49,7 +49,9 @@
                 <block wx:for="{{page==='cat'?catDeck:specsDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="cat_cards">
                     <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':''}}">
                         <view class="card-content">
-                            <image class="card-content-item" src="{{item.img_url}}" mode="widthFix"></image>
+                            <view class="card-content-bg" style="background-color:{{item.disable?'lightgray':item.bg_color}};">
+                                <image class="card-content-item" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
+                            </view>
                         </view>
                         <view class="card-title">{{item.zh_name}}</view>
                     </view>
