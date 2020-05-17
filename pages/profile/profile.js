@@ -225,6 +225,12 @@ Page({
           this.setData({ isSaving: false });
         },
       });
+    wx.cloud.callFunction({
+      name:'getOpenId',
+      complete: res =>{
+        console.log(res);
+      }
+    })
   },
   // TabBar setting
   onShow() {

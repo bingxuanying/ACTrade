@@ -9,16 +9,7 @@ exports.main = async (event, context) => {
     return await cloud
       .getTempFileURL({
         fileList: [
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/ArtsCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/ClothsCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/DiyCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/FossilesCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/FurnituresCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/MaterialsCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/PlantsCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/PostersCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/SongsCollection.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/VillagersCollection.png",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/materials/樱桃.png",
         ],
       })
       .then((res) => {
