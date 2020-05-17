@@ -7,11 +7,15 @@ const iu = json.default.imgUrl;
 
 Page({
   data: {
-    page: 'cat', // cat, specs
+    page: 'cat', // cat, specs, collect
     catDeck: [],
     specsDeck: [],
     specs: null,
     offset: 0,
+    collect: {
+      mode: false,
+      lst: {}
+    },
     keyword: {
       searchType: null, // filter, search
       words: '',
@@ -47,6 +51,7 @@ Page({
 
     db.collection("Nookea")
       .orderBy('disable', 'asc')
+      .orderBy('order', 'asc')
       .get()
       .then(res => {
         console.log(res.data)
@@ -109,6 +114,21 @@ Page({
   },
 
   // --- MODAL ---
+  onTapCollect: function() {
+    this.setData({
+      collect: {
+        ...this.data.collect,
+        mode: !this.data.collect.mode,
+      },
+    })
+
+    if (this.data.collect.mode) {
+      console.log('enter collect mode')
+    } else {
+      console.log('save collection')
+    }
+  },
+
   onTapFilter: function() {
     if (this.data.curtain.activateFilter === false) {
       this.setData({  
@@ -147,6 +167,12 @@ Page({
     })
     // console.log(this.data.curtain)
   },
+
+  // --- MODAL: Collect ---
+  onTapCollectAdd: function(e) {
+    let _info =  e.currentTarget.dataset.info
+    console.log('saved')
+  },
   
   // --- MODAL: Filter ---
   onTapFilterCat: function(e) {
@@ -174,15 +200,27 @@ Page({
   onTapFilterType: function(e) {
     let _cat = e.currentTarget.dataset.cat;
     let _type =  e.currentTarget.dataset.type;
-    this.setData({  
-      keyword: {
-        ...this.data.keyword,
-        tags: {
-          ...this.data.keyword.tags,
-          [_cat]: _type,
-        }
-      },
-    })
+
+    if (this.data.keyword.tags.hasOwnProperty(_cat) && _type === this.data.keyword.tags[_cat]) {
+      let tempObj = Object.assign({}, this.data.keyword.tags)
+      delete tempObj[_cat]
+      this.setData({  
+        keyword: {
+          ...this.data.keyword,
+          tags: tempObj
+        },
+      })
+    } else {
+      this.setData({  
+        keyword: {
+          ...this.data.keyword,
+          tags: {
+            ...this.data.keyword.tags,
+            [_cat]: _type,
+          }
+        },
+      })
+    }
     console.log(this.data.keyword)
   },
 
@@ -393,6 +431,14 @@ Page({
         })
     }
   },
+
+  onTapItem: function(e) {
+    let _info =  e.currentTarget.dataset.info
+    wx.navigateTo({
+      url: '/pages/nookeaGoods/nookeaGoods?_id=' + _info._id,
+    })
+  },
+
 
   // --- Mask ---
   onTapHieCurtain: function() {

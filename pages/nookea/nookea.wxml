@@ -29,13 +29,21 @@
                 </view>
             </block>
             <!-- tool btn -->
-            <view class="tool-btn-box {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}" style="height: 130%; right: 124rpx; z-index: 12;">
+            <view class="tool-btn-box" style="height: 115%; right: 235rpx; z-index: 12;" hidden="{{page==='cat'}}">
+                <view class="tool-btn" bindtap="onTapCollect">
+                    <image class="tool-btn-icon" src="{{collect.mode?'../../assets/nookea/collectIcon.png':'../../assets/nookea/collectIcon-gray.png'}}" mode="widthFix" />
+                    <text class="tool-btn-text">收藏</text>
+                </view>
+            </view>
+
+            <view class="tool-btn-box {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}" style="height: 135%; right: 125rpx; z-index: 12;">
                 <view class="tool-btn" bindtap="onTapFilter">
                     <image class="tool-btn-icon" src="../../assets/nookea/filterIcon.png" mode="widthFix" />
                     <text class="tool-btn-text">{{curtain.filter?'收起':'筛选'}}</text>
                 </view>
             </view>
-            <view class="tool-btn-box {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}" style="height: 115%; right: 15rpx;">
+
+            <view class="tool-btn-box {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}" style="height: 120%; right: 15rpx;">
                 <view class="tool-btn" bindtap="onTapSearchBtn">
                     <image class="tool-btn-icon" src="../../assets/nookea/searchIcon.png" mode="widthFix" />
                     <text class="tool-btn-text">{{curtain.search?'收起':'搜索'}}</text>
@@ -43,13 +51,21 @@
             </view>
         </view>
 
+        <view class="warning-bar" hidden="{{!collect.mode}}">
+            <text>你已进入收藏模式</text>
+        </view>
+
         <view class="board" hidden="{{loading.isRefresh}}">
             <!-- CARDS -->
             <view class="deck">
                 <block wx:for="{{page==='cat'?catDeck:specsDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="cat_cards">
-                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':''}}">
-                        <view class="card-content">
-                            <image class="card-content-item" src="{{item.img_url}}" mode="widthFix"></image>
+                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':(collect.mode?'onTapCollectAdd':'onTapItem')}}" style="{{page==='cat'?'height: 260rpx;':'height: 335rpx;'}}" hidden="{{item.zh_name==='玲钱'||item.zh_name==='里程'}}">
+                        <view class="card-content" style="background-color:{{item.disable?'lightgray':item.bg_color}}; {{page==='cat'?'height: 28vw;':'height: 86%;'}}">
+                            <view class="card-content-bg" style="background-color:{{item.disable?'lightgray':item.bg_color}};">
+                                <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" hidden="{{page==='cat'}}" />
+                                <image class="card-content-item-collect" src="../../assets/nookea/cardCollectIcon-empty.png" mode="widthFix" hidden="{{!collect.mode}}" />
+                                <image class="card-content-item" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
+                            </view>
                         </view>
                         <view class="card-title">{{item.zh_name}}</view>
                     </view>

@@ -1,0 +1,69 @@
+<block>
+    <nav-bar navInfo="交易房间" />
+    <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+      <view class="header"></view>
+
+      <view class="item-box">
+        <view class="item-img-box">
+          <image class="item-img" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
+        </view>
+        <view>{{db.itemInfo.zh_name}}</view>
+      </view>
+
+      <view class="master-info">
+        <view class="avatar">
+          <image class="avatar-img" src="{{db.masterInfo.avatarInfo}}"></image>
+        </view>
+        <view class="master-info-detail">
+          <view class="master-name">
+            {{db.masterInfo.nickName}}
+          </view>
+          <view class="master-island">
+            {{db.masterInfo.islandName}}
+          </view>
+        </view>
+      </view>
+
+      <view class="content">
+        {{db.content}}
+      </view>
+
+      <view class="board">
+        <view class="board-options"></view>
+        <view class="board-content" wx:for="{{db.notes}}">
+          <view class="conversation" wx:for="{{item.conversations}}" wx:for-item="conversation">
+            <view class="userinfo" wx:if="{{conversation.isMaster}}">
+              <view class="avatar">
+                <image class="avatar-img" src="{{db.masterInfo.avatarInfo}}"></image>
+              </view>
+              <view class="master-info-detail">
+                <view class="master-name">
+                  {{db.masterInfo.nickName}}
+                </view>
+                <view class="master-island">
+                  {{db.masterInfo.islandName}}
+                </view>
+              </view>
+            </view>
+            <view class="userinfo" wx:else>
+              <view class="avatar">
+                <image class="avatar-img" src="{{item.slaveInfo.avatarInfo}}"></image>
+              </view>
+              <view class="master-info-detail">
+                <view class="master-name">
+                  {{item.slaveInfo.nickName}}
+                </view>
+                <view class="master-island">
+                  {{item.slaveInfo.islandName}}
+                </view>
+              </view>
+            </view>
+            
+            <view class="conversation-content">
+              {{conversation.content}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+</block>
