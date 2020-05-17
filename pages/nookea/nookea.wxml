@@ -47,9 +47,10 @@
             <!-- CARDS -->
             <view class="deck">
                 <block wx:for="{{page==='cat'?catDeck:specsDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="cat_cards">
-                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':''}}">
-                        <view class="card-content">
+                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':'onTapItem'}}" style="{{page==='cat'?'height: 260rpx;':'height: 335rpx;'}}" hidden="{{item.zh_name==='玲钱'||item.zh_name==='里程'}}">
+                        <view class="card-content" style="background-color:{{item.disable?'lightgray':item.bg_color}}; {{page==='cat'?'height: 28vw;':'height: 86%;'}}">
                             <view class="card-content-bg" style="background-color:{{item.disable?'lightgray':item.bg_color}};">
+                                <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" hidden="{{page==='cat'}}" />
                                 <image class="card-content-item" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
                             </view>
                         </view>

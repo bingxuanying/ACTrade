@@ -2,21 +2,56 @@
 <block>
     <nav-bar navInfo="-- 商品 xxx --" />
     <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
-      <view class="header"></view>
+      <view class="header-bar">
+        <image class="head-bar-bg" src="../../assets/nookea/header-bg.png" mode="heightFix" />
+        <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
+      </view>
+        
 
       <view class="item-box">
-        <view class="item-img-box"></view>
+        <view class="item-img-box">
+          <view class="card-content" style="background-color:{{item.bg_color}};">
+            <view class="card-content-bg" style="background-color:{{item.bg_color}};">
+              <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
+              <image class="card-content-item" src="{{productInfo.img_url}}" mode="widthFix" />
+            </view>
+          </view>
+        </view>
         <view class="item-info">
-          <view class="item-tile"></view>
-          <view class="item-subtile"></view>
-          <view class="item-madeof"></view>
+          <view class="item-title">
+            <image class="item-title-icon" src="../../assets/nookea/titleIcon.png" mode="widthFix" />
+            <text>{{productInfo.zh_name}}</text>
+          </view>
+          <view class="item-madeof">
+            <view class="item-madeof-row">
+              <image class="item-madeof-row-icon" src="https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/狮子座碎片.png" mode="heightFix" />
+              <text style="font-size:28rpx">狮子座碎片</text>
+              <view class="item-madeof-row-dash" />
+              <text>10</text>
+            </view>
+            <!-- delete later -->
+            <view class="item-madeof-row">
+              <image class="item-madeof-row-icon" src="https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/狮子座碎片.png" mode="heightFix" />
+              <text style="font-size:28rpx">狮子座碎片</text>
+              <view class="item-madeof-row-dash" />
+              <text>10</text>
+            </view>
+            <view class="item-madeof-row">
+              <image class="item-madeof-row-icon" src="https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/狮子座碎片.png" mode="heightFix" />
+              <text style="font-size:28rpx">狮子座碎片</text>
+              <view class="item-madeof-row-dash" />
+              <text>10</text>
+            </view>
+          </view>
         </view>
       </view>
 
       <view class="board">
-        <view class="board-options"></view>
+        <view class="board-options">
+          <view class="list-btn"></view>
+          <view class="post-btn"></view>
+        </view>
         <view class="board-content">
-          <view class="record"></view>
           <view class="record"></view>
           <view class="record"></view>
           <view class="record"></view>

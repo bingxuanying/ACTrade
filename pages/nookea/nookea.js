@@ -395,6 +395,14 @@ Page({
     }
   },
 
+  onTapItem: function(e) {
+    let _info =  e.currentTarget.dataset.info
+    wx.navigateTo({
+      url: '/pages/nookeaGoods/nookeaGoods?_id=' + _info._id,
+    })
+  },
+
+
   // --- Mask ---
   onTapHieCurtain: function() {
     this.setData({

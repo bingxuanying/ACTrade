@@ -1,6 +1,8 @@
 /* pages/nookeaGoods/nookeaGoods.wxss */
 page {
-  background-color: #fbfbdf;
+  /* background-color: #fbfbdf; */
+  background-color: #e7dfc3;
+  font-size: 30rpx;
 }
 .nookeaGoods {
   width: 100%;
@@ -13,58 +15,161 @@ page {
 }
 
 
-/* --- HEADER --- */
-.header {
-  width: 100%;
+/* --- HEADER BAR --- */
+.header-bar {
   height: 120rpx;
-  background-color: lightpink;
+  width: 100%;
+  z-index: 15;
+}
+
+.head-bar-bg {
+  height: 120rpx;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.head-bar-logo {
+  height: 120rpx;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 
 /* --- ITEM INFO --- */
 .item-box {
   width: 94%;
-  height: 500rpx;
-  background-color: black;
+  min-height: 500rpx;
   display: flex;
   flex-direction: row;
   margin-top: 20rpx;
+  color: #785b2f;
 }
 
 .item-img-box {
   width: 40%;
-  height: 100%;
+  min-height: 100%;
   background-color: lightsalmon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  width: 220rpx;
+  height: 300rpx;
+  border-radius: 20rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-content-bg {
+  width: 90%;
+  height: 90%;
+  border-radius: 8rpx;
+  position: relative;
+  box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); 
+  overflow: hidden;
+}
+
+.card-content-item {
+  width: 60%;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-content-item-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .item-info {
   width: 60%;
-  height: 100%;
-  background-color: gray;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.item-tile {
+.item-title {
   width: 100%;
-  height: 13%;
-  background-color: lightcyan;
+  height: 70rpx;
+  font-size: 36rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: linear-gradient(
+    to right,
+    #785b2f 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 28rpx 4rpx;
+  background-repeat: repeat-x;
 }
 
-.item-subtile {
-  width: 100%;
-  height: 13%;
-  background-color: lightyellow;
+.item-title-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
 }
 
 .item-madeof {
   width: 100%;
-  height: 74%;
-  background-color: lightblue;
-  overflow-y: scroll;
+  height: 420rpx;
+  margin-top: 10rpx;
+  border-radius: 12rpx;
+  background: repeating-linear-gradient( 
+  180deg,
+  #e0d7ae,
+  #e0d7ae 70rpx,
+  #e2d8b5 70rpx,
+  #e2d8b5 140rpx);
+  overflow: hidden;
 }
 
+.item-madeof-row {
+  width: calc(100% - 20rpx);
+  height: 70rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 5rpx;
+  padding-right: 10rpx;
+}
+
+.item-madeof-row-icon {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.item-madeof-row-dash {
+  flex: 1;
+  height: 70rpx;
+  background-image: linear-gradient(
+    to right,
+    #785b2f 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: center;
+  background-size: 25rpx 4rpx;
+  background-repeat: repeat-x;
+  margin: 0 10rpx;
+}
 
 /* --- MARKET BOARD --- */
 .board {
