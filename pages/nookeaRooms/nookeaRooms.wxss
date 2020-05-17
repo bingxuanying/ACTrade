@@ -1,0 +1,152 @@
+/* pages/nookeaRooms/nookeaRooms.wxss */
+page {
+  background-color: #fbfbdf;
+}
+.nookeaRooms {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+
+/* --- HEADER --- */
+.header {
+  width: 100%;
+  height: 120rpx;
+  background-color: lightpink;
+}
+
+.item-img-box {
+  border: 16rpx lightyellow solid;
+  border-radius: 8rpx;
+  background-color: lightgreen;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.item-img {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+/* --- ITEM INFO --- */
+.item-box {
+  width: 94%;
+  height: 140rpx;
+  background-color: skyblue;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+  align-items: center;
+}
+
+.userinfo,
+.master-info {
+  width: 94%;
+  margin-top: 20rpx;
+  background: lightgreen;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 120rpx;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.master-info-detail {
+  margin-left: 20rpx;
+}
+
+.content {
+  width: 94%;
+  margin-top: 20rpx;
+  background: lightgreen;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item-info {
+  width: 60%;
+  height: 100%;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.item-tile {
+  width: 100%;
+  height: 13%;
+  background-color: lightcyan;
+}
+
+.item-subtile {
+  width: 100%;
+  height: 13%;
+  background-color: lightyellow;
+}
+
+.item-madeof {
+  width: 100%;
+  height: 74%;
+  background-color: lightblue;
+  overflow-y: scroll;
+}
+
+
+/* --- MARKET BOARD --- */
+.board {
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-options {
+  width: 100%;
+  height: 100rpx;
+  background-color: lightsalmon;
+  margin-top: 30rpx;
+}
+
+.board-options {
+  width: 100%;
+  height: 100rpx;
+  background-color: lightsalmon;
+  margin: 30rpx 0;
+}
+
+.board-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.record {
+  width: 100%;
+  height: 200rpx;
+  background-color: lightcoral;
+  margin-bottom: 20rpx;
+}
