@@ -12,10 +12,12 @@ Page({
     specsDeck: [],
     specs: null,
     offset: 0,
+    // onLoad check status
+    clientStatus: "ok", // no auth -> no name -> ok
     collect: {
       mode: false,
       wishlist: {},
-      tradehistory: [],
+      tradeHistory: {},
     },
     keyword: {
       searchType: null, // filter, search
@@ -31,6 +33,12 @@ Page({
     loading: {
       isRefresh: false,
       isBottom: false,
+      isTransfer: false,
+      isEnter: false,
+    },
+    input: {
+      nickname: "",
+      islandName: "",      
     },
     gif: {
       EarthLoadingUrl: null,
@@ -49,7 +57,7 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
     });
-
+    
     db.collection("Nookea")
       .orderBy("disable", "asc")
       .orderBy("order", "asc")
@@ -112,9 +120,19 @@ Page({
     });
 
     if (this.data.collect.mode) {
-      console.log("enter collect mode");
+      if (!app.globalData.openid) {
+        db.collection("UsersProfile")
+          .get()
+          .then((res) => {
+            if (res.data.length > 0)
+              app.globalData.openid = res.data[0]._openid;
+          });
+      }
     } else {
       console.log("save collection");
+      // updata app.globalData.gameProfile
+      app.globalData.gameProfile.wishlist = this.data.collect.wishlist
+      // <--------------------- call cloud func ----------------------->
     }
   },
 
@@ -160,7 +178,29 @@ Page({
   // --- MODAL: Collect ---
   onTapCollectAdd: function (e) {
     let _info = e.currentTarget.dataset.info;
-    console.log("saved");
+    console.log(_info.zh_name + "clicked");
+    if (this.data.collect.wishlist.hasOwnProperty(_info.zh_name)) {
+      let tempObj = Object.assign({}, this.data.collect.wishlist);
+      delete tempObj[_info.zh_name];
+      this.setData({
+        collect:{
+          ...this.data.collect,
+          wishlist: tempObj
+        },
+      });
+    } else {
+      _info['isUpdated'] = false;
+      this.setData({
+        collect:{
+          ...this.data.collect,
+          wishlist: {
+            ...this.data.collect.wishlist,
+            [_info.zh_name]: _info
+          }
+        }
+      });
+      console.log(this.data.collect.wishlist)
+    }
   },
 
   // --- MODAL: Filter ---
@@ -322,6 +362,7 @@ Page({
 
     if (_tag === "collection") {
       this.onTapFilterClean();
+      this.onTapCollect();
     } else if (_tag === "search") {
       this.setData({
         page: "cat",
@@ -369,41 +410,90 @@ Page({
     let _info = e.currentTarget.dataset.info;
 
     if (!_info.disable) {
-      this.setData({
-        specs: {
-          name: _info.name,
-          zh_name: _info.zh_name,
-          categories: _info.categories,
-          types: _info.types,
-        },
-        offset: 0,
-        loading: {
-          ...this.data.loading,
-          isRefresh: true,
-        },
-        keyword: {
-          ...this.data.keyword,
-          searchType: "filter",
-          tags: {
-            ...this.data.keyword.tags,
-            ["collection"]: _info.zh_name,
-          },
-        },
-      });
-      console.log(this.data.specs);
-
-      this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
-        console.log(res.data);
+      if (!app.globalData.userInfo) {
+        this.setData({ clientStatus: "no auth" })
+      }
+      else if(
+        app.globalData.gameProfile.nickname.length === 0 &&
+        app.globalData.gameProfile.islandName.length === 0
+      ) {
+        this.setData({ clientStatus: "no name" })
+      }
+      else {
         this.setData({
-          page: "specs",
-          specsDeck: res.data,
-          offset: this.data.offset + res.data.length,
+          specs: {
+            name: _info.name,
+            zh_name: _info.zh_name,
+            categories: _info.categories,
+            types: _info.types,
+          },
+          offset: 0,
           loading: {
             ...this.data.loading,
-            isRefresh: false,
+            isRefresh: true,
+          },
+          keyword: {
+            ...this.data.keyword,
+            searchType: "filter",
+            tags: {
+              ...this.data.keyword.tags,
+              ["collection"]: _info.zh_name,
+            },
           },
         });
-      });
+        console.log(this.data.specs);
+
+        if (!app.globalData.gameProfile.wishlist && !app.globalData.gameProfile.tradeHistory) {
+          console.log('enter fetch') 
+          db.collection("UsersProfile")
+            .get()
+            .then((userData) => {
+              if (userData.data.length > 0) {
+                app.globalData.id = userData.data[0]._id;
+                app.globalData.openid = userData.data[0]._openid;
+                app.globalData.gameProfile = {
+                  ...app.globalData.gameProfile,
+                  nickname: userData.data[0].nickname,
+                  islandName: userData.data[0].islandName,
+                  fruit: userData.data[0].fruit,
+                  hemisphere: userData.data[0].hemisphere,
+                  wishlist: userData.data[0].wishlist,                    tradeHistory: userData.data[0].tradeHistory,
+                };
+                this.setData({
+                  collect: {
+                    ...this.data.collect,
+                    wishlist: app.globalData.gameProfile.wishlist,
+                    tradeHistory: app.globalData.gameProfile.tradeHistory,
+                  },            
+                })
+              }
+            })
+        } else {
+          console.log('enter had') 
+          this.setData({
+            collect: {
+              ...this.data.collect,
+              wishlist: app.globalData.gameProfile.wishlist,
+              tradeHistory: app.globalData.gameProfile.tradeHistory,
+            },            
+          })
+        }
+
+        console.log(this.data.collect);
+  
+        this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
+          console.log(res.data);
+          this.setData({
+            page: "specs",
+            specsDeck: res.data,
+            offset: this.data.offset + res.data.length,
+            loading: {
+              ...this.data.loading,
+              isRefresh: false,
+            },
+          });
+        });
+      }
     }
   },
 
@@ -413,6 +503,152 @@ Page({
       url: "/pages/nookeaGoods/nookeaGoods?_id=" + _info._id,
     });
   },
+
+  // --- Auth Modal ---
+  onTapRegister: function (e) {
+    console.log(e);
+
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      app.globalData.userInfo = e.detail.userInfo;
+      this.setData({ 
+        loading: {
+          ...this.data.loading,
+          isTransfer: true 
+        }
+      });
+
+      db.collection("UsersProfile").get({
+        success: (userData) => {
+          if (userData.data.length > 0) {
+            console.log("has previous user");
+            console.log(userData)
+            app.globalData.id = userData.data[0]._id;
+            app.globalData.openid = userData.data[0]._openid;
+            app.globalData.gameProfile = {
+              ...app.globalData.gameProfile,
+              nickname: userData.data[0].nickname,
+              islandName: userData.data[0].islandName,
+              fruit: userData.data[0].fruit,
+              hemisphere: userData.data[0].hemisphere,
+              wishlist: userData.data[0].wishlist,
+              tradeHistory: userData.data[0].tradeHistory,
+            };
+
+            this.setData({
+              collect: {
+                ...this.data.collect,
+                wishlist: userData.data[0].wishlist ? 
+                          userData.data[0].wishlist : {},
+                tradeHistory: userData.data[0].tradeHistory ?
+                              userData.data[0].tradeHistory: {},
+              },
+              input: {
+                nickname: userData.data[0].nickname,
+                islandName: userData.data[0].islandName,                
+              },
+            });
+
+            db.collection("UsersProfile")
+              .doc(app.globalData.id)
+              .update({
+                data: {
+                  userInfo: app.globalData.userInfo,
+                },
+              });
+            this.setData({
+              clientStatus: "no name",
+              loading: {
+                ...this.data.loading,
+                isTransfer: false 
+              }
+            });
+          } else {
+            console.log("no previous user");
+            db.collection("UsersProfile").add({
+              data: {
+                userInfo: app.globalData.userInfo,
+                nickname: "",
+                islandName: "",
+                fruit: "apple",
+                hemisphere: "north",
+                subscription: false,
+                curRoomid: null,
+                isMaster: false,
+                wishlist: {},
+              },
+              success: (userData) => {
+                console.log(userData);
+                app.globalData.id = userData._id;
+                this.setData({
+                  clientStatus: "no name",
+                  loading: {
+                    ...this.data.loading,
+                    isTransfer: false 
+                  }
+                });
+              },
+            });
+          }
+        },
+      });
+    }
+  },
+
+  onTapEnter: function () {
+    this.setData({ 
+      loading: {
+        ...this.data.loading,
+        isEnter: true
+      }
+    });
+    db.collection("UsersProfile")
+      .doc(app.globalData.id)
+      .update({
+        data: {
+          nickname: this.data.input.nickname,
+          islandName: this.data.input.islandName,
+        }
+      })
+      .then(() => {
+        app.globalData.gameProfile.nickname = this.data.input.nickname;
+        app.globalData.gameProfile.islandName = this.data.input.islandName;
+        this.setData({
+          clientStatus: "ok",
+          loading: {
+            ...this.data.loading,
+            isEnter: false
+          }
+        });
+      });
+  },
+
+  onTapBack: function () {
+    this.setData({ clientStatus: "ok" })
+    // wx.switchTab({
+    //   url: "/pages/profile/profile",
+    // });
+  },
+  
+  bindNicknameInput: function (e) {
+    this.setData({
+      input: {
+        ...this.data.input,
+        nickname: e.detail.value,
+      }
+    });
+    console.log("nickname: " + this.data.input.nickname);
+  },
+  
+  bindIslandNameInput: function (e) {
+    this.setData({
+      input: {
+        ...this.data.input,
+        islandName: e.detail.value,
+      }
+    });
+    console.log("islandName: " + this.data.input.islandName);
+  },
+
 
   // --- Mask ---
   onTapHieCurtain: function () {

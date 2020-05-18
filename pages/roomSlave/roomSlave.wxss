@@ -822,7 +822,7 @@ page {
     opacity: 0;
   }
   to {
-    opacity: 0.9;
+    opacity: 1;
   }
 }
 

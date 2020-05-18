@@ -403,11 +403,15 @@ Page({
             console.log("has previous user");
             console.log(userData)
             app.globalData.id = userData.data[0]._id;
+            app.globalData.openid = userData.data[0]._openid;
             app.globalData.gameProfile = {
+              ...this.app.globalData.gameProfile,
               nickname: userData.data[0].nickname,
               islandName: userData.data[0].islandName,
               fruit: userData.data[0].fruit,
               hemisphere: userData.data[0].hemisphere,
+              wishlist: userData.data[0].wishlist,
+              tradeHistory: userData.data[0].tradeHistory,
             };
 
             this.setData({
@@ -426,7 +430,7 @@ Page({
               });
             this.setData({
               clientStatus: "no name",
-              isTransfering: true,
+              isTransfering: false,
             });
           } else {
             console.log("no previous user");
@@ -447,7 +451,7 @@ Page({
                 app.globalData.id = userData._id;
                 this.setData({
                   clientStatus: "no name",
-                  isTransfering: true,
+                  isTransfering: false,
                 });
               },
             });

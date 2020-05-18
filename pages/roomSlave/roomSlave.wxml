@@ -153,7 +153,7 @@
   <view class='mask-join' wx:if="{{clientStatus==='no auth'||clientStatus==='no name'}}" />
   <!-- modal_1: no auth -->
   <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}">
-    <view class="auth-name-tag">秉轩</view>
+    <view class="auth-name-tag">ybxx</view>
     <view class="auth-chat-box">
       <view>{{isTransfering?"保存中...":"请先登入才能进入或者开创房间哦~！"}}</view>
       <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isTransfering}}" mode="widthFix" />
@@ -162,7 +162,7 @@
   </view>
   <!-- modal_2: no name -->
   <view class='mymodal-name fade-in' wx:if="{{clientStatus==='no name'}}">
-    <view class="name-name-tag">伟力</view>
+    <view class="name-name-tag">阿力</view>
     <view class="name-chat-box">
       <text class="name-chat-content">{{isSaving?"保存中...":"请登记你游戏中的个人信息~！"}}</text>
       <block wx:if="{{!isSaving}}">
