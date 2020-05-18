@@ -2,32 +2,22 @@
   <nav-bar navInfo="交易房间" />
   <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="header"></view>
-
     <view class="item-box">
       <view class="item-img-box">
         <image class="item-img" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
       </view>
       <view>{{db.itemInfo.zh_name}}</view>
     </view>
-
     <view class="master-info">
       <view class="avatar">
         <image class="avatar-img" src="{{db.masterInfo.avatarInfo}}"></image>
       </view>
       <view class="master-info-detail">
-        <view class="master-name">
-          {{db.masterInfo.nickName}}
-        </view>
-        <view class="master-island">
-          {{db.masterInfo.islandName}}
-        </view>
+        <view class="master-name">{{db.masterInfo.nickName}}</view>
+        <view class="master-island">{{db.masterInfo.islandName}}</view>
       </view>
     </view>
-
-    <view class="content">
-      {{db.content}}
-    </view>
-
+    <view class="content">{{db.content}}</view>
     <view class="board">
       <view class="board-options" wx:if="{{addReplyEnabled}}">
         <button bindtap="modalShow">添加回复</button>
@@ -39,12 +29,8 @@
               <image class="avatar-img" src="{{db.masterInfo.avatarInfo}}"></image>
             </view>
             <view class="master-info-detail">
-              <view class="master-name">
-                {{db.masterInfo.nickName}}
-              </view>
-              <view class="master-island">
-                {{db.masterInfo.islandName}}
-              </view>
+              <view class="master-name">{{db.masterInfo.nickName}}</view>
+              <view class="master-island">{{db.masterInfo.islandName}}</view>
             </view>
           </view>
           <view class="userinfo" wx:else>
@@ -52,21 +38,16 @@
               <image class="avatar-img" src="{{item.slaveInfo.avatarInfo}}"></image>
             </view>
             <view class="master-info-detail">
-              <view class="master-name">
-                {{item.slaveInfo.nickName}}
-              </view>
-              <view class="master-island">
-                {{item.slaveInfo.islandName}}
-              </view>
+              <view class="master-name">{{item.slaveInfo.nickName}}</view>
+              <view class="master-island">{{item.slaveInfo.islandName}}</view>
             </view>
           </view>
-          
-          <view class="conversation-content">
-            {{conversation.content}}
-          </view>
+          <view class="conversation-content">{{conversation.content}}</view>
         </view>
         <view class="reply-btn-view" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
-          <button class="reply-btn" data-index="{{item.noteIndex}}" bindtap="modalShow">添加回复</button>
+          <button class="reply-btn" data-index="{{item.noteIndex}}" bindtap="modalShow">
+            添加回复
+          </button>
         </view>
       </view>
     </view>
