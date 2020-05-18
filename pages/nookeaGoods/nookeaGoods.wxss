@@ -52,7 +52,7 @@ page {
 .item-img-box {
   width: 40%;
   min-height: 100%;
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
   display: flex;
   align-items: center;
   justify-content: center;

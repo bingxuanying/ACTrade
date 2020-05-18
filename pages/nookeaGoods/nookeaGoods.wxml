@@ -10,8 +10,8 @@
 
       <view class="item-box">
         <view class="item-img-box">
-          <view class="card-content" style="background-color:{{item.bg_color}};">
-            <view class="card-content-bg" style="background-color:{{item.bg_color}};">
+          <view class="card-content" style="background-color:{{productInfo.bg_color}};">
+            <view class="card-content-bg" style="background-color:{{productInfo.bg_color}};">
               <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
               <image class="card-content-item" src="{{productInfo.img_url}}" mode="widthFix" />
             </view>

@@ -362,7 +362,8 @@ Page({
 
     if (_tag === "collection") {
       this.onTapFilterClean();
-      this.onTapCollect();
+      if (this.data.collect.mode)
+        this.onTapCollect();
     } else if (_tag === "search") {
       this.setData({
         page: "cat",
