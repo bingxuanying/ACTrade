@@ -2,6 +2,7 @@
 const app = getApp();
 const db = wx.cloud.database();
 const util = require("../../utils/util");
+import iu from "../../utils/imgUrl";
 
 Page({
   data: {
@@ -46,12 +47,10 @@ Page({
     inLine: false,
   },
   onLoad: function (query) {
+    this.setData({  statusBarHeight: app.globalData.statusBarHeight  });
     console.log(query.room_id);
     app.globalData.roomInfo.roomID = query.room_id;
     // registered
-    this.setData({
-      statusBarHeight: app.globalData.statusBarHeight,
-    });
     console.log(app.globalData.userInfo);
     if (app.globalData.userInfo) {
       if (
@@ -87,17 +86,9 @@ Page({
       this.setData({ clientStatus: "no auth" });
     }
 
-    // cloud files
-    var that = this;
-    app.UrlCallBack(
-      function (res) {
-        that.setData({
-          EarthLoadingUrl: res.gif.EarthLoading,
-        });
-      },
-      "gif",
-      "EarthLoadingUrl"
-    );
+    this.setData({
+      EarthLoadingUrl: iu.imgUrl.gif.EarthLoading,
+    });
   },
   checkin: function () {
     this.setData({ isLoading: true });
@@ -306,41 +297,63 @@ Page({
       });
     }
   },
+
   modalLeaveHide: function (e) {
     this.setData({
       closeBtnClick: false,
       showModal: false,
     });
   },
+
   onTapClose: function () {
     let that = this;
+    let cloudCall = () => {
+      console.log("call cloud");
+      if (this.data.inLine) {
+        wx.cloud
+          .callFunction({
+            name: "lineUpdater",
+            data: {
+              roomNum: that.data.roomInfo.roomNum,
+              roomID: app.globalData.roomInfo.roomID,
+            },
+          })
+          .then(() => {
+            console.log("finish sending notification");
+            app.globalData.roomInfo = {
+              roomID: null,
+              timeStamp: null,
+            };
+          })
+          .catch((err) => {
+            console.log("Err: KickRoom - cloud Function");
+          });
+      }
+    };
 
-    // wx.navigateBack()
-    wx.switchTab({
-      url: "/pages/tradingFloor/tradingFloor",
+    db.collection("UsersProfile")
+    .doc(app.globalData.id)
+    .update({
+      data: {
+        curRoomid: null,
+      },
     });
 
-    return new Promise(async (resolve, reject) => {
-      db.collection("UsersProfile")
-        .doc(app.globalData.id)
-        .update({
-          data: {
-            curRoomid: null,
-          },
-        });
-
+    wx.switchTab({
+      url: "/pages/tradingFloor/tradingFloor",
+    })
+    .then(() => {      
       if (this.data.kicked) {
-        await db
-          .collection("Flights")
+        db.collection("Flights")
           .doc(app.globalData.roomInfo.roomID)
           .update({
             data: {
               kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
             },
-          });
+          })
+          .then(cloudCall());
       } else {
-        await db
-          .collection("Flights")
+        db.collection("Flights")
           .doc(app.globalData.roomInfo.roomID)
           .update({
             data: {
@@ -352,38 +365,8 @@ Page({
               }),
             },
           })
-          .then(() => {
-            console.log("exit success");
-          });
+          .then(cloudCall());
       }
-
-      return Promise.resolve()
-        .then(() => {
-          console.log("call cloud");
-          if (this.data.inLine) {
-            wx.cloud
-              .callFunction({
-                name: "lineUpdater",
-                data: {
-                  roomNum: that.data.roomInfo.roomNum,
-                  roomID: app.globalData.roomInfo.roomID,
-                },
-              })
-              .then(() => {
-                console.log("finish sending notification");
-                app.globalData.roomInfo = {
-                  roomID: null,
-                  timeStamp: null,
-                };
-              })
-              .catch((err) => {
-                console.log("Err: KickRoom - cloud Function");
-              });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     });
   },
   onShareAppMessage: function (res) {
@@ -406,6 +389,7 @@ Page({
       url: "/pages/tradingFloor/tradingFloor",
     });
   },
+
   onTapRegister: function (e) {
     console.log(e);
 
@@ -417,6 +401,7 @@ Page({
         success: (userData) => {
           if (userData.data.length > 0) {
             console.log("has previous user");
+            console.log(userData)
             app.globalData.id = userData.data[0]._id;
             app.globalData.gameProfile = {
               nickname: userData.data[0].nickname,
@@ -455,6 +440,7 @@ Page({
                 subscription: false,
                 curRoomid: null,
                 isMaster: false,
+                wishlist: {},
               },
               success: (userData) => {
                 console.log(userData);

@@ -6,18 +6,17 @@
             <image class="head-bar-bg" src="../../assets/nookea/header-bg.png" mode="heightFix" />
             <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
         </view>
-
         <view class="tool-bar">
             <!-- tags -->
-            <block wx:if="{{keyword.searchType==='filter'}}">      
+            <block wx:if="{{keyword.searchType==='filter'}}">
                 <block wx:for="{{keyword.tags}}" wx:for-index="key" wx:for-item="tag" wx:key="tag_card">
                     <view class="{{key==='collection'?'tool-tag-box-collection':'tool-tag-box'}}" data-tag="{{key}}" bindtap="onTapDeleteTag">
                         <text>{{tag}}</text>
                         <image class="tool-tag-icon" src="{{key==='collection'?'../../assets/icons/XIconWhite.png':'../../assets/icons/XIcon.png'}}" mode="widthFix" />
                     </view>
-                </block>      
+                </block>
             </block>
-            <block wx:elif="{{keyword.searchType==='search'}}">     
+            <block wx:elif="{{keyword.searchType==='search'}}">
                 <view class="tool-tag-box" data-tag="search" bindtap="onTapDeleteTag">
                     <text>{{keyword.words}}</text>
                     <image class="tool-tag-icon" src="../../assets/icons/XIcon.png" mode="widthFix" />
@@ -35,14 +34,12 @@
                     <text class="tool-btn-text">收藏</text>
                 </view>
             </view>
-
             <view class="tool-btn-box {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}" style="height: 135%; right: 125rpx; z-index: 12;">
                 <view class="tool-btn" bindtap="onTapFilter">
                     <image class="tool-btn-icon" src="../../assets/nookea/filterIcon.png" mode="widthFix" />
                     <text class="tool-btn-text">{{curtain.filter?'收起':'筛选'}}</text>
                 </view>
             </view>
-
             <view class="tool-btn-box {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}" style="height: 120%; right: 15rpx;">
                 <view class="tool-btn" bindtap="onTapSearchBtn">
                     <image class="tool-btn-icon" src="../../assets/nookea/searchIcon.png" mode="widthFix" />
@@ -50,11 +47,9 @@
                 </view>
             </view>
         </view>
-
         <view class="warning-bar" hidden="{{!collect.mode}}">
             <text>你已进入收藏模式</text>
         </view>
-
         <view class="board" hidden="{{loading.isRefresh}}">
             <!-- CARDS -->
             <view class="deck">
@@ -90,13 +85,11 @@
                 <image class="board-cant-find-nook" src="../../assets/icons/nook.png" mode="aspectFit" />
             </view>
         </view>
-
         <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
-
         <!-- Filter Box -->
         <view class="filter-curtain {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}">
             <view class="filter-board">
-                <!-- All Kinds  -->
+                <!-- All Kinds -->
                 <view class="filter-board-row">
                     <view class="filter-board-row-title">大类</view>
                     <view class="filter-board-row-content">
@@ -104,17 +97,19 @@
                             <view class="filter-board-row-tag" data-info="{{item}}" style="{{item.zh_name===specs.zh_name?'background-color: #716a58;color: #faf7e0;':''}}" bindtap="onTapFilterCat" hidden="{{item.disable}}">
                                 {{item.zh_name}}
                             </view>
-                        </block>                    
+                        </block>
                     </view>
                 </view>
-                <!-- Categories  -->
+                <!-- Categories -->
                 <block wx:for="{{specs.categories}}" wx:for-item="cat" wx:for-index="idx" wx:key="filter_cat">
                     <view class="filter-board-row">
                         <view class="filter-board-row-title">{{cat}}</view>
                         <view class="filter-board-row-content">
                             <block wx:for="{{specs.types[cat]}}" wx:for-item="type" wx:for-index="idx" wx:key="filter_type">
-                                <view class="filter-board-row-tag" style="{{type===keyword.tags[cat]?'background-color: #716a58;color: #faf7e0;':''}}" data-cat="{{cat}}" data-type="{{type}}" bindtap="onTapFilterType">{{type}}</view>
-                            </block>                    
+                                <view class="filter-board-row-tag" style="{{type===keyword.tags[cat]?'background-color: #716a58;color: #faf7e0;':''}}" data-cat="{{cat}}" data-type="{{type}}" bindtap="onTapFilterType">
+                                    {{type}}
+                                </view>
+                            </block>
                         </view>
                     </view>
                 </block>
@@ -130,7 +125,6 @@
                 </view>
             </view>
         </view>
-
         <!-- Search Box -->
         <view class="search-curtain {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}">
             <view class="search-box">
@@ -140,7 +134,6 @@
                 </view>
             </view>
         </view>
-
         <!-- Mask -->
         <view class='mask' hidden="{{!curtain.filter&&!curtain.search}}" bindtap='modalHide' bindtap="onTapHieCurtain" />
     </view>

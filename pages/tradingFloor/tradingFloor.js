@@ -42,29 +42,14 @@ Page({
 
     // 直接从本地拉取imgUrl
     const json = require("../../utils/imgUrl");
-    console.log(json.default.imgUrl.tradingFloor)
+    console.log(json.default.imgUrl.tradingFloor);
     const iu = json.default.imgUrl;
     this.setData({
       EarthLoadingUrl: iu.gif.EarthLoading,
       InfoPageBrown_in: iu.tradingFloor.InfoPageBrown_in,
       InfoPageRed_in: iu.tradingFloor.InfoPageRed_in,
       InfoPageYellow_in: iu.tradingFloor.InfoPageYellow_in,
-    })
-    /***************** CallBack function Template Here ******************** */
-    // var that = this;
-    // app.UrlCallBack(
-    //   function (res) {
-    //     that.setData({
-    //       // EarthLoadingUrl: res.gif.EarthLoading,
-    //       // InfoPageBrown_in: res.img.InfoPageBrown_in,
-    //       // InfoPageRed_in: res.img.InfoPageRed_in,
-    //       // InfoPageYellow_in: res.img.InfoPageYellow_in,
-    //     });
-    //   },
-    //   "gif",
-    //   "EarthLoadingUrl"
-    // );
-    /*************************************************** */
+    });
   },
   onPullDownRefresh: function () {
     this.setData({
@@ -359,19 +344,9 @@ Page({
     else this.setData({ curTool_id: e.currentTarget.id });
   },
   onTapJoin: function (e) {
-    if (
-      app.globalData.userInfo &&
-      app.globalData.gameProfile.nickname.length > 0 &&
-      app.globalData.gameProfile.islandName.length > 0
-    ) {
-      wx.navigateTo({
-        url: "/pages/roomSlave/roomSlave?room_id=" + e.currentTarget.id,
-      });
-    } else {
-      wx.switchTab({
-        url: "/pages/profile/profile",
-      });
-    }
+    wx.navigateTo({
+      url: "/pages/roomSlave/roomSlave?room_id=" + e.currentTarget.id,
+    });
   },
   onShareAppMessage: function (e) {
     return {

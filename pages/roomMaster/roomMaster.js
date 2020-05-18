@@ -1,6 +1,7 @@
 // pages/roomMaster/roomMaster.js
 const app = getApp();
 const db = wx.cloud.database();
+import iu from "../../utils/imgUrl";
 
 Page({
   data: {
@@ -84,18 +85,10 @@ Page({
           console.error(err);
         },
       });
-    // cloud url
-    var that = this;
-    app.UrlCallBack(
-      function (res) {
-        that.setData({
-          EarthLoadingUrl: res.gif.EarthLoading,
-          IslandLoadingUrl: res.gif.IslandLoading,
-        });
-      },
-      "gif",
-      "EarthLoadingUrl"
-    );
+    this.setData({
+      EarthLoadingUrl: iu.imgUrl.gif.EarthLoading,
+      IslandLoadingUrl: iu.imgUrl.gif.IslandLoading,
+    });
   },
   LClick: function () {
     if (this.data.page == 1) {
