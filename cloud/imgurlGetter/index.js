@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
     return await cloud
       .getTempFileURL({
         fileList: [
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/materials/樱桃.png",
+          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
         ],
       })
       .then((res) => {

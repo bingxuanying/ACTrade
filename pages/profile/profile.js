@@ -1,6 +1,7 @@
 // pages/profile/profile.js
 const app = getApp();
 const db = wx.cloud.database();
+import iu from "../../utils/imgUrl";
 
 Page({
   data: {
@@ -82,17 +83,9 @@ Page({
         },
       });
     }
-    // cloud url
-    var that = this;
-    app.UrlCallBack(
-      function (res) {
-        that.setData({
-          passport: res.img.passport,
-        });
-      },
-      "img",
-      "passport"
-    );
+    this.setData({
+      passport: iu.imgUrl.profile.passport,
+    });
   },
   getUserInfo: function (e) {
     console.log(e);
@@ -226,11 +219,11 @@ Page({
         },
       });
     wx.cloud.callFunction({
-      name:'getOpenId',
-      complete: res =>{
+      name: "getOpenId",
+      complete: (res) => {
         console.log(res);
-      }
-    })
+      },
+    });
   },
   // TabBar setting
   onShow() {

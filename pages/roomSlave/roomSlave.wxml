@@ -1,7 +1,7 @@
 <!-- pages/roomSlave/roomSlave.wxml -->
 <block>
   <nav-bar navInfo="-- 商铺 {{roomInfo.roomNum}} 号 --"></nav-bar>
-  <view class="roomMaster" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+  <view class="roomMaster" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="info-box">
       <view class="info-box-clickIcon" style="border-radius: 15rpx 0 0 0;" bindtap="LClick">L</view>
       <view class="maintitle">
