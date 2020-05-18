@@ -297,54 +297,17 @@ Page({
       });
     }
   },
+
   modalLeaveHide: function (e) {
     this.setData({
       closeBtnClick: false,
       showModal: false,
     });
   },
+
   onTapClose: function () {
     let that = this;
-    let dbPull = async () => {
-      if (this.data.kicked) {
-        await db
-          .collection("Flights")
-          .doc(app.globalData.roomInfo.roomID)
-          .update({
-            data: {
-              kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
-            },
-          });
-      } else {
-        await db
-          .collection("Flights")
-          .doc(app.globalData.roomInfo.roomID)
-          .update({
-            data: {
-              slaves: db.command.pull({
-                avatar: app.globalData.userInfo.avatarUrl,
-                islandName: app.globalData.gameProfile.islandName,
-                nickname: app.globalData.gameProfile.nickname,
-                timeStamp: app.globalData.roomInfo.timeStamp,
-              }),
-            },
-          })
-          .then(() => {
-            console.log("exit success");
-          });
-      }
-    }
-
-    // wx.navigateBack()
-    db.collection("UsersProfile")
-    .doc(app.globalData.id)
-    .update({
-      data: {
-        curRoomid: null,
-      },
-    })
-
-    dbPull().then(() => {
+    let cloudCall = () => {
       console.log("call cloud");
       if (this.data.inLine) {
         wx.cloud
@@ -361,16 +324,50 @@ Page({
               roomID: null,
               timeStamp: null,
             };
-
-            wx.switchTab({
-              url: "/pages/tradingFloor/tradingFloor",
-            });
           })
           .catch((err) => {
             console.log("Err: KickRoom - cloud Function");
           });
       }
+    };
+
+    db.collection("UsersProfile")
+    .doc(app.globalData.id)
+    .update({
+      data: {
+        curRoomid: null,
+      },
+    });
+
+    wx.switchTab({
+      url: "/pages/tradingFloor/tradingFloor",
     })
+    .then(() => {      
+      if (this.data.kicked) {
+        db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .update({
+            data: {
+              kickedLst: db.command.pull(app.globalData.roomInfo.timeStamp),
+            },
+          })
+          .then(cloudCall());
+      } else {
+        db.collection("Flights")
+          .doc(app.globalData.roomInfo.roomID)
+          .update({
+            data: {
+              slaves: db.command.pull({
+                avatar: app.globalData.userInfo.avatarUrl,
+                islandName: app.globalData.gameProfile.islandName,
+                nickname: app.globalData.gameProfile.nickname,
+                timeStamp: app.globalData.roomInfo.timeStamp,
+              }),
+            },
+          })
+          .then(cloudCall());
+      }
+    });
   },
   onShareAppMessage: function (res) {
     console.log(res);
@@ -392,6 +389,7 @@ Page({
       url: "/pages/tradingFloor/tradingFloor",
     });
   },
+
   onTapRegister: function (e) {
     console.log(e);
 

@@ -162,7 +162,7 @@ page {
 .room-box-shader {
   position: relative;
   width: 94vw;
-  height: calc(100% - 180rpx);
+  height: calc(100% - 350rpx);
   background-color: #f5f7e1;
   border-radius: 50rpx;
   margin-top: 20rpx;
