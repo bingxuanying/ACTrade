@@ -1,6 +1,7 @@
 /* pages/nookeaRooms/nookeaRooms.wxss */
 page {
-  background-color: #fbfbdf;
+  background-color: #f2f4dc;
+  font-size: 26rpx;
 }
 .nookeaRooms {
   width: 100%;
@@ -12,52 +13,53 @@ page {
   overflow-x: hidden;
 }
 
-
-/* --- HEADER --- */
-.header {
+.top-box {
+  width: 94vw;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+}
+.master-avatar {
+  width: 28%;
+  padding: 20rpx;
+}
+.master-avatar-img {
   width: 100%;
-  height: 120rpx;
-  background-color: lightpink;
+  border-radius: 25rpx;
+}
+.info {
+  width: 70%;
 }
 
+/* --- ITEM INFO --- */
+.item-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10rpx;
+  align-items: center;
+}
 .item-img-box {
-  border: 16rpx lightyellow solid;
+  border: 10rpx lightyellow solid;
   border-radius: 8rpx;
-  background-color: lightgreen;
-  margin-top: 30rpx;
-  margin-bottom: 30rpx;
-  margin-left: 20rpx;
-  margin-right: 20rpx;
   display: flex;
   align-items: center;
 }
 
 .item-img {
-  width: 60rpx;
-  height: 60rpx;
-}
-
-/* --- ITEM INFO --- */
-.item-box {
-  width: 94%;
-  height: 140rpx;
-  background-color: skyblue;
-  display: flex;
-  flex-direction: row;
-  margin-top: 20rpx;
-  align-items: center;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .userinfo,
 .master-info {
-  width: 94%;
-  margin-top: 20rpx;
-  background: lightgreen;
-  padding-top: 20rpx;
-  padding-bottom: 20rpx;
+  width: 100%;
+  margin: 20rpx 0 0 0;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 26rpx;
 }
 
 .avatar {
@@ -76,18 +78,41 @@ page {
 }
 
 .master-info-detail {
-  margin-left: 20rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+  align-items: center;
+}
+.master-info-icon {
+  height: 30rpx;
+  width: 30rpx;
+}
+.master-info-wechat {
+  margin-top: 15rpx;
+}
+.master-island,
+.master-name {
+  margin-right: 10rpx;
+  max-width: calc(50% - 40rpx);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .content {
-  width: 94%;
-  margin-top: 20rpx;
-  background: lightgreen;
+  width: 100%;
+  margin-top: 15rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
+.content-item {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-right: 10rpx;
+}
 .item-info {
   width: 60%;
   height: 100%;
@@ -115,7 +140,62 @@ page {
   background-color: lightblue;
   overflow-y: scroll;
 }
-
+.item-info-icon {
+  height: 35rpx;
+  width: 35rpx;
+}
+.switch-box {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.right-btn,
+.left-btn {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.right-btn {
+}
+.switch-box-icon {
+  height: 80rpx;
+  width: 80rpx;
+  margin-right: 15rpx;
+}
+.switch-box-text {
+  transition: color 2s ease;
+}
+.active {
+  color: #f2f4dc;
+}
+.inactive {
+  color: #685b48;
+}
+.moving-box {
+  width: 30%;
+  height: 100rpx;
+  position: absolute;
+  background-color: #685b48;
+  border-radius: 30rpx;
+  z-index: -1;
+  left: 12.5%;
+}
+.slide-left {
+  animation: slideleft 0.5s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.slide-right {
+  animation: slideright 0.5s ease-in-out 1;
+  animation-fill-mode: forwards;
+}
 
 /* --- MARKET BOARD --- */
 .board {
@@ -150,7 +230,6 @@ page {
   background-color: lightcoral;
   margin-bottom: 20rpx;
 }
-
 
 /*modal*/
 .mymodal {
@@ -220,7 +299,22 @@ page {
     opacity: 0.9;
   }
 }
-
+@keyframes slideleft {
+  from {
+    left: 57.5%;
+  }
+  to {
+    left: 12.5%;
+  }
+}
+@keyframes slideright {
+  from {
+    left: 12.5%;
+  }
+  to {
+    left: 57.5%;
+  }
+}
 .input-reply {
   background-color: lightgray;
 }

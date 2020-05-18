@@ -16,6 +16,14 @@ export default {
     roomCreate: {},
     roomMaster: {},
     roomSlave: {},
+    nookeaRooms: {
+      bell:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/BellIcon.png",
+      ticket:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/TicketIcon.png",
+      wishlist:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WishlistIcon.png",
+    },
     gif: {
       EarthLoading:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/gif/EarthLoading.gif",

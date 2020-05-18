@@ -7,14 +7,13 @@ const iu = json.default.imgUrl;
 const util = require("../../utils/util");
 
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     loading: {
       isRefresh: false,
-      isBottom: false
+      isBottom: false,
     },
     gif: {
       EarthLoadingUrl: null,
@@ -22,7 +21,14 @@ Page({
     currentRoom: "982133855ec0a22f00dc2b0703e78dc7",
     db: {},
     showModal: false,
-    addReplyEnabled: true
+    addReplyEnabled: true,
+    img: {
+      BellIcon: iu.nookeaRooms.bell,
+      TicketIcon: iu.nookeaRooms.ticket,
+      WishlistIcon: iu.nookeaRooms.wishlist,
+    },
+    commentSelect: true,
+    firstTimeLoad: true,
   },
 
   /**
@@ -46,7 +52,7 @@ Page({
         openid: app.globalData.gameProfile._openid,
         avatarUrl: app.globalData.gameProfile.avatarUrl,
         islandName: app.globalData.gameProfile.islandName,
-        nickName: app.globalData.gameProfile.nickName
+        nickName: app.globalData.gameProfile.nickName,
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -58,7 +64,7 @@ Page({
             openid: app.globalData.gameProfile._openid,
             avatarUrl: app.globalData.gameProfile.avatarUrl,
             islandName: app.globalData.gameProfile.islandName,
-            nickName: app.globalData.gameProfile.nickName
+            nickName: app.globalData.gameProfile.nickName,
           });
         }
       };
@@ -74,52 +80,55 @@ Page({
         },
       });
       db.collection("UsersProfile")
-      .get()
-      .then((res) => {
-        if (res.data.length > 0) {
-          app.globalData.gameProfile._openid = res.data[0]._openid
-          app.globalData.gameProfile.avatarUrl = res.data[0].userInfo.avatarUrl
-          app.globalData.gameProfile.islandName = res.data[0].islandName
-          app.globalData.gameProfile.nickName = res.data[0].nickname
-          this.setData({
-            openid: app.globalData.gameProfile._openid,
-            avatarUrl: app.globalData.gameProfile.avatarUrl,
-            islandName: app.globalData.gameProfile.islandName,
-            nickName: app.globalData.gameProfile.nickName
-          });
-        }
-      })
-      .catch((err) => {
-        console("profile onload getuserinfo err: ");
-        console(err);
-      });
+        .get()
+        .then((res) => {
+          if (res.data.length > 0) {
+            app.globalData.gameProfile._openid = res.data[0]._openid;
+            app.globalData.gameProfile.avatarUrl =
+              res.data[0].userInfo.avatarUrl;
+            app.globalData.gameProfile.islandName = res.data[0].islandName;
+            app.globalData.gameProfile.nickName = res.data[0].nickname;
+            this.setData({
+              openid: app.globalData.gameProfile._openid,
+              avatarUrl: app.globalData.gameProfile.avatarUrl,
+              islandName: app.globalData.gameProfile.islandName,
+              nickName: app.globalData.gameProfile.nickName,
+            });
+          }
+        })
+        .catch((err) => {
+          console("profile onload getuserinfo err: ");
+          console(err);
+        });
     }
 
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .get()
-      .then(res => {
-        let dbdata = res.data
+      .then((res) => {
+        let dbdata = res.data;
         dbdata.notes = dbdata.notes.map((t, i) => {
-          t.conversations.sort((a, b) => a.timestamp - b.timestamp)
-          t.noteIndex = i
-          if (t.slaveInfo._openid !== this.data.openid && dbdata.masterInfo._openid !== this.data.openid) {
-            t.conversations = [t.conversations[0]]
+          t.conversations.sort((a, b) => a.timestamp - b.timestamp);
+          t.noteIndex = i;
+          if (
+            t.slaveInfo._openid !== this.data.openid &&
+            dbdata.masterInfo._openid !== this.data.openid
+          ) {
+            t.conversations = [t.conversations[0]];
           }
-          return t
-        })
+          return t;
+        });
         for (let i in dbdata.notes) {
           if (dbdata.notes[i].slaveInfo._openid === this.data.openid) {
-            const temp = dbdata.notes[i]
-            dbdata.notes[i] = dbdata.notes[0]
-            dbdata.notes[0] = temp
+            const temp = dbdata.notes[i];
+            dbdata.notes[i] = dbdata.notes[0];
+            dbdata.notes[0] = temp;
             this.setData({
-              addReplyEnabled: false
+              addReplyEnabled: false,
             });
-            break
+            break;
           }
         }
-        console.log(dbdata)
         this.setData({
           db: dbdata,
           loading: {
@@ -133,29 +142,32 @@ Page({
       .doc(this.data.currentRoom)
       .watch({
         onChange: (snapshot) => {
-          let dbdata = snapshot.docs[0]
+          let dbdata = snapshot.docs[0];
           dbdata.notes = dbdata.notes.map((t, i) => {
-            t.conversations.sort((a, b) => a.timestamp - b.timestamp)
-            t.noteIndex = i
-            if (t.slaveInfo._openid !== this.data.openid && dbdata.masterInfo._openid !== this.data.openid) {
-              t.conversations = [t.conversations[0]]
+            t.conversations.sort((a, b) => a.timestamp - b.timestamp);
+            t.noteIndex = i;
+            if (
+              t.slaveInfo._openid !== this.data.openid &&
+              dbdata.masterInfo._openid !== this.data.openid
+            ) {
+              t.conversations = [t.conversations[0]];
             }
-            return t
-          })
+            return t;
+          });
           for (let i in dbdata.notes) {
             if (dbdata.notes[i].slaveInfo._openid === this.data.openid) {
-              const temp = dbdata.notes[i]
-              dbdata.notes[i] = dbdata.notes[0]
-              dbdata.notes[0] = temp
+              const temp = dbdata.notes[i];
+              dbdata.notes[i] = dbdata.notes[0];
+              dbdata.notes[0] = temp;
               this.setData({
-                addReplyEnabled: false
+                addReplyEnabled: false,
               });
-              break
+              break;
             }
           }
           //监控数据发生变化时触发
           this.setData({
-            db: dbdata
+            db: dbdata,
           });
         },
         onError: (err) => {
@@ -167,31 +179,31 @@ Page({
   modalShow: function (e) {
     this.setData({
       showModal: true,
-      noteIndex: e.currentTarget.dataset.index
+      noteIndex: e.currentTarget.dataset.index,
     });
-    console.log(this.data.noteIndex)
+    console.log(this.data.noteIndex);
   },
 
   modalHide: function () {
     this.setData({
       showModal: false,
-      replyText: ''
+      replyText: "",
     });
   },
 
-  replyText: function(e) {
+  replyText: function (e) {
     this.setData({
-      replyText: e.detail.value
+      replyText: e.detail.value,
     });
   },
 
-  onTapClose: function() {
+  onTapClose: function () {
     this.setData({
       loading: {
         ...this.data.loading,
-        isRefresh: true
-      }
-    })
+        isRefresh: true,
+      },
+    });
     if (this.data.noteIndex === undefined) {
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
@@ -202,100 +214,123 @@ Page({
                 _openid: this.data.openid,
                 avatarUrl: this.data.avatarUrl,
                 islandName: this.data.islandName,
-                nickName: this.data.nickName
+                nickName: this.data.nickName,
               },
-              conversations: [{
-                isMaster: false,
-                timestamp: util.formatTime(),
-                content: this.data.replyText
-              }]
-            })
-          }
-        }).then(t=>{
-          console.log(t)
+              conversations: [
+                {
+                  isMaster: false,
+                  timestamp: util.formatTime(),
+                  content: this.data.replyText,
+                },
+              ],
+            }),
+          },
+        })
+        .then((t) => {
+          console.log(t);
           return this.setData({
             showModal: false,
             addReplyEnabled: false,
-            replyText: '',
+            replyText: "",
             loading: {
               ...this.data.loading,
-              isRefresh: false
-            }
-          })
-        }).catch(t=>console.log(t))
+              isRefresh: false,
+            },
+          });
+        })
+        .catch((t) => console.log(t));
     } else {
-      const updateDef = {}
-      updateDef[`notes.${this.data.noteIndex}.conversations`] = db.command.push({
-        isMaster: this.data.openid === this.data.db.masterInfo._openid,
-        timestamp: util.formatTime(),
-        content: this.data.replyText
-      })
+      const updateDef = {};
+      updateDef[`notes.${this.data.noteIndex}.conversations`] = db.command.push(
+        {
+          isMaster: this.data.openid === this.data.db.masterInfo._openid,
+          timestamp: util.formatTime(),
+          content: this.data.replyText,
+        }
+      );
 
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
         .update({
-          data: updateDef
-        }).then(t=>{
-          console.log(t)
+          data: updateDef,
+        })
+        .then((t) => {
+          console.log(t);
           return this.setData({
             showModal: false,
             addReplyEnabled: false,
-            replyText: '',
+            replyText: "",
             loading: {
               ...this.data.loading,
-              isRefresh: false
-            }
-          })
-        }).catch(t=>console.log(t))
+              isRefresh: false,
+            },
+          });
+        })
+        .catch((t) => console.log(t));
     }
   },
-
+  commentClick: function () {
+    console.log("comment click");
+    if (!this.data.commentSelect) {
+      if (this.data.firstTimeLoad) {
+        this.setData({
+          firstTimeLoad: false,
+        });
+      }
+      this.setData({
+        commentSelect: true,
+      });
+    }
+    console.log(this.data.commentSelect);
+    console.log(this.data.firstTimeLoad);
+  },
+  wishlistClick: function () {
+    console.log("wishlist click");
+    if (this.data.commentSelect) {
+      if (this.data.firstTimeLoad) {
+        this.setData({
+          firstTimeLoad: false,
+        });
+      }
+      this.setData({
+        commentSelect: false,
+      });
+    }
+    console.log(this.data.commentSelect);
+    console.log(this.data.firstTimeLoad);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
-  },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
-  },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
-  },
+  onPullDownRefresh: function () {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
-  },
+  onReachBottom: function () {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
-  }
-})
+  onShareAppMessage: function () {},
+});

@@ -1,6 +1,9 @@
 <cover-view class="navbar">
     <cover-view style="{{'height: ' + statusBarHeight}}"></cover-view>
     <cover-view class='title-container'>
+        <cover-view class="nav-back" hidden="{{!back}}" bindtap='back'>
+            <cover-image class="nav-back-icon" src="../../assets/icons/backIcon.png"></cover-image>
+        </cover-view>
         <cover-view class="title">{{navInfo}}</cover-view>
     </cover-view>
 </cover-view>

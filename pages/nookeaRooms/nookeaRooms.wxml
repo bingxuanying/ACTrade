@@ -1,23 +1,55 @@
 <block>
-  <nav-bar navInfo="交易房间" />
-  <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
-    <view class="header"></view>
-    <view class="item-box">
-      <view class="item-img-box">
-        <image class="item-img" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
+  <nav-bar navInfo="交易房间" back="True" />
+  <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+    <view class="top-box">
+      <view class="master-avatar">
+        <image class="master-avatar-img" src="{{db.masterInfo.avatarInfo}}" mode="widthFix" />
       </view>
-      <view>{{db.itemInfo.zh_name}}</view>
+      <view class="info">
+        <view class="master-info">
+          <view class="master-info-detail">
+            <image class="master-info-icon" src="../../assets/icons/AvatarIcon.png" />
+            <view class="master-name">{{db.masterInfo.nickName}}</view>
+            <image class="master-info-icon" src="../../assets/icons/IslandIcon2.png" />
+            <view class="master-island">{{db.masterInfo.islandName}}</view>
+          </view>
+          <view class="master-info-wechat">WX: ddf567</view>
+        </view>
+        <view class="item-box">
+          <view class="item-img-box" style="background-color:{{db.itemInfo.bg_color}}">
+            <image class="item-img" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
+          </view>
+          <view>出售:</view>
+          <view>{{db.itemInfo.zh_name}}</view>
+        </view>
+        <view class="content">
+          <view>需求:</view>
+          <view class="content-item" hidden="{{!db.itemInfo.content.bell[0]}}">
+            <image class="item-info-icon" src="{{img.BellIcon}}" />
+            <view>x {{db.itemInfo.content.bell[1]}}</view>
+          </view>
+          <view class="content-item" hidden="{{!db.itemInfo.content.ticket[0]}}">
+            <image class="item-info-icon" src="{{img.TicketIcon}}" />
+            <view>x {{db.itemInfo.content.ticket[1]}}</view>
+          </view>
+          <view class="content-item" hidden="{{!db.itemInfo.content.wishlist[0]}}">
+            <image class="item-info-icon" src="{{img.WishlistIcon}}" />
+            <view>心愿单</view>
+          </view>
+        </view>
+      </view>
     </view>
-    <view class="master-info">
-      <view class="avatar">
-        <image class="avatar-img" src="{{db.masterInfo.avatarInfo}}"></image>
+    <view class="switch-box">
+      <view class="moving-box {{firstTimeLoad? '': (commentSelect ? 'slide-left':'slide-right')}}" />
+      <view class="left-btn" bindtap="commentClick">
+        <image class="switch-box-icon" src="../../assets/icons/CommentIcon.png" />
+        <view class="switch-box-text {{commentSelect?'active':'inactive'}}">留言</view>
       </view>
-      <view class="master-info-detail">
-        <view class="master-name">{{db.masterInfo.nickName}}</view>
-        <view class="master-island">{{db.masterInfo.islandName}}</view>
+      <view class="right-btn" bindtap="wishlistClick">
+        <image class="switch-box-icon " src="{{img.WishlistIcon}}" />
+        <view class="switch-box-text {{commentSelect?'inactive':'active'}}">心愿单</view>
       </view>
     </view>
-    <view class="content">{{db.content}}</view>
     <view class="board">
       <view class="board-options" wx:if="{{addReplyEnabled}}">
         <button bindtap="modalShow">添加回复</button>
