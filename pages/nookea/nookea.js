@@ -14,7 +14,8 @@ Page({
     offset: 0,
     collect: {
       mode: false,
-      lst: {}
+      wishlist: {},
+      tradehistory: [],
     },
     keyword: {
       searchType: null, // filter, search
@@ -177,9 +178,8 @@ Page({
   // --- MODAL: Filter ---
   onTapFilterCat: function(e) {
     let _info =  e.currentTarget.dataset.info
-    
     if (!_info.disable) {
-      this.setData({  
+      this.setData({
         specs: {
           name: _info.name,
           zh_name: _info.zh_name,

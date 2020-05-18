@@ -359,19 +359,19 @@ Page({
     else this.setData({ curTool_id: e.currentTarget.id });
   },
   onTapJoin: function (e) {
-    if (
-      app.globalData.userInfo &&
-      app.globalData.gameProfile.nickname.length > 0 &&
-      app.globalData.gameProfile.islandName.length > 0
-    ) {
+    // if (
+    //   app.globalData.userInfo &&
+    //   app.globalData.gameProfile.nickname.length > 0 &&
+    //   app.globalData.gameProfile.islandName.length > 0
+    // ) {
       wx.navigateTo({
         url: "/pages/roomSlave/roomSlave?room_id=" + e.currentTarget.id,
       });
-    } else {
-      wx.switchTab({
-        url: "/pages/profile/profile",
-      });
-    }
+    // } else {
+    //   wx.switchTab({
+    //     url: "/pages/profile/profile",
+    //   });
+    // }
   },
   onShareAppMessage: function (e) {
     return {

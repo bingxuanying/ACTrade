@@ -141,6 +141,7 @@ Page({
                 subscription: false,
                 curRoomid: null,
                 isMaster: false,
+                wishlist: {},
               },
               success: (userData) => {
                 console.log(userData);
