@@ -20,7 +20,9 @@ Page({
       EarthLoadingUrl: null,
     },
     currentRoom: "982133855ec0a22f00dc2b0703e78dc7",
-    db: {}
+    db: {},
+    showModal: false,
+    addReplyEnabled: true
   },
 
   /**
@@ -41,7 +43,10 @@ Page({
 
     if (app.globalData.userInfo) {
       this.setData({
-        openid: app.globalData.gameProfile._openid
+        openid: app.globalData.gameProfile._openid,
+        avatarUrl: app.globalData.gameProfile.avatarUrl,
+        islandName: app.globalData.gameProfile.islandName,
+        nickName: app.globalData.gameProfile.nickName
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -50,7 +55,10 @@ Page({
         // onLaunch -> onLoad -> onLaunch: has to get data here
         if (res.userInfo) {
           this.setData({
-            openid: app.globalData.gameProfile._openid
+            openid: app.globalData.gameProfile._openid,
+            avatarUrl: app.globalData.gameProfile.avatarUrl,
+            islandName: app.globalData.gameProfile.islandName,
+            nickName: app.globalData.gameProfile.nickName
           });
         }
       };
@@ -70,8 +78,14 @@ Page({
       .then((res) => {
         if (res.data.length > 0) {
           app.globalData.gameProfile._openid = res.data[0]._openid
+          app.globalData.gameProfile.avatarUrl = res.data[0].userInfo.avatarUrl
+          app.globalData.gameProfile.islandName = res.data[0].islandName
+          app.globalData.gameProfile.nickName = res.data[0].nickname
           this.setData({
-            openid: app.globalData.gameProfile._openid
+            openid: app.globalData.gameProfile._openid,
+            avatarUrl: app.globalData.gameProfile.avatarUrl,
+            islandName: app.globalData.gameProfile.islandName,
+            nickName: app.globalData.gameProfile.nickName
           });
         }
       })
@@ -85,16 +99,29 @@ Page({
       .doc(this.data.currentRoom)
       .get()
       .then(res => {
-        res.data.notes = res.data.notes.map(t => {
+        let dbdata = res.data
+        dbdata.notes = dbdata.notes.map((t, i) => {
           t.conversations.sort((a, b) => a.timestamp - b.timestamp)
-          if (t.slaveInfo._openid !== this.data.openid && res.data.masterInfo._openid !== this.data.openid) {
+          t.noteIndex = i
+          if (t.slaveInfo._openid !== this.data.openid && dbdata.masterInfo._openid !== this.data.openid) {
             t.conversations = [t.conversations[0]]
           }
           return t
         })
-        console.log(res.data)
+        for (let i in dbdata.notes) {
+          if (dbdata.notes[i].slaveInfo._openid === this.data.openid) {
+            const temp = dbdata.notes[i]
+            dbdata.notes[i] = dbdata.notes[0]
+            dbdata.notes[0] = temp
+            this.setData({
+              addReplyEnabled: false
+            });
+            break
+          }
+        }
+        console.log(dbdata)
         this.setData({
-          db: res.data,
+          db: dbdata,
           loading: {
             ...this.data.loading,
             isRefresh: false,
@@ -106,22 +133,121 @@ Page({
       .doc(this.data.currentRoom)
       .watch({
         onChange: (snapshot) => {
-          snapshot.docs[0].notes = snapshot.docs[0].notes.map(t => {
-            t.conversations.sort((a, b) => b.timestamp - a.timestamp)
-            if (t.slaveInfo._openid !== this.data.openid && res.data.masterInfo._openid !== this.data.openid) {
+          let dbdata = snapshot.docs[0]
+          dbdata.notes = dbdata.notes.map((t, i) => {
+            t.conversations.sort((a, b) => a.timestamp - b.timestamp)
+            t.noteIndex = i
+            if (t.slaveInfo._openid !== this.data.openid && dbdata.masterInfo._openid !== this.data.openid) {
               t.conversations = [t.conversations[0]]
             }
             return t
           })
+          for (let i in dbdata.notes) {
+            if (dbdata.notes[i].slaveInfo._openid === this.data.openid) {
+              const temp = dbdata.notes[i]
+              dbdata.notes[i] = dbdata.notes[0]
+              dbdata.notes[0] = temp
+              this.setData({
+                addReplyEnabled: false
+              });
+              break
+            }
+          }
           //监控数据发生变化时触发
           this.setData({
-            db: snapshot.docs[0]
+            db: dbdata
           });
         },
         onError: (err) => {
           console.error(err);
         },
       });
+  },
+
+  modalShow: function (e) {
+    this.setData({
+      showModal: true,
+      noteIndex: e.currentTarget.dataset.index
+    });
+    console.log(this.data.noteIndex)
+  },
+
+  modalHide: function () {
+    this.setData({
+      showModal: false,
+      replyText: ''
+    });
+  },
+
+  replyText: function(e) {
+    this.setData({
+      replyText: e.detail.value
+    });
+  },
+
+  onTapClose: function() {
+    this.setData({
+      loading: {
+        ...this.data.loading,
+        isRefresh: true
+      }
+    })
+    if (this.data.noteIndex === undefined) {
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .update({
+          data: {
+            notes: db.command.push({
+              slaveInfo: {
+                _openid: this.data.openid,
+                avatarUrl: this.data.avatarUrl,
+                islandName: this.data.islandName,
+                nickName: this.data.nickName
+              },
+              conversations: [{
+                isMaster: false,
+                timestamp: util.formatTime(),
+                content: this.data.replyText
+              }]
+            })
+          }
+        }).then(t=>{
+          console.log(t)
+          return this.setData({
+            showModal: false,
+            addReplyEnabled: false,
+            replyText: '',
+            loading: {
+              ...this.data.loading,
+              isRefresh: false
+            }
+          })
+        }).catch(t=>console.log(t))
+    } else {
+      const updateDef = {}
+      updateDef[`notes.${this.data.noteIndex}.conversations`] = db.command.push({
+        isMaster: this.data.openid === this.data.db.masterInfo._openid,
+        timestamp: util.formatTime(),
+        content: this.data.replyText
+      })
+
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .update({
+          data: updateDef
+        }).then(t=>{
+          console.log(t)
+          return this.setData({
+            showModal: false,
+            addReplyEnabled: false,
+            replyText: '',
+            loading: {
+              ...this.data.loading,
+              isRefresh: false
+            }
+          })
+        }).catch(t=>console.log(t))
+    }
   },
 
   /**
