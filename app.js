@@ -23,30 +23,30 @@ App({
               const db = wx.cloud.database();
 
               db.collection("UsersProfile")
-              .get()
-              .then( res => {
-                if (res.data.length > 0) {
-                  this.globalData.id = res.data[0]._id;
-                  this.globalData.openid = res.data[0]._openid;
-                  this.globalData.gameProfile = {
-                    nickname: res.data[0].nickname,
-                    islandName: res.data[0].islandName,
-                    fruit: res.data[0].fruit,
-                    hemisphere: res.data[0].hemisphere,
-                  };
-                }
-              })
-              .then( () => {
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                if (this.userInfoReadyCallback) {
-                  this.userInfoReadyCallback(res);
-                }
-              })
-              .catch( err => {
-                console("onlaunch getuserinfo err: ")
-                console(err)
-              });
+                .get()
+                .then((res) => {
+                  if (res.data.length > 0) {
+                    this.globalData.id = res.data[0]._id;
+                    this.globalData.openid = res.data[0]._openid;
+                    this.globalData.gameProfile = {
+                      nickname: res.data[0].nickname,
+                      islandName: res.data[0].islandName,
+                      fruit: res.data[0].fruit,
+                      hemisphere: res.data[0].hemisphere,
+                    };
+                  }
+                })
+                .then(() => {
+                  // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                  // 所以此处加入 callback 以防止这种情况
+                  if (this.userInfoReadyCallback) {
+                    this.userInfoReadyCallback(res);
+                  }
+                })
+                .catch((err) => {
+                  console("onlaunch getuserinfo err: ");
+                  console(err);
+                });
             },
           });
         }
@@ -61,47 +61,6 @@ App({
         console.log("get statusBarHeight Failed");
       },
     });
-  },
-  // URL call back
-  UrlCallBack: function (callback, imgType, imgName) {
-    console.log("getting imgUrl of " + imgType + ":" + imgName);
-    var that = this;
-    if (that.globalData.imgUrl[imgType][imgName]) {
-      typeof callback == "function" && callback(that.globalData.imgUrl);
-      console.log("执行callback时已经有url了!");
-    } else {
-      wx.cloud.getTempFileURL({
-        fileList: [
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/EarthLoading.gif",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageBrown_in.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageRed_in.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/InfoPageYellow_in.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/img/passport.png",
-          "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/gif/IslandLoading.gif",
-        ],
-        success: (res) => {
-          that.globalData.imgUrl.gif.EarthLoading = res.fileList[0].tempFileURL;
-          // console.log(res.fileList[0]);
-          that.globalData.imgUrl.img.InfoPageBrown_in =
-            res.fileList[1].tempFileURL;
-          // console.log(res.fileList[1]);
-          that.globalData.imgUrl.img.InfoPageRed_in =
-            res.fileList[2].tempFileURL;
-          // console.log(res.fileList[2]);
-          that.globalData.imgUrl.img.InfoPageYellow_in =
-            res.fileList[3].tempFileURL;
-          // console.log(res.fileList[3]);
-          that.globalData.imgUrl.img.passport = res.fileList[4].tempFileURL;
-          that.globalData.imgUrl.gif.IslandLoading =
-            res.fileList[5].tempFileURL;
-          typeof callback == "function" && callback(that.globalData.imgUrl);
-          console.log("获取url成功");
-        },
-        fail: (err) => {
-          console.log("获取在线gif失败");
-        },
-      });
-    }
   },
   globalData: {
     id: null,

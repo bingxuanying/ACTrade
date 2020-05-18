@@ -7,7 +7,7 @@ const iu = json.default.imgUrl;
 
 Page({
   data: {
-    page: 'cat', // cat, specs, collect
+    page: "cat", // cat, specs, collect
     catDeck: [],
     specsDeck: [],
     specs: null,
@@ -19,8 +19,8 @@ Page({
     },
     keyword: {
       searchType: null, // filter, search
-      words: '',
-      tags: {}
+      words: "",
+      tags: {},
     },
     curtain: {
       activateFilter: false,
@@ -30,15 +30,15 @@ Page({
     },
     loading: {
       isRefresh: false,
-      isBottom: false
+      isBottom: false,
     },
     gif: {
       EarthLoadingUrl: null,
     },
   },
 
-  onLoad: function() {
-    this.setData({ 
+  onLoad: function () {
+    this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
       loading: {
         ...this.data.loading,
@@ -51,13 +51,13 @@ Page({
     });
 
     db.collection("Nookea")
-      .orderBy('disable', 'asc')
-      .orderBy('order', 'asc')
+      .orderBy("disable", "asc")
+      .orderBy("order", "asc")
       .get()
-      .then(res => {
-        console.log(res.data)
+      .then((res) => {
+        console.log(res.data);
         this.setData({
-          page: 'cat',
+          page: "cat",
           catDeck: res.data,
           loading: {
             ...this.data.loading,
@@ -65,44 +65,32 @@ Page({
           },
         });
       });
-
-    /***************** CallBack function Template Here ******************** */
-    var that = this;
-    app.UrlCallBack(
-      function (res) {
-        that.setData({ EarthLoadingUrl: res.gif.EarthLoading  });
-      },
-      "gif",
-      "EarthLoadingUrl"
-    );
-    /*************************************************** */
   },
 
   onReachBottom: function () {
-    if (this.data.page === 'specs'){
+    if (this.data.page === "specs") {
       this.setData({
         loading: {
           ...this.data.loading,
           isBottom: true,
-        }
+        },
       });
 
-      let filterCondition = this.data.keyword.searchType === 'search' ? 
-                            this.data.keyword.words : this.data.keyword.tags;
+      let filterCondition =
+        this.data.keyword.searchType === "search"
+          ? this.data.keyword.words
+          : this.data.keyword.tags;
 
-      this.fetchData(
-        filterCondition, 
-        this.data.offset)
-        .then(res => {
-          this.setData({
-            specsDeck: this.data.specsDeck.concat(res.data),
-            offset: this.data.offset + res.data.length,
-            loading: {
-              ...this.data.loading,
-              isBottom: false,
-            }
-          });
-        })        
+      this.fetchData(filterCondition, this.data.offset).then((res) => {
+        this.setData({
+          specsDeck: this.data.specsDeck.concat(res.data),
+          offset: this.data.offset + res.data.length,
+          loading: {
+            ...this.data.loading,
+            isBottom: false,
+          },
+        });
+      });
     }
   },
 
@@ -115,66 +103,66 @@ Page({
   },
 
   // --- MODAL ---
-  onTapCollect: function() {
+  onTapCollect: function () {
     this.setData({
       collect: {
         ...this.data.collect,
         mode: !this.data.collect.mode,
       },
-    })
+    });
 
     if (this.data.collect.mode) {
-      console.log('enter collect mode')
+      console.log("enter collect mode");
     } else {
-      console.log('save collection')
+      console.log("save collection");
     }
   },
 
-  onTapFilter: function() {
+  onTapFilter: function () {
     if (this.data.curtain.activateFilter === false) {
-      this.setData({  
+      this.setData({
         curtain: {
           ...this.data.curtain,
-          activateFilter: true
-        }  
-      })
+          activateFilter: true,
+        },
+      });
     }
-    this.setData({  
+    this.setData({
       curtain: {
         ...this.data.curtain,
         filter: !this.data.curtain.filter,
         search: false,
-      }
-    })
+      },
+    });
 
     // console.log(this.data.curtain)
   },
 
-  onTapSearchBtn: function() {
+  onTapSearchBtn: function () {
     if (this.data.curtain.activateSearch === false) {
-      this.setData({  
+      this.setData({
         curtain: {
           ...this.data.curtain,
-          activateSearch: true
-        }  
-      })
+          activateSearch: true,
+        },
+      });
     }
-    this.setData({  
+    this.setData({
       curtain: {
         ...this.data.curtain,
         filter: false,
         search: !this.data.curtain.search,
-      }
-    })
+      },
+    });
     // console.log(this.data.curtain)
   },
 
   // --- MODAL: Collect ---
-  onTapCollectAdd: function(e) {
-    let _info =  e.currentTarget.dataset.info
-    console.log('saved')
+  onTapCollectAdd: function (e) {
+    let _info = e.currentTarget.dataset.info;
+    console.log("saved");
   },
-  
+
   // --- MODAL: Filter ---
   onTapFilterCat: function(e) {
     let _info =  e.currentTarget.dataset.info
@@ -189,45 +177,48 @@ Page({
         keyword: {
           ...this.data.keyword,
           tags: {
-            ['collection']: _info.zh_name
+            ["collection"]: _info.zh_name,
           },
         },
-      })
-      console.log(this.data.specs)
+      });
+      console.log(this.data.specs);
     }
   },
-  
-  onTapFilterType: function(e) {
-    let _cat = e.currentTarget.dataset.cat;
-    let _type =  e.currentTarget.dataset.type;
 
-    if (this.data.keyword.tags.hasOwnProperty(_cat) && _type === this.data.keyword.tags[_cat]) {
-      let tempObj = Object.assign({}, this.data.keyword.tags)
-      delete tempObj[_cat]
-      this.setData({  
+  onTapFilterType: function (e) {
+    let _cat = e.currentTarget.dataset.cat;
+    let _type = e.currentTarget.dataset.type;
+
+    if (
+      this.data.keyword.tags.hasOwnProperty(_cat) &&
+      _type === this.data.keyword.tags[_cat]
+    ) {
+      let tempObj = Object.assign({}, this.data.keyword.tags);
+      delete tempObj[_cat];
+      this.setData({
         keyword: {
           ...this.data.keyword,
-          tags: tempObj
+          tags: tempObj,
         },
-      })
+      });
     } else {
-      this.setData({  
+      this.setData({
         keyword: {
           ...this.data.keyword,
           tags: {
             ...this.data.keyword.tags,
             [_cat]: _type,
-          }
+          },
         },
-      })
+      });
     }
-    console.log(this.data.keyword)
+    console.log(this.data.keyword);
   },
 
-  onTapFilterClean: function() {
+  onTapFilterClean: function () {
     if (this.data.specs) {
       this.setData({
-        page: 'cat',
+        page: "cat",
         specsDeck: [],
         specs: null,
         curtain: {
@@ -238,15 +229,15 @@ Page({
         keyword: {
           ...this.data.keyword,
           searchType: null,
-          tags: {}
-        }
-      })
+          tags: {},
+        },
+      });
     }
   },
 
-  onTapFilterExec: function() {
+  onTapFilterExec: function () {
     if (this.data.specs) {
-      this.setData({  
+      this.setData({
         offset: 0,
         loading: {
           ...this.data.loading,
@@ -259,46 +250,43 @@ Page({
         },
         keyword: {
           ...this.data.keyword,
-          searchType: 'filter',
-          words: ''
-        }
+          searchType: "filter",
+          words: "",
+        },
       });
 
-      this.fetchData(
-        this.data.keyword.tags, 
-        this.data.offset)
-        .then(res => {
-          console.log(res.data)
-          this.setData({
-            page: 'specs',
-            specsDeck: res.data,
-            offset: this.data.offset + res.data.length,
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
-          })
-        })
+      this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
+        console.log(res.data);
+        this.setData({
+          page: "specs",
+          specsDeck: res.data,
+          offset: this.data.offset + res.data.length,
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
+          },
+        });
+      });
     }
   },
 
   // --- MODAL: Search ---
-  bindSearchVal: function(e) {
+  bindSearchVal: function (e) {
     this.setData({
       keyword: {
         ...this.data.keyword,
         words: e.detail.value,
       },
-    })
+    });
   },
 
-  onTapSearchVal: function() {
+  onTapSearchVal: function () {
     if (this.data.keyword.words.length > 0) {
       this.setData({
         specs: null,
         keyword: {
           ...this.data.keyword,
-          searchType: 'search',
+          searchType: "search",
           tags: {},
         },
         curtain: {
@@ -311,49 +299,43 @@ Page({
           ...this.data.loading,
           isRefresh: true,
         },
-      })
+      });
 
-      this.fetchData(
-        this.data.keyword.words, 
-        this.data.offset)
-        .then(res => {
-          console.log(res.data)
-          this.setData({
-            page: 'specs',
-            specsDeck: res.data,
-            offset: this.data.offset + res.data.length,
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
-          })
-        })
+      this.fetchData(this.data.keyword.words, this.data.offset).then((res) => {
+        console.log(res.data);
+        this.setData({
+          page: "specs",
+          specsDeck: res.data,
+          offset: this.data.offset + res.data.length,
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
+          },
+        });
+      });
     }
   },
 
-
   // --- Tag Delete ---
-  onTapDeleteTag: function(e) {
-    let _tag = e.currentTarget.dataset.tag
+  onTapDeleteTag: function (e) {
+    let _tag = e.currentTarget.dataset.tag;
 
-    if (_tag === 'collection') {
-      this.onTapFilterClean()
-    }
-    else if (_tag === 'search') {
+    if (_tag === "collection") {
+      this.onTapFilterClean();
+    } else if (_tag === "search") {
       this.setData({
-        page: 'cat',
+        page: "cat",
         specsDeck: [],
         keyword: {
           ...this.data.keyword,
           searchType: null,
-          words: ''
-        }
-      })
-    }
-    else {
-      let tempObj = Object.assign({}, this.data.keyword.tags)
-      delete tempObj[_tag]
-      this.setData({  
+          words: "",
+        },
+      });
+    } else {
+      let tempObj = Object.assign({}, this.data.keyword.tags);
+      delete tempObj[_tag];
+      this.setData({
         offset: 0,
         loading: {
           ...this.data.loading,
@@ -361,37 +343,33 @@ Page({
         },
         keyword: {
           ...this.data.keyword,
-          searchType: 'filter',
-          words: '',
-          tags: tempObj
-        }
+          searchType: "filter",
+          words: "",
+          tags: tempObj,
+        },
       });
 
-      this.fetchData(
-        this.data.keyword.tags, 
-        this.data.offset)
-        .then(res => {
-          console.log(res.data)
-          this.setData({
-            page: 'specs',
-            specsDeck: res.data,
-            offset: this.data.offset + res.data.length,
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
-          })
-        })
+      this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
+        console.log(res.data);
+        this.setData({
+          page: "specs",
+          specsDeck: res.data,
+          offset: this.data.offset + res.data.length,
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
+          },
+        });
+      });
     }
   },
 
-
   // --- Main Board ---
-  onTapCategory: function(e) {
-    let _info =  e.currentTarget.dataset.info
-    
+  onTapCategory: function (e) {
+    let _info = e.currentTarget.dataset.info;
+
     if (!_info.disable) {
-      this.setData({  
+      this.setData({
         specs: {
           name: _info.name,
           zh_name: _info.zh_name,
@@ -405,68 +383,66 @@ Page({
         },
         keyword: {
           ...this.data.keyword,
-          searchType: 'filter',
+          searchType: "filter",
           tags: {
             ...this.data.keyword.tags,
-            ['collection']: _info.zh_name
-          }
-        }
+            ["collection"]: _info.zh_name,
+          },
+        },
       });
       console.log(this.data.specs);
 
-      this.fetchData(
-        this.data.keyword.tags, 
-        this.data.offset)
-        .then(res => {
-          console.log(res.data)
-          this.setData({
-            page: 'specs',
-            specsDeck: res.data,
-            offset: this.data.offset + res.data.length,
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
-          })
-        })
+      this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
+        console.log(res.data);
+        this.setData({
+          page: "specs",
+          specsDeck: res.data,
+          offset: this.data.offset + res.data.length,
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
+          },
+        });
+      });
     }
   },
 
-  onTapItem: function(e) {
-    let _info =  e.currentTarget.dataset.info
+  onTapItem: function (e) {
+    let _info = e.currentTarget.dataset.info;
     wx.navigateTo({
-      url: '/pages/nookeaGoods/nookeaGoods?_id=' + _info._id,
-    })
+      url: "/pages/nookeaGoods/nookeaGoods?_id=" + _info._id,
+    });
   },
 
-
   // --- Mask ---
-  onTapHieCurtain: function() {
+  onTapHieCurtain: function () {
     this.setData({
       curtain: {
         ...this.data.curtain,
         filter: false,
         search: false,
       },
-    })
+    });
   },
 
   // --- general db data fetch ---
   fetchData: (condition, dbSkip) => {
-    if (typeof(condition) === 'string') {
-      return db.collection("Nookea-items")
+    if (typeof condition === "string") {
+      return db
+        .collection("Nookea-items")
         .where({
-          zh_name: db.RegExp({  regexp: condition  })
+          zh_name: db.RegExp({ regexp: condition }),
         })
         .skip(dbSkip)
         .limit(18)
-        .get()
+        .get();
     } else {
-      return db.collection("Nookea-items")
-                .where(condition)
-                .skip(dbSkip)
-                .limit(18)
-                .get()
+      return db
+        .collection("Nookea-items")
+        .where(condition)
+        .skip(dbSkip)
+        .limit(18)
+        .get();
     }
   },
 });

@@ -2,6 +2,7 @@
 const app = getApp();
 const db = wx.cloud.database();
 const util = require("../../utils/util");
+import iu from "../../utils/imgUrl";
 
 Page({
   data: {
@@ -85,17 +86,9 @@ Page({
       this.setData({ clientStatus: "no auth" });
     }
 
-    // cloud files
-    var that = this;
-    app.UrlCallBack(
-      function (res) {
-        that.setData({
-          EarthLoadingUrl: res.gif.EarthLoading,
-        });
-      },
-      "gif",
-      "EarthLoadingUrl"
-    );
+    this.setData({
+      EarthLoadingUrl: iu.imgUrl.gif.EarthLoading,
+    });
   },
   checkin: function () {
     this.setData({ isLoading: true });
