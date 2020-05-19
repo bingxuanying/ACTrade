@@ -26,9 +26,19 @@ Page({
       BellIcon: iu.nookeaRooms.bell,
       TicketIcon: iu.nookeaRooms.ticket,
       WishlistIcon: iu.nookeaRooms.wishlist,
+      BellIconGray: iu.nookeaRooms.bellGray,
+      TicketIconGray: iu.nookeaRooms.ticketGray,
+      WishlistIconGray: iu.nookeaRooms.wishlistGray,
     },
+    // commentSelect控制留言和心愿单切换
     commentSelect: true,
     firstTimeLoad: true,
+    // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
+    paymentType: {
+      bell: false,
+      ticket: false,
+      wishlist: false,
+    },
   },
 
   /**
@@ -52,7 +62,7 @@ Page({
         openid: app.globalData.gameProfile._openid,
         avatarUrl: app.globalData.gameProfile.avatarUrl,
         islandName: app.globalData.gameProfile.islandName,
-        nickName: app.globalData.gameProfile.nickName,
+        nickname: app.globalData.gameProfile.nickname,
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -64,7 +74,7 @@ Page({
             openid: app.globalData.gameProfile._openid,
             avatarUrl: app.globalData.gameProfile.avatarUrl,
             islandName: app.globalData.gameProfile.islandName,
-            nickName: app.globalData.gameProfile.nickName,
+            nickname: app.globalData.gameProfile.nickname,
           });
         }
       };
@@ -87,12 +97,12 @@ Page({
             app.globalData.gameProfile.avatarUrl =
               res.data[0].userInfo.avatarUrl;
             app.globalData.gameProfile.islandName = res.data[0].islandName;
-            app.globalData.gameProfile.nickName = res.data[0].nickname;
+            app.globalData.gameProfile.nickname = res.data[0].nickname;
             this.setData({
               openid: app.globalData.gameProfile._openid,
               avatarUrl: app.globalData.gameProfile.avatarUrl,
               islandName: app.globalData.gameProfile.islandName,
-              nickName: app.globalData.gameProfile.nickName,
+              nickname: app.globalData.gameProfile.nickname,
             });
           }
         })
@@ -107,7 +117,7 @@ Page({
       .get()
       .then((res) => {
         let dbdata = res.data;
-        dbdata.notes = dbdata.notes.map((t, i) => {
+        dbdata.comments = dbdata.comments.map((t, i) => {
           t.conversations.sort((a, b) => a.timestamp - b.timestamp);
           t.noteIndex = i;
           if (
@@ -118,11 +128,11 @@ Page({
           }
           return t;
         });
-        for (let i in dbdata.notes) {
-          if (dbdata.notes[i].slaveInfo._openid === this.data.openid) {
-            const temp = dbdata.notes[i];
-            dbdata.notes[i] = dbdata.notes[0];
-            dbdata.notes[0] = temp;
+        for (let i in dbdata.comments) {
+          if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
+            const temp = dbdata.comments[i];
+            dbdata.comments[i] = dbdata.comments[0];
+            dbdata.comments[0] = temp;
             this.setData({
               addReplyEnabled: false,
             });
@@ -143,7 +153,7 @@ Page({
       .watch({
         onChange: (snapshot) => {
           let dbdata = snapshot.docs[0];
-          dbdata.notes = dbdata.notes.map((t, i) => {
+          dbdata.comments = dbdata.comments.map((t, i) => {
             t.conversations.sort((a, b) => a.timestamp - b.timestamp);
             t.noteIndex = i;
             if (
@@ -154,11 +164,11 @@ Page({
             }
             return t;
           });
-          for (let i in dbdata.notes) {
-            if (dbdata.notes[i].slaveInfo._openid === this.data.openid) {
-              const temp = dbdata.notes[i];
-              dbdata.notes[i] = dbdata.notes[0];
-              dbdata.notes[0] = temp;
+          for (let i in dbdata.comments) {
+            if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
+              const temp = dbdata.comments[i];
+              dbdata.comments[i] = dbdata.comments[0];
+              dbdata.comments[0] = temp;
               this.setData({
                 addReplyEnabled: false,
               });
@@ -209,12 +219,13 @@ Page({
         .doc(this.data.currentRoom)
         .update({
           data: {
-            notes: db.command.push({
+            comments: db.command.push({
+              paymentType: this.data.paymentType,
               slaveInfo: {
                 _openid: this.data.openid,
                 avatarUrl: this.data.avatarUrl,
                 islandName: this.data.islandName,
-                nickName: this.data.nickName,
+                nickname: this.data.nickname,
               },
               conversations: [
                 {
@@ -241,13 +252,13 @@ Page({
         .catch((t) => console.log(t));
     } else {
       const updateDef = {};
-      updateDef[`notes.${this.data.noteIndex}.conversations`] = db.command.push(
-        {
-          isMaster: this.data.openid === this.data.db.masterInfo._openid,
-          timestamp: util.formatTime(),
-          content: this.data.replyText,
-        }
-      );
+      updateDef[
+        `comments.${this.data.noteIndex}.conversations`
+      ] = db.command.push({
+        isMaster: this.data.openid === this.data.db.masterInfo._openid,
+        timestamp: util.formatTime(),
+        content: this.data.replyText,
+      });
 
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
@@ -269,8 +280,8 @@ Page({
         .catch((t) => console.log(t));
     }
   },
+
   commentClick: function () {
-    console.log("comment click");
     if (!this.data.commentSelect) {
       if (this.data.firstTimeLoad) {
         this.setData({
@@ -281,11 +292,9 @@ Page({
         commentSelect: true,
       });
     }
-    console.log(this.data.commentSelect);
-    console.log(this.data.firstTimeLoad);
   },
+
   wishlistClick: function () {
-    console.log("wishlist click");
     if (this.data.commentSelect) {
       if (this.data.firstTimeLoad) {
         this.setData({
@@ -296,9 +305,19 @@ Page({
         commentSelect: false,
       });
     }
-    console.log(this.data.commentSelect);
-    console.log(this.data.firstTimeLoad);
   },
+
+  paymentTypeCheck: function (e) {
+    let _name = e.currentTarget.dataset.name;
+    this.setData({
+      paymentType: {
+        ...this.data.paymentType,
+        [_name]: !this.data.paymentType[_name],
+      },
+    });
+  },
+  ticketCheck: function () {},
+  wishlistCheck: function () {},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

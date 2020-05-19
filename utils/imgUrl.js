@@ -23,6 +23,12 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/TicketIcon.png",
       wishlist:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WishlistIcon.png",
+      bellGray:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/BellIconGray.png",
+      ticketGray:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/TicketIconGray.png",
+      wishlistGray:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WishlistIconGray.png",
     },
     gif: {
       EarthLoading:

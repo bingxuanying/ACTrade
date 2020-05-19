@@ -1,5 +1,5 @@
 <block>
-  <nav-bar navInfo="交易房间" back="True" />
+  <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" />
   <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="top-box">
       <view class="master-avatar">
@@ -9,7 +9,7 @@
         <view class="master-info">
           <view class="master-info-detail">
             <image class="master-info-icon" src="../../assets/icons/AvatarIcon.png" />
-            <view class="master-name">{{db.masterInfo.nickName}}</view>
+            <view class="master-name">{{db.masterInfo.nickname}}</view>
             <image class="master-info-icon" src="../../assets/icons/IslandIcon2.png" />
             <view class="master-island">{{db.masterInfo.islandName}}</view>
           </view>
@@ -24,19 +24,20 @@
         </view>
         <view class="content">
           <view>需求:</view>
-          <view class="content-item" hidden="{{!db.itemInfo.content.bell[0]}}">
+          <view class="content-item" hidden="{{!db.content.bell}}">
             <image class="item-info-icon" src="{{img.BellIcon}}" />
-            <view>x {{db.itemInfo.content.bell[1]}}</view>
+            <view>x {{db.content.bell}}</view>
           </view>
-          <view class="content-item" hidden="{{!db.itemInfo.content.ticket[0]}}">
+          <view class="content-item" hidden="{{!db.content.ticket}}">
             <image class="item-info-icon" src="{{img.TicketIcon}}" />
-            <view>x {{db.itemInfo.content.ticket[1]}}</view>
+            <view>x {{db.content.ticket}}</view>
           </view>
-          <view class="content-item" hidden="{{!db.itemInfo.content.wishlist[0]}}">
+          <view class="content-item" hidden="{{!db.content.wishlist}}">
             <image class="item-info-icon" src="{{img.WishlistIcon}}" />
             <view>心愿单</view>
           </view>
         </view>
+        <view class="note">note here</view>
       </view>
     </view>
     <view class="switch-box">
@@ -51,17 +52,19 @@
       </view>
     </view>
     <view class="board">
-      <view class="board-options" wx:if="{{addReplyEnabled}}">
-        <button bindtap="modalShow">添加回复</button>
+      <!-- TODO: wx:if="{{addReplyEnabled}}" 这是slave的留言按钮 -->
+      <view class="slave-reply" wx:if="{{true}}" bindtap="modalShow">
+        <view class="slave-reply-icon">+</view>
+        <view class="slave-reply-btn">我要留言</view>
       </view>
-      <view class="board-content" wx:for="{{db.notes}}">
+      <view class="board-content" wx:for="{{db.comments}}" wx:for-index="comment-index">
         <view class="conversation" wx:for="{{item.conversations}}" wx:for-item="conversation" wx:for-index="conversationIndex">
           <view class="userinfo" wx:if="{{conversation.isMaster}}">
             <view class="avatar">
               <image class="avatar-img" src="{{db.masterInfo.avatarInfo}}"></image>
             </view>
             <view class="master-info-detail">
-              <view class="master-name">{{db.masterInfo.nickName}}</view>
+              <view class="master-name">{{db.masterInfo.nickname}}</view>
               <view class="master-island">{{db.masterInfo.islandName}}</view>
             </view>
           </view>
@@ -70,12 +73,13 @@
               <image class="avatar-img" src="{{item.slaveInfo.avatarInfo}}"></image>
             </view>
             <view class="master-info-detail">
-              <view class="master-name">{{item.slaveInfo.nickName}}</view>
+              <view class="master-name">{{item.slaveInfo.nickname}}</view>
               <view class="master-island">{{item.slaveInfo.islandName}}</view>
             </view>
           </view>
           <view class="conversation-content">{{conversation.content}}</view>
         </view>
+        <!-- 这是房主回复  wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}" -->
         <view class="reply-btn-view" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
           <button class="reply-btn" data-index="{{item.noteIndex}}" bindtap="modalShow">
             添加回复
@@ -89,12 +93,33 @@
   <!-- modal -->
   <view class="mymodal fade-in" wx:if="{{showModal}}">
     <view class="modal-text">添加回复</view>
-    <view>
-      <input bindinput="replyText" class="input-reply"></input>
+    <view class="modal-option">
+      <view class="modal-option-title">接受报价</view>
+      <view class="modal-option-content">
+        <view class="modal-option-content-btn {{paymentType.bell ? 'active': 'inactive'}}" data-name="bell" bindtap="paymentTypeCheck">
+          <image class="modal-option-content-btn-icon" src="{{paymentType.bell ? img.BellIcon:img.BellIconGray}}" />
+          <view>玲钱</view>
+        </view>
+        <view class="modal-option-content-btn {{paymentType.ticket ? 'active': 'inactive'}}" data-name="ticket" bindtap="paymentTypeCheck">
+          <image class="modal-option-content-btn-icon" src="{{paymentType.ticket ? img.TicketIcon:img.TicketIconGray}}" />
+          <view>机票</view>
+        </view>
+        <view class="modal-option-content-btn {{paymentType.wishlist ? 'active': 'inactive'}}" data-name="wishlist" bindtap="paymentTypeCheck">
+          <image class="modal-option-content-btn-icon" src="{{paymentType.wishlist ? img.WishlistIcon:img.WishlistIconGray}}" />
+          <view>心愿单</view>
+        </view>
+      </view>
     </view>
-    <view class="modal-options">
+    <view class="modal-option">
+      <view class="modal-option-title">留言</view>
+      <view class="modal-option-content">
+        <textarea bindinput="replyText" class="input-reply"></textarea>
+      </view>
+    </view>
+    <view class="modal-btns">
       <view class="modal-btn" bindtap="modalHide">返回</view>
       <view class="modal-btn" bindtap="onTapClose">确定</view>
     </view>
+    <image class="yellow-triangle" src="../../assets/icons/yellowTri.gif" />
   </view>
 </block>

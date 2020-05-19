@@ -196,7 +196,8 @@ page {
   animation: slideright 0.5s ease-in-out 1;
   animation-fill-mode: forwards;
 }
-
+.note {
+}
 /* --- MARKET BOARD --- */
 .board {
   width: 94%;
@@ -204,18 +205,29 @@ page {
   flex-direction: column;
 }
 
-.board-options {
-  width: 100%;
-  height: 100rpx;
-  background-color: lightsalmon;
-  margin-top: 30rpx;
+.slave-reply {
+  height: 60rpx;
+  width: fit-content;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: #685b48 1px solid;
+  align-self: center;
+  padding: 10rpx;
+  border-radius: 15rpx;
 }
-
-.board-options {
-  width: 100%;
-  height: 100rpx;
-  background-color: lightsalmon;
-  margin: 30rpx 0;
+.slave-reply-icon {
+  height: 30rpx;
+  width: 30rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  text-align: center;
+  background-color: #685b48;
+  color: #f2f4dc;
+  border-radius: 50%;
+  margin-right: 10rpx;
 }
 
 .board-content {
@@ -234,33 +246,62 @@ page {
 /*modal*/
 .mymodal {
   width: 98%;
-  height: 320rpx;
+  height: fit-content;
   background-color: #224153;
-  border-radius: 100rpx;
+  border-radius: 50rpx;
   opacity: 0.5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: fixed;
   left: 1vw;
   bottom: 50vh;
   z-index: 20;
   transition: all 600ms ease-out;
+  color: #f2f4dc;
 }
-
+.modal-option {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10rpx;
+}
+.modal-option-title {
+  width: 25%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15rpx;
+}
+.modal-option-content {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.modal-option-content-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10rpx;
+}
+.modal-option-content-btn-icon {
+  height: 50rpx;
+  width: 50rpx;
+}
 .modal-text {
   width: 100%;
-  height: 100rpx;
+  height: 60rpx;
   text-align: center;
-  line-height: 100rpx;
-  font-size: 34rpx;
-  color: white;
+  line-height: 60rpx;
+  font-size: 28rpx;
   letter-spacing: 10rpx;
-  margin-left: 40rpx;
 }
 
-.modal-options {
+.modal-btns {
   width: 100%;
   height: 100rpx;
   display: flex;
@@ -268,16 +309,13 @@ page {
   align-items: center;
   justify-content: center;
 }
-
 .modal-btn {
   width: 25%;
   padding: 0;
   font-size: 30rpx;
-  color: white;
   letter-spacing: 5rpx;
   text-align: center;
 }
-
 .modal-leave-icon {
   width: 40rpx;
   height: 40rpx;
@@ -285,6 +323,12 @@ page {
   left: calc(50% - 20rpx);
   bottom: 160rpx;
   z-index: 20;
+}
+.yellow-triangle {
+  height: 30rpx;
+  width: 30rpx;
+  position: relative;
+  bottom: -18rpx;
 }
 
 .fade-in {
@@ -296,7 +340,7 @@ page {
     opacity: 0;
   }
   to {
-    opacity: 0.9;
+    opacity: 1;
   }
 }
 @keyframes slideleft {
@@ -316,5 +360,9 @@ page {
   }
 }
 .input-reply {
+  height: 100rpx;
+  width: 70%;
   background-color: lightgray;
+  border-radius: 10rpx;
+  color: #685b48;
 }
