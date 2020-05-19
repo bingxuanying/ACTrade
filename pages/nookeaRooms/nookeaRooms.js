@@ -5,7 +5,7 @@ const db = wx.cloud.database();
 const json = require("../../utils/imgUrl");
 const iu = json.default.imgUrl;
 const util = require("../../utils/util");
-
+const _ = db.command;
 Page({
   /**
    * 页面的初始数据
@@ -33,6 +33,7 @@ Page({
     // commentSelect控制留言和心愿单切换
     commentSelect: true,
     firstTimeLoad: true,
+    isExpand: false,
     // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
     paymentType: {
       bell: false,
@@ -280,6 +281,49 @@ Page({
         .catch((t) => console.log(t));
     }
   },
+  onTapSend: function (e) {
+    let _roomid = e.currentTarget.dataset.roomid;
+    let _slaveid = e.currentTarget.dataset.slaveid;
+    let ismaster = e.currentTarget.dataset.ismaster;
+
+    // 把conversation加到云端
+    let conversation = {};
+    conversation["content"] = this.data.replyText;
+    conversation["timestamp"] = util.formatTime();
+    conversation["isMaster"] = ismaster;
+    let idx = -1;
+    let _comments = {};
+    db.collection("Nookea-rooms")
+      .doc(_roomid)
+      .get()
+      .then((res) => {
+        _comments = res.data.comments;
+        let comments = res.data.comments;
+        for (let i = 0; i < comments.length; i++) {
+          if (comments[i].slaveInfo._openid === _slaveid) {
+            idx = i;
+            _comments[idx].conversations.push(conversation);
+          }
+        }
+      })
+      .then((res) => {
+        db.collection("Nookea-rooms")
+          .doc(_roomid)
+          .update({
+            data: {
+              comments: _comments,
+            },
+          });
+      })
+      .then(
+        this.setData({
+          replyText: "",
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 
   commentClick: function () {
     if (!this.data.commentSelect) {
@@ -316,8 +360,12 @@ Page({
       },
     });
   },
-  ticketCheck: function () {},
-  wishlistCheck: function () {},
+
+  expandClick: function () {
+    this.setData({
+      isExpand: !this.data.isExpand,
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

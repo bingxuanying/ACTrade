@@ -84,6 +84,7 @@ page {
   justify-items: flex-start;
   align-items: center;
 }
+.slave-info-icon,
 .master-info-icon {
   height: 30rpx;
   width: 30rpx;
@@ -91,6 +92,7 @@ page {
 .master-info-wechat {
   margin-top: 15rpx;
 }
+
 .master-island,
 .master-name {
   margin-right: 10rpx;
@@ -234,6 +236,115 @@ page {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 5rpx;
+  margin-top: 25rpx;
+}
+
+.conversation {
+}
+.conversation-head {
+  height: 175rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-image: linear-gradient(
+    to right,
+    #f89d80 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 29rpx 4rpx;
+  background-repeat: repeat-x;
+}
+.conversation-head-avatar {
+  width: 20%;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.conversation-head-info {
+  width: 80%;
+  height: 100%;
+  margin-left: 25rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.conversation-head-info-offering,
+.conversation-head-info-name {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.conversation-head-info-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.conversation-head-info-expandicon {
+  margin-left: auto;
+}
+.converstaion-head-info-time {
+  margin-left: auto;
+  justify-self: flex-end;
+  align-self: flex-end;
+  color: gray;
+}
+
+.slave-name,
+.slave-island {
+  max-width: 35%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.conversation-extend {
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-master {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-right: auto;
+  height: 80rpx;
+  justify-content: flex-start;
+  align-items: center;
+}
+.conversation-slave {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-left: auto;
+  height: 80rpx;
+  justify-content: flex-end;
+  align-items: center;
+}
+.conversation-extend-avatar {
+}
+
+.conversation-extend-text {
+  margin: 0 20rpx;
+  padding: 15rpx 10rpx;
+  text-align: center;
+  background-color: #685b48;
+  color: #f2f4dc;
+  border-radius: 30rpx;
+  letter-spacing: 2rpx;
+}
+
+.conversation-extend-avatar-img {
+  height: 60rpx;
+  width: 60rpx;
 }
 
 .record {
@@ -243,7 +354,69 @@ page {
   margin-bottom: 20rpx;
 }
 
-/*modal*/
+.reply-box {
+  width: 100%;
+  height: 80rpx;
+  margin-top: 15rpx;
+  padding-bottom: 10rpx;
+  background-image: linear-gradient(
+    to right,
+    #f89d80 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 29rpx 4rpx;
+  background-repeat: repeat-x;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.reply-text {
+  height: 95%;
+  width: 85%;
+  border-radius: 25rpx;
+  background-color: #d3d6ab;
+  color: #685b48;
+}
+.reply-btn {
+  width: 15%;
+  height: 95%;
+  margin-left: auto;
+  position: relative;
+  line-height: 95%;
+  background-color: #c1d5d3;
+  color: #d7e7e4;
+  border-radius: 30rpx;
+  margin-left: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reply-active {
+  background-color: #eebb4e;
+  color: #88624f;
+}
+.reply-btn-plus {
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  line-height: 20rpx;
+  text-align: center;
+  color: #c1d5d3;
+  background-color: #d9e5e5;
+  border: #c1d5d3 5rpx solid;
+  border-radius: 50%;
+  right: 0;
+  top: 0;
+}
+.plus-active {
+  color: #eebb4e;
+  background-color: #88624f;
+  border: #eebb4e 5rpx solid;
+}
+
+/* --- Modal ---*/
 .mymodal {
   width: 98%;
   height: fit-content;
