@@ -154,6 +154,7 @@ Page({
             isRefresh: false,
           },
         });
+        console.log(this.data.db);
         let _isExpand = Array(len).fill(false);
         // 如果是master,不能留言  设置isExpand
         this.setData({
