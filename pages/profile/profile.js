@@ -124,7 +124,6 @@ Page({
                 },
               });
           } else {
-            console.log("else");
             db.collection("UsersProfile").add({
               data: {
                 userInfo: app.globalData.userInfo,
@@ -136,6 +135,12 @@ Page({
                 curRoomid: null,
                 isMaster: false,
                 wishlist: {},
+                tradeHistory: {
+                  news: {},
+                  selling: {},
+                  buying: {},
+                  history: {}
+                },
               },
               success: (userData) => {
                 console.log(userData);
