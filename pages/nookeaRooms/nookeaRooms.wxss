@@ -539,3 +539,11 @@ page {
   border-radius: 10rpx;
   color: #685b48;
 }
+
+.expand-icon {
+  transition: all ease 0.25s;
+  transform: rotate(0);
+}
+.rotated {
+  transform: rotate(-90deg);
+}

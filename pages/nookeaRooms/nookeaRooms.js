@@ -33,7 +33,9 @@ Page({
     // commentSelect控制留言和心愿单切换
     commentSelect: true,
     firstTimeLoad: true,
-    isExpand: false,
+    isExpand: [],
+    isMaster: false,
+    isLoading: true,
     // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
     paymentType: {
       bell: false,
@@ -118,6 +120,7 @@ Page({
       .get()
       .then((res) => {
         let dbdata = res.data;
+        let len = dbdata.comments.length;
         dbdata.comments = dbdata.comments.map((t, i) => {
           t.conversations.sort((a, b) => a.timestamp - b.timestamp);
           t.noteIndex = i;
@@ -147,8 +150,20 @@ Page({
             isRefresh: false,
           },
         });
+        let _isExpand = Array(len).fill(false);
+        // 如果是master,不能留言  设置isExpand
+        // 这里是0.5秒载入
+        setTimeout(() => {
+          if (this.data.openid == this.data.db.masterInfo._openid) {
+            this.setData({
+              addReplyEnabled: false,
+              isMaster: true,
+              isExpand: _isExpand,
+              isLoading: false,
+            });
+          }
+        }, 400);
       });
-
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .watch({
@@ -361,9 +376,13 @@ Page({
     });
   },
 
-  expandClick: function () {
+  expandClick: function (e) {
+    // toggle idx的expand，关闭其他idx的expand
+    let idx = e.currentTarget.dataset.index;
+    let _isExpand = Array(this.data.isExpand.length).fill(false);
+    _isExpand[idx] = !this.data.isExpand[idx];
     this.setData({
-      isExpand: !this.data.isExpand,
+      isExpand: _isExpand,
     });
   },
   /**

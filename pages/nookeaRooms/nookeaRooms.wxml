@@ -1,6 +1,6 @@
 <block>
   <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" />
-  <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+  <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)" hidden="{{isLoading}}">
     <view class="top-box">
       <view class="master-avatar">
         <image class="master-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
@@ -52,8 +52,8 @@
       </view>
     </view>
     <view class="board">
-      <!-- TODO:  wx:if="{{addReplyEnabled}}" 这是slave的留言按钮 -->
-      <view class="slave-reply" wx:if="{{addReplyEnabled}}" bindtap="modalShow">
+      <!-- 这是slave的留言按钮 -->
+      <view class="slave-reply" wx:if="{{addReplyEnabled && !isMaster}}" bindtap="modalShow">
         <view class="slave-reply-icon">+</view>
         <view class="slave-reply-btn">我要留言</view>
       </view>
@@ -79,35 +79,35 @@
               </view>
               <view class="conversation-head-info-content">
                 <view>留言：{{conversation.content}}</view>
-                <view class="conversation-head-info-expandicon" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
-                  <image style="height:25rpx;width:25rpx;" src="{{isExpand?'../../assets/icons/expendUp.png':'../../assets/icons/expend.png'}}" />
+                <view class="conversation-head-info-expandicon" data-index="{{commentIndex}}" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
+                  <image style="height:25rpx;width:25rpx;" src="../../assets/icons/expendLeft.png" class="expand-icon {{isExpand[commentIndex]? 'rotated':''}}" />
                 </view>
               </view>
             </view>
           </view>
-          <view class="conversation-extend" hidden="{{!isExpand}}">
+          <view class="conversation-extend" hidden="{{!isExpand[commentIndex]}}">
             <block wx:if="{{conversationIndex != 0}}">
-              <!-- Master的聊天模板 -->
-              <view class="conversation-master" wx:if="{{conversation.isMaster}}">
+              <!-- 别人的聊天模板 -->
+              <view class="conversation-master" wx:if="{{(conversation.isMaster && openid !==db.masterInfo._openid) || (!conversation.isMaster && openid === db.masterInfo._openid)}}">
                 <view class="conversation-extend-avatar">
-                  <image class="conversation-extend-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
+                  <image class="conversation-extend-avatar-img" src="{{openid===db.masterInfo._openid?item.slaveInfo.avatarUrl:db.masterInfo.avatarUrl}}" mode="widthFix" />
                 </view>
                 <view class="conversation-extend-text">{{conversation.content}}</view>
               </view>
-              <!-- Slave的聊天模板 -->
+              <!-- 自己的聊天模板 -->
               <view class="conversation-slave" wx:else>
                 <view class="conversation-extend-text">{{conversation.content}}</view>
                 <view class="conversation-extend-avatar">
-                  <image class="conversation-extend-avatar-img" src="{{item.slaveInfo.avatarUrl}}" mode="widthFix" />
+                  <image class="conversation-extend-avatar-img" src="{{openid ===db.masterInfo._openid?db.masterInfo.avatarUrl:item.slaveInfo.avatarUrl}}" mode="widthFix" />
                 </view>
               </view>
             </block>
           </view>
         </view>
-        <!-- 这是Slave回复 -->
-        <view class="reply-box" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}" hidden="{{!isExpand}}">
+        <!-- 这是回复栏 -->
+        <view class="reply-box" wx:if="{{openid === db.masterInfo._openid || openid === item.slaveInfo._openid}}" hidden="{{!isExpand[commentIndex]}}">
           <input value="{{replyText}}" class="reply-text" bindinput="replyText" />
-          <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-roomid="{{db._id}}" data-ismaster="{{!openid === db.masterInfo._open}}" data-slaveid="{{item.slaveInfo._openid}}">
+          <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-roomid="{{db._id}}" data-ismaster="{{openid === db.masterInfo._openid}}" data-slaveid="{{item.slaveInfo._openid}}">
             <text>发送</text>
             <view class="reply-btn-plus {{replyText?'plus-active':''}}">+</view>
           </view>
