@@ -40,6 +40,7 @@ Page({
       ticket: false,
       wishlist: false,
     },
+    canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 
   /**

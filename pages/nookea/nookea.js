@@ -444,8 +444,8 @@ Page({
         });
         console.log(this.data.specs);
 
-        if (!app.globalData.gameProfile.wishlist && !app.globalData.gameProfile.tradeHistory) {
-          console.log('enter fetch') 
+        if (!app.globalData.gameProfile.wishlist 
+            && !app.globalData.gameProfile.tradeHistory) {
           db.collection("UsersProfile")
             .get()
             .then((userData) => {
@@ -458,7 +458,8 @@ Page({
                   islandName: userData.data[0].islandName,
                   fruit: userData.data[0].fruit,
                   hemisphere: userData.data[0].hemisphere,
-                  wishlist: userData.data[0].wishlist,                    tradeHistory: userData.data[0].tradeHistory,
+                  wishlist: userData.data[0].wishlist,                    
+                  tradeHistory: userData.data[0].tradeHistory,
                 };
                 this.setData({
                   collect: {
@@ -470,7 +471,6 @@ Page({
               }
             })
         } else {
-          console.log('enter had') 
           this.setData({
             collect: {
               ...this.data.collect,
@@ -576,6 +576,12 @@ Page({
                 curRoomid: null,
                 isMaster: false,
                 wishlist: {},
+                tradeHistory: {
+                  news: {},
+                  selling: {},
+                  buying: {},
+                  history: {}
+                },
               },
               success: (userData) => {
                 console.log(userData);

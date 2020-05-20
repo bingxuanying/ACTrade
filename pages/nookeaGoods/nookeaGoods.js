@@ -1,6 +1,7 @@
 // pages/nookeaGoods/nookeaGoods.js
 const app = getApp();
 const db = wx.cloud.database();
+const util = require("../../utils/util");
 // gif
 const json = require("../../utils/imgUrl");
 const iu = json.default.imgUrl;
@@ -9,6 +10,13 @@ Page({
   data: {
     productInfo: null,
     rooms: [],
+    content: { 
+      hasPosted: false,
+      bell: "", 
+      ticket: "", 
+      wishlist: true,
+      notes: "",
+    },
     offset: 0,
     loading: {
       isRefresh: false,
@@ -17,6 +25,7 @@ Page({
     gif: {
       EarthLoadingUrl: null,
     },
+    canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 
   onLoad: function (options) {
@@ -32,8 +41,49 @@ Page({
       },
     })
     // let product_id = options._id //
-    let product_id = '05f2c36f5ebd2e7200d107826abdcfc1'
-    
+    let product_id = '05f2c36f5ebd2e7200d107826abdcfc1';
+
+    if (!app.globalData.openid) {
+      db.collection("UsersProfile")
+        .get()
+        .then((res) => {
+          if (res.data.length > 0)
+            app.globalData.openid = res.data[0]._openid;
+        });
+    }
+
+    if (app.globalData.gameProfile.tradeHistory 
+      && app.globalData.gameProfile.wishlist) {
+      let _tradeHistory = app.globalData.gameProfile.tradeHistory;
+      if (_tradeHistory.selling.hasOwnProperty(product_id)) {
+        this.setData({
+          content: { 
+            hasPosted: true,
+            bell: _tradeHistory.selling[product_id].bell, 
+            ticket: _tradeHistory.selling[product_id].ticket, 
+            wishlist: _tradeHistory.selling[product_id].wishlist,
+            notes: _tradeHistory.selling[product_id].notes,
+          },
+        })
+      }
+    } 
+    else if (this.data.canIUse) {
+      app.userInfoReadyCallback = (res) => {
+        let _tradeHistory = app.globalData.gameProfile.tradeHistory;
+        if (_tradeHistory.selling.hasOwnProperty(product_id)) {
+          this.setData({
+            content: { 
+              hasPosted: true,
+              bell: _tradeHistory.selling[product_id].bell, 
+              ticket: _tradeHistory.selling[product_id].ticket, 
+              wishlist: _tradeHistory.selling[product_id].wishlist,
+              notes: _tradeHistory.selling[product_id].notes,
+            },
+          })
+        }
+      }
+    }
+
     db.collection("Nookea-items")
       .doc(product_id)
       .get()
@@ -126,7 +176,6 @@ Page({
   },
 
   onTapPost: function(e) {
-    let _itemInfo = e.currentTarget.dataset.iteminfo;
     let _masterInfo = {
       _openid: app.globalData.openid,
       avatarUrl: app.globalData.userInfo.avatarUrl,
@@ -135,7 +184,17 @@ Page({
       islandName: app.globalData.gameProfile.islandName,
       wishlist: app.globalData.gameProfile.wishlist,
     }
-    console.log(_masterInfo);
-    console.log(_itemInfo);
+
+    db.collection("Nookea-rooms")
+      .add({
+        data: {
+          itemInfo: this.data.productInfo,
+          masterInfo: _masterInfo,
+          comments: [],
+          isActive: true,
+          timestamp: util.formatTime(),
+          content: this.data.content,
+        }
+      })
   },
 })

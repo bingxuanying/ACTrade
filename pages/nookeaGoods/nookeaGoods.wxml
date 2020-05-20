@@ -49,7 +49,7 @@
       <view class="board">
         <view class="board-options">
           <view class="list-btn"></view>
-          <view class="post-btn" data-iteminfo="{{productInfo}}" bindtap="onTapPost">发布</view>
+          <view class="post-btn" bindtap="onTapPost">发布</view>
         </view>
 
         <!-- Main Board -->

@@ -45,6 +45,7 @@ Page({
     kicked: false,
     closed: false,
     inLine: false,
+    canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
   onLoad: function (query) {
     this.setData({  statusBarHeight: app.globalData.statusBarHeight  });
@@ -445,6 +446,12 @@ Page({
                 curRoomid: null,
                 isMaster: false,
                 wishlist: {},
+                tradeHistory: {
+                  news: {},
+                  selling: {},
+                  buying: {},
+                  history: {}
+                },
               },
               success: (userData) => {
                 console.log(userData);
