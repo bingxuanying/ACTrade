@@ -1,6 +1,6 @@
 <block>
   <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" />
-  <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)" hidden="{{isLoading}}">
+  <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="top-box">
       <view class="master-avatar">
         <image class="master-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
@@ -69,7 +69,17 @@
                 <view class="slave-name">{{item.slaveInfo.nickname}}</view>
                 <image class="slave-info-icon" src="../../assets/icons/IslandIcon2.png" />
                 <view class="slave-island">{{item.slaveInfo.islandName}}</view>
-                <view class="converstaion-head-info-time">10分钟前</view>
+                <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                <view class="converstaion-head-info-time" wx:if="{{filter.getDays(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) >= 1}}">
+                  {{filter.getDays(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}天前
+                </view>
+                <view class="converstaion-head-info-time" wx:elif="{{filter.getHours(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) >= 1}}">
+                  {{filter.getHours(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}小时前
+                </view>
+                <view class="converstaion-head-info-time" wx:elif="{{filter.getMins(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) >= 1}}">
+                  {{filter.getMins(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}分前
+                </view>
+                <view class="converstaion-head-info-time" wx:else>刚刚</view>
               </view>
               <view class="conversation-head-info-offering">
                 出价:
@@ -109,7 +119,9 @@
           <input value="{{replyText}}" class="reply-text" bindinput="replyText" />
           <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-roomid="{{db._id}}" data-ismaster="{{openid === db.masterInfo._openid}}" data-slaveid="{{item.slaveInfo._openid}}">
             <text>发送</text>
-            <view class="reply-btn-plus {{replyText?'plus-active':''}}">+</view>
+            <view class="reply-btn-plus  {{replyText?'plus-active':''}} {{textSending?'rotating':''}}">
+              +
+            </view>
           </view>
         </view>
       </view>

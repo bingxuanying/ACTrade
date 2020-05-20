@@ -35,7 +35,6 @@ Page({
     firstTimeLoad: true,
     isExpand: [],
     isMaster: false,
-    isLoading: true,
     // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
     paymentType: {
       bell: false,
@@ -59,12 +58,18 @@ Page({
         ...this.data.gif,
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
+      nowTimestamp: util.formatTime(),
+    });
+    //TODO
+    // let _isMaster = options.isMaster;
+    this.setData({
+      isMaster: options.isMaster,
     });
 
     if (app.globalData.userInfo) {
       this.setData({
-        openid: app.globalData.gameProfile._openid,
-        avatarUrl: app.globalData.gameProfile.avatarUrl,
+        openid: app.globalData.openid,
+        avatarUrl: app.globalData.userInfo.avatarUrl,
         islandName: app.globalData.gameProfile.islandName,
         nickname: app.globalData.gameProfile.nickname,
       });
@@ -75,8 +80,8 @@ Page({
         // onLaunch -> onLoad -> onLaunch: has to get data here
         if (res.userInfo) {
           this.setData({
-            openid: app.globalData.gameProfile._openid,
-            avatarUrl: app.globalData.gameProfile.avatarUrl,
+            openid: app.globalData.openid,
+            avatarUrl: app.globalData.userInfo.avatarUrl,
             islandName: app.globalData.gameProfile.islandName,
             nickname: app.globalData.gameProfile.nickname,
           });
@@ -97,14 +102,12 @@ Page({
         .get()
         .then((res) => {
           if (res.data.length > 0) {
-            app.globalData.gameProfile._openid = res.data[0]._openid;
-            app.globalData.gameProfile.avatarUrl =
-              res.data[0].userInfo.avatarUrl;
+            app.globalData.openid = res.data[0]._openid;
             app.globalData.gameProfile.islandName = res.data[0].islandName;
             app.globalData.gameProfile.nickname = res.data[0].nickname;
             this.setData({
-              openid: app.globalData.gameProfile._openid,
-              avatarUrl: app.globalData.gameProfile.avatarUrl,
+              openid: app.globalData.openid,
+              avatarUrl: app.globalData.userInfo.avatarUrl,
               islandName: app.globalData.gameProfile.islandName,
               nickname: app.globalData.gameProfile.nickname,
             });
@@ -153,17 +156,9 @@ Page({
         });
         let _isExpand = Array(len).fill(false);
         // 如果是master,不能留言  设置isExpand
-        // 这里是0.5秒载入
-        setTimeout(() => {
-          if (this.data.openid == this.data.db.masterInfo._openid) {
-            this.setData({
-              addReplyEnabled: false,
-              isMaster: true,
-              isExpand: _isExpand,
-              isLoading: false,
-            });
-          }
-        }, 400);
+        this.setData({
+          isExpand: _isExpand,
+        });
       });
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
@@ -201,6 +196,14 @@ Page({
           console.error(err);
         },
       });
+
+    //每隔1分钟刷新一次时间
+    setInterval(() => {
+      console.log("获取时间中...");
+      this.setData({
+        nowTimestamp: util.formatTime(),
+      });
+    }, 5000);
   },
 
   modalShow: function (e) {
@@ -298,6 +301,9 @@ Page({
     }
   },
   onTapSend: function (e) {
+    this.setData({
+      textSending: true,
+    });
     let _roomid = e.currentTarget.dataset.roomid;
     let _slaveid = e.currentTarget.dataset.slaveid;
     let ismaster = e.currentTarget.dataset.ismaster;
@@ -339,6 +345,11 @@ Page({
       .catch((err) => {
         console.log(err);
       });
+    setTimeout(() => {
+      this.setData({
+        textSending: false,
+      });
+    }, 1000);
   },
 
   commentClick: function () {

@@ -3,8 +3,20 @@ var filter = {
   numFixed: function (value, n) {
     return value.toFixed(n);
   },
+  getDays: function (timeDiff) {
+    return (timeDiff / 86400000).toFixed(0);
+  },
+  getHours: function (timeDiff) {
+    return (timeDiff / 3600000).toFixed(0);
+  },
+  getMins: function (timeDiff) {
+    return (timeDiff / 60000).toFixed(0);
+  },
 };
 // 导出对外暴露的属性
 module.exports = {
   numFixed: filter.numFixed,
+  getDays: filter.getDays,
+  getHours: filter.getHours,
+  getMins: filter.getMins,
 };
