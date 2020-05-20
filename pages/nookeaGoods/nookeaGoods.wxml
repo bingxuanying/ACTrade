@@ -49,12 +49,37 @@
       <view class="board">
         <view class="board-options">
           <view class="list-btn"></view>
-          <view class="post-btn"></view>
+          <view class="post-btn" data-iteminfo="{{productInfo}}" bindtap="onTapPost">发布</view>
         </view>
-        <view class="board-content">
-          <view class="record"></view>
-          <view class="record"></view>
-          <view class="record"></view>
+
+        <!-- Main Board -->
+        <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
+          <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
+            <view class="record">{{item.masterInfo.nickname}}</view>          
+          </block>
+        </view>
+
+        <!-- Loading -->
+        <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
+
+        <!-- Reminder -->
+        <view class="board-cant-find" hidden="{{rooms.length>0||loading.isRefresh}}">
+            <text>暂时没有人评论...</text>
+            <text>可以下拉刷新试试看~！</text>
+            <image class="board-cant-find-nook" src="../../assets/icons/nook.png" mode="aspectFit" />
+        </view>
+        <!-- Board Bottom -->
+        <view class="board-bottom" style="line-height: {{loading.isBottom?'65rpx':'50rpx'}};" hidden="{{rooms.length===0||loading.isRefresh}}">
+            <block wx:if="{{loading.isBottom}}">
+                <image class="board-bottom-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" />
+                <text>加载更多...</text>
+            </block>
+            <block wx:else>
+                <text>---</text>
+                <text style="margin-left: 20rpx">到底啦~！</text>
+                <image class="board-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
+                <text>---</text>
+            </block>
         </view>
       </view>
     </view>

@@ -101,6 +101,7 @@ Page({
           if (userData.data.length > 0) {
             console.log("if");
             app.globalData.id = userData.data[0]._id;
+            app.globalData.openid = userData.data[0]._openid;
             app.globalData.gameProfile = {
               nickname: userData.data[0].nickname,
               islandName: userData.data[0].islandName,
@@ -142,10 +143,7 @@ Page({
               },
             });
           }
-        },
-        fail: (res) => {
-          console.log(res);
-        },
+        }
       });
     }
   },

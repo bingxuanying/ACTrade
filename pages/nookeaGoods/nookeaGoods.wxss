@@ -3,6 +3,7 @@ page {
   /* background-color: #fbfbdf; */
   background-color: #e7dfc3;
   font-size: 30rpx;
+  color: #785b2f;
 }
 .nookeaGoods {
   width: 100%;
@@ -59,7 +60,7 @@ page {
 }
 
 .card-content {
-  width: 220rpx;
+  width: 230rpx;
   height: 300rpx;
   border-radius: 20rpx;
   position: relative;
@@ -75,6 +76,7 @@ page {
   border-radius: 8rpx;
   position: relative;
   box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); 
+  margin-right: 4rpx;
   overflow: hidden;
 }
 
@@ -171,18 +173,13 @@ page {
   margin: 0 10rpx;
 }
 
+
 /* --- MARKET BOARD --- */
 .board {
   width: 94%;
   display: flex;
   flex-direction: column;
-}
-
-.board-options {
-  width: 100%;
-  height: 100rpx;
-  background-color: lightsalmon;
-  margin-top: 30rpx;
+  position: relative;
 }
 
 .board-options {
@@ -190,6 +187,14 @@ page {
   height: 100rpx;
   background-color: lightsalmon;
   margin: 30rpx 0;
+  display: flex;
+  align-items: center;
+}
+
+.post-btn {
+  width: 100rpx;
+  height: 50rpx;
+  background-color: lightblue;
 }
 
 .board-content {
@@ -203,4 +208,56 @@ page {
   height: 200rpx;
   background-color: lightcoral;
   margin-bottom: 20rpx;
+}
+
+
+/* --- BOTTOM --- */
+.board-bottom {
+  width: 100%;
+  height: 100rpx;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  color: #716a58;
+  font-size: 30rpx;
+}
+
+.board-bottom-nook {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.board-bottom-loading {
+  width: 65rpx;
+  height: 65rpx;
+  margin-right: 20rpx;
+}
+
+.board-cant-find {
+  width: 100%;
+  height: 300rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 30rpx;
+}
+
+.board-cant-find-nook {
+  width: 75rpx;
+  height: 75rpx;
+  margin-left: 300rpx;
+}
+
+
+/* --- Loading GIF --- */
+.pull-loading {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 300rpx;
+  left: 50%;
+  transform: translateX(-50%);
 }

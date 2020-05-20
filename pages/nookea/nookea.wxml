@@ -69,7 +69,7 @@
             <!-- Reminders -->
             <view class="board-bottom" style="line-height: {{loading.isBottom?'65rpx':'50rpx'}};" hidden="{{(catDeck.length===0&&page==='cat')||(specsDeck.length===0&&page==='specs')}}">
                 <block wx:if="{{loading.isBottom}}">
-                    <image class="board-bottom-loading" src="{{EarthLoadingUrl}}" mode="widthFix" />
+                    <image class="board-bottom-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" />
                     <text>加载更多...</text>
                 </block>
                 <block wx:else>

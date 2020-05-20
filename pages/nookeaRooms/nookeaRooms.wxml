@@ -3,7 +3,7 @@
   <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="top-box">
       <view class="master-avatar">
-        <image class="master-avatar-img" src="{{db.masterInfo.avatarInfo}}" mode="widthFix" />
+        <image class="master-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
       </view>
       <view class="info">
         <view class="master-info">
@@ -90,7 +90,7 @@
               <!-- Master的聊天模板 -->
               <view class="conversation-master" wx:if="{{conversation.isMaster}}">
                 <view class="conversation-extend-avatar">
-                  <image class="conversation-extend-avatar-img" src="{{db.masterInfo.avatarInfo}}" mode="widthFix" />
+                  <image class="conversation-extend-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
                 </view>
                 <view class="conversation-extend-text">{{conversation.content}}</view>
               </view>
