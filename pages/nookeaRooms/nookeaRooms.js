@@ -34,7 +34,7 @@ Page({
     commentSelect: true,
     firstTimeLoad: true,
     isExpand: [],
-    isMaster: false,
+    isMaster: true,
     // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
     paymentType: {
       bell: false,
@@ -59,6 +59,7 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
       nowTimestamp: util.formatTime(),
+      isMaster: options.isMaster,
     });
 
     const getUserInfo = new Promise((resolve, reject) => {
@@ -156,6 +157,7 @@ Page({
             isExpand: Array(len).fill(false),
           });
         }
+        console.log(this.data.isMaster);
         this.setData({
           db: dbdata,
           loading: {
@@ -380,6 +382,9 @@ Page({
           isActive: !isActive,
         },
       });
+  },
+  settingClick: function () {
+    //TODO
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
