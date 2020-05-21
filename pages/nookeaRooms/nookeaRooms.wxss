@@ -14,22 +14,46 @@ page {
 }
 
 .top-box {
-  width: 94vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-items: center;
   align-items: center;
 }
 .master-avatar {
-  width: 28%;
-  padding: 20rpx;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .master-avatar-img {
-  width: 100%;
-  border-radius: 25rpx;
-}
-.info {
   width: 70%;
+  border-radius: 25rpx;
+  justify-self: center;
+  align-self: center;
+}
+
+.room-status {
+  margin-bottom: 10rpx;
+  justify-self: flex-start;
+  align-self: flex-start;
+  border-radius: 0 25rpx 25rpx 0;
+  padding: 4rpx 8rpx;
+  background-color: #4fb262;
+  color: #bfedc6;
+}
+.status-active {
+  background-color: #4fb262;
+  color: #bfedc6;
+}
+.status-inactive {
+  background-color: #a4a49c;
+  color: #c2c3b5;
+}
+
+.info {
+  width: 72%;
 }
 
 /* --- ITEM INFO --- */
@@ -200,12 +224,38 @@ page {
 }
 .note {
 }
+
 /* --- MARKET BOARD --- */
 .board {
-  width: 94%;
+  width: 194vw;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: 150vw;
+  transition: all ease-in-out 0.5s;
+}
+.slideleft {
+  left: 50vw;
+}
+.slideright {
+  left: -47vw;
+}
+.board-left {
+  width: 94vw;
   display: flex;
   flex-direction: column;
   overflow-x: scroll;
+}
+.board-mid {
+  width: 6vw;
+}
+
+.board-right {
+  width: 94vw;
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+  height: 100%;
 }
 
 .slave-reply {

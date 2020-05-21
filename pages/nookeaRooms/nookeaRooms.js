@@ -398,6 +398,21 @@ Page({
       isExpand: _isExpand,
     });
   },
+  // 用于切换房间开关状态
+  closeRoomClick: function () {
+    let isActive = this.data.db.isActive;
+    let path = "db.isActive";
+    this.setData({
+      [path]: !isActive,
+    });
+    db.collection("Nookea-rooms")
+      .doc(this.data.currentRoom)
+      .update({
+        data: {
+          isActive: !isActive,
+        },
+      });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
