@@ -53,7 +53,7 @@
     </view>
     <view class="board">
       <!-- 这是slave的留言按钮 -->
-      <view class="slave-reply" wx:if="{{addReplyEnabled && !isMaster}}" bindtap="modalShow">
+      <view class="slave-reply" wx:if="{{addReplyEnabled}}" bindtap="modalShow">
         <view class="slave-reply-icon">+</view>
         <view class="slave-reply-btn">我要留言</view>
       </view>
@@ -117,7 +117,7 @@
         <!-- 这是回复栏 -->
         <view class="reply-box" wx:if="{{openid === db.masterInfo._openid || openid === item.slaveInfo._openid}}" hidden="{{!isExpand[commentIndex]}}">
           <input value="{{replyText}}" class="reply-text" bindinput="replyText" />
-          <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-roomid="{{db._id}}" data-ismaster="{{openid === db.masterInfo._openid}}" data-slaveid="{{item.slaveInfo._openid}}">
+          <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}">
             <text>发送</text>
             <view class="reply-btn-plus  {{replyText?'plus-active':''}} {{textSending?'rotating':''}}">
               +
