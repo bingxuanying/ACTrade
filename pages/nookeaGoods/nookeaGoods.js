@@ -10,17 +10,33 @@ Page({
   data: {
     productInfo: null,
     rooms: [],
-    content: { 
+    selfPost: {      
       hasPosted: false,
+      room_id: null,
+      roomInfo: null,
+    },
+    content: { 
+      color: "",
       bell: "", 
       ticket: "", 
-      wishlist: true,
-      notes: "",
+      wishlist: false,
+      notes: "你报个价吧~",
     },
     offset: 0,
+    modal: {
+      openPost: false,
+    },
     loading: {
       isRefresh: false,
       isBottom: false
+    },
+    img: {
+      BellIcon: iu.nookeaRooms.bell,
+      TicketIcon: iu.nookeaRooms.ticket,
+      WishlistIcon: iu.nookeaRooms.wishlist,
+      BellIconGray: iu.nookeaRooms.bellGray,
+      TicketIconGray: iu.nookeaRooms.ticketGray,
+      WishlistIconGray: iu.nookeaRooms.wishlistGray,
     },
     gif: {
       EarthLoadingUrl: null,
@@ -40,8 +56,13 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
     })
-    // let product_id = options._id //
+    // let product_id = options._id;
     let product_id = '05f2c36f5ebd2e7200d107826abdcfc1';
+    // let product_id = 'E75KUkDxPwSdFYDhCx4MyNy7mcN5mqrzJ6Cj8MdfTYUicv6N'; // animal
+    // let product_id = 'u7TxYI1mo9T6GOzgcEmf9THpZyGhvD74spTE34dJyOZpEeg9'; // bell
+    // let product_id = 'vbzmb7NqboxiHeUfCZ32d0PoMB7xalxcvd6xqstMajvbvfDX'; // leaf
+    // let product_id = 'SqnFeqrIMFfNATBfjAteno7ouyONBhNKUwqWHQG1vTASJ733'; // recepi
+    
 
     if (!app.globalData.openid) {
       db.collection("UsersProfile")
@@ -57,29 +78,46 @@ Page({
       let _tradeHistory = app.globalData.gameProfile.tradeHistory;
       if (_tradeHistory.selling.hasOwnProperty(product_id)) {
         this.setData({
-          content: { 
+          selfPost: {      
+            ...this.data.selfPost,
             hasPosted: true,
-            bell: _tradeHistory.selling[product_id].bell, 
-            ticket: _tradeHistory.selling[product_id].ticket, 
-            wishlist: _tradeHistory.selling[product_id].wishlist,
-            notes: _tradeHistory.selling[product_id].notes,
+            room_id: _tradeHistory.selling[product_id]._id
           },
-        })
+        });
+        db.collection("Nookea-rooms")
+          .doc(_tradeHistory.selling[product_id]._id)
+          .get()
+          .then(res => this.setData({
+            selfPost: {      
+              ...this.data.selfPost,
+              roomInfo: res.data,
+            },
+            content: res.data.content,
+          }))
       }
     } 
     else if (this.data.canIUse) {
       app.userInfoReadyCallback = (res) => {
         let _tradeHistory = app.globalData.gameProfile.tradeHistory;
         if (_tradeHistory.selling.hasOwnProperty(product_id)) {
+          console.log(_tradeHistory.selling[product_id]._id)
           this.setData({
-            content: { 
+            selfPost: {      
+              ...this.data.selfPost,
               hasPosted: true,
-              bell: _tradeHistory.selling[product_id].bell, 
-              ticket: _tradeHistory.selling[product_id].ticket, 
-              wishlist: _tradeHistory.selling[product_id].wishlist,
-              notes: _tradeHistory.selling[product_id].notes,
+              room_id: _tradeHistory.selling[product_id]._id
             },
-          })
+          });
+          db.collection("Nookea-rooms")
+            .doc(_tradeHistory.selling[product_id]._id)
+            .get()
+            .then(res => this.setData({
+              selfPost: {      
+                ...this.data.selfPost,
+                roomInfo: res.data,
+              },
+              content: res.data.content,
+            }))
         }
       }
     }
@@ -93,14 +131,35 @@ Page({
         return res.data._id
       })
       .then(item_id => {
+        if(this.data.productInfo.hasOwnProperty("recipe")) {
+          this.setData({
+            img: {
+              ...this.data.img,
+              叶子: iu.materials.叶子
+            }
+          })
+          for (let name in this.data.productInfo.recipe) {
+            console.log(name)
+            if (iu.materials.hasOwnProperty(name)) {
+              this.setData({
+                img: {
+                  ...this.data.img,
+                  [name]: iu.materials[name]
+                }
+              })
+            }
+          }
+        }
+
         db.collection("Nookea-rooms")
-        .skip(this.data.offset)
-        .limit(10)
         .where({
+          isActive: true,
           itemInfo: {
             _id: item_id
-          }
+          },
         })
+        .skip(this.data.offset)
+        .limit(10)
         .orderBy("timestamp", "desc")
         .get()
         .then(res => this.setData({ 
@@ -125,13 +184,14 @@ Page({
     wx.stopPullDownRefresh({
       complete: () => {
         db.collection("Nookea-rooms")
-        .skip(this.data.offset)
-        .limit(10)
         .where({
+          isActive: true,
           itemInfo: {
             _id: this.data.productInfo._id
-          }
+          },
         })
+        .skip(this.data.offset)
+        .limit(10)
         .orderBy("timestamp", "desc")
         .get()
         .then(res => this.setData({ 
@@ -156,13 +216,14 @@ Page({
     });
 
     db.collection("Nookea-rooms")
-    .skip(this.data.offset)
-    .limit(10)
     .where({
+      isActive: true,
       itemInfo: {
         _id: this.data.productInfo._id
-      }
+      },
     })
+    .skip(this.data.offset)
+    .limit(10)
     .orderBy("timestamp", "desc")
     .get()
     .then(res => this.setData({ 
@@ -175,6 +236,16 @@ Page({
     }));
   },
 
+  // --- Add data to db ---
+  onTapPostModal: function() {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        openPost: true
+      }
+    })
+  },
+
   onTapPost: function(e) {
     let _masterInfo = {
       _openid: app.globalData.openid,
@@ -185,16 +256,39 @@ Page({
       wishlist: app.globalData.gameProfile.wishlist,
     }
 
-    db.collection("Nookea-rooms")
-      .add({
-        data: {
-          itemInfo: this.data.productInfo,
-          masterInfo: _masterInfo,
-          comments: [],
-          isActive: true,
-          timestamp: util.formatTime(),
-          content: this.data.content,
-        }
-      })
+    // db.collection("Nookea-rooms")
+    //   .add({
+    //     data: {
+    //       itemInfo: this.data.productInfo,
+    //       masterInfo: _masterInfo,
+    //       comments: [],
+    //       isActive: true,
+    //       timestamp: util.formatTime(),
+    //       content: this.data.content,
+    //     }
+    //   })
   },
+
+
+  // --- Modal Control ---
+  hideModal: function() {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        openPost: false
+      }
+    })
+  },
+
+  bindModalStr: function(e) {
+    let title = e.currentTarget.dataset.title;
+    this.setData({
+      content: {
+        ...this.data.content,
+        [title]: e.detail.value
+      }
+    });
+  },
+
+
 })

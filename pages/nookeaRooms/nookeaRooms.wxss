@@ -609,3 +609,25 @@ page {
     transform: rotate(359deg);
   }
 }
+
+/* This is for closeBtn */
+.tool-closeBtn {
+  width: 45%;
+  height: 100%;
+  background-color: #ddd1bb;
+  border-radius: 50rpx;
+  border: solid #f5f7e1 7rpx;
+  position: relative;
+}
+.tool-closeBtn-greenbox {
+  width: 80%;
+  height: 100%;
+  background-color: #4fb262;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  left: 20%;
+}
