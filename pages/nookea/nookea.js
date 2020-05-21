@@ -38,7 +38,7 @@ Page({
     },
     input: {
       nickname: "",
-      islandName: "",      
+      islandName: "",
     },
     gif: {
       EarthLoadingUrl: null,
@@ -57,7 +57,7 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
     });
-    
+
     db.collection("Nookea")
       .orderBy("disable", "asc")
       .orderBy("order", "asc")
@@ -130,9 +130,24 @@ Page({
       }
     } else {
       console.log("save collection");
+      console.log(this.data.collect.wishlist);
       // updata app.globalData.gameProfile
-      app.globalData.gameProfile.wishlist = this.data.collect.wishlist
+      app.globalData.gameProfile.wishlist = this.data.collect.wishlist;
       // <--------------------- call cloud func ----------------------->
+      let that = this;
+      wx.cloud
+        .callFunction({
+          name: "wishlistUpdater",
+          data: {
+            wishlist: that.data.collect.wishlist,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     }
   },
 
@@ -183,29 +198,29 @@ Page({
       let tempObj = Object.assign({}, this.data.collect.wishlist);
       delete tempObj[_info.zh_name];
       this.setData({
-        collect:{
+        collect: {
           ...this.data.collect,
-          wishlist: tempObj
+          wishlist: tempObj,
         },
       });
     } else {
-      _info['isUpdated'] = false;
+      _info["isUpdated"] = false;
       this.setData({
-        collect:{
+        collect: {
           ...this.data.collect,
           wishlist: {
             ...this.data.collect.wishlist,
-            [_info.zh_name]: _info
-          }
-        }
+            [_info.zh_name]: _info,
+          },
+        },
       });
-      console.log(this.data.collect.wishlist)
+      console.log(this.data.collect.wishlist);
     }
   },
 
   // --- MODAL: Filter ---
-  onTapFilterCat: function(e) {
-    let _info =  e.currentTarget.dataset.info
+  onTapFilterCat: function (e) {
+    let _info = e.currentTarget.dataset.info;
     if (!_info.disable) {
       this.setData({
         specs: {
@@ -362,8 +377,7 @@ Page({
 
     if (_tag === "collection") {
       this.onTapFilterClean();
-      if (this.data.collect.mode)
-        this.onTapCollect();
+      if (this.data.collect.mode) this.onTapCollect();
     } else if (_tag === "search") {
       this.setData({
         page: "cat",
@@ -412,15 +426,13 @@ Page({
 
     if (!_info.disable) {
       if (!app.globalData.userInfo) {
-        this.setData({ clientStatus: "no auth" })
-      }
-      else if(
+        this.setData({ clientStatus: "no auth" });
+      } else if (
         app.globalData.gameProfile.nickname.length === 0 &&
         app.globalData.gameProfile.islandName.length === 0
       ) {
-        this.setData({ clientStatus: "no name" })
-      }
-      else {
+        this.setData({ clientStatus: "no name" });
+      } else {
         this.setData({
           specs: {
             name: _info.name,
@@ -444,8 +456,10 @@ Page({
         });
         console.log(this.data.specs);
 
-        if (!app.globalData.gameProfile.wishlist 
-            && !app.globalData.gameProfile.tradeHistory) {
+        if (
+          !app.globalData.gameProfile.wishlist &&
+          !app.globalData.gameProfile.tradeHistory
+        ) {
           db.collection("UsersProfile")
             .get()
             .then((userData) => {
@@ -458,7 +472,7 @@ Page({
                   islandName: userData.data[0].islandName,
                   fruit: userData.data[0].fruit,
                   hemisphere: userData.data[0].hemisphere,
-                  wishlist: userData.data[0].wishlist,                    
+                  wishlist: userData.data[0].wishlist,
                   tradeHistory: userData.data[0].tradeHistory,
                 };
                 this.setData({
@@ -466,22 +480,22 @@ Page({
                     ...this.data.collect,
                     wishlist: app.globalData.gameProfile.wishlist,
                     tradeHistory: app.globalData.gameProfile.tradeHistory,
-                  },            
-                })
+                  },
+                });
               }
-            })
+            });
         } else {
           this.setData({
             collect: {
               ...this.data.collect,
               wishlist: app.globalData.gameProfile.wishlist,
               tradeHistory: app.globalData.gameProfile.tradeHistory,
-            },            
-          })
+            },
+          });
         }
 
         console.log(this.data.collect);
-  
+
         this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
           console.log(res.data);
           this.setData({
@@ -511,18 +525,18 @@ Page({
 
     if (e.detail.errMsg === "getUserInfo:ok") {
       app.globalData.userInfo = e.detail.userInfo;
-      this.setData({ 
+      this.setData({
         loading: {
           ...this.data.loading,
-          isTransfer: true 
-        }
+          isTransfer: true,
+        },
       });
 
       db.collection("UsersProfile").get({
         success: (userData) => {
           if (userData.data.length > 0) {
             console.log("has previous user");
-            console.log(userData)
+            console.log(userData);
             app.globalData.id = userData.data[0]._id;
             app.globalData.openid = userData.data[0]._openid;
             app.globalData.gameProfile = {
@@ -538,14 +552,16 @@ Page({
             this.setData({
               collect: {
                 ...this.data.collect,
-                wishlist: userData.data[0].wishlist ? 
-                          userData.data[0].wishlist : {},
-                tradeHistory: userData.data[0].tradeHistory ?
-                              userData.data[0].tradeHistory: {},
+                wishlist: userData.data[0].wishlist
+                  ? userData.data[0].wishlist
+                  : {},
+                tradeHistory: userData.data[0].tradeHistory
+                  ? userData.data[0].tradeHistory
+                  : {},
               },
               input: {
                 nickname: userData.data[0].nickname,
-                islandName: userData.data[0].islandName,                
+                islandName: userData.data[0].islandName,
               },
             });
 
@@ -560,8 +576,8 @@ Page({
               clientStatus: "no name",
               loading: {
                 ...this.data.loading,
-                isTransfer: false 
-              }
+                isTransfer: false,
+              },
             });
           } else {
             console.log("no previous user");
@@ -580,7 +596,7 @@ Page({
                   news: {},
                   selling: {},
                   buying: {},
-                  history: {}
+                  history: {},
                 },
               },
               success: (userData) => {
@@ -590,8 +606,8 @@ Page({
                   clientStatus: "no name",
                   loading: {
                     ...this.data.loading,
-                    isTransfer: false 
-                  }
+                    isTransfer: false,
+                  },
                 });
               },
             });
@@ -602,11 +618,11 @@ Page({
   },
 
   onTapEnter: function () {
-    this.setData({ 
+    this.setData({
       loading: {
         ...this.data.loading,
-        isEnter: true
-      }
+        isEnter: true,
+      },
     });
     db.collection("UsersProfile")
       .doc(app.globalData.id)
@@ -614,7 +630,7 @@ Page({
         data: {
           nickname: this.data.input.nickname,
           islandName: this.data.input.islandName,
-        }
+        },
       })
       .then(() => {
         app.globalData.gameProfile.nickname = this.data.input.nickname;
@@ -623,39 +639,38 @@ Page({
           clientStatus: "ok",
           loading: {
             ...this.data.loading,
-            isEnter: false
-          }
+            isEnter: false,
+          },
         });
       });
   },
 
   onTapBack: function () {
-    this.setData({ clientStatus: "ok" })
+    this.setData({ clientStatus: "ok" });
     // wx.switchTab({
     //   url: "/pages/profile/profile",
     // });
   },
-  
+
   bindNicknameInput: function (e) {
     this.setData({
       input: {
         ...this.data.input,
         nickname: e.detail.value,
-      }
+      },
     });
     console.log("nickname: " + this.data.input.nickname);
   },
-  
+
   bindIslandNameInput: function (e) {
     this.setData({
       input: {
         ...this.data.input,
         islandName: e.detail.value,
-      }
+      },
     });
     console.log("islandName: " + this.data.input.islandName);
   },
-
 
   // --- Mask ---
   onTapHieCurtain: function () {
