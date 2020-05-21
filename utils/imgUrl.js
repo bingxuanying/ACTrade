@@ -117,7 +117,7 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/硬木材.png",
       杂草:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/杂草.png",
-      粘土:
+      黏土:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/粘土.png",
       钟螺壳:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/钟螺壳.png",
@@ -147,10 +147,12 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/性格.png",
       性别:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/性别.png",
-      物种:
-        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/物种.png",
+      种族:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/种族.png",
       生日:
-        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/生日.png",
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/生日.png",      
+      叶子:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/叶子.png",
     },
   },
 };
