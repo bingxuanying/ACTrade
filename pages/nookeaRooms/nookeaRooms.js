@@ -60,51 +60,22 @@ Page({
       },
       nowTimestamp: util.formatTime(),
     });
-    //TODO
-    // let _isMaster = options.isMaster;
-    this.setData({
-      isMaster: options.isMaster,
-    });
 
-    if (app.globalData.userInfo) {
-      this.setData({
-        openid: app.globalData.openid,
-        avatarUrl: app.globalData.userInfo.avatarUrl,
-        islandName: app.globalData.gameProfile.islandName,
-        nickname: app.globalData.gameProfile.nickname,
-      });
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = (res) => {
-        // onLaunch -> onLoad -> onLaunch: has to get data here
-        if (res.userInfo) {
-          this.setData({
-            openid: app.globalData.openid,
-            avatarUrl: app.globalData.userInfo.avatarUrl,
-            islandName: app.globalData.gameProfile.islandName,
-            nickname: app.globalData.gameProfile.nickname,
-          });
-        }
-      };
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: (res) => {
-          app.globalData.userInfo = res.userInfo;
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true,
-          });
-        },
-      });
-      db.collection("UsersProfile")
-        .get()
-        .then((res) => {
-          if (res.data.length > 0) {
-            app.globalData.openid = res.data[0]._openid;
-            app.globalData.gameProfile.islandName = res.data[0].islandName;
-            app.globalData.gameProfile.nickname = res.data[0].nickname;
+    const getUserInfo = new Promise((resolve, reject) => {
+      if (app.globalData.userInfo) {
+        this.setData({
+          openid: app.globalData.openid,
+          avatarUrl: app.globalData.userInfo.avatarUrl,
+          islandName: app.globalData.gameProfile.islandName,
+          nickname: app.globalData.gameProfile.nickname,
+        });
+        resolve();
+      } else if (this.data.canIUse) {
+        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+        // 所以此处加入 callback 以防止这种情况
+        app.userInfoReadyCallback = (res) => {
+          // onLaunch -> onLoad -> onLaunch: has to get data here
+          if (res.userInfo) {
             this.setData({
               openid: app.globalData.openid,
               avatarUrl: app.globalData.userInfo.avatarUrl,
@@ -112,16 +83,45 @@ Page({
               nickname: app.globalData.gameProfile.nickname,
             });
           }
-        })
-        .catch((err) => {
-          console("profile onload getuserinfo err: ");
-          console(err);
+          resolve();
+        };
+      } else {
+        // 在没有 open-type=getUserInfo 版本的兼容处理
+        wx.getUserInfo({
+          success: (res) => {
+            app.globalData.userInfo = res.userInfo;
+            this.setData({
+              userInfo: res.userInfo,
+              hasUserInfo: true,
+            });
+            resolve();
+          },
         });
-    }
+        resolve(
+          db
+            .collection("UsersProfile")
+            .get()
+            .then((res) => {
+              if (res.data.length > 0) {
+                app.globalData.openid = res.data[0]._openid;
+                app.globalData.gameProfile.islandName = res.data[0].islandName;
+                app.globalData.gameProfile.nickname = res.data[0].nickname;
+                this.setData({
+                  openid: app.globalData.openid,
+                  avatarUrl: app.globalData.userInfo.avatarUrl,
+                  islandName: app.globalData.gameProfile.islandName,
+                  nickname: app.globalData.gameProfile.nickname,
+                });
+              }
+            })
+        );
+      }
+    });
 
-    db.collection("Nookea-rooms")
-      .doc(this.data.currentRoom)
-      .get()
+    getUserInfo
+      .then(() =>
+        db.collection("Nookea-rooms").doc(this.data.currentRoom).get()
+      )
       .then((res) => {
         let dbdata = res.data;
         let len = dbdata.comments.length;
@@ -141,11 +141,20 @@ Page({
             const temp = dbdata.comments[i];
             dbdata.comments[i] = dbdata.comments[0];
             dbdata.comments[0] = temp;
+            let isExpand = Array(len).fill(false);
+            isExpand[0] = true;
             this.setData({
               addReplyEnabled: false,
+              isExpand: isExpand,
             });
             break;
           }
+        }
+        if (dbdata.masterInfo._openid == this.data._openid) {
+          this.setData({
+            addReplyEnabled: false,
+            isExpand: Array(len).fill(false),
+          });
         }
         this.setData({
           db: dbdata,
@@ -155,17 +164,13 @@ Page({
           },
         });
         console.log(this.data.db);
-        let _isExpand = Array(len).fill(false);
-        // 如果是master,不能留言  设置isExpand
-        this.setData({
-          isExpand: _isExpand,
-        });
       });
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .watch({
         onChange: (snapshot) => {
           let dbdata = snapshot.docs[0];
+          let len = dbdata.comments.length;
           dbdata.comments = dbdata.comments.map((t, i) => {
             t.conversations.sort((a, b) => a.timestamp - b.timestamp);
             t.noteIndex = i;
@@ -182,22 +187,34 @@ Page({
               const temp = dbdata.comments[i];
               dbdata.comments[i] = dbdata.comments[0];
               dbdata.comments[0] = temp;
+              let isExpand = Array(len).fill(false);
+              isExpand[0] = true;
               this.setData({
                 addReplyEnabled: false,
+                isExpand: isExpand,
               });
               break;
             }
           }
-          //监控数据发生变化时触发
+          if (dbdata.masterInfo._openid == this.data._openid) {
+            this.setData({
+              addReplyEnabled: false,
+              isExpand: Array(len).fill(false),
+            });
+          }
           this.setData({
             db: dbdata,
+            loading: {
+              ...this.data.loading,
+              isRefresh: false,
+            },
           });
+          console.log(this.data.db);
         },
         onError: (err) => {
           console.error(err);
         },
       });
-
     //每隔1分钟刷新一次时间
     setInterval(() => {
       console.log("获取时间中...");
@@ -210,9 +227,7 @@ Page({
   modalShow: function (e) {
     this.setData({
       showModal: true,
-      noteIndex: e.currentTarget.dataset.index,
     });
-    console.log(this.data.noteIndex);
   },
 
   modalHide: function () {
@@ -235,122 +250,75 @@ Page({
         isRefresh: true,
       },
     });
-    if (this.data.noteIndex === undefined) {
-      db.collection("Nookea-rooms")
-        .doc(this.data.currentRoom)
-        .update({
-          data: {
-            comments: db.command.push({
-              paymentType: this.data.paymentType,
-              slaveInfo: {
-                _openid: this.data.openid,
-                avatarUrl: this.data.avatarUrl,
-                islandName: this.data.islandName,
-                nickname: this.data.nickname,
+    db.collection("Nookea-rooms")
+      .doc(this.data.currentRoom)
+      .update({
+        data: {
+          comments: db.command.push({
+            paymentType: this.data.paymentType,
+            slaveInfo: {
+              _openid: this.data.openid,
+              avatarUrl: this.data.avatarUrl,
+              islandName: this.data.islandName,
+              nickname: this.data.nickname,
+            },
+            conversations: [
+              {
+                isMaster: false,
+                timestamp: util.formatTime(),
+                content: this.data.replyText,
               },
-              conversations: [
-                {
-                  isMaster: false,
-                  timestamp: util.formatTime(),
-                  content: this.data.replyText,
-                },
-              ],
-            }),
+            ],
+          }),
+        },
+      })
+      .then((t) => {
+        console.log(t);
+        return this.setData({
+          showModal: false,
+          addReplyEnabled: false,
+          replyText: "",
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
           },
-        })
-        .then((t) => {
-          console.log(t);
-          return this.setData({
-            showModal: false,
-            addReplyEnabled: false,
-            replyText: "",
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
-          });
-        })
-        .catch((t) => console.log(t));
-    } else {
-      const updateDef = {};
-      updateDef[
-        `comments.${this.data.noteIndex}.conversations`
-      ] = db.command.push({
-        isMaster: this.data.openid === this.data.db.masterInfo._openid,
-        timestamp: util.formatTime(),
-        content: this.data.replyText,
-      });
-
-      db.collection("Nookea-rooms")
-        .doc(this.data.currentRoom)
-        .update({
-          data: updateDef,
-        })
-        .then((t) => {
-          console.log(t);
-          return this.setData({
-            showModal: false,
-            addReplyEnabled: false,
-            replyText: "",
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
-          });
-        })
-        .catch((t) => console.log(t));
-    }
+        });
+      })
+      .catch((t) => console.log(t));
   },
   onTapSend: function (e) {
     this.setData({
-      textSending: true,
+      loading: {
+        ...this.data.loading,
+        isRefresh: true,
+      },
     });
-    let _roomid = e.currentTarget.dataset.roomid;
-    let _slaveid = e.currentTarget.dataset.slaveid;
-    let ismaster = e.currentTarget.dataset.ismaster;
 
-    // 把conversation加到云端
-    let conversation = {};
-    conversation["content"] = this.data.replyText;
-    conversation["timestamp"] = util.formatTime();
-    conversation["isMaster"] = ismaster;
-    let idx = -1;
-    let _comments = {};
+    const updateDef = {};
+    updateDef[
+      `comments.${e.currentTarget.dataset.index}.conversations`
+    ] = db.command.push({
+      isMaster: this.data.openid === this.data.db.masterInfo._openid,
+      timestamp: util.formatTime(),
+      content: this.data.replyText,
+    });
+
     db.collection("Nookea-rooms")
-      .doc(_roomid)
-      .get()
-      .then((res) => {
-        _comments = res.data.comments;
-        let comments = res.data.comments;
-        for (let i = 0; i < comments.length; i++) {
-          if (comments[i].slaveInfo._openid === _slaveid) {
-            idx = i;
-            _comments[idx].conversations.push(conversation);
-          }
-        }
+      .doc(this.data.currentRoom)
+      .update({
+        data: updateDef,
       })
-      .then((res) => {
-        db.collection("Nookea-rooms")
-          .doc(_roomid)
-          .update({
-            data: {
-              comments: _comments,
-            },
-          });
-      })
-      .then(
-        this.setData({
+      .then((t) => {
+        console.log(t);
+        return this.setData({
           replyText: "",
-        })
-      )
-      .catch((err) => {
-        console.log(err);
-      });
-    setTimeout(() => {
-      this.setData({
-        textSending: false,
-      });
-    }, 1000);
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
+          },
+        });
+      })
+      .catch((t) => console.log(t));
   },
 
   commentClick: function () {
@@ -397,6 +365,21 @@ Page({
     this.setData({
       isExpand: _isExpand,
     });
+  },
+  // 用于切换房间开关状态
+  closeRoomClick: function () {
+    let isActive = this.data.db.isActive;
+    let path = "db.isActive";
+    this.setData({
+      [path]: !isActive,
+    });
+    db.collection("Nookea-rooms")
+      .doc(this.data.currentRoom)
+      .update({
+        data: {
+          isActive: !isActive,
+        },
+      });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
