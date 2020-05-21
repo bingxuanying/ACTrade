@@ -3,29 +3,32 @@
   <nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
   <view class="tradingFloor" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px);">
     <!-- head bar -->
-    <view class="headBar">
-      <view class="headBar-btn-room" style="left: 113rpx" bindtap="{{keyword.length === 5?'onTapCancel':'modalOpen'}}">
-        <image class="headBar-btn-room-icon" src="../../assets/lobby/searchIcon.png" mode="widthFix" />
-        <text class="headBar-btn-room-text">{{keyword.length === 5?"取消找寻":"找寻"}}</text>
+    <view class="fix-box" style="top:calc({{statusBarHeight}}px+44px);">
+      <view class="headBar">
+        <view class="headBar-btn-room" style="left: 113rpx" bindtap="{{keyword.length === 5?'onTapCancel':'modalOpen'}}">
+          <image class="headBar-btn-room-icon" src="../../assets/lobby/searchIcon.png" mode="widthFix" />
+          <text class="headBar-btn-room-text">{{keyword.length === 5?"取消找寻":"找寻"}}</text>
+        </view>
+        <view class="headBar-btn-room" style="left: 233rpx" bindtap="onTapCreate">
+          <image class="headBar-btn-room-icon" src="../../assets/lobby/createIcon.png" mode="widthFix" />
+          <text class="headBar-btn-room-text">开岛</text>
+        </view>
+        <view class="headBar-btn-order" style="left: 430rpx" bindtap="onTapTime">
+          <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='createTime'}}" />
+          <text class="headBar-btn-order-text {{order==='createTime'?'headBar-btn-order-active':''}}">
+            时间排序
+          </text>
+        </view>
+        <view class="headBar-btn-order" style="left: 570rpx" bindtap="onTapPrice">
+          <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='price'}}" />
+          <text class="headBar-btn-order-text {{order==='price'?'headBar-btn-order-active':''}}">
+            价格排序
+          </text>
+        </view>
+        <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
       </view>
-      <view class="headBar-btn-room" style="left: 233rpx" bindtap="onTapCreate">
-        <image class="headBar-btn-room-icon" src="../../assets/lobby/createIcon.png" mode="widthFix" />
-        <text class="headBar-btn-room-text">开岛</text>
-      </view>
-      <view class="headBar-btn-order" style="left: 430rpx" bindtap="onTapTime">
-        <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='createTime'}}" />
-        <text class="headBar-btn-order-text {{order==='createTime'?'headBar-btn-order-active':''}}">
-          时间排序
-        </text>
-      </view>
-      <view class="headBar-btn-order" style="left: 570rpx" bindtap="onTapPrice">
-        <image class="headBar-btn-order-icon" src="../../assets/lobby/orderIcon.png" mode="widthFix" hidden="{{order!=='price'}}" />
-        <text class="headBar-btn-order-text {{order==='price'?'headBar-btn-order-active':''}}">
-          价格排序
-        </text>
-      </view>
-      <image class="headBar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
     </view>
+
     <!-- info board -->
     <view class="board">
       <!-- if db has data show cards, else show words -->

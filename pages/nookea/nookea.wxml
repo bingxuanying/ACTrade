@@ -2,10 +2,12 @@
 <block>
     <nav-bar navInfo="-- 欢迎来到狸家! --" />
     <view class="nookea" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+    <view class="fix-box" style="top:calc({{statusBarHeight}}px+44px);">
         <view class="header-bar">
-            <image class="head-bar-bg" src="../../assets/nookea/header-bg.png" mode="heightFix" />
+            <image class="head-bar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
             <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
         </view>
+    
         <view class="tool-bar">
             <!-- tags -->
             <block wx:if="{{keyword.searchType==='filter'}}">
@@ -46,49 +48,7 @@
                     <text class="tool-btn-text">{{curtain.search?'收起':'搜索'}}</text>
                 </view>
             </view>
-        </view>
-        <view class="warning-bar" hidden="{{!collect.mode}}">
-            <text>你已进入收藏模式</text>
-        </view>
-        <view class="board" hidden="{{loading.isRefresh}}">
-            <!-- MAIN CARDS !! -->
-            <view class="deck">
-                <block wx:for="{{page==='cat'?catDeck:specsDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="cat_cards">
-                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':(collect.mode?'onTapCollectAdd':'onTapItem')}}" style="{{page==='cat'?'height: 260rpx;':'height: 335rpx;'}}" hidden="{{item.zh_name==='玲钱'||item.zh_name==='里程'}}">
-                        <view class="card-content" style="background-color:{{item.disable?'lightgray':item.bg_color}}; {{page==='cat'?'height: 28vw;':'height: 86%;'}}">
-                            <view class="card-content-bg" style="background-color:{{item.disable?'lightgray':item.bg_color}};">
-                                <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" hidden="{{page==='cat'}}" />
-                                <image class="card-content-item-collect" src="{{collect.wishlist[item.zh_name]?'../../assets/nookea/cardCollectIcon.png':'../../assets/nookea/cardCollectIcon-empty.png'}}" mode="widthFix" hidden="{{!collect.mode}}" />
-                                <image class="card-content-item" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
-                            </view>
-                        </view>
-                        <view class="card-title">{{item.zh_name}}</view>
-                    </view>
-                </block>
-            </view>
-            <!-- Reminders -->
-            <view class="board-bottom" style="line-height: {{loading.isBottom?'65rpx':'50rpx'}};" hidden="{{(catDeck.length===0&&page==='cat')||(specsDeck.length===0&&page==='specs')}}">
-                <block wx:if="{{loading.isBottom}}">
-                    <image class="board-bottom-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" />
-                    <text>加载更多...</text>
-                </block>
-                <block wx:else>
-                    <text>---</text>
-                    <text style="margin-left: 20rpx">到底啦~！</text>
-                    <image class="board-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
-                    <text>---</text>
-                </block>
-            </view>
-            <view class="board-cant-find" hidden="{{(catDeck.length!==0&&page==='cat')||(specsDeck.length!==0&&page==='specs')}}">
-                <text>没有找到你要的商品??</text>
-                <text>可能还在来的路上!</text>
-                <image class="board-cant-find-nook" src="../../assets/icons/nook.png" mode="aspectFit" />
-            </view>
-        </view>
-        <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
-
-        <!-- Mask -->
-        <view class='mask10' hidden="{{!curtain.filter&&!curtain.search}}" bindtap="onTapHieCurtain" />
+        </view>        
 
         <!-- Filter Box -->
         <view class="filter-curtain {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}">
@@ -129,6 +89,7 @@
                 </view>
             </view>
         </view>
+
         <!-- Search Box -->
         <view class="search-curtain {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}">
             <view class="search-box">
@@ -138,6 +99,52 @@
                 </view>
             </view>
         </view>
+    </view>
+
+        <view style="height:230rpx"></view>
+
+        <view class="warning-bar" hidden="{{!collect.mode}}">
+            <text>你已进入收藏模式</text>
+        </view>
+        <view class="board" hidden="{{loading.isRefresh}}">
+            <!-- MAIN CARDS !! -->
+            <view class="deck">
+                <block wx:for="{{page==='cat'?catDeck:specsDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="cat_cards">
+                    <view class="card" data-info="{{item}}" bindtap="{{page==='cat'?'onTapCategory':(collect.mode?'onTapCollectAdd':'onTapItem')}}" style="{{page==='cat'?'height: 260rpx;':'height: 335rpx;'}}" hidden="{{item.zh_name==='玲钱'||item.zh_name==='里程'}}">
+                        <view class="card-content" style=" {{page==='cat'?'height: 28vw;':'height: 86%;'}}">
+                            <view class="card-content-bg" style="background-color:{{item.disable?'lightgray':item.bg_color}};">
+                                <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" hidden="{{page==='cat'}}" />
+                                <image class="card-content-item-collect" src="{{collect.wishlist[item.zh_name]?'../../assets/nookea/cardCollectIcon.png':'../../assets/nookea/cardCollectIcon-empty.png'}}" mode="widthFix" hidden="{{!collect.mode}}" />
+                                <image class="card-content-item" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
+                            </view>
+                        </view>
+                        <view class="card-title">{{item.zh_name}}</view>
+                    </view>
+                </block>
+            </view>
+            <!-- Reminders -->
+            <view class="board-bottom" style="line-height: {{loading.isBottom?'65rpx':'50rpx'}};" hidden="{{(catDeck.length===0&&page==='cat')||(specsDeck.length===0&&page==='specs')}}">
+                <block wx:if="{{loading.isBottom}}">
+                    <image class="board-bottom-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" />
+                    <text>加载更多...</text>
+                </block>
+                <block wx:else>
+                    <text>---</text>
+                    <text style="margin-left: 20rpx">到底啦~！</text>
+                    <image class="board-bottom-nook" src="../../assets/icons/nook.png" mode="aspectFit" style="margin-right: 20rpx" />
+                    <text>---</text>
+                </block>
+            </view>
+            <view class="board-cant-find" hidden="{{(catDeck.length!==0&&page==='cat')||(specsDeck.length!==0&&page==='specs')}}">
+                <text>没有找到你要的商品??</text>
+                <text>可能还在来的路上!</text>
+                <image class="board-cant-find-nook" src="../../assets/icons/nook.png" mode="aspectFit" />
+            </view>
+        </view>
+        <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
+
+        <!-- Mask -->
+        <view class='mask10' hidden="{{!curtain.filter&&!curtain.search}}" bindtap="onTapHieCurtain" />
 
         <!-- Mask -->
         <view class='mask20' hidden="{{clientStatus==='ok'}}"/>
