@@ -223,7 +223,7 @@ Page({
       this.setData({
         nowTimestamp: util.formatTime(),
       });
-    }, 5000);
+    }, 10000);
   },
 
   modalShow: function (e) {

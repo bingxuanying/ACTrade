@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/nookea/nookea",
     "pages/nookeaRooms/nookeaRooms",
+    "pages/nookea/nookea",
     "pages/nookeaGoods/nookeaGoods",
     "pages/profile/profile",
     "pages/tradingFloor/tradingFloor",

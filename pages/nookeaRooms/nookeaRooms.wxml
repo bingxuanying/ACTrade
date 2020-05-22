@@ -85,14 +85,14 @@
                   <image class="slave-info-icon" src="../../assets/icons/IslandIcon2.png" />
                   <view class="slave-island">{{item.slaveInfo.islandName}}</view>
                   <wxs module="filter" src="../../utils/uti.wxs"></wxs>
-                  <view class="converstaion-head-info-time" wx:if="{{filter.getDays(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                    {{filter.getDays(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}天前
+                  <view class="converstaion-head-info-time" wx:if="{{filter.getDays(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getDays(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}天前
                   </view>
-                  <view class="converstaion-head-info-time" wx:elif="{{filter.getHours(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                    {{filter.getHours(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}小时前
+                  <view class="converstaion-head-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getHours(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp)}}小时前
                   </view>
-                  <view class="converstaion-head-info-time" wx:elif="{{filter.getMins(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                    {{filter.getMins(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}分前
+                  <view class="converstaion-head-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}分前
                   </view>
                   <view class="converstaion-head-info-time" wx:else>刚刚</view>
                 </view>
