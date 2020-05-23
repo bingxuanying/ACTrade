@@ -88,57 +88,82 @@
 
       <!-- Modal: Post -->
       <view class="mymodal fade-in" hidden="{{!modal.openPost}}">
-        <view class="modal-text">发布商品信息</view>
+        <image class="mymodal-bg" src="../../assets/nookea/modal-bg2.png" mode="widthFix" />
+        
+        <view class="modal-title">发布商品信息</view>
 
-        <view class="modal-row">
-          <view class="modal-row-title">
-            <view>颜色</view>
-          </view>
-          <view class="modal-row-content">
-            <input placeholder="选填" data-title="color" bindinput="bindModalStr" />
-          </view>
-        </view>
+        <view class="mymodal-content">
+          <view class="modal-row">
+            <view class="modal-row50">
+              <view class="modal-row-title">
+                <image class="modal-row-title-icon" src="{{content.bell.length>0?img.BellIcon:img.BellIconGray}}" />
+                <view>玲钱</view>
+              </view>
+              <view class="modal-row-content">
+                <input value="{{content.bell}}" placeholder="选填" cursor-spacing="30" data-title="bell" bindinput="bindModalStr" bindfocus="bindInputFocus" />
+              </view>
+            </view>
 
-        <view class="modal-row">
-          <view class="modal-row-title">
-            <image class="modal-row-title-icon" src="{{content.bell.length>0?img.BellIcon:img.BellIconGray}}" />
-            <view>玲钱</view>
+            <view class="modal-row50">
+              <view class="modal-row-title">
+                <image class="modal-row-title-icon" src="{{content.ticket.length>0?img.TicketIcon:img.TicketIconGray}}" />
+                <view>机票</view>
+              </view>
+              <view class="modal-row-content">
+                <input value="{{content.ticket}}" placeholder="选填" cursor-spacing="30" data-title="ticket" bindinput="bindModalStr" bindfocus="bindInputFocus" />
+              </view>
+            </view>
           </view>
-          <view class="modal-row-content">
-            <input placeholder="选填" data-title="bell" bindinput="bindModalStr" />
-          </view>
-        </view>
 
-        <view class="modal-row">
-          <view class="modal-row-title">
-            <image class="modal-row-title-icon" src="{{content.ticket.length>0?img.TicketIcon:img.TicketIconGray}}" />
-            <view>机票</view>
-          </view>
-          <view class="modal-row-content">
-            <input placeholder="选填" data-title="ticket" bindinput="bindModalStr" />
-          </view>
-        </view>
+          
 
-        <view class="modal-row">
-          <view class="modal-row-title">
-            <image class="modal-row-title-icon" src="{{content.wishlist?img.WishlistIcon:img.WishlistIconGray}}" />
-            <view>心愿单</view>
+          <view class="modal-row">
+            <view class="modal-row-title">
+              <image class="modal-row-title-icon" src="{{content.wishlist?img.WishlistIcon:img.WishlistIconGray}}" />
+              <view>心愿单</view>
+            </view>
+            <view class="modal-row-content">              
+              <view class="modal-row-closeBtn">
+                <view class="modal-row-closeBtn-greenbox {{content.isWxid?'modal-row-closeBtn-click':'modal-row-closeBtn-unclick'}}" data-title="isWxid" bindtap="{{content.wxidText.length>0?'bindModalSwitch':''}}">
+                  <view class="modal-row-btn-text">{{content.wishlist?'接受':'不接受'}}</view>
+                </view>
+              </view>
+            </view>
           </view>
-          <view class="modal-row-content">
-            <input />
-          </view>
-        </view>
 
-        <view class="modal-row">
-          <view class="modal-row-title" style="align-items: flex-start;">留言</view>
-          <view class="modal-row-content">
-            <textarea value="{{content.notes}}" data-title="notes" bindinput="bindModalStr" />
-          </view>
-        </view>
+          <view class="modal-row">
+            <view class="modal-row-title">
+              <image class="modal-row-title-icon" src="{{content.wishlist?img.WishlistIcon:img.WishlistIconGray}}" />
+              <view>微信号</view>
+            </view>
+            <view class="modal-row-content">
+              
+              <view class="modal-row-closeBtn" style="margin-bottom: 10rpx;">
+                <view class="modal-row-closeBtn-greenbox {{content.isWxid?'modal-row-closeBtn-click':'modal-row-closeBtn-unclick'}}" data-title="isWxid" bindtap="{{content.wxidText.length>0?'bindModalSwitch':''}}">
+                  <view class="modal-row-btn-text">{{content.isWxid?'公开':'不公开'}}</view>
+                </view>
+              </view>
 
-        <view class="modal-btn-box">
-          <view class="modal-btn" bindtap="modalHide">返回</view>
-          <view class="modal-btn" bindtap="onTapClose">确定</view>
+              <input value="{{content.wxidText}}" placeholder="选填" cursor-spacing="30" data-title="wxidText" bindinput="bindModalStr" bindfocus="bindInputFocus" />
+
+              <view style="font-size:26rpx;margin-top:5rpx;">{{"- 接受后, 对所有人可见 -"}}</view>
+            </view>
+          </view>
+
+          <view class="modal-row">
+            <view class="modal-row-title" style="align-items: flex-start;">
+              <image class="modal-row-title-icon" src="{{content.notes?img.WishlistIcon:img.WishlistIconGray}}" />
+              <view style="height: 50rpx; line-height: 50rpx">留言</view>              
+            </view>
+            <view class="modal-row-content">
+              <textarea value="{{content.notes}}" cursor-spacing="30" data-title="notes" bindinput="bindModalStr" bindfocus="bindInputFocus" />
+            </view>
+          </view>
+
+          <view class="modal-btn-box">
+            <view class="modal-btn" bindtap="hideModal">返回</view>
+            <view class="modal-btn" bindtap="onTapCreate">确定</view>
+          </view> 
         </view>
       </view>
     </view>

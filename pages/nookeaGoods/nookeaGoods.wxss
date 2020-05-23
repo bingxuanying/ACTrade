@@ -1,7 +1,7 @@
 /* pages/nookeaGoods/nookeaGoods.wxss */
 page {
-  /* background-color: #fbfbdf; */
-  background-color: #e7dfc3;
+  /* background-color: #e7dfc3; */
+  background-color: #fbf6e0;
   font-size: 30rpx;
   color: #785b2f;
 }
@@ -268,7 +268,7 @@ page {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   top: 0;
   left: 0;
   z-index: 10;
@@ -279,7 +279,7 @@ page {
 .mymodal {
   width: 98%;
   height: fit-content;
-  background-color: #224153;
+  /* background-color: #224153; */
   border-radius: 50rpx;
   opacity: 0.5;
   display: flex;
@@ -292,32 +292,61 @@ page {
   transform: translate(-50%, -50%);
   z-index: 20;
   transition: all 600ms ease-out;
-  color: #f2f4dc;
+  /* color: #f2f4dc; */
+  color: #000;
   font-size: 30rpx;
 }
 
-.modal-text {
+.mymodal-bg {
   width: 100%;
-  height: 60rpx;
+  height: 100%;
+}
+
+.mymodal-content {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.modal-title {
+  width: 100%;
+  position: absolute;
+  top: -50rpx;
+  left: 0;
   text-align: center;
-  line-height: 60rpx;
   letter-spacing: 10rpx;
 }
 
 .modal-row {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row;
-  margin-top: 20rpx;
-  justify-content: space-between;
+  margin-top: 15rpx;
+  justify-content: center;
+}
+
+.modal-row50 {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-row-title {
-  width: 30%;
+  /* width: 40%; */
+  width: 140rpx;
+  height: 50rpx;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   font-size: 28rpx;
+  line-height: 50rpx;
 }
 
 .modal-row-title-icon {
@@ -326,31 +355,97 @@ page {
 }
 
 .modal-row-content {
-  width: 66%;
+  width: calc(100% - 140rpx);
+  margin-left: 10rpx;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
 .modal-row-content input {
-  width: 80%;
+  width: 100%;
+  height: 50rpx;
   background-color: lightgray;
   border-radius: 10rpx;
-  padding: 5rpx;
+  padding: 2rpx 5rpx;
   color: #685b48;
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .modal-row-content textarea {
   height: 120rpx;
-  width: 80%;
+  width: 100%;
   background-color: lightgray;
   border-radius: 10rpx;
-  padding: 5rpx;
+  padding: 2rpx 5rpx;
   color: #685b48;
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
+
+
+.modal-row-closeBtn {
+  width: 65%;
+  height: 40rpx;
+  background-color: #ddd1bb;
+  border-radius: 50rpx;
+  position: relative;
+}
+
+.modal-row-closeBtn-greenbox {
+  width: 80%;
+  height: 100%;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  left: 20%;
+}
+
+@keyframes toleft {
+  from {
+    left: 20%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+  to {
+    left: 0%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+}
+
+@keyframes toright {
+  from {
+    left: 0%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+  to {
+    left: 20%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+}
+
+.modal-row-closeBtn-click {
+  animation: toleft 250ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+.modal-row-closeBtn-unclick {
+  animation: toright 250ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+.modal-row-btn-text {
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 26rpx;
+}
+
 
 .modal-btn-box {
   width: 100%;

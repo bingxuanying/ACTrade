@@ -621,6 +621,7 @@ page {
   justify-content: center;
   align-items: center;
 }
+
 .tool-closeBtn {
   width: 65%;
   height: 60%;
@@ -629,6 +630,7 @@ page {
   border: solid #f5f7e1 7rpx;
   position: relative;
 }
+
 .tool-closeBtn-greenbox {
   width: 80%;
   height: 100%;

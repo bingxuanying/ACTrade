@@ -21,18 +21,18 @@
 
       <view class="personalInfo-wxid">
         <view class="personalInfo-wxid-title">微信id</view>
-        <input class="personalInfo-wxid-input" value="{{wxid}}" bindinput="bindWxidInput" placeholder="选填" />
+        <input class="personalInfo-wxid-input" cursor-spacing="30" value="{{wxid}}" bindinput="bindWxidInput" placeholder="选填" />
       </view>
 
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
         <view class="personalInfo-title">游戏昵称</view>
-        <input class="personalInfo-input" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写" />
+        <input class="personalInfo-input" cursor-spacing="30" value="{{nickname}}" bindinput="bindNicknameInput" placeholder="*必须填写" />
       </view>
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
         <view class="personalInfo-title">岛名</view>
-        <input class="personalInfo-input" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写" />
+        <input class="personalInfo-input" cursor-spacing="30" value="{{islandName}}" bindinput="bindIslandNameInput" placeholder="*必须填写" />
       </view>
       <view class="personalInfo-row">
         <view class="fruit-background">

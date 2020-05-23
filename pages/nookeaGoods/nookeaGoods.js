@@ -16,15 +16,17 @@ Page({
       roomInfo: null,
     },
     content: { 
-      color: "",
       bell: "", 
       ticket: "", 
       wishlist: false,
+      isWxid: false,
+      wxidText: "",
       notes: "你报个价吧~",
     },
     offset: 0,
     modal: {
-      openPost: false,
+      openPost: true,
+      isKeyboard: false,
     },
     loading: {
       isRefresh: false,
@@ -75,6 +77,13 @@ Page({
 
     if (app.globalData.gameProfile.tradeHistory 
       && app.globalData.gameProfile.wishlist) {
+      this.setData({
+        content: {
+          ...this.data.content,
+          wxidText: app.globalData.gameProfile.wxid,
+        }
+      })
+        
       let _tradeHistory = app.globalData.gameProfile.tradeHistory;
       if (_tradeHistory.selling.hasOwnProperty(product_id)) {
         this.setData({
@@ -98,26 +107,35 @@ Page({
     } 
     else if (this.data.canIUse) {
       app.userInfoReadyCallback = (res) => {
-        let _tradeHistory = app.globalData.gameProfile.tradeHistory;
-        if (_tradeHistory.selling.hasOwnProperty(product_id)) {
-          console.log(_tradeHistory.selling[product_id]._id)
+        if (res.userInfo) {
           this.setData({
-            selfPost: {      
-              ...this.data.selfPost,
-              hasPosted: true,
-              room_id: _tradeHistory.selling[product_id]._id
-            },
-          });
-          db.collection("Nookea-rooms")
-            .doc(_tradeHistory.selling[product_id]._id)
-            .get()
-            .then(res => this.setData({
+            content: {
+              ...this.data.content,
+              wxidText: app.globalData.gameProfile.wxid,
+            }
+          })
+
+          let _tradeHistory = app.globalData.gameProfile.tradeHistory;
+          if (_tradeHistory.selling.hasOwnProperty(product_id)) {
+            console.log(_tradeHistory.selling[product_id]._id)
+            this.setData({
               selfPost: {      
                 ...this.data.selfPost,
-                roomInfo: res.data,
+                hasPosted: true,
+                room_id: _tradeHistory.selling[product_id]._id
               },
-              content: res.data.content,
-            }))
+            });
+            db.collection("Nookea-rooms")
+              .doc(_tradeHistory.selling[product_id]._id)
+              .get()
+              .then(res => this.setData({
+                selfPost: {      
+                  ...this.data.selfPost,
+                  roomInfo: res.data,
+                },
+                content: res.data.content,
+              }))
+          }
         }
       }
     }
@@ -272,12 +290,24 @@ Page({
 
   // --- Modal Control ---
   hideModal: function() {
-    this.setData({
-      modal: {
-        ...this.data.modal,
-        openPost: false
-      }
-    })
+    if (this.data.modal.isKeyboard) {
+      wx.hideKeyboard()
+        .then(() => {
+          this.setData({
+            modal: {
+              ...this.data.modal,
+              isKeyboard: false,
+            }
+          })
+        });
+    } else {
+      this.setData({
+        modal: {
+          ...this.data.modal,
+          openPost: false
+        }
+      })
+    }
   },
 
   bindModalStr: function(e) {
@@ -290,5 +320,26 @@ Page({
     });
   },
 
+  bindModalSwitch: function(e) {
+    let title = e.currentTarget.dataset.title;
+    this.setData({
+      content: {
+        ...this.data.content,
+        [title]: !this.data.content[title]
+      }
+    });
+  },
 
+  bindInputFocus: function() {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        isKeyboard: true,
+      }
+    })
+  },
+
+  onTapCreate: function() {
+    
+  }
 })
