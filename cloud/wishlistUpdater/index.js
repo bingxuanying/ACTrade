@@ -67,11 +67,11 @@ exports.main = async (event, context) => {
 
   // update history's wishlist
   console.log("now update room in tradeHistory")
-  console.log(_tradeHistory.selling.roomId)
+  console.log(_tradeHistory.selling.rooms)
   let roomIdArry = []
-  for (room in _tradeHistory.selling.roomId){
-    console.log(_tradeHistory.selling.roomId[room])
-    roomIdArry.push(_tradeHistory.selling.roomId[room].roomId)
+  for (room in _tradeHistory.selling.rooms){
+    console.log(_tradeHistory.selling.rooms[room])
+    roomIdArry.push(_tradeHistory.selling.rooms[room].roomId)
   }
   console.log(roomIdArry)
   db.collection('Nookea-rooms').where({
