@@ -130,7 +130,7 @@ Page({
       }
     } else {
       console.log("save collection");
-      console.log(this.data.collect.wishlist);
+      console.log(this.data.collect.tradeHistory)      
       // updata app.globalData.gameProfile
       app.globalData.gameProfile.wishlist = this.data.collect.wishlist;
       // <--------------------- call cloud func ----------------------->
@@ -140,6 +140,7 @@ Page({
           name: "wishlistUpdater",
           data: {
             wishlist: that.data.collect.wishlist,
+            tradeHistory: that.data.collect.tradeHistory
           },
         })
         .then((res) => {
@@ -458,7 +459,7 @@ Page({
 
         if (
           !app.globalData.gameProfile.wishlist &&
-          !app.globalData.gameProfile.tradeHistory
+          !app.globalData.gameProfile.tradetradeHistory
         ) {
           db.collection("UsersProfile")
             .get()

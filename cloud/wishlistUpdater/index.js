@@ -6,7 +6,9 @@ const _ = db.command;
 exports.main = async (event, context) => {
   let { OPENID, APPID, UNIONID } = cloud.getWXContext();
   let _wishlist = event.wishlist;
+  let _tradeHistory = event.tradeHistory
   console.log(_wishlist);
+  console.log(_tradeHistory);
   console.log(OPENID);
   db.collection("UsersProfile")
     .where({
@@ -18,8 +20,6 @@ exports.main = async (event, context) => {
       let { _newwishlist, _oldwishlist } = compare2Arr(oldwishlist, _wishlist);
       let deleteList = Object.keys(_oldwishlist);
       let addList = Object.keys(_newwishlist);
-      console.log(deleteList);
-      console.log(addList);
 
       db.collection("Nookea-items")
         .where({
@@ -31,11 +31,9 @@ exports.main = async (event, context) => {
           },
         })
         .then((res) => {
-          console.log("sub inc OK");
           console.log(res);
         })
         .catch((res) => {
-          console.log("sub inc Bad");
           console.log(res);
         });
       db.collection("Nookea-items")
@@ -48,11 +46,9 @@ exports.main = async (event, context) => {
           },
         })
         .then((res) => {
-          console.log("sub dec OK");
           console.log(res);
         })
         .catch((res) => {
-          console.log("sub dec Bad");
           console.log(res);
         });
     })
@@ -70,7 +66,26 @@ exports.main = async (event, context) => {
     });
 
   // update history's wishlist
-  //
+  console.log("now update room in tradeHistory")
+  console.log(_tradeHistory.selling.roomId)
+  let roomIdArry = []
+  for (room in _tradeHistory.selling.roomId){
+    console.log(_tradeHistory.selling.roomId[room])
+    roomIdArry.push(_tradeHistory.selling.roomId[room].roomId)
+  }
+  console.log(roomIdArry)
+  db.collection('Nookea-rooms').where({
+    _id: _.in(roomIdArry)
+  }).update({
+    data: {
+      wishlist: _.set(_wishlist),
+    }
+  }).then(res=>{
+    console.log(res)
+  }).catch(res=>{
+    console.log(res)
+  })
+
   return null;
 };
 
