@@ -6,7 +6,7 @@ const _ = db.command;
 exports.main = async (event, context) => {
   let { OPENID, APPID, UNIONID } = cloud.getWXContext();
   let _wishlist = event.wishlist;
-  let _tradeHistory = event.tradeHistory
+  let _tradeHistory = event.tradeHistory;
   console.log(_wishlist);
   console.log(_tradeHistory);
   console.log(OPENID);
@@ -63,28 +63,33 @@ exports.main = async (event, context) => {
             wishlist: _.set(_wishlist),
           },
         });
+    })
+    .then((res) => {
+      // update history's wishlist
+      console.log("now update room in tradeHistory");
+      console.log(_tradeHistory.selling.rooms);
+      let roomIdArry = [];
+      for (room in _tradeHistory.selling.rooms) {
+        console.log(_tradeHistory.selling.rooms[room]);
+        roomIdArry.push(_tradeHistory.selling.rooms[room].roomId);
+      }
+      console.log(roomIdArry);
+      db.collection("Nookea-rooms")
+        .where({
+          _id: _.in(roomIdArry),
+        })
+        .update({
+          data: {
+            wishlist: _.set(_wishlist),
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     });
-
-  // update history's wishlist
-  console.log("now update room in tradeHistory")
-  console.log(_tradeHistory.selling.rooms)
-  let roomIdArry = []
-  for (room in _tradeHistory.selling.rooms){
-    console.log(_tradeHistory.selling.rooms[room])
-    roomIdArry.push(_tradeHistory.selling.rooms[room].roomId)
-  }
-  console.log(roomIdArry)
-  db.collection('Nookea-rooms').where({
-    _id: _.in(roomIdArry)
-  }).update({
-    data: {
-      wishlist: _.set(_wishlist),
-    }
-  }).then(res=>{
-    console.log(res)
-  }).catch(res=>{
-    console.log(res)
-  })
 
   return null;
 };

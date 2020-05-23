@@ -1,0 +1,105 @@
+.wishlist {
+  width: 100%;
+  overflow-x: scroll;
+}
+.deck {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+.wishlist-head {
+  position: fixed;
+  width: 100%;
+  margin-top: 15rpx;
+  z-index: 10;
+}
+.blank-head {
+  width: 100%;
+  height: 78rpx;
+}
+.wishlist-delete {
+  width: fit-content;
+  background-color: #716a58;
+  color: antiquewhite;
+  line-height: 30rpx;
+  text-align: center;
+  border-radius: 0 15rpx 15rpx 0;
+  padding: 10rpx;
+  font-size: 28rpx;
+  transition: all ease-in-out 0.5s;
+}
+.yellow {
+  background-color: #f0c419;
+  color: #716a58;
+}
+.card {
+  width: 28vw;
+  height: 335rpx;
+  /* height: 260rpx; */
+  margin-top: 20rpx;
+  /* (full-width - 3 * self.width / 4) */
+  margin-left: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.card-content {
+  /* background-color: #f6f0e2; */
+  background-color: #fff;
+  width: 100%;
+  height: 86%;
+  /* height:28vw; */
+  border-radius: 10rpx;
+  border: none;
+  position: relative;
+}
+
+.card-content-bg {
+  width: calc(100% - 15rpx);
+  height: calc(100% - 15rpx);
+  border-radius: 6rpx;
+  border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); */
+  overflow: hidden;
+}
+
+.card-content-item {
+  width: 60%;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-content-item-bg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-content-item-collect {
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+}
+
+.card-title {
+  width: 100%;
+  height: 14%;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 47rpx;
+}

@@ -12,6 +12,10 @@ export default {
     profile: {
       passport:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/passport.png",
+      wishlistIcon:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/SellingIcon.png",
+      tradeHistoryIcon:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/FlightIcon.png",
     },
     roomCreate: {},
     roomMaster: {},
@@ -29,6 +33,10 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/TicketIconGray.png",
       wishlistGray:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WishlistIconGray.png",
+      modalBG:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/modal-bg.png",
+      modalBG2:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/modal-bg2.png",
     },
     gif: {
       EarthLoading:
@@ -150,7 +158,7 @@ export default {
       种族:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/种族.png",
       生日:
-        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/生日.png",      
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/生日.png",
       叶子:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/叶子.png",
     },

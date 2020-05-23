@@ -1,7 +1,7 @@
 <!-- pages/profile/profile.wxml -->
 <block>
   <nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
-  <view class="profile" hidden="{{isLoading}}" style="height: calc(100vh - {{statusBarHeight}}px - 44px);">
+  <view class="profile" hidden="{{isLoading}}" style="height: calc(100vh - {{statusBarHeight}}px - 44px - 140rpx);">
     <image class="passport" src="{{passport}}" mode="widthFix" />
     <view class="userinfo">
       <image wx:if="{{!hasUserInfo && canIUse}}" class="userinfo-avatar" src="../../assets/passport/passportProfile.png" mode="widthFix" />
@@ -18,12 +18,10 @@
       </block>
     </view>
     <view class="personalInfo" wx:if="{{hasUserInfo}}">
-
       <view class="personalInfo-wxid">
         <view class="personalInfo-wxid-title">微信id</view>
         <input class="personalInfo-wxid-input" cursor-spacing="30" value="{{wxid}}" bindinput="bindWxidInput" placeholder="选填" />
       </view>
-
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
         <view class="personalInfo-title">游戏昵称</view>
@@ -61,6 +59,16 @@
         <view class="confirm-btn-icon">A</view>
         <view class="confirm-btn-text">保存</view>
       </button>
+    </view>
+    <view class="other-options" wx:if="{{hasUserInfo}}">
+      <view class="other-options-option" bindtap="wishlistClick">
+        <image class="other-options-option-img" src="{{wishlistIcon}}" mode="widthFix" />
+        <view class="other-options-option-title">我的心愿单</view>
+      </view>
+      <view class="other-options-option" bindtap="tradeHistoryClick">
+        <image class="other-options-option-img" src="{{tradeHistoryIcon}}" mode="widthFix" />
+        <view class="other-options-option-title">我的交易</view>
+      </view>
     </view>
     <view class="warn" wx:elif="{{!hasUserInfo}}">
       <text>请先登入信息</text>

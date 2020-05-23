@@ -32,6 +32,8 @@ Page({
         hemisphere: app.globalData.gameProfile.hemisphere,
         wxid: app.globalData.gameProfile.wxid,
         isLoading: true,
+        wishlist: app.globalData.gameProfile.wishlist,
+        tradeHistory: app.globalData.gameProfile.tradeHistory,
       });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -47,8 +49,12 @@ Page({
             fruit: app.globalData.gameProfile.fruit,
             hemisphere: app.globalData.gameProfile.hemisphere,
             wxid: app.globalData.gameProfile.wxid,
+            wishlist: app.globalData.gameProfile.wishlist,
+            tradeHistory: app.globalData.gameProfile.tradeHistory,
           });
         }
+        console.log(this.data.wishlist);
+        console.log(this.data.tradeHistory);
       };
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -71,6 +77,8 @@ Page({
                   fruit: res.data[0].fruit,
                   hemisphere: res.data[0].hemisphere,
                   wxid: res.data[0].wxid,
+                  wishlist: res.data[0].wishlist,
+                  tradeHistory: res.data[0].tradeHistory,
                 };
                 this.setData({
                   nickname: res.data[0].nickname,
@@ -78,6 +86,8 @@ Page({
                   fruit: res.data[0].fruit,
                   hemisphere: res.data[0].hemisphere,
                   wxid: res.data[0].wxid,
+                  wishlist: res.data[0].wishlist,
+                  tradeHistory: res.data[0].tradeHistory,
                 });
               }
             })
@@ -90,6 +100,8 @@ Page({
     }
     this.setData({
       passport: iu.imgUrl.profile.passport,
+      wishlistIcon: iu.imgUrl.profile.wishlistIcon,
+      tradeHistoryIcon: iu.imgUrl.profile.tradeHistoryIcon,
     });
   },
   getUserInfo: function (e) {
@@ -147,7 +159,7 @@ Page({
                   news: {},
                   selling: {},
                   buying: {},
-                  history: {}
+                  history: {},
                 },
               },
               success: (userData) => {
@@ -156,7 +168,7 @@ Page({
               },
             });
           }
-        }
+        },
       });
     }
   },
@@ -238,6 +250,11 @@ Page({
           this.setData({ isSaving: false });
         },
       });
+  },
+  wishlistClick: function () {
+    wx.navigateTo({
+      url: "/pages/wishlist/wishlist",
+    });
   },
   // TabBar setting
   onShow() {
