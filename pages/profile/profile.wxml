@@ -18,6 +18,12 @@
       </block>
     </view>
     <view class="personalInfo" wx:if="{{hasUserInfo}}">
+
+      <view class="personalInfo-wxid">
+        <view class="personalInfo-wxid-title">微信id</view>
+        <input class="personalInfo-wxid-input" value="{{wxid}}" bindinput="bindWxidInput" placeholder="选填" />
+      </view>
+
       <view class="personalInfo-row">
         <image class="personalInfo-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
         <view class="personalInfo-title">游戏昵称</view>

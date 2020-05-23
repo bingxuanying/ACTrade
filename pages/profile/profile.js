@@ -8,6 +8,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    wxid: "",
     nickname: "",
     islandName: "",
     fruit: "apple",
@@ -29,6 +30,7 @@ Page({
         islandName: app.globalData.gameProfile.islandName,
         fruit: app.globalData.gameProfile.fruit,
         hemisphere: app.globalData.gameProfile.hemisphere,
+        wxid: app.globalData.gameProfile.wxid,
         isLoading: true,
       });
     } else if (this.data.canIUse) {
@@ -44,6 +46,7 @@ Page({
             islandName: app.globalData.gameProfile.islandName,
             fruit: app.globalData.gameProfile.fruit,
             hemisphere: app.globalData.gameProfile.hemisphere,
+            wxid: app.globalData.gameProfile.wxid,
           });
         }
       };
@@ -67,12 +70,14 @@ Page({
                   islandName: res.data[0].islandName,
                   fruit: res.data[0].fruit,
                   hemisphere: res.data[0].hemisphere,
+                  wxid: res.data[0].wxid,
                 };
                 this.setData({
                   nickname: res.data[0].nickname,
                   islandName: res.data[0].islandName,
                   fruit: res.data[0].fruit,
                   hemisphere: res.data[0].hemisphere,
+                  wxid: res.data[0].wxid,
                 });
               }
             })
@@ -107,6 +112,7 @@ Page({
               islandName: userData.data[0].islandName,
               fruit: userData.data[0].fruit,
               hemisphere: userData.data[0].hemisphere,
+              wxid: userData.data[0].wxid,
             };
 
             this.setData({
@@ -114,6 +120,7 @@ Page({
               islandName: userData.data[0].islandName,
               fruit: userData.data[0].fruit,
               hemisphere: userData.data[0].hemisphere,
+              wxid: userData.data[0].wxid,
             });
 
             db.collection("UsersProfile")
@@ -131,6 +138,7 @@ Page({
                 islandName: "",
                 fruit: "apple",
                 hemisphere: "north",
+                wxid: "",
                 subscription: false,
                 curRoomid: null,
                 isMaster: false,
@@ -151,6 +159,12 @@ Page({
         }
       });
     }
+  },
+  bindWxidInput: function (e) {
+    this.setData({
+      wxid: e.detail.value,
+    });
+    console.log("wxid: " + this.data.wxid);
   },
   bindNicknameInput: function (e) {
     this.setData({
@@ -211,6 +225,7 @@ Page({
           islandName: this.data.islandName,
           fruit: this.data.fruit,
           hemisphere: this.data.hemisphere,
+          wxid: this.data.wxid,
         },
         success: (res) => {
           app.globalData.gameProfile = {
@@ -218,16 +233,11 @@ Page({
             islandName: this.data.islandName,
             fruit: this.data.fruit,
             hemisphere: this.data.hemisphere,
+            wxid: this.data.wxid,
           };
           this.setData({ isSaving: false });
         },
       });
-    wx.cloud.callFunction({
-      name: "getOpenId",
-      complete: (res) => {
-        console.log(res);
-      },
-    });
   },
   // TabBar setting
   onShow() {

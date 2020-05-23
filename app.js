@@ -33,6 +33,7 @@ App({
                       islandName: res.data[0].islandName,
                       fruit: res.data[0].fruit,
                       hemisphere: res.data[0].hemisphere,
+                      wxid: res.data[0].wxid,
                       wishlist: res.data[0].wishlist,
                       tradeHistory: res.data[0].tradeHistory,
                     };
@@ -75,6 +76,7 @@ App({
       hemisphere: "north",
       wishlist: null,
       tradeHistory: null,
+      wxid: "",
     },
     roomInfo: {
       roomID: null,

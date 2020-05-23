@@ -474,6 +474,7 @@ Page({
                   hemisphere: userData.data[0].hemisphere,
                   wishlist: userData.data[0].wishlist,
                   tradeHistory: userData.data[0].tradeHistory,
+                  wxid: userData.data[0].wxid,
                 };
                 this.setData({
                   collect: {
@@ -547,6 +548,7 @@ Page({
               hemisphere: userData.data[0].hemisphere,
               wishlist: userData.data[0].wishlist,
               tradeHistory: userData.data[0].tradeHistory,
+              wxid: userData.data[0].wxid,
             };
 
             this.setData({
@@ -588,6 +590,7 @@ Page({
                 islandName: "",
                 fruit: "apple",
                 hemisphere: "north",
+                wxid: "",
                 subscription: false,
                 curRoomid: null,
                 isMaster: false,

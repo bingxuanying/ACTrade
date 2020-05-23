@@ -94,6 +94,36 @@
   font-size: 26rpx;
 }
 
+.personalInfo-wxid {
+  width: 100%;
+  height: 60rpx;
+  position: absolute;
+  bottom: -200rpx;
+  left: -30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.personalInfo-wxid-title {
+  width: 20%;
+  height: 100%;
+  padding-left: 10rpx;
+  font-size: inherit;
+  text-align: center;
+  line-height: 60rpx;
+}
+
+.personalInfo-wxid-input {
+  width: 68%;
+  height: 100%;
+  margin-left: 10rpx;
+  padding: 5rpx 10rpx;
+  font-size: inherit;
+}
+
+
 .personalInfo-row {
   width: 100%;
   display: flex;
