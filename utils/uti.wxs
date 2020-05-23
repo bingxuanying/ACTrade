@@ -3,14 +3,79 @@ var filter = {
   numFixed: function (value, n) {
     return value.toFixed(n);
   },
-  getDays: function (timeDiff) {
-    return Math.floor(timeDiff / 86400000);
+  getDays: function (newTime, oldTime) {
+    //timeFormat: 2020,05,21,20,39,45,000
+    var newYear = Math.floor(newTime / 10000000000000);
+    var oldYear = Math.floor(oldTime / 10000000000000);
+    var newMonth = Math.floor(newTime / 100000000000) - 100 * newYear;
+    var oldMonth = Math.floor(oldTime / 100000000000) - 100 * oldYear;
+    var newDay =
+      Math.floor(newTime / 1000000000) - 100 * newMonth - 10000 * newYear;
+    var oldDay =
+      Math.floor(oldTime / 1000000000) - 100 * oldMonth - 10000 * oldYear;
+    var days =
+      (newYear - oldYear) * 365 + (newMonth - oldMonth) * 30 + newDay - oldDay;
+    return days;
   },
-  getHours: function (timeDiff) {
-    return Math.floor(timeDiff / 3600000);
+  getHours: function (newTime, oldTime) {
+    var newYear = Math.floor(newTime / 10000000000000);
+    var oldYear = Math.floor(oldTime / 10000000000000);
+    var newMonth = Math.floor(newTime / 100000000000) - 100 * newYear;
+    var oldMonth = Math.floor(oldTime / 100000000000) - 100 * oldYear;
+    var newDay =
+      Math.floor(newTime / 1000000000) - 100 * newMonth - 10000 * newYear;
+    var oldDay =
+      Math.floor(oldTime / 1000000000) - 100 * oldMonth - 10000 * oldYear;
+    var days =
+      (newYear - oldYear) * 365 + (newMonth - oldMonth) * 30 + newDay - oldDay;
+    var newHour =
+      Math.floor(newTime / 10000000) -
+      100 * newDay -
+      10000 * newMonth -
+      1000000 * newYear;
+    var oldHour =
+      Math.floor(oldTime / 10000000) -
+      100 * oldDay -
+      10000 * oldMonth -
+      1000000 * oldYear;
+    var hours = 24 * days + newHour - oldHour;
+    return hours;
   },
-  getMins: function (timeDiff) {
-    return Math.floor(timeDiff / 60000);
+  getMins: function (newTime, oldTime) {
+    var newYear = Math.floor(newTime / 10000000000000);
+    var oldYear = Math.floor(oldTime / 10000000000000);
+    var newMonth = Math.floor(newTime / 100000000000) - 100 * newYear;
+    var oldMonth = Math.floor(oldTime / 100000000000) - 100 * oldYear;
+    var newDay =
+      Math.floor(newTime / 1000000000) - 100 * newMonth - 10000 * newYear;
+    var oldDay =
+      Math.floor(oldTime / 1000000000) - 100 * oldMonth - 10000 * oldYear;
+    var days =
+      (newYear - oldYear) * 365 + (newMonth - oldMonth) * 30 + newDay - oldDay;
+    var newHour =
+      Math.floor(newTime / 10000000) -
+      100 * newDay -
+      10000 * newMonth -
+      1000000 * newYear;
+    var oldHour =
+      Math.floor(oldTime / 10000000) -
+      100 * oldDay -
+      10000 * oldMonth -
+      1000000 * oldYear;
+    var hours = 24 * days + newHour - oldHour;
+    var newMin =
+      Math.floor(newTime / 100000) -
+      100 * newHour -
+      10000 * newDay -
+      1000000 * newMonth -
+      100000000 * newYear;
+    var oldMin =
+      Math.floor(oldTime / 100000) -
+      100 * oldHour -
+      10000 * oldDay -
+      1000000 * oldMonth -
+      100000000 * oldYear;
+    return 60 * hours + newMin - oldMin;
   },
 };
 // 导出对外暴露的属性

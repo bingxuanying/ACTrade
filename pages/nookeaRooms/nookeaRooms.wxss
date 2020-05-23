@@ -35,6 +35,7 @@ page {
 }
 
 .room-status {
+  font-size: 32rpx;
   margin-bottom: 10rpx;
   justify-self: flex-start;
   align-self: flex-start;
@@ -611,9 +612,18 @@ page {
 }
 
 /* This is for closeBtn */
+.onoff-btn {
+  width: 100%;
+  height: 80rpx;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .tool-closeBtn {
-  width: 45%;
-  height: 100%;
+  width: 65%;
+  height: 60%;
   background-color: #ddd1bb;
   border-radius: 50rpx;
   border: solid #f5f7e1 7rpx;
@@ -630,4 +640,57 @@ page {
   align-content: center;
   position: relative;
   left: 20%;
+}
+@keyframes toleft {
+  from {
+    left: 20%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+  to {
+    left: 0%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+}
+@keyframes toright {
+  from {
+    left: 0%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+  to {
+    left: 20%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+}
+.closeBtn-click {
+  animation: toleft 250ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.closeBtn-unclick {
+  animation: toright 250ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+.tool-box-text {
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 30rpx;
+}
+
+/* This is for Edit BTN */
+.edit-btn {
+  height: 100%;
+  margin-left: auto;
+  margin-right: 25rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #685b48;
+}
+.edit-btn-img {
+  height: 45rpx;
+  width: 45rpx;
 }

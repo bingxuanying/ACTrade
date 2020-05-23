@@ -7,12 +7,11 @@
           {{db.isActive?'热卖中':"已关闭"}}
         </view>
         <image class="master-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
-        <view class="onoff-btn" wx:if="{{isMaster}}">
+        <view class="onoff-btn" hidden="{{!isMaster}}">
           <view class="tool-closeBtn">
-            <view class="tool-closeBtn-greenbox {{closeBtnClick ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeRoomClick">
-              <view class="tool-box-text">ON</view>
+            <view class="tool-closeBtn-greenbox {{ !db.isActive ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeRoomClick">
+              <view class="tool-box-text">{{db.isActive? 'ON':'OFF'}}</view>
             </view>
-            <image class="tool-box-minusicon" src="../../assets/icons/MinusIcon.png" mode="heightFix" />
           </view>
         </view>
       </view>
@@ -23,6 +22,10 @@
             <view class="master-name">{{db.masterInfo.nickname}}</view>
             <image class="master-info-icon" src="../../assets/icons/IslandIcon2.png" />
             <view class="master-island">{{db.masterInfo.islandName}}</view>
+            <view class="edit-btn" hidden="{{!isMaster}}" bindtap="settingClick">
+              <view class="edit-btn-text">编辑</view>
+              <image class="edit-btn-img" src="../../assets/icons/settingIcon2.png" />
+            </view>
           </view>
           <view class="master-info-wechat">WX: ddf567</view>
         </view>
@@ -82,14 +85,14 @@
                   <image class="slave-info-icon" src="../../assets/icons/IslandIcon2.png" />
                   <view class="slave-island">{{item.slaveInfo.islandName}}</view>
                   <wxs module="filter" src="../../utils/uti.wxs"></wxs>
-                  <view class="converstaion-head-info-time" wx:if="{{filter.getDays(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                    {{filter.getDays(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}天前
+                  <view class="converstaion-head-info-time" wx:if="{{filter.getDays(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getDays(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}天前
                   </view>
-                  <view class="converstaion-head-info-time" wx:elif="{{filter.getHours(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                    {{filter.getHours(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}小时前
+                  <view class="converstaion-head-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getHours(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp)}}小时前
                   </view>
-                  <view class="converstaion-head-info-time" wx:elif="{{filter.getMins(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                    {{filter.getMins(nowTimestamp - item.conversations[item.conversations.length - 1].timestamp)}}分前
+                  <view class="converstaion-head-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}分前
                   </view>
                   <view class="converstaion-head-info-time" wx:else>刚刚</view>
                 </view>

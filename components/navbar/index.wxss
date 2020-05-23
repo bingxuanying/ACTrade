@@ -16,8 +16,15 @@
 }
 .nav-back {
   position: absolute;
-  left: 10px;
+  left: 0px;
   font-family: "webfont";
+  height: 100%;
+  width: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10px;
 }
 .nav-back-icon {
   height: 20px;
@@ -31,7 +38,6 @@
   color: #927f6e;
   font-weight: bolder;
   font-size: 14px;
-  flex-grow: 1;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;

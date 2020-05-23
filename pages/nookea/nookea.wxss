@@ -2,6 +2,7 @@ page {
   /* f7f3b4 */
   /* background-color: #fdac99; */
   /* background-color: #ffdb83; */
+  /* background-color: #e3ce8d; */
   background-color: #fbf6e0;
 }
 
@@ -16,15 +17,13 @@ page {
   color: #716a58;
 }
 
-
 /* --- FIX --- */
 .fix-box {
-  position:fixed;
-  left:0;
-  width:100%;
-  z-index:15;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 15;
 }
-
 
 /* --- HEADER BAR --- */
 .header-bar {
