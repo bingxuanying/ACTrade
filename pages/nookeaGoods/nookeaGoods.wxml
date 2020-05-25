@@ -110,7 +110,7 @@
           </view>
           <view class="modal-row-content">
             <view class="modal-row-closeBtn">
-              <view class="modal-row-closeBtn-greenbox {{content.isWxid?'modal-row-closeBtn-click':'modal-row-closeBtn-unclick'}}" data-title="isWxid" bindtap="{{content.wxidText.length>0?'bindModalSwitch':''}}">
+              <view class="modal-row-closeBtn-greenbox {{content.wishlist?'modal-row-closeBtn-click':'modal-row-closeBtn-unclick'}}" data-title="wishlist" bindtap="{{'bindModalSwitch'}}">
                 <view class="modal-row-btn-text">{{content.wishlist?'接受':'不接受'}}</view>
               </view>
             </view>
