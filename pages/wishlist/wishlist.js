@@ -20,6 +20,8 @@ Page({
       statusBarHeight: app.globalData.statusBarHeight,
       loadingGifUrl: iu.gif.EarthLoading,
     });
+
+    // TODO: to Modify
     db.collection("UsersProfile")
       .get()
       .then((res) => {

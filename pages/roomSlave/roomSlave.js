@@ -54,6 +54,7 @@ Page({
     // registered
     console.log(app.globalData.userInfo);
     if (app.globalData.userInfo) {
+      console.log("check point 1")
       if (
         app.globalData.gameProfile.nickname.length > 0 &&
         app.globalData.gameProfile.islandName.length > 0
@@ -66,8 +67,12 @@ Page({
     }
     // has auth
     else if (this.data.canIUse) {
+      console.log("check point 2")
+      this.setData({ clientStatus: "no auth" });
+
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {
+          console.log("check point 2.1")
           if (
             app.globalData.gameProfile.nickname.length > 0 &&
             app.globalData.gameProfile.islandName.length > 0
@@ -78,12 +83,14 @@ Page({
             this.setData({ clientStatus: "no name" });
           }
         } else {
+          console.log("check point 2.2")
           this.setData({ clientStatus: "no auth" });
         }
       };
     }
     // no auth or not registered
     else {
+      console.log("check point 3")
       this.setData({ clientStatus: "no auth" });
     }
 
@@ -406,7 +413,7 @@ Page({
             app.globalData.id = userData.data[0]._id;
             app.globalData.openid = userData.data[0]._openid;
             app.globalData.gameProfile = {
-              ...this.app.globalData.gameProfile,
+              ...app.globalData.gameProfile,
               nickname: userData.data[0].nickname,
               islandName: userData.data[0].islandName,
               fruit: userData.data[0].fruit,
@@ -424,12 +431,13 @@ Page({
             });
 
             db.collection("UsersProfile")
-              .doc(app.globalData.id)
+              .doc(userData.data[0]._id)
               .update({
                 data: {
                   userInfo: app.globalData.userInfo,
                 },
-              });
+              })
+              .then(() => console.log('done'));
             this.setData({
               clientStatus: "no name",
               isTransfering: false,

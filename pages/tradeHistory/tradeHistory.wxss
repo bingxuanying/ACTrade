@@ -1,0 +1,25 @@
+.tradeHistory {
+  width: 100%;
+  height: 100vh;
+}
+
+.trade-header {
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trade-header-tag {
+  margin: 0 15rpx;
+  padding: 0 10rpx;
+  background-color: #716a58;
+  color: antiquewhite;
+  border-radius: 15rpx;
+}
+
+.trade-content {
+  overflow-x: scroll;
+}

@@ -182,21 +182,13 @@
     <image class="name-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
   </view>
   <!-- modal btn -->
-  <button class="noAuthName-btn noAuthName-btn-register" style="width:140rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(nickname.length>0&&islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
-    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-      A
-    </view>
-    <view class="confirm-btn-text">
-      <text>{{clientStatus==='no name'?'进房':'登入'}}</text>
-    </view>
+  <button class="noAuthName-btn" style="width:140rpx;right:50rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(nickname.length>0&&islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
+    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A</view>
+    <view class="confirm-btn-text">{{clientStatus==='no name'?'进房':'登入'}}</view>
   </button>
-  <button class="noAuthName-btn noAuthName-btn-back" style="width:140rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
-    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-      B
-    </view>
-    <view class="confirm-btn-text">
-      <text>返回</text>
-    </view>
+  <button class="noAuthName-btn" style="width:140rpx;right:230rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
+    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">B</view>
+    <view class="confirm-btn-text">返回</view>
   </button>
   <!-- leave room -->
   <!-- mask -->

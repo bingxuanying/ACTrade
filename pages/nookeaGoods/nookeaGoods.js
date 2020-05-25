@@ -25,7 +25,7 @@ Page({
     },
     offset: 0,
     modal: {
-      openPost: true,
+      openPost: false,
       isKeyboard: false,
     },
     loading: {

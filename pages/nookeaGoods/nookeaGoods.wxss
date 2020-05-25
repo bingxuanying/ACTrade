@@ -42,28 +42,39 @@ page {
 
 /* --- ITEM INFO --- */
 .item-box {
-  width: 94%;
+  width: 96%;
   min-height: 500rpx;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-top: 20rpx;
   color: #785b2f;
 }
 
 .item-img-box {
-  width: 40%;
+  width: 38%;
   min-height: 100%;
-  /* background-color: lightsalmon; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #6d8fb4;
+  border: solid #fff 12rpx;
+  position: relative;
+  overflow: visible;
+}
+
+.item-curtain-top {
+  width: calc(100% + 24rpx);
+  position: absolute;
+  top: -12rpx;
+  left: -12rpx;
 }
 
 .card-content {
-  width: 230rpx;
-  height: 300rpx;
-  border-radius: 20rpx;
-  position: relative;
+  width: 78%;
+  height: 54%;
+  border-radius: 10rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,9 +82,9 @@ page {
 }
 
 .card-content-bg {
-  width: 90%;
-  height: 90%;
-  border-radius: 8rpx;
+  width: calc(100% - 15rpx);
+  height: calc(100% - 15rpx);
+  border-radius: 6rpx;
   position: relative;
   box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); 
   margin-right: 4rpx;
@@ -98,7 +109,7 @@ page {
 }
 
 .item-info {
-  width: 60%;
+  width: 56%;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -130,17 +141,33 @@ page {
 }
 
 .item-madeof {
-  width: 100%;
+  width: calc(100% - 30rpx);
   height: 420rpx;
+  position: relative;
   margin-top: 10rpx;
-  border-radius: 12rpx;
-  background: repeating-linear-gradient( 
-  180deg,
-  #e0d7ae,
-  #e0d7ae 70rpx,
-  #e2d8b5 70rpx,
-  #e2d8b5 140rpx);
+  border: solid #a28c65 15rpx;
+  background-color: #636571;
   overflow: hidden;
+  color: #fff;
+}
+
+.item-norecipe-tag {
+  width: 60%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(2deg);
+}
+
+.item-norecipe-text {
+  width: 100%;
+  font-size: 28rpx;
+  color: #636571;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(2deg);
+  text-align: center;
 }
 
 .item-madeof-row {
@@ -164,7 +191,7 @@ page {
   height: 70rpx;
   background-image: linear-gradient(
     to right,
-    #785b2f 50%,
+    #fff 50%,
     rgba(255, 255, 255, 0) 0%
   );
   background-position: center;
@@ -184,17 +211,15 @@ page {
 
 .board-options {
   width: 100%;
-  height: 100rpx;
-  background-color: lightsalmon;
+  height: 60rpx;
   margin: 30rpx 0;
-  display: flex;
-  align-items: center;
+  border-bottom: #785b2f solid 5rpx;
 }
 
 .post-btn {
   width: 100rpx;
-  height: 50rpx;
   background-color: lightblue;
+  float: right;
 }
 
 .board-content {
@@ -279,7 +304,7 @@ page {
 .mymodal {
   width: 98%;
   height: fit-content;
-  background-color: #fff;
+  background-color: #fbf6e0;
   opacity: 0.5;
   display: flex;
   flex-direction: column;
@@ -292,24 +317,21 @@ page {
   z-index: 20;
   transition: all 600ms ease-out;
   /* color: #f2f4dc; */
-  color: #000;
+  color: #716a58;
   font-size: 30rpx;
 }
 
 .modal-title {
   width: 100%;
-  height: 80rpx;
-  /* position: absolute;
-  top: -50rpx;
-  left: 0; */
+  height: 60rpx;
   text-align: center;
   letter-spacing: 10rpx;
-  line-height: 80rpx;
+  line-height: 60rpx;
 }
 
 .mymodal-bg {
   width: 100%;
-  height: 100rpx;
+  height: 400rpx;
 }
 
 .mymodal-content {
@@ -449,21 +471,26 @@ page {
   font-size: 26rpx;
 }
 
-
 .modal-btn-box {
   width: 100%;
-  height: 80rpx;
+  height: 60rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  background-color: #faf7e0;
+  border-radius: 32rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-
-.modal-btn {
-  width: 25%;
-  padding: 0;
-  letter-spacing: 5rpx;
-  text-align: center;
+  padding: 3rpx 10rpx;
+  margin-right: 25rpx;
+  font-size: 28rpx;
+  letter-spacing: 3rpx;
 }
 
 .fade-in {

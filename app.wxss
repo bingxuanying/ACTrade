@@ -26,7 +26,6 @@ page {
   font-size: 30rpx;
   padding: 3rpx;
   background-color: #f5efd5;
-  border: #000000;
   border-radius: 32rpx;
   display: flex;
   flex-direction: row;

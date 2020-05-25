@@ -3,11 +3,15 @@
   <nav-bar navInfo="-- 商品 xxx --" back="True" />
   <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="header-bar">
-      <image class="head-bar-bg" src="../../assets/nookea/header-bg.png" mode="heightFix" />
+      <image class="head-bar-bg" src="../../assets/nookea/header-bg3.png" mode="heightFix" />
       <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
     </view>
     <view class="item-box">
+      <!-- Left -->
       <view class="item-img-box">
+        <!-- curtain top -->
+        <image class="item-curtain-top" src="../../assets/nookea/curtain-top.png" mode="widthFix" />
+        <!-- card -->
         <view class="card-content" style="background-color:{{productInfo.bg_color}};">
           <view class="card-content-bg" style="background-color:{{productInfo.bg_color}};">
             <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
@@ -15,6 +19,7 @@
           </view>
         </view>
       </view>
+      <!-- Right -->
       <view class="item-info">
         <view class="item-title">
           <image class="item-title-icon" src="../../assets/nookea/titleIcon.png" mode="widthFix" />
@@ -35,14 +40,17 @@
           </block>
           <!-- if no recipe: collection name -->
           <block wx:else>
-            <view class="item-madeof-row">{{productInfo.collection}}</view>
+            <image class="item-norecipe-tag" src="../../assets/nookea/norecipe-tag.png" mode="widthFix" />
+            <view class="item-norecipe-text">这是{{productInfo.collection}}哦</view>
           </block>
         </view>
       </view>
     </view>
     <view class="board">
+      <!-- Board Bar -->
       <view class="board-options">
-        <view class="list-btn"></view>
+        <view style="float:left">卖家信息</view>
+        <view style="float:left;margin-left:15rpx;">正在看</view>
         <view class="post-btn" bindtap="onTapPostModal">{{selfPost.hasPosted?"更新":"发布"}}</view>
       </view>
       <!-- Main Board -->
@@ -80,8 +88,10 @@
     <view class='mask10' hidden="{{!modal.openPost}}" bindtap="hideModal" />
     <!-- Modal: Post -->
     <view class="mymodal fade-in" hidden="{{!modal.openPost}}">
+      <!-- modal title -->
       <view class="modal-title">发布商品信息</view>
       <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
+      <!-- modal content -->
       <view class="mymodal-content">
         <view class="modal-row">
           <view class="modal-row50">
@@ -141,9 +151,16 @@
           </view>
         </view>
       </view>
+      <!-- modal btn -->
       <view class="modal-btn-box">
-        <view class="modal-btn" bindtap="hideModal">返回</view>
-        <view class="modal-btn" bindtap="onTapCreate">确定</view>
+        <view class="modal-btn" bindtap="hideModal">
+          <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">B</view>
+          <view class="confirm-btn-text">返回</view>
+        </view>
+        <view class="modal-btn" bindtap="onTapCreate">
+          <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A</view>
+          <view class="confirm-btn-text">发布</view>
+        </view>
       </view>
     </view>
   </view>

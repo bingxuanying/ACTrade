@@ -2,107 +2,102 @@
 <block>
     <nav-bar navInfo="-- 欢迎来到狸家! --" />
     <view class="nookea" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
-    <view class="fix-box" style="top:calc({{statusBarHeight}}px+44px);">
-        <view class="header-bar">
-            <image class="head-bar-bg" src="../../assets/lobby/headerBar.png" mode="heightFix" />
-            <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
-        </view>
-    
-        <view class="tool-bar">
-            <!-- tags -->
-            <block wx:if="{{keyword.searchType==='filter'}}">
-                <block wx:for="{{keyword.tags}}" wx:for-index="key" wx:for-item="tag" wx:key="tag_card">
-                    <view class="{{key==='collection'?'tool-tag-box-collection':'tool-tag-box'}}" data-tag="{{key}}" bindtap="onTapDeleteTag">
-                        <text>{{tag}}</text>
-                        <image class="tool-tag-icon" src="{{key==='collection'?'../../assets/icons/XIconWhite.png':'../../assets/icons/XIcon.png'}}" mode="widthFix" />
+        <view class="fix-box" style="top:calc({{statusBarHeight}}px+44px);">
+            <view class="header-bar">
+                <image class="head-bar-bg" src="../../assets/nookea/header-bg3.png" mode="heightFix" />
+                <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
+            </view>
+            <view class="tool-bar">
+                <!-- tags -->
+                <block wx:if="{{keyword.searchType==='filter'}}">
+                    <block wx:for="{{keyword.tags}}" wx:for-index="key" wx:for-item="tag" wx:key="tag_card">
+                        <view class="{{key==='collection'?'tool-tag-box-collection':'tool-tag-box'}}" data-tag="{{key}}" bindtap="onTapDeleteTag">
+                            <text>{{tag}}</text>
+                            <image class="tool-tag-icon" src="{{key==='collection'?'../../assets/icons/XIconWhite.png':'../../assets/icons/XIcon.png'}}" mode="widthFix" />
+                        </view>
+                    </block>
+                </block>
+                <block wx:elif="{{keyword.searchType==='search'}}">
+                    <view class="tool-tag-box" data-tag="search" bindtap="onTapDeleteTag">
+                        <text>{{keyword.words}}</text>
+                        <image class="tool-tag-icon" src="../../assets/icons/XIcon.png" mode="widthFix" />
                     </view>
                 </block>
-            </block>
-            <block wx:elif="{{keyword.searchType==='search'}}">
-                <view class="tool-tag-box" data-tag="search" bindtap="onTapDeleteTag">
-                    <text>{{keyword.words}}</text>
-                    <image class="tool-tag-icon" src="../../assets/icons/XIcon.png" mode="widthFix" />
-                </view>
-            </block>
-            <block wx:else>
-                <view class="tool-tag-box-collection">
-                    <text style="margin-left: -10rpx;">全部</text>
-                </view>
-            </block>
-            <!-- tool btn -->
-            <view class="tool-btn-box" style="height: 115%; right: 235rpx; z-index: 12;" hidden="{{page==='cat'}}">
-                <view class="tool-btn" bindtap="onTapCollect">
-                    <image class="tool-btn-icon" src="{{collect.mode?'../../assets/nookea/collectIcon.png':'../../assets/nookea/collectIcon-gray.png'}}" mode="widthFix" />
-                    <text class="tool-btn-text">{{collect.mode?'完成':'心愿'}}</text>
-                </view>
-            </view>
-            <view class="tool-btn-box {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}" style="height: 135%; right: 125rpx; z-index: 12;">
-                <view class="tool-btn" bindtap="onTapFilter">
-                    <image class="tool-btn-icon" src="../../assets/nookea/filterIcon.png" mode="widthFix" />
-                    <text class="tool-btn-text">{{curtain.filter?'收起':'筛选'}}</text>
-                </view>
-            </view>
-            <view class="tool-btn-box {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}" style="height: 120%; right: 15rpx;">
-                <view class="tool-btn" bindtap="onTapSearchBtn">
-                    <image class="tool-btn-icon" src="../../assets/nookea/searchIcon.png" mode="widthFix" />
-                    <text class="tool-btn-text">{{curtain.search?'收起':'搜索'}}</text>
-                </view>
-            </view>
-        </view>        
-
-        <!-- Filter Box -->
-        <view class="filter-curtain {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}">
-            <view class="filter-board">
-                <!-- All Kinds -->
-                <view class="filter-board-row">
-                    <view class="filter-board-row-title">大类</view>
-                    <view class="filter-board-row-content">
-                        <block wx:for="{{catDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="filter_allkinds">
-                            <view class="filter-board-row-tag" data-info="{{item}}" style="{{item.zh_name===specs.zh_name?'background-color: #716a58;color: #faf7e0;':''}}" bindtap="onTapFilterCat" hidden="{{item.disable}}">
-                                {{item.zh_name}}
-                            </view>
-                        </block>
+                <block wx:else>
+                    <view class="tool-tag-box-collection">
+                        <text style="margin-left: -10rpx;">全部</text>
+                    </view>
+                </block>
+                <!-- tool btn -->
+                <view class="tool-btn-box" style="height: 115%; right: 235rpx; z-index: 12;" hidden="{{page==='cat'}}">
+                    <view class="tool-btn" bindtap="onTapCollect">
+                        <image class="tool-btn-icon" src="{{collect.mode?'../../assets/nookea/collectIcon.png':'../../assets/nookea/collectIcon-gray.png'}}" mode="widthFix" />
+                        <text class="tool-btn-text">{{collect.mode?'完成':'心愿'}}</text>
                     </view>
                 </view>
-                <!-- Categories -->
-                <block wx:for="{{specs.categories}}" wx:for-item="cat" wx:for-index="idx" wx:key="filter_cat">
+                <view class="tool-btn-box {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}" style="height: 135%; right: 125rpx; z-index: 12;">
+                    <view class="tool-btn" bindtap="onTapFilter">
+                        <image class="tool-btn-icon" src="../../assets/nookea/filterIcon.png" mode="widthFix" />
+                        <text class="tool-btn-text">{{curtain.filter?'收起':'筛选'}}</text>
+                    </view>
+                </view>
+                <view class="tool-btn-box {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}" style="height: 120%; right: 15rpx;">
+                    <view class="tool-btn" bindtap="onTapSearchBtn">
+                        <image class="tool-btn-icon" src="../../assets/nookea/searchIcon.png" mode="widthFix" />
+                        <text class="tool-btn-text">{{curtain.search?'收起':'搜索'}}</text>
+                    </view>
+                </view>
+            </view>
+            <!-- Filter Box -->
+            <view class="filter-curtain {{curtain.activateFilter?(curtain.filter?'curtain-filter-slide-down':'curtain-filter-slide-up'):''}}">
+                <view class="filter-board">
+                    <!-- All Kinds -->
                     <view class="filter-board-row">
-                        <view class="filter-board-row-title">{{cat}}</view>
+                        <view class="filter-board-row-title">大类</view>
                         <view class="filter-board-row-content">
-                            <block wx:for="{{specs.types[cat]}}" wx:for-item="type" wx:for-index="idx" wx:key="filter_type">
-                                <view class="filter-board-row-tag" style="{{type===keyword.tags[cat]?'background-color: #716a58;color: #faf7e0;':''}}" data-cat="{{cat}}" data-type="{{type}}" bindtap="onTapFilterType">
-                                    {{type}}
+                            <block wx:for="{{catDeck}}" wx:for-item="item" wx:for-index="idx" wx:key="filter_allkinds">
+                                <view class="filter-board-row-tag" data-info="{{item}}" style="{{item.zh_name===specs.zh_name?'background-color: #716a58;color: #faf7e0;':''}}" bindtap="onTapFilterCat" hidden="{{item.disable}}">
+                                    {{item.zh_name}}
                                 </view>
                             </block>
                         </view>
                     </view>
-                </block>
-            </view>
-            <view class="filter-curtain-bottom-bar">
-                <view class="filter-curtain-bottom-btn" bindtap="onTapFilterClean">
-                    <view class="filter-curtain-bottom-icon">-</view>
-                    <view class="filter-curtain-bottom-text">清楚筛选</view>
+                    <!-- Categories -->
+                    <block wx:for="{{specs.categories}}" wx:for-item="cat" wx:for-index="idx" wx:key="filter_cat">
+                        <view class="filter-board-row">
+                            <view class="filter-board-row-title">{{cat}}</view>
+                            <view class="filter-board-row-content">
+                                <block wx:for="{{specs.types[cat]}}" wx:for-item="type" wx:for-index="idx" wx:key="filter_type">
+                                    <view class="filter-board-row-tag" style="{{type===keyword.tags[cat]?'background-color: #716a58;color: #faf7e0;':''}}" data-cat="{{cat}}" data-type="{{type}}" bindtap="onTapFilterType">
+                                        {{type}}
+                                    </view>
+                                </block>
+                            </view>
+                        </view>
+                    </block>
                 </view>
-                <view class="filter-curtain-bottom-btn" bindtap="onTapFilterExec">
-                    <view class="filter-curtain-bottom-icon">+</view>
-                    <view class="filter-curtain-bottom-text">进行筛选</view>
+                <view class="filter-curtain-bottom-bar">
+                    <view class="filter-curtain-bottom-btn" bindtap="onTapFilterClean">
+                        <view class="filter-curtain-bottom-icon">-</view>
+                        <view class="filter-curtain-bottom-text">清楚筛选</view>
+                    </view>
+                    <view class="filter-curtain-bottom-btn" bindtap="onTapFilterExec">
+                        <view class="filter-curtain-bottom-icon">+</view>
+                        <view class="filter-curtain-bottom-text">进行筛选</view>
+                    </view>
+                </view>
+            </view>
+            <!-- Search Box -->
+            <view class="search-curtain {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}">
+                <view class="search-box">
+                    <input placeholder="请输入关键词" value="{{keyword.words}}" bindinput="bindSearchVal" />
+                    <view class="search-btn" bindtap="onTapSearchVal">
+                        <image class="search-btn-icon" src="../../assets/nookea/search-box-icon.png" mode="widthFix" />
+                    </view>
                 </view>
             </view>
         </view>
-
-        <!-- Search Box -->
-        <view class="search-curtain {{curtain.activateSearch?(curtain.search?'curtain-search-slide-down':'curtain-search-slide-up'):''}}">
-            <view class="search-box">
-                <input placeholder="请输入关键词" value="{{keyword.words}}" bindinput="bindSearchVal" />
-                <view class="search-btn" bindtap="onTapSearchVal">
-                    <image class="search-btn-icon" src="../../assets/nookea/search-box-icon.png" mode="widthFix" />
-                </view>
-            </view>
-        </view>
-    </view>
-
         <view style="height:230rpx"></view>
-
         <view class="warning-bar" hidden="{{!collect.mode}}">
             <text>你已进入收藏模式</text>
         </view>
@@ -142,18 +137,16 @@
             </view>
         </view>
         <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
-
         <!-- Mask -->
         <view class='mask10' hidden="{{!curtain.filter&&!curtain.search}}" bindtap="onTapHieCurtain" />
-
         <!-- Mask -->
-        <view class='mask20' hidden="{{clientStatus==='ok'}}"/>
+        <view class='mask20' hidden="{{clientStatus==='ok'}}" />
         <!-- modal_1: no auth -->
         <view class='mymodal-auth fadein' wx:if="{{clientStatus==='no auth'}}">
             <view class="auth-name-tag">ybxx</view>
             <view class="auth-chat-box">
-            <view>{{loading.isTransfer?"保存中...":"请先登入才能进入哦~！"}}</view>
-            <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!loading.isTransfer}}" mode="widthFix" />
+                <view>{{loading.isTransfer?"保存中...":"请先登入才能进入哦~！"}}</view>
+                <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!loading.isTransfer}}" mode="widthFix" />
             </view>
             <image class="auth-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
         </view>
@@ -161,38 +154,38 @@
         <view class='mymodal-name fade-in' wx:if="{{clientStatus==='no name'}}">
             <view class="name-name-tag">arition</view>
             <view class="name-chat-box">
-            <text class="name-chat-content">{{loading.isEnter?"保存中...":"请登记你游戏中的个人信息~！"}}</text>
-            <block wx:if="{{!loading.isEnter}}">
-                <view class="name-chat-box-row">
-                <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
-                <view class="name-chat-box-title">游戏昵称</view>
-                <input class="name-chat-box-input" value="{{input.nickname}}" bindinput="bindNicknameInput" />
-                </view>
-                <view class="name-chat-box-row">
-                <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
-                <view class="name-chat-box-title">岛名</view>
-                <input class="name-chat-box-input" value="{{input.islandName}}" bindinput="bindIslandNameInput" />
-                </view>
-            </block>
-            <image class="name-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!loading.isEnter}}" mode="widthFix" />
+                <text class="name-chat-content">{{loading.isEnter?"保存中...":"请登记你游戏中的个人信息~！"}}</text>
+                <block wx:if="{{!loading.isEnter}}">
+                    <view class="name-chat-box-row">
+                        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
+                        <view class="name-chat-box-title">游戏昵称</view>
+                        <input class="name-chat-box-input" value="{{input.nickname}}" bindinput="bindNicknameInput" />
+                    </view>
+                    <view class="name-chat-box-row">
+                        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
+                        <view class="name-chat-box-title">岛名</view>
+                        <input class="name-chat-box-input" value="{{input.islandName}}" bindinput="bindIslandNameInput" />
+                    </view>
+                </block>
+                <image class="name-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!loading.isEnter}}" mode="widthFix" />
             </view>
             <image class="name-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
         </view>
         <!-- modal btn -->
-        <button class="noAuthName-btn noAuthName-btn-register" style="width:140rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(input.nickname.length>0&&input.islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
+        <button class="noAuthName-btn" style="width:140rpx;right:50rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(input.nickname.length>0&&input.islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
             <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-            A
+                A
             </view>
             <view class="confirm-btn-text">
-            <text>{{clientStatus==='no name'?'完成':'登入'}}</text>
+                <text>{{clientStatus==='no name'?'完成':'登入'}}</text>
             </view>
         </button>
-        <button class="noAuthName-btn noAuthName-btn-back" style="width:140rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
+        <button class="noAuthName-btn" style="width:140rpx;right:230rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
             <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-            B
+                B
             </view>
             <view class="confirm-btn-text">
-            <text>返回</text>
+                <text>返回</text>
             </view>
         </button>
     </view>

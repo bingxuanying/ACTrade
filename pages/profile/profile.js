@@ -256,6 +256,12 @@ Page({
       url: "/pages/wishlist/wishlist",
     });
   },
+  tradeHistoryClick: function () {
+    let that = this;
+    wx.navigateTo({
+      url: "/pages/tradeHistory/tradeHistory",
+    });
+  },
   // TabBar setting
   onShow() {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
