@@ -80,8 +80,8 @@
     <view class='mask10' hidden="{{!modal.openPost}}" bindtap="hideModal" />
     <!-- Modal: Post -->
     <view class="mymodal fade-in" hidden="{{!modal.openPost}}">
-      <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
       <view class="modal-title">发布商品信息</view>
+      <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
       <view class="mymodal-content">
         <view class="modal-row">
           <view class="modal-row50">
@@ -140,10 +140,10 @@
             <textarea value="{{content.notes}}" cursor-spacing="30" data-title="notes" bindinput="bindModalStr" bindfocus="bindInputFocus" />
           </view>
         </view>
-        <view class="modal-btn-box">
-          <view class="modal-btn" bindtap="hideModal">返回</view>
-          <view class="modal-btn" bindtap="onTapCreate">确定</view>
-        </view>
+      </view>
+      <view class="modal-btn-box">
+        <view class="modal-btn" bindtap="hideModal">返回</view>
+        <view class="modal-btn" bindtap="onTapCreate">确定</view>
       </view>
     </view>
   </view>
