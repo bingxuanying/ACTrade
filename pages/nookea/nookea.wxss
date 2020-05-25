@@ -2,7 +2,7 @@ page {
   /* f7f3b4 */
   /* background-color: #fdac99; */
   /* background-color: #ffdb83; */
-  /* background-color: #e3ce8d; */
+  /* background-color: #fff2c9; */
   background-color: #fbf6e0;
 }
 
@@ -66,7 +66,7 @@ page {
   /* width: 100rpx; */
   height: 40%;
   font-size: 30rpx;
-  padding:  0 11rpx;
+  padding: 0 11rpx;
   background-color: #faf7e0;
   border-radius: 32rpx;
   border: #716a58 solid 2rpx;

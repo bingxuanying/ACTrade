@@ -3,7 +3,7 @@
   <nav-bar navInfo="-- 商品 xxx --" back="True" />
   <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="header-bar">
-      <image class="head-bar-bg" src="../../assets/nookea/header-bg.png" mode="heightFix" />
+      <image class="head-bar-bg" src="../../assets/nookea/header-bg3.png" mode="heightFix" />
       <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
     </view>
     <view class="item-box">
