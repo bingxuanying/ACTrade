@@ -62,10 +62,45 @@
       </view>
       <!-- Main Board -->
       <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
-        <!-- !!! edit required !!! -->
+        <!-- I am the seller -->
         <view class="record" hidden="{{!selfPost.room_id}}" data-id="{{selfPost.room_id}}">
-          "owner"
+          <view class="record-avatar-box">
+            <image class="record-avatar" src="{{selfPost.roomInfo.masterInfo.avatarUrl}}" mode="widthFix" />
+          </view>
+          <view class="record-info-box">
+            <view class="record-info-row">
+              <!-- <image class="record-info-row-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" /> -->
+              <view class="record-info-row-text">{{selfPost.roomInfo.masterInfo.nickname}}</view>
+              <image src="{{selfPost.roomInfo.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
+              mode="widthFix" style="margin-right:15rpx; width:20rpx;" />
+              <text class="record-info-row-text">{{selfPost.roomInfo.masterInfo.islandName}}岛</text>                
+            </view>
+            <view class="record-info-row">
+              <view class="record-info-row-title">微信号</view>
+              <text class="record-info-row-text">{{selfPost.roomInfo.content.isWxid?selfPost.roomInfo.content.wxidText:'房主没有透露哦~'}}</text>
+            </view>
+            <view class="record-info-row">
+              <view class="record-info-row-title">接受方式</view>
+              <block wx:if="{{selfPost.roomInfo.content.bell.length>0&&selfPost.roomInfo.content.bell!=='0'}}">
+                <image src="{{img.BellIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                <text class="record-info-row-text">{{selfPost.roomInfo.content.bell}}</text>
+              </block>
+              <block wx:if="{{selfPost.roomInfo.content.ticket.length>0&&selfPost.roomInfo.content.ticket!=='0'}}">
+                <image src="{{img.TicketIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                <text class="record-info-row-text">{{selfPost.roomInfo.content.ticket}}</text>
+              </block>
+              <block wx:if="{{selfPost.roomInfo.content.wishlist}}">
+                <image src="{{img.WishlistIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                <text class="record-info-row-text">心愿单</text>
+              </block>
+            </view>
+            <view class="record-info-row" style="height:80rpx;">
+              <view class="record-info-row-title" style="align-self:flex-start;">留言板</view>
+              <text class="record-info-row-text" style="height:100%; width:70%;">{{selfPost.roomInfo.content.notes}}</text>
+            </view>           
+          </view>
         </view>
+        <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
           <view class="record" hidden="{{selfPost.room_id===item._id}}" data-id="{{item._id}}">
             <view class="record-avatar-box">
