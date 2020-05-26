@@ -7,7 +7,7 @@ const _ = db.command;
 // 功能2： post的那个人的tradeHistory里添加一个 selling.rooms
 exports.main = async (event, context) => {
   let { OPENID, APPID, UNIONID } = cloud.getWXContext();
-  //news 需要的para: zh_name, description, img_url,  roomId, timestamp isUpdated(这里加),
+  //news 需要的para: zh_name, img_url,  roomId, timestamp isUpdated(这里加), description
   let zh_name = event.zh_name
   let news = {}
   news.img_url = event.img_url
@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
   news.timestamp = event.timestamp
   news.description = "有人发布了出售!"
   news.isUpdated = true
-  let path1 = 'wishlist.' + zh_name + '.zh_name'
+  let path = 'wishlist.' + zh_name + '.zh_name'
   let path2 = 'tradeHistory.news.rooms.' + zh_name 
   db.collection('UsersProfile').where({
     [path]:zh_name

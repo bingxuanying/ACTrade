@@ -23,7 +23,7 @@
             <view class="trade-content-page" hidden="{{!tagChoose[0]}}">
                 <!-- for selling -->
                 <block wx:for="{{mapArr.selling}}" wx:for-index="sellingIndex" wx:for-item="item" wx:key="selling">
-                    <view class="card" bindtap="buyNsellClick" data-type="selling" data-id="{{item._id}}" data-name="{{sellingIndex}}">
+                    <view class="card" bindtap="buyNsellClick" data-type="selling" data-productid="{{sellingIndex}}" data-roomid="{{item.roomId}}">
                         <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
@@ -32,7 +32,7 @@
                             <view class="card-news-info">
                                 <view class="card-info-head">
                                     <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
-                                    <text style="margin-left:10rpx">{{sellingIndex}}</text>
+                                    <text style="margin-left:10rpx">{{item.zh_name}}</text>
                                     <wxs module="filter" src="../../utils/uti.wxs"></wxs>
                                     <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
                                         {{filter.getDays(nowTimestamp , item.timestamp)}}天前
@@ -56,7 +56,7 @@
             <view class="trade-content-page" hidden="{{!tagChoose[2]}}">
                 <!-- for news -->
                 <block wx:for="{{mapArr.news}}" wx:for-index="newsIndex" wx:for-item="item" wx:key="news">
-                    <view class="card" bindtap="newsClick" data-id="{{item.roomId}}" data-name="{{newsIndex}}">
+                    <view class="card" bindtap="newsClick" data-id="{{newsIndex}}">
                         <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
@@ -65,7 +65,7 @@
                             <view class="card-news-info">
                                 <view class="card-info-head">
                                     <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
-                                    <text style="margin-left:10rpx">{{newsIndex}}</text>
+                                    <text style="margin-left:10rpx">{{item.zh_name}}</text>
                                     <wxs module="filter" src="../../utils/uti.wxs"></wxs>
                                     <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
                                         {{filter.getDays(nowTimestamp , item.timestamp)}}天前
@@ -98,7 +98,7 @@
                             <view class="card-news-info">
                                 <view class="card-info-head">
                                     <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
-                                    <text style="margin-left:10rpx">{{buyingIndex}}</text>
+                                    <text style="margin-left:10rpx">{{item.zh_name}}</text>
                                     <wxs module="filter" src="../../utils/uti.wxs"></wxs>
                                     <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
                                         {{filter.getDays(nowTimestamp , item.timestamp)}}天前
@@ -122,7 +122,7 @@
             <view class="trade-content-page" hidden="{{!tagChoose[3]}}">
                 <!-- for history -->
                 <block wx:for="{{mapArr.history}}" wx:for-index="historyIndex" wx:for-item="item" wx:key="history">
-                    <view class="card" bindtap="buyNsellClick" data-type="history" data-id="{{item._id}}" data-name="{{historyIndex}}">
+                    <view class="card" bindtap="buyNsellClick" data-type="history" data-productid="{{historyIndex}}" data-roomid="{{item.roomId}}">
                         <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
@@ -131,7 +131,7 @@
                             <view class="card-news-info">
                                 <view class="card-info-head">
                                     <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
-                                    <text style="margin-left:10rpx">{{historyIndex}}</text>
+                                    <text style="margin-left:10rpx">{{item.zh_name}}</text>
                                     <wxs module="filter" src="../../utils/uti.wxs"></wxs>
                                     <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
                                         {{filter.getDays(nowTimestamp , item.timestamp)}}天前

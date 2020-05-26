@@ -132,14 +132,13 @@ Page({
   },
   newsClick: function (e) {
     let id = e.currentTarget.dataset.id;
-    let name = e.currentTarget.dataset.name;
     wx.navigateTo({
       url: "/pages/nookeaGoods/nookeaGoods?_id=" + id,
     });
-    let path = "tradeHistory.news.rooms." + name + ".isUpdated";
+    let path = "tradeHistory.news.rooms." + id + ".isUpdated";
     // change history.news.rooms[idx].isUpdated -> true
     db.collection("UsersProfile")
-      .where({})
+      .doc(app.globalData.id)
       .update({
         data: {
           [path]: false,
@@ -147,11 +146,11 @@ Page({
       })
       .then(() => {
         db.collection("UsersProfile")
-          .where({})
+          .doc(app.globalData.id)
           .get()
           .then((res) => {
             console.log(res);
-            let rooms = res.data[0].tradeHistory.news.rooms;
+            let rooms = res.data.tradeHistory.news.rooms;
             let isUpdated = false;
             for (var x in rooms) {
               if (rooms[x].isUpdated !== false) {
@@ -172,17 +171,19 @@ Page({
       });
   },
   buyNsellClick: function (e) {
-    let id = e.currentTarget.dataset.id;
-    let name = e.currentTarget.dataset.name;
-    let type = e.currentTarget.dataset.type;
+    let { roomid, productid, type } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: "/pages/nookeaRooms/nookeaRooms?_id=" + id,
+      url:
+        "/pages/nookeaRooms/nookeaRooms?id=" +
+        roomid +
+        "&isMaster=" +
+        (type !== "buying" ? "true" : "false"),
     });
-    let path = "tradeHistory." + type + ".rooms." + name + ".isUpdated";
+    let path = "tradeHistory." + type + ".rooms." + productid + ".isUpdated";
     console.log(path);
     // change history.news.rooms[idx].isUpdated -> true
     db.collection("UsersProfile")
-      .where({})
+      .doc(app.globalData.id)
       .update({
         data: {
           [path]: false,
@@ -190,11 +191,11 @@ Page({
       })
       .then(() => {
         db.collection("UsersProfile")
-          .where({})
+          .doc(app.globalData.id)
           .get()
           .then((res) => {
             console.log(res);
-            let rooms = res.data[0].tradeHistory[type].rooms;
+            let rooms = res.data.tradeHistory[type].rooms;
             let isUpdated = false;
             for (var x in rooms) {
               if (rooms[x].isUpdated !== false) {

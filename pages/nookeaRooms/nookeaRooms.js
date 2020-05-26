@@ -18,7 +18,7 @@ Page({
     gif: {
       EarthLoadingUrl: null,
     },
-    currentRoom: "982133855ec0a22f00dc2b0703e78dc7",
+    currentRoom: "",
     db: {},
     showModal: false,
     addReplyEnabled: true,
@@ -48,8 +48,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
-
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
       loading: {
@@ -61,9 +59,9 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
       nowTimestamp: util.formatTime(),
-      isMaster: options.isMaster,
+      isMaster: options.isMaster === "true" ? true : false,
+      currentRoom: options.id,
     });
-
     const getUserInfo = new Promise((resolve, reject) => {
       if (app.globalData.userInfo) {
         this.setData({
@@ -418,17 +416,17 @@ Page({
         .doc(this.data.currentRoom)
         .get()
         .then((res) => {
-          let deletedName = res.data.itemInfo.zh_name;
+          let productId = res.data.itemInfo._id;
           let tradeHistory = app.globalData.gameProfile.tradeHistory;
           if (typeof tradeHistory.history.rooms === "undefined") {
             tradeHistory.history["rooms"] = {};
           }
-          tradeHistory.history.rooms[deletedName] =
-            tradeHistory.selling.rooms[deletedName];
-          delete tradeHistory.selling.rooms[deletedName];
+          tradeHistory.history.rooms[productId] =
+            tradeHistory.selling.rooms[productId];
+          delete tradeHistory.selling.rooms[productId];
           app.globalData.gameProfile.tradeHistory = tradeHistory;
           db.collection("UsersProfile")
-            .where({})
+            .doc(app.globalData.id)
             .update({
               data: {
                 tradeHistory: _.set(tradeHistory),
@@ -443,17 +441,17 @@ Page({
         .doc(this.data.currentRoom)
         .get()
         .then((res) => {
-          let deletedName = res.data.itemInfo.zh_name;
+          let productId = res.data.itemInfo._id;
           let tradeHistory = app.globalData.gameProfile.tradeHistory;
           if (typeof tradeHistory.history.rooms === "undefined") {
             tradeHistory.selling["rooms"] = {};
           }
-          tradeHistory.selling.rooms[deletedName] =
-            tradeHistory.history.rooms[deletedName];
-          delete tradeHistory.history.rooms[deletedName];
+          tradeHistory.selling.rooms[productId] =
+            tradeHistory.history.rooms[productId];
+          delete tradeHistory.history.rooms[productId];
           app.globalData.gameProfile.tradeHistory = tradeHistory;
           db.collection("UsersProfile")
-            .where({})
+            .doc(app.globalData.id)
             .update({
               data: {
                 tradeHistory: _.set(tradeHistory),
