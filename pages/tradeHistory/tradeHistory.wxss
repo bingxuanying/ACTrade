@@ -1,3 +1,8 @@
+@import "../../utils/font.wxss";
+
+page {
+  background: #faf8e1;
+}
 .tradeHistory {
   width: 100%;
   height: 100vh;
@@ -13,13 +18,85 @@
 }
 
 .trade-header-tag {
-  margin: 0 15rpx;
-  padding: 0 10rpx;
-  background-color: #716a58;
-  color: antiquewhite;
+  margin: 5rpx 15rpx;
+  padding: 10rpx;
+  background-color: #faf8e1;
+  color: #716a58;
   border-radius: 15rpx;
+  transition: all ease-in-out 0.25s;
+  position: relative;
+}
+
+.active {
+  background-color: #716a58;
+  color: #faf8e1;
 }
 
 .trade-content {
+  width: 100%;
+}
+
+.trade-content-page {
+  width: 100%;
   overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.card {
+  width: 94%;
+  height: 180rpx;
+  border: #716a58 1px solid;
+  border-radius: 15rpx;
+  position: relative;
+  margin-top: 15rpx;
+  color: #43292a;
+}
+
+.card-news {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.card-news-img {
+  width: 150rpx;
+  height: 150rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25rpx;
+  border: white 4rpx solid;
+  margin-left: 15rpx;
+}
+.card-news-img image {
+  height: 120rpx;
+  width: 120rpx;
+}
+.card-news-info {
+  width: calc(100% - 150rpx);
+  height: 100%;
+  font-size: 26rpx;
+  margin-left: 10rpx;
+}
+.card-info-head {
+  margin-top: 15rpx;
+  font-size: 32rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.card-info-body {
+  margin-top: 10rpx;
+}
+.card-info-time {
+  font-size: 28rpx;
+  margin-left: auto;
+  margin-right: 15rpx;
+  color: #716a58;
 }

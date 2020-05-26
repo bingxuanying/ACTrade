@@ -217,7 +217,7 @@ Page({
           console.error(err);
         },
       });
-    //每隔1分钟刷新一次时间
+    //每隔10s刷新一次时间
     setInterval(() => {
       console.log("获取时间中...");
       this.setData({
@@ -382,6 +382,58 @@ Page({
           isActive: !isActive,
         },
       });
+    // history.selling -> history
+    if (isActive) {
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .get()
+        .then((res) => {
+          let deletedName = res.data.itemInfo.zh_name;
+          let tradeHistory = app.globalData.gameProfile.tradeHistory;
+          if (typeof tradeHistory.history.rooms === "undefined") {
+            tradeHistory.history["rooms"] = {};
+          }
+          tradeHistory.history.rooms[deletedName] =
+            tradeHistory.selling.rooms[deletedName];
+          delete tradeHistory.selling.rooms[deletedName];
+          app.globalData.gameProfile.tradeHistory = tradeHistory;
+          db.collection("UsersProfile")
+            .where({})
+            .update({
+              data: {
+                tradeHistory: _.set(tradeHistory),
+              },
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .get()
+        .then((res) => {
+          let deletedName = res.data.itemInfo.zh_name;
+          let tradeHistory = app.globalData.gameProfile.tradeHistory;
+          if (typeof tradeHistory.history.rooms === "undefined") {
+            tradeHistory.selling["rooms"] = {};
+          }
+          tradeHistory.selling.rooms[deletedName] =
+            tradeHistory.history.rooms[deletedName];
+          delete tradeHistory.history.rooms[deletedName];
+          app.globalData.gameProfile.tradeHistory = tradeHistory;
+          db.collection("UsersProfile")
+            .where({})
+            .update({
+              data: {
+                tradeHistory: _.set(tradeHistory),
+              },
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
   settingClick: function () {
     //TODO

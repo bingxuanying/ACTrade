@@ -1,12 +1,157 @@
 <block>
     <nav-bar navInfo="我的交易" back="True"></nav-bar>
-    <view class="tradeHistory">
+    <view class="tradeHistory" style="height: calc(100vh - {{statusBarHeight}}px - 44px);">
         <view class="trade-header">
-            <view class="trade-header-tag">消息</view>
-            <view class="trade-header-tag">我的留言</view>
-            <view class="trade-header-tag">我的出售</view>
-            <view class="trade-header-tag">出售历史</view>
+            <view class="trade-header-tag {{tagChoose[0]?'active':''}}" bindtap="onTagTap" data-index='0'>
+                <view class="app-notification" hidden="{{tradeHistory.selling.isUpdated}}"></view>
+                我的出售
+            </view>
+            <view class="trade-header-tag {{tagChoose[1]?'active':''}}" bindtap="onTagTap" data-index='1'>
+                <view class="app-notification" hidden="{{tradeHistory.buying.isUpdated}}"></view>
+                我的留言
+            </view>
+            <view class="trade-header-tag {{tagChoose[2]?'active':''}}" bindtap="onTagTap" data-index='2'>
+                <view class="app-notification" hidden="{{tradeHistory.news.isUpdated}}"></view>
+                心愿单
+            </view>
+            <view class="trade-header-tag {{tagChoose[3]?'active':''}}" bindtap="onTagTap" data-index='3'>
+                <view class="app-notification" hidden="{{tradeHistory.history.isUpdated}}"></view>
+                出售历史
+            </view>
         </view>
-        <view class="trade-content">Content HEre</view>
+        <view class="trade-content">
+            <view class="trade-content-page" hidden="{{!tagChoose[0]}}">
+                <!-- for selling -->
+                <block wx:for="{{mapArr.selling}}" wx:for-index="sellingIndex" wx:for-item="item" wx:key="selling">
+                    <view class="card" bindtap="buyNsellClick" data-type="selling" data-id="{{item._id}}" data-name="{{sellingIndex}}">
+                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="card-news">
+                            <view class="card-news-img" style="background-color: {{item.bg_color}}">
+                                <image src="{{item.img_url}}" mode="widthFix" />
+                            </view>
+                            <view class="card-news-info">
+                                <view class="card-info-head">
+                                    <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
+                                    <text style="margin-left:10rpx">{{sellingIndex}}</text>
+                                    <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                                    <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
+                                        {{filter.getDays(nowTimestamp , item.timestamp)}}天前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getHours(nowTimestamp, item.timestamp)}}小时前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getMins(nowTimestamp , item.timestamp)}}分前
+                                    </view>
+                                    <view class="card-info-time" wx:else>刚刚</view>
+                                </view>
+                                <view class="card-info-body">
+                                    <text>有人刚刚回复你了~</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+            <view class="trade-content-page" hidden="{{!tagChoose[2]}}">
+                <!-- for news -->
+                <block wx:for="{{mapArr.news}}" wx:for-index="newsIndex" wx:for-item="item" wx:key="news">
+                    <view class="card" bindtap="newsClick" data-id="{{item.roomId}}" data-name="{{newsIndex}}">
+                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="card-news">
+                            <view class="card-news-img" style="background-color: {{item.bg_color}}">
+                                <image src="{{item.img_url}}" mode="widthFix" />
+                            </view>
+                            <view class="card-news-info">
+                                <view class="card-info-head">
+                                    <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
+                                    <text style="margin-left:10rpx">{{newsIndex}}</text>
+                                    <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                                    <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
+                                        {{filter.getDays(nowTimestamp , item.timestamp)}}天前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getHours(nowTimestamp, item.timestamp)}}小时前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getMins(nowTimestamp , item.timestamp)}}分前
+                                    </view>
+                                    <view class="card-info-time" wx:else>刚刚</view>
+                                </view>
+                                <view class="card-info-body">
+                                    <text>{{item.description}}</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+            <view class="trade-content-page" hidden="{{!tagChoose[1]}}">
+                <!-- for buying -->
+                <block wx:for="{{mapArr.buying}}" wx:for-index="buyingIndex" wx:for-item="item" wx:key="buying">
+                    <view class="card" bindtap="buyNsellClick" data-type="buying" data-id="{{item._id}}" data-name="{{buyingIndex}}">
+                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="card-news">
+                            <view class="card-news-img" style="background-color: {{item.bg_color}}">
+                                <image src="{{item.img_url}}" mode="widthFix" />
+                            </view>
+                            <view class="card-news-info">
+                                <view class="card-info-head">
+                                    <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
+                                    <text style="margin-left:10rpx">{{buyingIndex}}</text>
+                                    <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                                    <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
+                                        {{filter.getDays(nowTimestamp , item.timestamp)}}天前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getHours(nowTimestamp, item.timestamp)}}小时前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getMins(nowTimestamp , item.timestamp)}}分前
+                                    </view>
+                                    <view class="card-info-time" wx:else>刚刚</view>
+                                </view>
+                                <view class="card-info-body">
+                                    <text>有人刚刚回复你了~</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+            <view class="trade-content-page" hidden="{{!tagChoose[3]}}">
+                <!-- for history -->
+                <block wx:for="{{mapArr.history}}" wx:for-index="historyIndex" wx:for-item="item" wx:key="history">
+                    <view class="card" bindtap="buyNsellClick" data-type="history" data-id="{{item._id}}" data-name="{{historyIndex}}">
+                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="card-news">
+                            <view class="card-news-img" style="background-color: {{item.bg_color}}">
+                                <image src="{{item.img_url}}" mode="widthFix" />
+                            </view>
+                            <view class="card-news-info">
+                                <view class="card-info-head">
+                                    <image src="../../assets/icons/DotIcon.png" style="height: 40rpx; width: 40rpx;" />
+                                    <text style="margin-left:10rpx">{{historyIndex}}</text>
+                                    <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                                    <view class="card-info-time" wx:if="{{filter.getDays(nowTimestamp, item.timestamp) > 0}}">
+                                        {{filter.getDays(nowTimestamp , item.timestamp)}}天前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getHours(nowTimestamp, item.timestamp)}}小时前
+                                    </view>
+                                    <view class="card-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.timestamp) > 0}}">
+                                        {{filter.getMins(nowTimestamp , item.timestamp)}}分前
+                                    </view>
+                                    <view class="card-info-time" wx:else>刚刚</view>
+                                </view>
+                                <view class="card-info-body">
+                                    <text>有人刚刚回复你了~</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </view>
     </view>
 </block>

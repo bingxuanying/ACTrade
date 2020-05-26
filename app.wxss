@@ -43,3 +43,15 @@ page {
   color: #716a58;
 }
 /* Confirm Button Above */
+
+/* 同于提醒的小红点: 需要父级position:relative */
+.app-notification {
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 50%;
+  background-color: red;
+  border: #faf8e1 5rpx solid;
+  position: absolute;
+  right: -10rpx;
+  top: -10rpx;
+}
