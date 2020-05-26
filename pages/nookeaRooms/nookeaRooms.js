@@ -129,7 +129,8 @@ Page({
         dbdata.comments = dbdata.comments.map((t, i) => {
           t.conversations.sort((a, b) => a.timestamp - b.timestamp);
           t.noteIndex = i;
-          t.lastConversationTimestamp = t.conversations[t.conversations.length - 1].timestamp
+          t.lastConversationTimestamp =
+            t.conversations[t.conversations.length - 1].timestamp;
           if (
             t.slaveInfo._openid !== this.data.openid &&
             dbdata.masterInfo._openid !== this.data.openid
@@ -138,19 +139,22 @@ Page({
           }
           return t;
         });
-        if (dbdata.masterInfo._openid == this.data._openid) {
+        if (dbdata.masterInfo._openid == this.data.openid) {
           this.setData({
             addReplyEnabled: false,
             isExpand: Array(len).fill(false),
           });
           dbdata.comments.sort((a, b) => {
-             if (a.isUpdated && !b.isUpdated) {
-               return -1
-             } else if (!a.isUpdated && b.isUpdated) {
-               return 1
-             } else {
-               return a.lastConversationTimestamp < b.lastConversationTimestamp ? 1 : -1
-          })
+            if (a.isUpdated && !b.isUpdated) {
+              return -1;
+            } else if (!a.isUpdated && b.isUpdated) {
+              return 1;
+            } else {
+              return a.lastConversationTimestamp < b.lastConversationTimestamp
+                ? 1
+                : -1;
+            }
+          });
         } else {
           for (let i in dbdata.comments) {
             if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
@@ -186,7 +190,8 @@ Page({
           dbdata.comments = dbdata.comments.map((t, i) => {
             t.conversations.sort((a, b) => a.timestamp - b.timestamp);
             t.noteIndex = i;
-            t.lastConversationTimestamp = t.conversations[t.conversations.length - 1].timestamp
+            t.lastConversationTimestamp =
+              t.conversations[t.conversations.length - 1].timestamp;
             if (
               t.slaveInfo._openid !== this.data.openid &&
               dbdata.masterInfo._openid !== this.data.openid
@@ -195,19 +200,22 @@ Page({
             }
             return t;
           });
-          if (dbdata.masterInfo._openid == this.data._openid) {
+          if (dbdata.masterInfo._openid == this.data.openid) {
             this.setData({
               addReplyEnabled: false,
               isExpand: Array(len).fill(false),
             });
             dbdata.comments.sort((a, b) => {
-               if (a.isUpdated && !b.isUpdated) {
-                 return -1
-               } else if (!a.isUpdated && b.isUpdated) {
-                 return 1
-               } else {
-                 return a.lastConversationTimestamp < b.lastConversationTimestamp ? 1 : -1
-            })
+              if (a.isUpdated && !b.isUpdated) {
+                return -1;
+              } else if (!a.isUpdated && b.isUpdated) {
+                return 1;
+              } else {
+                return a.lastConversationTimestamp < b.lastConversationTimestamp
+                  ? 1
+                  : -1;
+              }
+            });
           } else {
             for (let i in dbdata.comments) {
               if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {

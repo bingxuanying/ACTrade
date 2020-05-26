@@ -142,7 +142,7 @@ Page({
       .where({})
       .update({
         data: {
-          [path]: true,
+          [path]: false,
         },
       })
       .then(() => {
@@ -152,10 +152,10 @@ Page({
           .then((res) => {
             console.log(res);
             let rooms = res.data[0].tradeHistory.news.rooms;
-            let isUpdated = true;
+            let isUpdated = false;
             for (var x in rooms) {
-              if (rooms[x].isUpdated === false) {
-                isUpdated = false;
+              if (rooms[x].isUpdated !== false) {
+                isUpdated = true;
               }
             }
             db.collection("UsersProfile")
@@ -185,7 +185,7 @@ Page({
       .where({})
       .update({
         data: {
-          [path]: true,
+          [path]: false,
         },
       })
       .then(() => {
@@ -195,10 +195,10 @@ Page({
           .then((res) => {
             console.log(res);
             let rooms = res.data[0].tradeHistory[type].rooms;
-            let isUpdated = true;
+            let isUpdated = false;
             for (var x in rooms) {
-              if (rooms[x].isUpdated === false) {
-                isUpdated = false;
+              if (rooms[x].isUpdated !== false) {
+                isUpdated = true;
               }
             }
             let path = "tradeHistory." + type + ".isUpdated";

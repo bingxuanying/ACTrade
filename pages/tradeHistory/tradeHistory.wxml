@@ -3,19 +3,19 @@
     <view class="tradeHistory" style="height: calc(100vh - {{statusBarHeight}}px - 44px);">
         <view class="trade-header">
             <view class="trade-header-tag {{tagChoose[0]?'active':''}}" bindtap="onTagTap" data-index='0'>
-                <view class="app-notification" hidden="{{tradeHistory.selling.isUpdated}}"></view>
+                <view class="app-notification" hidden="{{!tradeHistory.selling.isUpdated}}"></view>
                 我的出售
             </view>
             <view class="trade-header-tag {{tagChoose[1]?'active':''}}" bindtap="onTagTap" data-index='1'>
-                <view class="app-notification" hidden="{{tradeHistory.buying.isUpdated}}"></view>
+                <view class="app-notification" hidden="{{!tradeHistory.buying.isUpdated}}"></view>
                 我的留言
             </view>
             <view class="trade-header-tag {{tagChoose[2]?'active':''}}" bindtap="onTagTap" data-index='2'>
-                <view class="app-notification" hidden="{{tradeHistory.news.isUpdated}}"></view>
+                <view class="app-notification" hidden="{{!tradeHistory.news.isUpdated}}"></view>
                 心愿单
             </view>
             <view class="trade-header-tag {{tagChoose[3]?'active':''}}" bindtap="onTagTap" data-index='3'>
-                <view class="app-notification" hidden="{{tradeHistory.history.isUpdated}}"></view>
+                <view class="app-notification" hidden="{{!tradeHistory.history.isUpdated}}"></view>
                 出售历史
             </view>
         </view>
@@ -24,7 +24,7 @@
                 <!-- for selling -->
                 <block wx:for="{{mapArr.selling}}" wx:for-index="sellingIndex" wx:for-item="item" wx:key="selling">
                     <view class="card" bindtap="buyNsellClick" data-type="selling" data-id="{{item._id}}" data-name="{{sellingIndex}}">
-                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
                                 <image src="{{item.img_url}}" mode="widthFix" />
@@ -57,7 +57,7 @@
                 <!-- for news -->
                 <block wx:for="{{mapArr.news}}" wx:for-index="newsIndex" wx:for-item="item" wx:key="news">
                     <view class="card" bindtap="newsClick" data-id="{{item.roomId}}" data-name="{{newsIndex}}">
-                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
                                 <image src="{{item.img_url}}" mode="widthFix" />
@@ -90,7 +90,7 @@
                 <!-- for buying -->
                 <block wx:for="{{mapArr.buying}}" wx:for-index="buyingIndex" wx:for-item="item" wx:key="buying">
                     <view class="card" bindtap="buyNsellClick" data-type="buying" data-id="{{item._id}}" data-name="{{buyingIndex}}">
-                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
                                 <image src="{{item.img_url}}" mode="widthFix" />
@@ -123,7 +123,7 @@
                 <!-- for history -->
                 <block wx:for="{{mapArr.history}}" wx:for-index="historyIndex" wx:for-item="item" wx:key="history">
                     <view class="card" bindtap="buyNsellClick" data-type="history" data-id="{{item._id}}" data-name="{{historyIndex}}">
-                        <view class="app-notification" hidden="{{item.isUpdated}}" />
+                        <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">
                                 <image src="{{item.img_url}}" mode="widthFix" />
