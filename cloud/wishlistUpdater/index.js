@@ -80,7 +80,7 @@ exports.main = async (event, context) => {
         })
         .update({
           data: {
-            wishlist: _.set(_wishlist),
+            'masterInfo.wishlist': _.set(_wishlist),
           },
         })
         .then((res) => {

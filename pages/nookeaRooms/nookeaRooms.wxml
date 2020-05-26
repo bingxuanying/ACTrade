@@ -72,8 +72,8 @@
           <view class="slave-reply-icon">+</view>
           <view class="slave-reply-btn">我要留言</view>
         </view>
-        <view class="board-content" wx:for="{{db.comments}}" wx:for-index="commentIndex">
-          <view class="conversation" wx:for="{{item.conversations}}" wx:for-item="conversation" wx:for-index="conversationIndex">
+        <view class="board-content" wx:for="{{db.comments}}" wx:for-index="commentIndex" wx:key="comments">
+          <view class="conversation" wx:for="{{item.conversations}}" wx:for-item="conversation" wx:for-index="conversationIndex" wx:key="conversations">
             <view class="conversation-head" wx:if="{{conversationIndex == 0}}">
               <view class="conversation-head-avatar">
                 <image style="width:100%;" mode="widthFix" src="{{item.slaveInfo.avatarUrl}}" />

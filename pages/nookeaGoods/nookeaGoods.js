@@ -94,11 +94,11 @@ Page({
         this.setData({
           selfPost: {
             ...this.data.selfPost,
-            room_id: _tradeHistory.selling.rooms[product_id]._id,
+            room_id: _tradeHistory.selling.rooms[product_id].roomId,
           },
         });
         db.collection("Nookea-rooms")
-          .doc(_tradeHistory.selling.rooms[product_id]._id)
+          .doc(_tradeHistory.selling.rooms[product_id].roomId)
           .get()
           .then((res) =>
             this.setData({
@@ -122,15 +122,15 @@ Page({
 
           let _tradeHistory = app.globalData.gameProfile.tradeHistory;
           if (_tradeHistory.selling.rooms.hasOwnProperty(product_id)) {
-            console.log(_tradeHistory.selling.rooms[product_id]._id);
+            console.log(_tradeHistory.selling.rooms[product_id].roomId);
             this.setData({
               selfPost: {
                 ...this.data.selfPost,
-                room_id: _tradeHistory.selling.rooms[product_id]._id,
+                room_id: _tradeHistory.selling.rooms[product_id].roomId,
               },
             });
             db.collection("Nookea-rooms")
-              .doc(_tradeHistory.selling.rooms[product_id]._id)
+              .doc(_tradeHistory.selling.rooms[product_id].roomId)
               .get()
               .then((res) =>
                 this.setData({
@@ -265,11 +265,11 @@ Page({
       );
   },
 
-  onTapEnter: function(e) {
-    let {id, ismaster} = e.currentTarget.dataset;
+  onTapEnter: function (e) {
+    let { id, ismaster } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '/pages/nookeaRooms/nookeaRooms?id=' + id + '&isMaster=' + ismaster,
-    })
+      url: "/pages/nookeaRooms/nookeaRooms?id=" + id + "&isMaster=" + ismaster,
+    });
   },
 
   // --- Add data to db ---

@@ -1,10 +1,9 @@
 {
   "pages": [
-    "pages/nookeaGoods/nookeaGoods",
     "pages/nookea/nookea",
+    "pages/nookeaGoods/nookeaGoods",
     "pages/nookeaRooms/nookeaRooms",
     "pages/tradingFloor/tradingFloor",
-    "pages/tradeHistory/tradeHistory",
     "pages/profile/profile",
     "pages/wishlist/wishlist",
     "pages/roomMaster/roomMaster",
