@@ -740,12 +740,6 @@ page {
   justify-content: center;
   z-index: 30;
 }
-.noAuthName-btn-register {
-  right: 50rpx;
-}
-.noAuthName-btn-back {
-  right: 230rpx;
-}
 
 /* leave room */
 /*mask*/

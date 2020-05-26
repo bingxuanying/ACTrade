@@ -7,50 +7,137 @@
       <image class="head-bar-logo" src="../../assets/nookea/header-logo.png" mode="heightFix" />
     </view>
     <view class="item-box">
-      <view class="item-img-box">
-        <view class="card-content" style="background-color:{{productInfo.bg_color}};">
-          <view class="card-content-bg" style="background-color:{{productInfo.bg_color}};">
-            <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
-            <image class="card-content-item" src="{{productInfo.img_url}}" mode="widthFix" />
+      <!-- title -->
+      <view class="item-title">
+        <image class="item-title-icon" src="../../assets/nookea/titleIcon.png" mode="widthFix" />
+        <text>{{productInfo.zh_name}}</text>
+      </view>
+
+      <!-- black board -->
+      <view class="item-info">
+        <!-- left -->
+        <view class="item-info-left">
+          <view class="card-content" style="background-color:{{productInfo.bg_color}};">
+            <view class="card-content-bg" style="background-color:{{productInfo.bg_color}};">
+              <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
+              <image class="card-content-item" src="{{productInfo.img_url}}" mode="widthFix" />
+            </view>
           </view>
         </view>
-      </view>
-      <view class="item-info">
-        <view class="item-title">
-          <image class="item-title-icon" src="../../assets/nookea/titleIcon.png" mode="widthFix" />
-          <text>{{productInfo.zh_name}}</text>
-        </view>
-        <view class="item-madeof">
-          <!-- if recipe: list -->
-          <block wx:if="{{productInfo.recipe}}">
-            <block wx:for="{{productInfo.recipe}}" wx:for-item="content" wx:for-index="name" wx:key="materials">
-              <!-- material card content -->
-              <view class="item-madeof-row">
-                <image class="item-madeof-row-icon" src="{{img[name]?img[name]:img['叶子']}}" mode="heightFix" />
-                <text style="font-size:28rpx">{{name}}</text>
-                <view class="item-madeof-row-dash" />
-                <text>{{content}}</text>
-              </view>
+
+        <view class="item-info-middle" />
+
+        <!-- right -->
+        <view class="item-info-right">
+          <view class="item-madeof">
+            <!-- if recipe: list -->
+            <block wx:if="{{productInfo.recipe}}">
+              <block wx:for="{{productInfo.recipe}}" wx:for-item="content" wx:for-index="name" wx:key="materials">
+                <!-- material card content -->
+                <view class="item-madeof-row">
+                  <image class="item-madeof-row-icon" src="{{img[name]?img[name]:img['叶子']}}" mode="heightFix" />
+                  <text style="font-size:28rpx">{{name}}</text>
+                  <view class="item-madeof-row-dash" />
+                  <text>{{content}}</text>
+                </view>
+              </block>
             </block>
-          </block>
-          <!-- if no recipe: collection name -->
-          <block wx:else>
-            <view class="item-madeof-row">{{productInfo.collection}}</view>
-          </block>
+            <!-- if no recipe: collection name -->
+            <block wx:else>
+              <image class="item-norecipe-tag" src="../../assets/nookea/norecipe-tag.png" mode="widthFix" />
+              <view class="item-norecipe-text">这是{{productInfo.collection}}哦</view>
+            </block>
+          </view>
         </view>
+
       </view>
     </view>
+
     <view class="board">
+      <!-- Board Bar -->
       <view class="board-options">
-        <view class="list-btn"></view>
-        <view class="post-btn" bindtap="onTapPostModal">{{selfPost.hasPosted?"更新":"发布"}}</view>
+        <view style="float:left">卖家信息</view>
+        <view style="float:left;margin-left:15rpx;">(被{{productInfo.subscription}}个人添加到心愿单)</view>
+        <view class="post-btn" bindtap="onTapPostModal">{{selfPost.room_id?"更新":"发布"}}</view>
       </view>
       <!-- Main Board -->
       <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
-        <view class="record" hidden="{{!selfPost.room_id}}">"owner"</view>
+        <!-- I am the seller -->
+        <view class="record" hidden="{{!selfPost.room_id}}" data-id="{{selfPost.room_id}}">
+          <view class="record-avatar-box">
+            <image class="record-avatar" src="{{selfPost.roomInfo.masterInfo.avatarUrl}}" mode="widthFix" />
+          </view>
+          <view class="record-info-box">
+            <view class="record-info-row">
+              <!-- <image class="record-info-row-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" /> -->
+              <view class="record-info-row-text">{{selfPost.roomInfo.masterInfo.nickname}}</view>
+              <image src="{{selfPost.roomInfo.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
+              mode="widthFix" style="margin-right:15rpx; width:20rpx;" />
+              <text class="record-info-row-text">{{selfPost.roomInfo.masterInfo.islandName}}岛</text>                
+            </view>
+            <view class="record-info-row">
+              <view class="record-info-row-title">微信号</view>
+              <text class="record-info-row-text">{{selfPost.roomInfo.content.isWxid?selfPost.roomInfo.content.wxidText:'房主没有透露哦~'}}</text>
+            </view>
+            <view class="record-info-row">
+              <view class="record-info-row-title">接受方式</view>
+              <block wx:if="{{selfPost.roomInfo.content.bell.length>0&&selfPost.roomInfo.content.bell!=='0'}}">
+                <image src="{{img.BellIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                <text class="record-info-row-text">{{selfPost.roomInfo.content.bell}}</text>
+              </block>
+              <block wx:if="{{selfPost.roomInfo.content.ticket.length>0&&selfPost.roomInfo.content.ticket!=='0'}}">
+                <image src="{{img.TicketIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                <text class="record-info-row-text">{{selfPost.roomInfo.content.ticket}}</text>
+              </block>
+              <block wx:if="{{selfPost.roomInfo.content.wishlist}}">
+                <image src="{{img.WishlistIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                <text class="record-info-row-text">心愿单</text>
+              </block>
+            </view>
+            <view class="record-info-row" style="height:80rpx;">
+              <view class="record-info-row-title" style="align-self:flex-start;">留言板</view>
+              <text class="record-info-row-text" style="height:100%; width:70%;">{{selfPost.roomInfo.content.notes}}</text>
+            </view>           
+          </view>
+        </view>
+        <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
-          <view class="record" hidden="{{selfPost.room_id===item._id}}">
-            {{item.masterInfo.nickname}}
+          <view class="record" hidden="{{selfPost.room_id===item._id}}" data-id="{{item._id}}">
+            <view class="record-avatar-box">
+              <image class="record-avatar" src="{{item.masterInfo.avatarUrl}}" mode="widthFix" />
+            </view>
+            <view class="record-info-box">
+              <view class="record-info-row">
+                <!-- <image class="record-info-row-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" /> -->
+                <view class="record-info-row-text">{{item.masterInfo.nickname}}</view>
+                <image src="{{item.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
+                mode="widthFix" style="margin-right:15rpx; width:20rpx;" />
+                <text class="record-info-row-text">{{item.masterInfo.islandName}}岛</text>                
+              </view>
+              <view class="record-info-row">
+                <view class="record-info-row-title">微信号</view>
+                <text class="record-info-row-text">{{item.content.isWxid?item.content.wxidText:'房主没有透露哦~'}}</text>
+              </view>
+              <view class="record-info-row">
+                <view class="record-info-row-title">接受方式</view>
+                <block wx:if="{{item.content.bell.length>0&&item.content.bell!=='0'}}">
+                  <image src="{{img.BellIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                  <text class="record-info-row-text">{{item.content.bell}}</text>
+                </block>
+                <block wx:if="{{item.content.ticket.length>0&&item.content.ticket!=='0'}}">
+                  <image src="{{img.TicketIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                  <text class="record-info-row-text">{{item.content.ticket}}</text>
+                </block>
+                <block wx:if="{{item.content.wishlist}}">
+                  <image src="{{img.WishlistIcon}}" mode="heightFix" style="margin-right:5rpx; height:38rpx;" />
+                  <text class="record-info-row-text">心愿单</text>
+                </block>
+              </view>
+              <view class="record-info-row" style="height:80rpx;">
+                <view class="record-info-row-title" style="align-self:flex-start;">留言板</view>
+                <text class="record-info-row-text" style="height:100%; width:70%;">{{item.content.notes}}</text>
+              </view>           
+            </view>
           </view>
         </block>
       </view>
@@ -80,8 +167,10 @@
     <view class='mask10' hidden="{{!modal.openPost}}" bindtap="hideModal" />
     <!-- Modal: Post -->
     <view class="mymodal fade-in" hidden="{{!modal.openPost}}">
-      <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
+      <!-- modal title -->
       <view class="modal-title">发布商品信息</view>
+      <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
+      <!-- modal content -->
       <view class="mymodal-content">
         <view class="modal-row">
           <view class="modal-row50">
@@ -110,7 +199,7 @@
           </view>
           <view class="modal-row-content">
             <view class="modal-row-closeBtn">
-              <view class="modal-row-closeBtn-greenbox {{content.isWxid?'modal-row-closeBtn-click':'modal-row-closeBtn-unclick'}}" data-title="isWxid" bindtap="{{content.wxidText.length>0?'bindModalSwitch':''}}">
+              <view class="modal-row-closeBtn-greenbox {{content.wishlist?'modal-row-closeBtn-click':'modal-row-closeBtn-unclick'}}" data-title="wishlist" bindtap="{{'bindModalSwitch'}}">
                 <view class="modal-row-btn-text">{{content.wishlist?'接受':'不接受'}}</view>
               </view>
             </view>
@@ -140,9 +229,16 @@
             <textarea value="{{content.notes}}" cursor-spacing="30" data-title="notes" bindinput="bindModalStr" bindfocus="bindInputFocus" />
           </view>
         </view>
-        <view class="modal-btn-box">
-          <view class="modal-btn" bindtap="hideModal">返回</view>
-          <view class="modal-btn" bindtap="onTapCreate">确定</view>
+      </view>
+      <!-- modal btn -->
+      <view class="modal-btn-box">
+        <view class="modal-btn" bindtap="hideModal">
+          <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">B</view>
+          <view class="confirm-btn-text">返回</view>
+        </view>
+        <view class="modal-btn" bindtap="onTapCreate">
+          <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A</view>
+          <view class="confirm-btn-text">发布</view>
         </view>
       </view>
     </view>
