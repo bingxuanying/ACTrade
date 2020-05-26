@@ -56,14 +56,22 @@
     <view class="board">
       <!-- Board Bar -->
       <view class="board-options">
+        <image class="item-title-icon" style="float:left;" src="../../assets/nookea/titleIcon2.png" mode="widthFix" />
         <view style="float:left">卖家信息</view>
-        <view style="float:left;margin-left:15rpx;">(被{{productInfo.subscription}}个人添加到心愿单)</view>
-        <view class="post-btn" bindtap="onTapPostModal">{{selfPost.room_id?"更新":"发布"}}</view>
+        <view class="post-btn" bindtap="onTapPostModal">
+          <view class="post-btn-icon">+</view>
+          {{selfPost.room_id?"更新":"发布"}}
+        </view>
       </view>
+      
+      <view class="board-options-subtitle">(被 {{productInfo.subscription}} 个人添加到心愿单)</view>
+
       <!-- Main Board -->
       <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
         <!-- I am the seller -->
-        <view class="record" hidden="{{!selfPost.room_id}}" data-id="{{selfPost.room_id}}">
+        <view class="record" hidden="{{!selfPost.room_id}}" data-ismaster="{{true}}" data-id="{{selfPost.room_id}}" bindtap="onTapEnter">
+          <image class="record-bg" src="../../assets/nookea/comment-bg3.png" mode="widthFix" />
+
           <view class="record-avatar-box">
             <image class="record-avatar" src="{{selfPost.roomInfo.masterInfo.avatarUrl}}" mode="widthFix" />
           </view>
@@ -96,13 +104,19 @@
             </view>
             <view class="record-info-row" style="height:80rpx;">
               <view class="record-info-row-title" style="align-self:flex-start;">留言板</view>
-              <text class="record-info-row-text" style="height:100%; width:70%;">{{selfPost.roomInfo.content.notes}}</text>
+              <text class="record-info-row-notes">{{selfPost.roomInfo.content.notes}}</text>
             </view>           
           </view>
         </view>
+        <view class="record-selfline">--- 以下是别人的出售 ---</view>
         <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
-          <view class="record" hidden="{{selfPost.room_id===item._id}}" data-id="{{item._id}}">
+          <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="{{false}}" data-id="{{item._id}}" bindtap="onTapEnter">
+            
+            <image class="record-bg" src="../../assets/nookea/comment-bg1.png" mode="widthFix" wx:if="{{idx%3===0}}" />
+            <image class="record-bg" src="../../assets/nookea/comment-bg2.png" mode="widthFix" wx:if="{{idx%3===1}}" />
+            <image class="record-bg" src="../../assets/nookea/comment-bg3.png" mode="widthFix" wx:if="{{idx%3===2}}" />
+            
             <view class="record-avatar-box">
               <image class="record-avatar" src="{{item.masterInfo.avatarUrl}}" mode="widthFix" />
             </view>
@@ -111,12 +125,13 @@
                 <!-- <image class="record-info-row-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" /> -->
                 <view class="record-info-row-text">{{item.masterInfo.nickname}}</view>
                 <image src="{{item.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
-                mode="widthFix" style="margin-right:15rpx; width:20rpx;" />
-                <text class="record-info-row-text">{{item.masterInfo.islandName}}岛</text>                
+                mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
+                <text class="record-info-row-text">{{item.masterInfo.islandName}}</text>
+                <text style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</text>
               </view>
               <view class="record-info-row">
                 <view class="record-info-row-title">微信号</view>
-                <text class="record-info-row-text">{{item.content.isWxid?item.content.wxidText:'房主没有透露哦~'}}</text>
+                <text class="record-info-row-text">{{item.content.isWxid?item.content.wxidText:'房主没透露哦~'}}</text>
               </view>
               <view class="record-info-row">
                 <view class="record-info-row-title">接受方式</view>
@@ -135,7 +150,7 @@
               </view>
               <view class="record-info-row" style="height:80rpx;">
                 <view class="record-info-row-title" style="align-self:flex-start;">留言板</view>
-                <text class="record-info-row-text" style="height:100%; width:70%;">{{item.content.notes}}</text>
+                <text class="record-info-row-notes">{{item.content.notes}}</text>
               </view>           
             </view>
           </view>
@@ -149,6 +164,7 @@
         <text>可以下拉刷新试试看~！</text>
         <image class="board-cant-find-nook" src="../../assets/icons/nook.png" mode="aspectFit" />
       </view>
+
       <!-- Board Bottom -->
       <view class="board-bottom" style="line-height: {{loading.isBottom?'65rpx':'50rpx'}};" hidden="{{rooms.length===0||loading.isRefresh}}">
         <block wx:if="{{loading.isBottom}}">
@@ -207,7 +223,7 @@
         </view>
         <view class="modal-row">
           <view class="modal-row-title">
-            <image class="modal-row-title-icon" src="{{content.wishlist?img.WishlistIcon:img.WishlistIconGray}}" />
+            <image class="modal-row-title-icon" src="{{content.wishlist?img.WxIcon:img.WxIconGray}}" />
             <view>微信号</view>
           </view>
           <view class="modal-row-content">
@@ -222,7 +238,7 @@
         </view>
         <view class="modal-row">
           <view class="modal-row-title" style="align-items: flex-start;">
-            <image class="modal-row-title-icon" src="{{content.notes?img.WishlistIcon:img.WishlistIconGray}}" />
+            <image class="modal-row-title-icon" src="{{content.notes?img.NoteIcon:img.NoteIconGray}}" />
             <view style="height: 50rpx; line-height: 50rpx">留言</view>
           </view>
           <view class="modal-row-content">

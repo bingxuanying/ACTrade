@@ -27,12 +27,20 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/TicketIcon.png",
       wishlist:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WishlistIcon.png",
+      note:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/NoteIcon.png",
+      wx:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WxIcon.png",
       bellGray:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/BellIconGray.png",
       ticketGray:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/TicketIconGray.png",
       wishlistGray:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WishlistIconGray.png",
+      noteGray:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/NoteIconGray.png",
+      wxGray:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/WxIconGray.png",
       modalBG:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/modal-bg.png",
       modalBG2:

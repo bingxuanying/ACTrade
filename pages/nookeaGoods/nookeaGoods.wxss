@@ -53,7 +53,6 @@ page {
 .item-title {
   width: 100%;
   height: 70rpx;
-  font-size: 36rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -67,6 +66,7 @@ page {
   background-size: 28rpx 4rpx;
   background-repeat: repeat-x;
   margin-bottom: 10rpx;
+  font-size: 30rpx;
 }
 
 .item-title-icon {
@@ -219,15 +219,42 @@ page {
 
 .board-options {
   width: 100%;
-  height: 60rpx;
-  margin: 30rpx 0;
+  height: 50rpx;
+  margin-top: 30rpx;
+  padding-bottom: 5rpx;
   border-bottom: #785b2f solid 5rpx;
+  line-height: 50rpx;
+}
+
+.board-options-subtitle {
+  width: 100%;
+  margin-bottom: 10rpx;
+  padding-top: 5rpx;
+  font-size: 26rpx;
 }
 
 .post-btn {
   width: 100rpx;
-  background-color: lightblue;
+  background-color: #ff977f;
+  position: relative;
   float: right;
+  margin-right: 10rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #fbf6e0;
+  line-height: 50rpx;
+}
+
+.post-btn-icon {
+  width: 27rpx;
+  height: 27rpx;
+  background-color: #ff977f;
+  position: absolute;
+  top: -5rpx;
+  right: -5rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 27rpx;
 }
 
 .board-content {
@@ -237,23 +264,45 @@ page {
 }
 
 .record {
-  width: 100%;
-  height: 220rpx;
+  width: calc(100% - 20rpx);
+  height: 230rpx;
   background-color: #fff;
+  position: relative;
   display: flex;
   flex-direction: row;
   margin-bottom: 20rpx;
+  border: solid #fff 10rpx;
+  padding: 10rpx 0;
+  overflow: hidden;
+  /* color: #636571; */
+}
+
+.record-selfline {
+    width: 100%;
+    text-align: center;
+    font-size: 26rpx;
+    margin-bottom: 10rpx;
+}
+
+.record-bg {
+  width: 200%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
 }
 
 .record-avatar-box {
   width: 200rpx;
   height: 100%;
   position: relative;
+  z-index: 1;
 }
 
 .record-avatar {
   width: 180rpx;
   height: 180rpx;
+  /* background: rgba(255, 255, 255, 0.5); */
   border-radius: 10rpx;
   position: absolute;
   top: 50%;
@@ -264,9 +313,11 @@ page {
 .record-info-box {
   width: calc(100% - 200rpx);
   height: 100%;
+  /* background: rgba(255, 255, 255, 0.5); */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  z-index: 1;
 }
 
 .record-info-row {
@@ -276,7 +327,7 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 5rpx;
+  margin-bottom: 10rpx;
 }
 
 .record-info-row-title {
@@ -293,7 +344,24 @@ page {
 
 .record-info-row-text {
   height: 40rpx;
+  max-width: 180rpx;
   margin-right: 10rpx;
+  line-height: 40rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 24rpx;
+}
+
+.record-info-row-notes{
+  height: 100%; 
+  width: 70%;
+  margin-right: 10rpx;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   line-height: 40rpx;
   font-size: 24rpx;
 }
@@ -302,14 +370,13 @@ page {
 /* --- BOTTOM --- */
 .board-bottom {
   width: 100%;
-  height: 100rpx;
-  margin-top: 30rpx;
+  height: 90rpx;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  color: #716a58;
-  font-size: 30rpx;
+  /* color: #716a58; */
+  font-size: 26rpx;
 }
 
 .board-bottom-nook {
@@ -381,7 +448,7 @@ page {
   transition: all 600ms ease-out;
   /* color: #f2f4dc; */
   color: #716a58;
-  font-size: 30rpx;
+  font-size: 28rpx;
 }
 
 .modal-title {
