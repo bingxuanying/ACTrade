@@ -11,7 +11,6 @@ Page({
     productInfo: null,
     rooms: [],
     selfPost: {
-      hasPosted: false,
       room_id: null,
       roomInfo: null,
     },
@@ -36,9 +35,13 @@ Page({
       BellIcon: iu.nookeaRooms.bell,
       TicketIcon: iu.nookeaRooms.ticket,
       WishlistIcon: iu.nookeaRooms.wishlist,
+      NoteIcon: iu.nookeaRooms.note,
+      WxIcon: iu.nookeaRooms.wx,
       BellIconGray: iu.nookeaRooms.bellGray,
       TicketIconGray: iu.nookeaRooms.ticketGray,
       WishlistIconGray: iu.nookeaRooms.wishlistGray,
+      NoteIconGray: iu.nookeaRooms.noteGray,
+      WxIconGray: iu.nookeaRooms.wxGray,
       modalBG: iu.nookeaRooms.modalBG,
       modalBG2: iu.nookeaRooms.modalBG2,
     },
@@ -91,7 +94,6 @@ Page({
         this.setData({
           selfPost: {
             ...this.data.selfPost,
-            hasPosted: true,
             room_id: _tradeHistory.selling[product_id]._id,
           },
         });
@@ -124,7 +126,6 @@ Page({
             this.setData({
               selfPost: {
                 ...this.data.selfPost,
-                hasPosted: true,
                 room_id: _tradeHistory.selling[product_id]._id,
               },
             });
@@ -235,7 +236,6 @@ Page({
 
   onReachBottom: function () {
     this.setData({
-      offset: 0,
       loading: {
         ...this.data.loading,
         isBottom: true,
@@ -263,6 +263,16 @@ Page({
           },
         })
       );
+  },
+
+  onTapEnter: function(e) {
+    console.log(e.currentTarget.dataset)
+    let {id, ismaster} = e.currentTarget.dataset;
+    console.log(id)
+    console.log(ismaster)
+    wx.navigateTo({
+      url: '/pages/nookeaRooms/nookeaRooms?id=' + id + '&isMaster=' + ismaster,
+    })
   },
 
   // --- Add data to db ---
