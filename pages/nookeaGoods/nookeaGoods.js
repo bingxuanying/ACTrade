@@ -62,12 +62,7 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
     });
-    // let product_id = options._id;
-    var product_id = "05f2c36f5ebd2e7200d107826abdcfc1";
-    // let product_id = 'E75KUkDxPwSdFYDhCx4MyNy7mcN5mqrzJ6Cj8MdfTYUicv6N'; // animal
-    // let product_id = 'u7TxYI1mo9T6GOzgcEmf9THpZyGhvD74spTE34dJyOZpEeg9'; // bell
-    // let product_id = 'vbzmb7NqboxiHeUfCZ32d0PoMB7xalxcvd6xqstMajvbvfDX'; // leaf
-    // let product_id = 'SqnFeqrIMFfNATBfjAteno7ouyONBhNKUwqWHQG1vTASJ733'; // recepi
+    var product_id = options._id;
 
     if (!app.globalData.openid) {
       db.collection("UsersProfile")
