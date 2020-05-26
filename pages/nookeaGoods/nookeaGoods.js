@@ -292,6 +292,21 @@ Page({
       wishlist: app.globalData.gameProfile.wishlist,
     };
 
+    if (this.data.selfPost.room_id) {
+      db.collection("Nookea-rooms")
+        .doc(this.data.selfPost.room_id)
+        .update({
+          data: {
+            content: this.data.content,
+            maseterInfo: _masterInfo,
+            timestamp: util.formatTime(),
+          }
+        })
+        .then(res => {
+          console.log(res)
+        })
+    }
+
     // db.collection("Nookea-rooms")
     //   .add({
     //     data: {
