@@ -129,6 +129,7 @@ Page({
         dbdata.comments = dbdata.comments.map((t, i) => {
           t.conversations.sort((a, b) => a.timestamp - b.timestamp);
           t.noteIndex = i;
+          t.lastConversationTimestamp = t.conversations[t.conversations.length - 1].timestamp
           if (
             t.slaveInfo._openid !== this.data.openid &&
             dbdata.masterInfo._openid !== this.data.openid
@@ -137,25 +138,34 @@ Page({
           }
           return t;
         });
-        for (let i in dbdata.comments) {
-          if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
-            const temp = dbdata.comments[i];
-            dbdata.comments[i] = dbdata.comments[0];
-            dbdata.comments[0] = temp;
-            let isExpand = Array(len).fill(false);
-            isExpand[0] = true;
-            this.setData({
-              addReplyEnabled: false,
-              isExpand: isExpand,
-            });
-            break;
-          }
-        }
         if (dbdata.masterInfo._openid == this.data._openid) {
           this.setData({
             addReplyEnabled: false,
             isExpand: Array(len).fill(false),
           });
+          dbdata.comments.sort((a, b) => {
+             if (a.isUpdated && !b.isUpdated) {
+               return -1
+             } else if (!a.isUpdated && b.isUpdated) {
+               return 1
+             } else {
+               return a.lastConversationTimestamp < b.lastConversationTimestamp ? 1 : -1
+          })
+        } else {
+          for (let i in dbdata.comments) {
+            if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
+              const temp = dbdata.comments[i];
+              dbdata.comments[i] = dbdata.comments[0];
+              dbdata.comments[0] = temp;
+              let isExpand = Array(len).fill(false);
+              isExpand[0] = true;
+              this.setData({
+                addReplyEnabled: false,
+                isExpand: isExpand,
+              });
+              break;
+            }
+          }
         }
         console.log(this.data.isMaster);
         this.setData({
@@ -176,6 +186,7 @@ Page({
           dbdata.comments = dbdata.comments.map((t, i) => {
             t.conversations.sort((a, b) => a.timestamp - b.timestamp);
             t.noteIndex = i;
+            t.lastConversationTimestamp = t.conversations[t.conversations.length - 1].timestamp
             if (
               t.slaveInfo._openid !== this.data.openid &&
               dbdata.masterInfo._openid !== this.data.openid
@@ -184,25 +195,34 @@ Page({
             }
             return t;
           });
-          for (let i in dbdata.comments) {
-            if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
-              const temp = dbdata.comments[i];
-              dbdata.comments[i] = dbdata.comments[0];
-              dbdata.comments[0] = temp;
-              let isExpand = Array(len).fill(false);
-              isExpand[0] = true;
-              this.setData({
-                addReplyEnabled: false,
-                isExpand: isExpand,
-              });
-              break;
-            }
-          }
           if (dbdata.masterInfo._openid == this.data._openid) {
             this.setData({
               addReplyEnabled: false,
               isExpand: Array(len).fill(false),
             });
+            dbdata.comments.sort((a, b) => {
+               if (a.isUpdated && !b.isUpdated) {
+                 return -1
+               } else if (!a.isUpdated && b.isUpdated) {
+                 return 1
+               } else {
+                 return a.lastConversationTimestamp < b.lastConversationTimestamp ? 1 : -1
+            })
+          } else {
+            for (let i in dbdata.comments) {
+              if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
+                const temp = dbdata.comments[i];
+                dbdata.comments[i] = dbdata.comments[0];
+                dbdata.comments[0] = temp;
+                let isExpand = Array(len).fill(false);
+                isExpand[0] = true;
+                this.setData({
+                  addReplyEnabled: false,
+                  isExpand: isExpand,
+                });
+                break;
+              }
+            }
           }
           this.setData({
             db: dbdata,
