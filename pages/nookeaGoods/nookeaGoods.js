@@ -48,7 +48,6 @@ Page({
     gif: {
       EarthLoadingUrl: null,
     },
-    canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 
   onLoad: function (options) {
@@ -63,12 +62,7 @@ Page({
         EarthLoadingUrl: iu.gif.EarthLoading,
       },
     });
-    // let product_id = options._id;
-    let product_id = "05f2c36f5ebd2e7200d107826abdcfc1";
-    // let product_id = 'E75KUkDxPwSdFYDhCx4MyNy7mcN5mqrzJ6Cj8MdfTYUicv6N'; // animal
-    // let product_id = 'u7TxYI1mo9T6GOzgcEmf9THpZyGhvD74spTE34dJyOZpEeg9'; // bell
-    // let product_id = 'vbzmb7NqboxiHeUfCZ32d0PoMB7xalxcvd6xqstMajvbvfDX'; // leaf
-    // let product_id = 'SqnFeqrIMFfNATBfjAteno7ouyONBhNKUwqWHQG1vTASJ733'; // recepi
+    var product_id = options._id;
 
     if (!app.globalData.openid) {
       db.collection("UsersProfile")
@@ -77,6 +71,7 @@ Page({
           if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
         });
     }
+
 
     if (
       app.globalData.gameProfile.tradeHistory &&
@@ -110,7 +105,7 @@ Page({
             })
           );
       }
-    } else if (this.data.canIUse) {
+    } else {
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {
           this.setData({
@@ -121,7 +116,9 @@ Page({
           });
 
           let _tradeHistory = app.globalData.gameProfile.tradeHistory;
+    
           if (_tradeHistory.selling.rooms.hasOwnProperty(product_id)) {
+            console.log(_tradeHistory.selling.rooms[product_id].roomId);
             console.log(_tradeHistory.selling.rooms[product_id].roomId);
             this.setData({
               selfPost: {
@@ -282,29 +279,6 @@ Page({
     });
   },
 
-  onTapCreate: function (e) {
-    let _masterInfo = {
-      _openid: app.globalData.openid,
-      avatarUrl: app.globalData.userInfo.avatarUrl,
-      gender: app.globalData.userInfo.gender,
-      nickname: app.globalData.gameProfile.nickname,
-      islandName: app.globalData.gameProfile.islandName,
-      wishlist: app.globalData.gameProfile.wishlist,
-    };
-
-    // db.collection("Nookea-rooms")
-    //   .add({
-    //     data: {
-    //       itemInfo: this.data.productInfo,
-    //       masterInfo: _masterInfo,
-    //       comments: [],
-    //       isActive: true,
-    //       timestamp: util.formatTime(),
-    //       content: this.data.content,
-    //     }
-    //   })
-  },
-
   // --- Modal Control ---
   hideModal: function () {
     if (this.data.modal.isKeyboard) {
@@ -355,5 +329,106 @@ Page({
     });
   },
 
-  onTapCreate: function () {},
+  onTapCreate: function (e) {
+    let _masterInfo = {
+      _openid: app.globalData.openid,
+      avatarUrl: app.globalData.userInfo.avatarUrl,
+      gender: app.globalData.userInfo.gender,
+      nickname: app.globalData.gameProfile.nickname,
+      islandName: app.globalData.gameProfile.islandName,
+      wishlist: app.globalData.gameProfile.wishlist,
+    };
+
+    let _timestamp = util.formatTime();
+
+    if (this.data.selfPost.room_id) {
+      db.collection("Nookea-rooms")
+        .doc(this.data.selfPost.room_id)
+        .update({
+          data: {
+            content: this.data.content,
+            isActive: true,
+            masterInfo: _masterInfo,
+            timestamp: _timestamp,
+          }
+        })
+        .then(() => {
+          wx.navigateTo({
+            url: "/pages/nookeaRooms/nookeaRooms?id=" + this.data.selfPost.room_id + "&isMaster=true",
+          })
+          this.setData({
+            selfPost: {
+              ...this.data.selfPost,
+              roomInfo: {
+                ...this.data.selfPost.roomInfo,
+                content: this.data.content,
+                masterInfo: _masterInfo,
+              }
+            },
+            modal: {
+              openPost: false,
+              isKeyboard: false,
+            },
+            offset: this.data.offset + 1,
+          })
+        })
+    } else {
+      db.collection("Nookea-rooms")
+        .add({
+          data: {
+            comments: [],
+            content: this.data.content,
+            isActive: true,
+            itemInfo: this.data.productInfo,
+            masterInfo: _masterInfo,
+            timestamp: _timestamp,
+          }
+        })
+        .then(res => {
+          let _roomId = res._id;
+          wx.navigateTo({
+            url: "/pages/nookeaRooms/nookeaRooms?id=" + _roomId + "&isMaster=true",
+          })
+
+          this.setData({
+            selfPost: {
+              ...this.data.selfPost,
+              room_id: _roomId,
+              roomInfo: {
+                comments: [],
+                content: this.data.content,
+                isActive: true,
+                itemInfo: this.data.productInfo,
+                masterInfo: _masterInfo,
+                timestamp: _timestamp,
+              }
+            },
+            modal: {
+              openPost: false,
+              isKeyboard: false,
+            },
+            offset: this.data.offset + 1,
+          })
+
+          db.collection("UsersProfile")
+            .doc(app.globalData.id)
+            .update({
+              data: {
+                'tradeHistory.selling.rooms': {
+                  [this.data.productInfo._id]: { 
+                    description: "",
+                    img_url: this.data.productInfo.img_url,
+                    isUpdated: false,
+                    roomId: _roomId,
+                    timestamp: _timestamp,
+                    zh_name: this.data.productInfo.zh_name,
+                  }
+                }
+              }
+            })
+        })
+
+      // <----------------------- cloud func call -------------------------->
+    }
+  },
 });

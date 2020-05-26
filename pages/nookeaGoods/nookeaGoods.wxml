@@ -69,7 +69,7 @@
       <!-- Main Board -->
       <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
         <!-- I am the seller -->
-        <view class="record" hidden="{{!selfPost.room_id}}" data-ismaster="{{true}}" data-id="{{selfPost.room_id}}" bindtap="onTapEnter">
+        <view class="record" hidden="{{!selfPost.room_id}}" data-ismaster="true" data-id="{{selfPost.room_id}}" bindtap="onTapEnter">
           <image class="record-bg" src="../../assets/nookea/comment-bg3.png" mode="widthFix" />
 
           <view class="record-avatar-box">
@@ -111,7 +111,7 @@
         <view class="record-selfline">--- 以下是别人的出售 ---</view>
         <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
-          <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="{{false}}" data-id="{{item._id}}" bindtap="onTapEnter">
+          <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="false" data-id="{{item._id}}" bindtap="onTapEnter">
             
             <image class="record-bg" src="../../assets/nookea/comment-bg1.png" mode="widthFix" wx:if="{{idx%3===0}}" />
             <image class="record-bg" src="../../assets/nookea/comment-bg2.png" mode="widthFix" wx:if="{{idx%3===1}}" />
@@ -223,7 +223,7 @@
         </view>
         <view class="modal-row">
           <view class="modal-row-title">
-            <image class="modal-row-title-icon" src="{{content.wishlist?img.WxIcon:img.WxIconGray}}" />
+            <image class="modal-row-title-icon" src="{{content.isWxid?img.WxIcon:img.WxIconGray}}" />
             <view>微信号</view>
           </view>
           <view class="modal-row-content">
