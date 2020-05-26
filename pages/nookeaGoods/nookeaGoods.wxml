@@ -223,7 +223,7 @@
         </view>
         <view class="modal-row">
           <view class="modal-row-title">
-            <image class="modal-row-title-icon" src="{{content.wishlist?img.WxIcon:img.WxIconGray}}" />
+            <image class="modal-row-title-icon" src="{{content.isWxid?img.WxIcon:img.WxIconGray}}" />
             <view>微信号</view>
           </view>
           <view class="modal-row-content">
@@ -254,7 +254,7 @@
         </view>
         <view class="modal-btn" bindtap="onTapCreate">
           <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">A</view>
-          <view class="confirm-btn-text">{{selfPost.room_id?"更新":"发布"}}</view>
+          <view class="confirm-btn-text">发布</view>
         </view>
       </view>
     </view>
