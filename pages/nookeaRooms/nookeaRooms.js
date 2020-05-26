@@ -201,9 +201,13 @@ Page({
             return t;
           });
           if (dbdata.masterInfo._openid == this.data.openid) {
+            if (len !== this.data.isExpand.length) {
+              this.setData({
+                isExpand: Array(len).fill(false),
+              });
+            }
             this.setData({
               addReplyEnabled: false,
-              isExpand: Array(len).fill(false),
             });
             dbdata.comments.sort((a, b) => {
               if (a.isUpdated && !b.isUpdated) {
@@ -222,11 +226,13 @@ Page({
                 const temp = dbdata.comments[i];
                 dbdata.comments[i] = dbdata.comments[0];
                 dbdata.comments[0] = temp;
-                let isExpand = Array(len).fill(false);
-                isExpand[0] = true;
+                if (len !== this.data.isExpand.length) {
+                  this.setData({
+                    isExpand: Array(len).fill(false),
+                  });
+                }
                 this.setData({
                   addReplyEnabled: false,
-                  isExpand: isExpand,
                 });
                 break;
               }
