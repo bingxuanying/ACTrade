@@ -90,15 +90,15 @@ Page({
       });
 
       let _tradeHistory = app.globalData.gameProfile.tradeHistory;
-      if (_tradeHistory.selling.hasOwnProperty(product_id)) {
+      if (_tradeHistory.selling.rooms.hasOwnProperty(product_id)) {
         this.setData({
           selfPost: {
             ...this.data.selfPost,
-            room_id: _tradeHistory.selling[product_id]._id,
+            room_id: _tradeHistory.selling.rooms[product_id].roomId,
           },
         });
         db.collection("Nookea-rooms")
-          .doc(_tradeHistory.selling[product_id]._id)
+          .doc(_tradeHistory.selling.rooms[product_id].roomId)
           .get()
           .then((res) =>
             this.setData({
@@ -121,16 +121,16 @@ Page({
           });
 
           let _tradeHistory = app.globalData.gameProfile.tradeHistory;
-          if (_tradeHistory.selling.hasOwnProperty(product_id)) {
-            console.log(_tradeHistory.selling[product_id]._id);
+          if (_tradeHistory.selling.rooms.hasOwnProperty(product_id)) {
+            console.log(_tradeHistory.selling.rooms[product_id].roomId);
             this.setData({
               selfPost: {
                 ...this.data.selfPost,
-                room_id: _tradeHistory.selling[product_id]._id,
+                room_id: _tradeHistory.selling.rooms[product_id].roomId,
               },
             });
             db.collection("Nookea-rooms")
-              .doc(_tradeHistory.selling[product_id]._id)
+              .doc(_tradeHistory.selling.rooms[product_id].roomId)
               .get()
               .then((res) =>
                 this.setData({
@@ -265,14 +265,11 @@ Page({
       );
   },
 
-  onTapEnter: function(e) {
-    console.log(e.currentTarget.dataset)
-    let {id, ismaster} = e.currentTarget.dataset;
-    console.log(id)
-    console.log(ismaster)
+  onTapEnter: function (e) {
+    let { id, ismaster } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '/pages/nookeaRooms/nookeaRooms?id=' + id + '&isMaster=' + ismaster,
-    })
+      url: "/pages/nookeaRooms/nookeaRooms?id=" + id + "&isMaster=" + ismaster,
+    });
   },
 
   // --- Add data to db ---
@@ -285,7 +282,7 @@ Page({
     });
   },
 
-  onTapPost: function (e) {
+  onTapCreate: function (e) {
     let _masterInfo = {
       _openid: app.globalData.openid,
       avatarUrl: app.globalData.userInfo.avatarUrl,

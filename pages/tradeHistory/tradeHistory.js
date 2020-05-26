@@ -82,7 +82,6 @@ Page({
     // Watch history并且更新
     db.collection("UsersProfile").watch({
       onChange: (snapshot) => {
-        console.log(snapshot);
         let tradeHistory = snapshot.docChanges[0].doc.tradeHistory;
         app.globalData.gameProfile.tradeHistory = tradeHistory;
         this.setData({
@@ -119,8 +118,6 @@ Page({
   },
 
   updateMaparr: function () {
-    console.log("enter updateMaparr");
-
     let _mapArr = this.data.mapArr;
     for (let x in this.data.tradeHistory) {
       _mapArr[x] = this.data.tradeHistory[x].rooms;
@@ -128,7 +125,6 @@ Page({
     this.setData({
       mapArr: _mapArr,
     });
-    console.log(this.data.mapArr);
   },
   newsClick: function (e) {
     let id = e.currentTarget.dataset.id;
@@ -149,7 +145,6 @@ Page({
           .doc(app.globalData.id)
           .get()
           .then((res) => {
-            console.log(res);
             let rooms = res.data.tradeHistory.news.rooms;
             let isUpdated = false;
             for (var x in rooms) {
@@ -158,7 +153,7 @@ Page({
               }
             }
             db.collection("UsersProfile")
-              .where({})
+              .doc(app.globalData.id)
               .update({
                 data: {
                   "tradeHistory.news.isUpdated": isUpdated,
@@ -180,7 +175,6 @@ Page({
         (type !== "buying" ? "true" : "false"),
     });
     let path = "tradeHistory." + type + ".rooms." + productid + ".isUpdated";
-    console.log(path);
     // change history.news.rooms[idx].isUpdated -> true
     db.collection("UsersProfile")
       .doc(app.globalData.id)
@@ -194,7 +188,6 @@ Page({
           .doc(app.globalData.id)
           .get()
           .then((res) => {
-            console.log(res);
             let rooms = res.data.tradeHistory[type].rooms;
             let isUpdated = false;
             for (var x in rooms) {
