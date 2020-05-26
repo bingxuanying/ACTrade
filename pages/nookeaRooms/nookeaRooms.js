@@ -131,6 +131,8 @@ Page({
         dbdata.comments = dbdata.comments.map((t, i) => {
           t.conversations.sort((a, b) => a.timestamp - b.timestamp);
           t.noteIndex = i;
+          t.lastConversationTimestamp =
+            t.conversations[t.conversations.length - 1].timestamp;
           if (
             t.slaveInfo._openid !== this.data.openid &&
             dbdata.masterInfo._openid !== this.data.openid
@@ -139,25 +141,37 @@ Page({
           }
           return t;
         });
-        for (let i in dbdata.comments) {
-          if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
-            const temp = dbdata.comments[i];
-            dbdata.comments[i] = dbdata.comments[0];
-            dbdata.comments[0] = temp;
-            let isExpand = Array(len).fill(false);
-            isExpand[0] = true;
-            this.setData({
-              addReplyEnabled: false,
-              isExpand: isExpand,
-            });
-            break;
-          }
-        }
-        if (dbdata.masterInfo._openid == this.data._openid) {
+        if (dbdata.masterInfo._openid == this.data.openid) {
           this.setData({
             addReplyEnabled: false,
             isExpand: Array(len).fill(false),
           });
+          dbdata.comments.sort((a, b) => {
+            if (a.isUpdated && !b.isUpdated) {
+              return -1;
+            } else if (!a.isUpdated && b.isUpdated) {
+              return 1;
+            } else {
+              return a.lastConversationTimestamp < b.lastConversationTimestamp
+                ? 1
+                : -1;
+            }
+          });
+        } else {
+          for (let i in dbdata.comments) {
+            if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
+              const temp = dbdata.comments[i];
+              dbdata.comments[i] = dbdata.comments[0];
+              dbdata.comments[0] = temp;
+              let isExpand = Array(len).fill(false);
+              isExpand[0] = true;
+              this.setData({
+                addReplyEnabled: false,
+                isExpand: isExpand,
+              });
+              break;
+            }
+          }
         }
         console.log(this.data.isMaster);
         this.setData({
@@ -178,6 +192,8 @@ Page({
           dbdata.comments = dbdata.comments.map((t, i) => {
             t.conversations.sort((a, b) => a.timestamp - b.timestamp);
             t.noteIndex = i;
+            t.lastConversationTimestamp =
+              t.conversations[t.conversations.length - 1].timestamp;
             if (
               t.slaveInfo._openid !== this.data.openid &&
               dbdata.masterInfo._openid !== this.data.openid
@@ -186,25 +202,37 @@ Page({
             }
             return t;
           });
-          for (let i in dbdata.comments) {
-            if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
-              const temp = dbdata.comments[i];
-              dbdata.comments[i] = dbdata.comments[0];
-              dbdata.comments[0] = temp;
-              let isExpand = Array(len).fill(false);
-              isExpand[0] = true;
-              this.setData({
-                addReplyEnabled: false,
-                isExpand: isExpand,
-              });
-              break;
-            }
-          }
-          if (dbdata.masterInfo._openid == this.data._openid) {
+          if (dbdata.masterInfo._openid == this.data.openid) {
             this.setData({
               addReplyEnabled: false,
               isExpand: Array(len).fill(false),
             });
+            dbdata.comments.sort((a, b) => {
+              if (a.isUpdated && !b.isUpdated) {
+                return -1;
+              } else if (!a.isUpdated && b.isUpdated) {
+                return 1;
+              } else {
+                return a.lastConversationTimestamp < b.lastConversationTimestamp
+                  ? 1
+                  : -1;
+              }
+            });
+          } else {
+            for (let i in dbdata.comments) {
+              if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
+                const temp = dbdata.comments[i];
+                dbdata.comments[i] = dbdata.comments[0];
+                dbdata.comments[0] = temp;
+                let isExpand = Array(len).fill(false);
+                isExpand[0] = true;
+                this.setData({
+                  addReplyEnabled: false,
+                  isExpand: isExpand,
+                });
+                break;
+              }
+            }
           }
           this.setData({
             db: dbdata,
@@ -219,7 +247,7 @@ Page({
           console.error(err);
         },
       });
-    //每隔1分钟刷新一次时间
+    //每隔10s刷新一次时间
     setInterval(() => {
       console.log("获取时间中...");
       this.setData({
@@ -384,6 +412,58 @@ Page({
           isActive: !isActive,
         },
       });
+    // history.selling -> history
+    if (isActive) {
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .get()
+        .then((res) => {
+          let deletedName = res.data.itemInfo.zh_name;
+          let tradeHistory = app.globalData.gameProfile.tradeHistory;
+          if (typeof tradeHistory.history.rooms === "undefined") {
+            tradeHistory.history["rooms"] = {};
+          }
+          tradeHistory.history.rooms[deletedName] =
+            tradeHistory.selling.rooms[deletedName];
+          delete tradeHistory.selling.rooms[deletedName];
+          app.globalData.gameProfile.tradeHistory = tradeHistory;
+          db.collection("UsersProfile")
+            .where({})
+            .update({
+              data: {
+                tradeHistory: _.set(tradeHistory),
+              },
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .get()
+        .then((res) => {
+          let deletedName = res.data.itemInfo.zh_name;
+          let tradeHistory = app.globalData.gameProfile.tradeHistory;
+          if (typeof tradeHistory.history.rooms === "undefined") {
+            tradeHistory.selling["rooms"] = {};
+          }
+          tradeHistory.selling.rooms[deletedName] =
+            tradeHistory.history.rooms[deletedName];
+          delete tradeHistory.history.rooms[deletedName];
+          app.globalData.gameProfile.tradeHistory = tradeHistory;
+          db.collection("UsersProfile")
+            .where({})
+            .update({
+              data: {
+                tradeHistory: _.set(tradeHistory),
+              },
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
   settingClick: function () {
     //TODO
