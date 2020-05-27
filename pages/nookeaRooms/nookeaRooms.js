@@ -23,12 +23,13 @@ Page({
     showModal: false,
     addReplyEnabled: true,
     img: {
-      BellIcon: iu.nookeaRooms.bell,
-      TicketIcon: iu.nookeaRooms.ticket,
-      WishlistIcon: iu.nookeaRooms.wishlist,
-      BellIconGray: iu.nookeaRooms.bellGray,
-      TicketIconGray: iu.nookeaRooms.ticketGray,
-      WishlistIconGray: iu.nookeaRooms.wishlistGray,
+      BellIcon: iu.nookea.bell,
+      TicketIcon: iu.nookea.ticket,
+      WishlistIcon: iu.nookea.wishlist,
+      BellIconGray: iu.nookea.bellGray,
+      TicketIconGray: iu.nookea.ticketGray,
+      WishlistIconGray: iu.nookea.wishlistGray,
+      modalBG_ballon: iu.nookea.modalBG_ballon,
     },
     // commentSelect控制留言和心愿单切换
     commentSelect: true,
@@ -68,6 +69,7 @@ Page({
       isMaster: options.isMaster === "true" ? true : false,
       currentRoom: options.id,
     });
+
     const getUserInfo = new Promise((resolve, reject) => {
       if (app.globalData.userInfo) {
         this.setData({
@@ -187,6 +189,7 @@ Page({
         });
         console.log(this.data.db);
       });
+
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .watch({
@@ -257,13 +260,13 @@ Page({
           console.error(err);
         },
       });
-    //每隔10s刷新一次时间
+    //每隔60s刷新一次时间
     setInterval(() => {
       console.log("获取时间中...");
       this.setData({
         nowTimestamp: util.formatTime(),
       });
-    }, 10000);
+    }, 60000);
   },
 
   modalShow: function (e) {
@@ -328,6 +331,7 @@ Page({
       })
       .catch((t) => console.log(t));
   },
+  
   onTapSend: function (e) {
     this.setData({
       loading: {

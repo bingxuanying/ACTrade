@@ -70,7 +70,7 @@
       <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
         <!-- I am the seller -->
         <view class="record" hidden="{{!selfPost.room_id}}" data-ismaster="true" data-id="{{selfPost.room_id}}" bindtap="onTapEnter">
-          <image class="record-bg" src="../../assets/nookea/comment-bg3.png" mode="widthFix" />
+          <image class="record-bg" src="{{img.commentBG3}}" mode="widthFix" />
 
           <view class="record-avatar-box">
             <image class="record-avatar" src="{{selfPost.roomInfo.masterInfo.avatarUrl}}" mode="widthFix" />
@@ -113,16 +113,15 @@
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
           <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="false" data-id="{{item._id}}" bindtap="onTapEnter">
             
-            <image class="record-bg" src="../../assets/nookea/comment-bg1.png" mode="widthFix" wx:if="{{idx%3===0}}" />
-            <image class="record-bg" src="../../assets/nookea/comment-bg2.png" mode="widthFix" wx:if="{{idx%3===1}}" />
-            <image class="record-bg" src="../../assets/nookea/comment-bg3.png" mode="widthFix" wx:if="{{idx%3===2}}" />
+            <image class="record-bg" src="{{img.commentBG1}}" mode="widthFix" wx:if="{{idx%3===0}}" />
+            <image class="record-bg" src="{{img.commentBG2}}" mode="widthFix" wx:if="{{idx%3===1}}" />
+            <image class="record-bg" src="{{img.commentBG3}}" mode="widthFix" wx:if="{{idx%3===2}}" />
             
             <view class="record-avatar-box">
               <image class="record-avatar" src="{{item.masterInfo.avatarUrl}}" mode="widthFix" />
             </view>
             <view class="record-info-box">
               <view class="record-info-row">
-                <!-- <image class="record-info-row-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" /> -->
                 <view class="record-info-row-text">{{item.masterInfo.nickname}}</view>
                 <image src="{{item.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
                 mode="widthFix" style="margin-right:10rpx; width:20rpx;" />

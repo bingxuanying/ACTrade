@@ -8,7 +8,6 @@ export default {
       InfoPageYellow_in:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/InfoPageYellow_in.png",
     },
-    nookea: {},
     profile: {
       passport:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/passport.png",
@@ -20,7 +19,7 @@ export default {
     roomCreate: {},
     roomMaster: {},
     roomSlave: {},
-    nookeaRooms: {
+    nookea: {
       bell:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/icons/BellIcon.png",
       ticket:
@@ -45,6 +44,14 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/modal-bg.png",
       modalBG2:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/modal-bg2.png",
+      modalBG_ballon:
+        "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/modal-bg-ballon.png",
+      commentBG1:
+        "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/comment-bg1.png",
+      commentBG2:
+        "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/comment-bg2.png",
+      commentBG3:
+        "cloud://vegi-exchange-45j4z.7665-vegi-exchange-45j4z-1301890684/dev/nookea/comment-bg3.png",
     },
     gif: {
       EarthLoading:

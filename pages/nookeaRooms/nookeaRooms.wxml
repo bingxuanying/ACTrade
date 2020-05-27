@@ -3,72 +3,86 @@
   <view class="nookeaRooms" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <!-- Master Info -->
     <view class="top-box">
+      <image class="top-box-bg" src="{{img.modalBG_ballon}}" mode="widthFix" />
+
       <view class="master-avatar">
         <view class="room-status {{db.isActive?'status-active':'status-inactive'}}">
           {{db.isActive?'热卖中':"已关闭"}}
         </view>
         <image class="master-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
-        <view class="onoff-btn" hidden="{{!isMaster}}">
-          <view class="tool-closeBtn">
-            <view class="tool-closeBtn-greenbox {{ !db.isActive ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeRoomClick">
-              <view class="tool-box-text">{{db.isActive? 'ON':'OFF'}}</view>
-            </view>
+        <view class="tool-closeBtn">
+          <view class="tool-closeBtn-greenbox {{ !db.isActive ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeRoomClick">
+            <view class="tool-box-text">{{db.isActive? 'ON':'OFF'}}</view>
           </view>
         </view>
       </view>
-      <view class="info">
-        <view class="master-info">
-          <view class="master-info-detail">
-            <image class="master-info-icon" src="../../assets/icons/AvatarIcon.png" />
-            <view class="master-name">{{db.masterInfo.nickname}}</view>
-            <image class="master-info-icon" src="../../assets/icons/IslandIcon2.png" />
-            <view class="master-island">{{db.masterInfo.islandName}}</view>
-            <view class="edit-btn" hidden="{{!isMaster}}" bindtap="settingClick">
-              <view class="edit-btn-text">编辑</view>
-              <image class="edit-btn-img" src="../../assets/icons/settingIcon2.png" />
-            </view>
-          </view>
-          <view class="master-info-wechat">WX: ddf567</view>
+      
+      <view class="master-info">
+        <view class="edit-btn-box" hidden="{{!isMaster}}" bindtap="settingClick">
+          <view class="edit-btn-text">编辑</view>
+          <image class="edit-btn-img" src="../../assets/icons/settingIcon2.png" />
         </view>
-        <view class="item-box">
-          <view class="item-img-box" style="background-color:{{db.itemInfo.bg_color}}">
-            <image class="item-img" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
-          </view>
-          <view>出售:</view>
-          <view>{{db.itemInfo.zh_name}}</view>
+
+        <view class="master-info-row">
+          <view class="master-info-row-text">{{db.masterInfo.nickname}}</view>
+          <image src="{{db.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
+            mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
+          <view class="master-info-row-text">{{db.masterInfo.islandName}}</view>
+          <text style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</text>
         </view>
-        <view class="content">
-          <view>需求:</view>
-          <view class="content-item" hidden="{{!db.content.bell}}">
-            <image class="item-info-icon" src="{{img.BellIcon}}" />
-            <view>x {{db.content.bell}}</view>
-          </view>
-          <view class="content-item" hidden="{{!db.content.ticket}}">
-            <image class="item-info-icon" src="{{img.TicketIcon}}" />
-            <view>x {{db.content.ticket}}</view>
-          </view>
-          <view class="content-item" hidden="{{!db.content.wishlist}}">
-            <image class="item-info-icon" src="{{img.WishlistIcon}}" />
-            <view>心愿单</view>
-          </view>
+        
+        <view class="master-info-row">
+          <view class="master-info-row-title">微信号</view>
+          <text class="master-info-row-text" style="max-width:300rpx;">{{db.content.isWxid?db.content.wxidText:'房主没透露哦~'}}</text>
         </view>
-        <view class="note">note here</view>
+
+        <view class="master-info-row">
+          <view class="master-info-row-title">在售物品</view>
+          <image class="master-info-item-icon" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
+          <view class="master-info-row-text">{{db.itemInfo.zh_name}}</view>
+        </view>
+
+        <block>
+        <view class="master-info-row">
+          <view class="master-info-row-title">接受方式</view>
+          <block wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
+            <image class="master-info-item-icon" src="{{img.BellIcon}}" mode="heightFix" />
+            <text class="master-info-row-text">{{db.content.bell}}</text>
+          </block>
+        </view>
+        <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
+          <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" style="margin-left:145rpx;" />
+          <text class="master-info-row-text">{{db.content.ticket}}</text>
+        </view>
+        <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.wishlist}}">
+          <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" style="margin-left:145rpx;" />
+          <text class="master-info-row-text">心愿单</text>
+        </view>
+        </block>
+
+        <view class="master-info-row" style="height:100%;">
+          <view class="master-info-row-title" style="align-self:flex-start;">留言板</view>
+          <text class="master-info-row-notes">{{db.content.notes}}</text>
+        </view>     
+
       </view>
     </view>
+      
 
     <!-- Switch Bar -->
     <view class="switch-box">
       <view class="moving-box {{firstTimeLoad? '': (commentSelect ? 'slide-left':'slide-right')}}" />
-      <view class="left-btn" bindtap="commentClick">
+      <view class="switch-box-btn" bindtap="commentClick">
         <image class="switch-box-icon" src="../../assets/icons/CommentIcon.png" />
         <view class="switch-box-text {{commentSelect?'active':'inactive'}}">留言</view>
       </view>
-      <view class="right-btn" bindtap="wishlistClick">
+      <view class="switch-box-btn" bindtap="wishlistClick">
         <image class="switch-box-icon " src="{{img.WishlistIcon}}" />
         <view class="switch-box-text {{commentSelect?'inactive':'active'}}">心愿单</view>
       </view>
     </view>
     
+
     <!-- Board -->
     <view class="board {{firstTimeLoading?'':(commentSelect?'slideleft':'slideright')}}">
       <!-- Comments -->
@@ -147,10 +161,10 @@
           </view>
         </view>
       </view>
-      <view class="board-mid"></view>
+      <view style="width:6vw;" />
       <!-- Wishlist -->
       <view class="board-right">
-        <block wx:for="{{db.masterInfo.wishlist}}" wx:for-item="item" wx:key="wishlist" wx:if="{{db.content.isWxid}}">
+        <block wx:for="{{db.masterInfo.wishlist}}" wx:for-item="item" wx:key="wishlist" wx:if="{{db.content.wishlist}}">
           <view class="card" data-info="{{item}}" bindtap="onTapItem">
             <view class="card-content">
               <view class="card-content-bg" style="background-color:{{item.bg_color}};">
@@ -162,8 +176,9 @@
             <view class="card-title">{{item.zh_name}}</view>
           </view>
         </block>
-        <view class="board-right-warn" wx:if="{{!db.content.isWxid}}">
-          <text>房主暂时不接受心愿单物品交换哦~</text>
+        <view class="board-right-warn" wx:if="{{!db.content.wishlist}}">
+          <image style="width:60rpx; height:60rpx; margin-right:10rpx;" src="../../assets/icons/nook.png" mode="heightFix" />
+          <view style="height:60rpx; line-height:60rpx;">房主暂时不接受心愿单物品交换哦~</view>
         </view>
       </view>
     </view>
