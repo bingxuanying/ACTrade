@@ -444,6 +444,7 @@ Page({
   closeRoomClick: function () {
     let isActive = this.data.db.isActive;
     let path = "db.isActive";
+    let _timestamp = util.formatTime();
     this.setData({
       [path]: !isActive,
     });
@@ -481,6 +482,7 @@ Page({
           console.log(err);
         });
     } else {
+      // 以上是move history里的
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
         .get()
@@ -501,10 +503,28 @@ Page({
                 tradeHistory: _.set(tradeHistory),
               },
             });
+          // 以下是update nookea-rooms.timestamp
+          db.collection("Nookea-rooms")
+            .doc(this.data.currentRoom)
+            .update({
+              data: {
+                timestamp: _timestamp,
+              },
+            });
         })
         .catch((err) => {
           console.log(err);
         });
+      // <----------------------- cloud func call -------------------------->
+      wx.cloud.callFunction({
+        name: "newSellingNotify",
+        data: {
+          zh_name: this.data.db.itemInfo.zh_name,
+          img_url: this.data.db.itemInfo.img_url,
+          roomId: this.data.db.itemInfo._id, //This roomId is actuall productId
+          timestamp: _timestamp,
+        },
+      });
     }
   },
   settingClick: function () {
