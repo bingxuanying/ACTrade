@@ -13,6 +13,8 @@ exports.main = async (event, context) => {
   news.img_url = event.img_url
   news.roomId = roomId
   news.timestamp = event.timestamp
+  news.zh_name = zh_name
+  news.productId = roomId
   news.description = "有人发布了出售!"
   news.isUpdated = true
   let path = 'wishlist.' + zh_name + '.zh_name'
