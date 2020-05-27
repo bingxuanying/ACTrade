@@ -152,10 +152,19 @@ Page({
                 isUpdated = true;
               }
             }
+            //这里更新tradeHistory.isUpdated的东西
+            let isTradeHistoryUpdated = false;
+            let cat = res.data.tradeHistory;
+            for (var x in cat) {
+              if (cat[x].isUpdated === true) {
+                isTradeHistoryUpdated = true;
+              }
+            }
             db.collection("UsersProfile")
               .doc(app.globalData.id)
               .update({
                 data: {
+                  "tradeHistory.isUpdated": isTradeHistoryUpdated,
                   "tradeHistory.news.isUpdated": isUpdated,
                 },
               });
@@ -195,11 +204,20 @@ Page({
                 isUpdated = true;
               }
             }
+            //这里更新tradeHistory.isUpdated的东西
+            let isTradeHistoryUpdated = false;
+            let cat = res.data.tradeHistory;
+            for (var x in cat) {
+              if (cat[x].isUpdated === true) {
+                isTradeHistoryUpdated = true;
+              }
+            }
             let path = "tradeHistory." + type + ".isUpdated";
             db.collection("UsersProfile")
               .where({})
               .update({
                 data: {
+                  "tradeHistory.isUpdated": isTradeHistoryUpdated,
                   [path]: isUpdated,
                 },
               });

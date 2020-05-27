@@ -66,8 +66,10 @@
         <view class="other-options-option-title">我的心愿单</view>
       </view>
       <view class="other-options-option" bindtap="tradeHistoryClick">
-        <view class="app-notification" hidden="{{false}}" />
-        <image class="other-options-option-img" src="{{tradeHistoryIcon}}" mode="widthFix" />
+        <view class="other-options-option-img-box">
+          <view class="notification" hidden="{{!tradeHistory.isUpdated}}" />
+          <image class="other-options-option-img" src="{{tradeHistoryIcon}}" mode="widthFix" />
+        </view>
         <view class="other-options-option-title">我的交易</view>
       </view>
     </view>

@@ -320,6 +320,11 @@
   align-items: center;
   flex-direction: column;
 }
+.other-options-option-img-box {
+  position: relative;
+  height: 100rpx;
+  width: 119rpx;
+}
 .other-options-option-img {
   height: 100rpx;
   width: 119rpx;
@@ -327,4 +332,14 @@
 .other-options-option-title {
   font-size: 24rpx;
   color: #9b764a;
+}
+.notification {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: red;
+  border: #faf8e1 5rpx solid;
+  position: absolute;
+  right: 0rpx;
+  top: 0rpx;
 }
