@@ -214,7 +214,7 @@ Page({
             }
             let path = "tradeHistory." + type + ".isUpdated";
             db.collection("UsersProfile")
-              .where({})
+              .doc(app.globalData.id)
               .update({
                 data: {
                   "tradeHistory.isUpdated": isTradeHistoryUpdated,
