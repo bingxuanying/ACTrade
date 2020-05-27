@@ -257,7 +257,7 @@ Page({
       this.setData({
         nowTimestamp: util.formatTime(),
       });
-    }, 10000);
+    }, 60000);
   },
 
   modalShow: function (e) {
@@ -286,6 +286,7 @@ Page({
         isRefresh: true,
       },
     });
+    let _timestamp = util.formatTime();
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .update({
@@ -301,7 +302,7 @@ Page({
             conversations: [
               {
                 isMaster: false,
-                timestamp: util.formatTime(),
+                timestamp: _timestamp,
                 content: this.data.replyText,
               },
             ],
@@ -309,6 +310,22 @@ Page({
         },
       })
       .then((t) => {
+        // 更新对方的tradeHistory 这个仅可能slave发送
+        let reciverId = this.data.db.masterInfo._openid;
+        wx.cloud.callFunction({
+          name: "conversationNotify",
+          data: {
+            isMaster: this.data.isMaster,
+            senderName: app.globalData.gameProfile.nickname,
+            reciverId: reciverId,
+            infomation: this.data.replyText,
+            productid: this.data.db.itemInfo._id,
+            img_url: this.data.db.itemInfo.img_url,
+            roomId: this.data.currentRoom,
+            timestamp: _timestamp,
+            zh_name: this.data.db.itemInfo.zh_name,
+          },
+        });
         console.log(t);
         return this.setData({
           showModal: false,
@@ -346,10 +363,12 @@ Page({
       })
       .then((t) => {
         // 更新对方的tradeHistory
-        let index = e.currentTarget.dataset.index;
+        let index = e.currentTarget.dataset.localindex;
         let reciverId = this.data.isMaster
           ? this.data.db.comments[index].slaveInfo._openid
           : this.data.db.masterInfo._openid;
+        console.log(index);
+        console.log(this.data.db.comments);
         wx.cloud.callFunction({
           name: "conversationNotify",
           data: {
