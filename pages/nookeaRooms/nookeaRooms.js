@@ -42,6 +42,8 @@ Page({
       wishlist: false,
     },
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    setInter: null,
+    watcher: null,
   },
 
   /**
@@ -181,7 +183,8 @@ Page({
         });
         console.log(this.data.db);
       });
-    db.collection("Nookea-rooms")
+    this.data.watcher = db
+      .collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .watch({
         onChange: (snapshot) => {
@@ -251,8 +254,10 @@ Page({
           console.error(err);
         },
       });
+
+    clearInterval(this.data.setInter);
     //每隔10s刷新一次时间
-    setInterval(() => {
+    this.data.setInter = setInterval(() => {
       console.log("获取时间中...");
       this.setData({
         nowTimestamp: util.formatTime(),
@@ -548,7 +553,10 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () {
+    clearInterval(this.data.setInter);
+    this.data.watcher.close();
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

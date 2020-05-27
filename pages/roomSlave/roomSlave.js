@@ -46,15 +46,17 @@ Page({
     closed: false,
     inLine: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    watcher1: null,
+    watcher2: null,
   },
   onLoad: function (query) {
-    this.setData({  statusBarHeight: app.globalData.statusBarHeight  });
+    this.setData({ statusBarHeight: app.globalData.statusBarHeight });
     console.log(query.room_id);
     app.globalData.roomInfo.roomID = query.room_id;
     // registered
     console.log(app.globalData.userInfo);
     if (app.globalData.userInfo) {
-      console.log("check point 1")
+      console.log("check point 1");
       if (
         app.globalData.gameProfile.nickname.length > 0 &&
         app.globalData.gameProfile.islandName.length > 0
@@ -67,12 +69,12 @@ Page({
     }
     // has auth
     else if (this.data.canIUse) {
-      console.log("check point 2")
+      console.log("check point 2");
       this.setData({ clientStatus: "no auth" });
 
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {
-          console.log("check point 2.1")
+          console.log("check point 2.1");
           if (
             app.globalData.gameProfile.nickname.length > 0 &&
             app.globalData.gameProfile.islandName.length > 0
@@ -83,14 +85,14 @@ Page({
             this.setData({ clientStatus: "no name" });
           }
         } else {
-          console.log("check point 2.2")
+          console.log("check point 2.2");
           this.setData({ clientStatus: "no auth" });
         }
       };
     }
     // no auth or not registered
     else {
-      console.log("check point 3")
+      console.log("check point 3");
       this.setData({ clientStatus: "no auth" });
     }
 
@@ -212,7 +214,7 @@ Page({
               });
           });
 
-        db.collection("UsersProfile").watch({
+        this.data.watcher1 = db.collection("UsersProfile").watch({
           onChange: (snapshot) => {
             //监控数据发生变化时触发
             this.setData({
@@ -224,7 +226,8 @@ Page({
           },
         });
 
-        db.collection("Flights")
+        this.data.watcher2 = db
+          .collection("Flights")
           .doc(app.globalData.roomInfo.roomID)
           .watch({
             onChange: (snapshot) => {
@@ -340,17 +343,16 @@ Page({
     };
 
     db.collection("UsersProfile")
-    .doc(app.globalData.id)
-    .update({
-      data: {
-        curRoomid: null,
-      },
-    });
+      .doc(app.globalData.id)
+      .update({
+        data: {
+          curRoomid: null,
+        },
+      });
 
     wx.switchTab({
       url: "/pages/tradingFloor/tradingFloor",
-    })
-    .then(() => {      
+    }).then(() => {
       if (this.data.kicked) {
         db.collection("Flights")
           .doc(app.globalData.roomInfo.roomID)
@@ -409,7 +411,7 @@ Page({
         success: (userData) => {
           if (userData.data.length > 0) {
             console.log("has previous user");
-            console.log(userData)
+            console.log(userData);
             app.globalData.id = userData.data[0]._id;
             app.globalData.openid = userData.data[0]._openid;
             app.globalData.gameProfile = {
@@ -437,7 +439,7 @@ Page({
                   userInfo: app.globalData.userInfo,
                 },
               })
-              .then(() => console.log('done'));
+              .then(() => console.log("done"));
             this.setData({
               clientStatus: "no name",
               isTransfering: false,
@@ -460,7 +462,7 @@ Page({
                   news: {},
                   selling: {},
                   buying: {},
-                  history: {}
+                  history: {},
                 },
               },
               success: (userData) => {
@@ -548,5 +550,9 @@ Page({
         console.log(res);
       },
     });
+  },
+  onUnload: function () {
+    this.data.watcher1.close();
+    this.data.watcher2.close();
   },
 });

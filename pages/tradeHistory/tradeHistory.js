@@ -22,6 +22,8 @@ Page({
       selling: {},
       history: {},
     },
+    setInter: null,
+    watcher: null,
   },
   onLoad: function () {
     this.setData({
@@ -84,8 +86,9 @@ Page({
     });
 
     // Watch history并且更新
-    db.collection("UsersProfile").watch({
+    this.data.watcher = db.collection("UsersProfile").watch({
       onChange: (snapshot) => {
+        console.log(snapshot);
         let tradeHistory = snapshot.docChanges[0].doc.tradeHistory;
         app.globalData.gameProfile.tradeHistory = tradeHistory;
         this.setData({
@@ -98,8 +101,9 @@ Page({
       },
     });
 
+    clearInterval(this.data.setInter);
     //每隔10s刷新一次时间
-    setInterval(() => {
+    this.data.setInter = setInterval(() => {
       console.log("获取时间中...");
       this.setData({
         nowTimestamp: util.formatTime(),
@@ -273,5 +277,12 @@ Page({
     newTradeHistory.history.rooms = roomsGroup[3];
 
     return newTradeHistory;
+  },
+  onUnload: function () {
+    // 页面销毁时执行
+    console.log("Enter onUnload");
+    clearInterval(this.data.setInter);
+
+    this.data.watcher.close();
   },
 });

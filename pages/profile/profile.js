@@ -17,6 +17,7 @@ Page({
     isLoading: true,
     isSaving: false,
     loadingGifUrl: "",
+    watcher: null,
   },
   onLoad: function () {
     this.setData({
@@ -103,6 +104,7 @@ Page({
       wishlistIcon: iu.imgUrl.profile.wishlistIcon,
       tradeHistoryIcon: iu.imgUrl.profile.tradeHistoryIcon,
     });
+    this.createWatcher();
   },
   getUserInfo: function (e) {
     console.log(e);
@@ -277,5 +279,31 @@ Page({
         isLoading: false,
       });
     }, 500);
+  },
+  onUnload() {
+    this.data.watcher.close();
+  },
+  createWatcher() {
+    // Watcher: only watch tradeHistory.isUpdated
+    let that = this;
+    this.data.watcher = db
+      .collection("UsersProfile")
+      .where({})
+      .watch({
+        onChange: function (snapshot) {
+          let changeField = snapshot.docChanges[0].updatedFields;
+          if (
+            typeof changeField !== "undefined" &&
+            typeof changeField["tradeHistory.isUpdated"] !== "undefined"
+          ) {
+            that.setData({
+              "tradeHistory.isUpdated": changeField["tradeHistory.isUpdated"],
+            });
+          }
+        },
+        onError: function (err) {
+          console.log(err);
+        },
+      });
   },
 });

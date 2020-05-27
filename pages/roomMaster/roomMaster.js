@@ -34,6 +34,7 @@ Page({
     // kicked timeStamp
     kickedPerson: null,
     isSaving: false,
+    watcher: null,
   },
   onLoad: function () {
     this.setData({
@@ -72,7 +73,8 @@ Page({
         },
       });
 
-    db.collection("Flights")
+    this.data.watcher = db
+      .collection("Flights")
       .doc(app.globalData.roomInfo.roomID)
       .watch({
         onChange: (snapshot) => {
@@ -265,5 +267,8 @@ Page({
         "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
       imageUrl: "../../assets/SharePage.png",
     };
+  },
+  onUnload: function () {
+    this.data.watcher.close();
   },
 });
