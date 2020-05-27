@@ -89,7 +89,7 @@
             <view class="trade-content-page" hidden="{{!tagChoose[1]}}">
                 <!-- for buying -->
                 <block wx:for="{{mapArr.buying}}" wx:for-index="buyingIndex" wx:for-item="item" wx:key="buying">
-                    <view class="card" bindtap="buyNsellClick" data-type="buying" data-id="{{item._id}}" data-name="{{buyingIndex}}">
+                    <view class="card" bindtap="buyNsellClick" data-type="buying" data-roomid="{{item.roomId}}" data-productid="{{buyingIndex}}">
                         <view class="app-notification" hidden="{{!item.isUpdated}}" />
                         <view class="card-news">
                             <view class="card-news-img" style="background-color: {{item.bg_color}}">

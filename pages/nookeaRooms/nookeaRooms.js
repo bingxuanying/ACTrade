@@ -43,6 +43,8 @@ Page({
       wishlist: false,
     },
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    setInter: null,
+    watcher: null,
   },
 
   /**
@@ -189,8 +191,13 @@ Page({
         });
         console.log(this.data.db);
       });
+<<<<<<< HEAD
 
     db.collection("Nookea-rooms")
+=======
+    this.data.watcher = db
+      .collection("Nookea-rooms")
+>>>>>>> a020d6ff8c0e44f598787fd66bea43614f18d846
       .doc(this.data.currentRoom)
       .watch({
         onChange: (snapshot) => {
@@ -260,8 +267,10 @@ Page({
           console.error(err);
         },
       });
+
+    clearInterval(this.data.setInter);
     //每隔60s刷新一次时间
-    setInterval(() => {
+    this.data.setInter = setInterval(() => {
       console.log("获取时间中...");
       this.setData({
         nowTimestamp: util.formatTime(),
@@ -295,6 +304,7 @@ Page({
         isRefresh: true,
       },
     });
+    let _timestamp = util.formatTime();
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
       .update({
@@ -310,7 +320,7 @@ Page({
             conversations: [
               {
                 isMaster: false,
-                timestamp: util.formatTime(),
+                timestamp: _timestamp,
                 content: this.data.replyText,
               },
             ],
@@ -318,6 +328,22 @@ Page({
         },
       })
       .then((t) => {
+        // 更新对方的tradeHistory 这个仅可能slave发送
+        let reciverId = this.data.db.masterInfo._openid;
+        wx.cloud.callFunction({
+          name: "conversationNotify",
+          data: {
+            isMaster: this.data.isMaster,
+            senderName: app.globalData.gameProfile.nickname,
+            reciverId: reciverId,
+            infomation: this.data.replyText,
+            productid: this.data.db.itemInfo._id,
+            img_url: this.data.db.itemInfo.img_url,
+            roomId: this.data.currentRoom,
+            timestamp: _timestamp,
+            zh_name: this.data.db.itemInfo.zh_name,
+          },
+        });
         console.log(t);
         return this.setData({
           showModal: false,
@@ -356,10 +382,12 @@ Page({
       })
       .then((t) => {
         // 更新对方的tradeHistory
-        let index = e.currentTarget.dataset.index;
+        let index = e.currentTarget.dataset.localindex;
         let reciverId = this.data.isMaster
           ? this.data.db.comments[index].slaveInfo._openid
           : this.data.db.masterInfo._openid;
+        console.log(index);
+        console.log(this.data.db.comments);
         wx.cloud.callFunction({
           name: "conversationNotify",
           data: {
@@ -435,6 +463,7 @@ Page({
   closeRoomClick: function () {
     let isActive = this.data.db.isActive;
     let path = "db.isActive";
+    let _timestamp = util.formatTime();
     this.setData({
       [path]: !isActive,
     });
@@ -472,6 +501,7 @@ Page({
           console.log(err);
         });
     } else {
+      // 以上是move history里的
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
         .get()
@@ -492,10 +522,28 @@ Page({
                 tradeHistory: _.set(tradeHistory),
               },
             });
+          // 以下是update nookea-rooms.timestamp
+          db.collection("Nookea-rooms")
+            .doc(this.data.currentRoom)
+            .update({
+              data: {
+                timestamp: _timestamp,
+              },
+            });
         })
         .catch((err) => {
           console.log(err);
         });
+      // <----------------------- cloud func call -------------------------->
+      wx.cloud.callFunction({
+        name: "newSellingNotify",
+        data: {
+          zh_name: this.data.db.itemInfo.zh_name,
+          img_url: this.data.db.itemInfo.img_url,
+          roomId: this.data.db.itemInfo._id, //This roomId is actuall productId
+          timestamp: _timestamp,
+        },
+      });
     }
   },
   settingClick: function () {
@@ -519,7 +567,10 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () {
+    clearInterval(this.data.setInter);
+    this.data.watcher.close();
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

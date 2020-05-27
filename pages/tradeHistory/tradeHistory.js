@@ -22,6 +22,8 @@ Page({
       selling: {},
       history: {},
     },
+    setInter: null,
+    watcher: null,
   },
   onLoad: function () {
     this.setData({
@@ -33,7 +35,9 @@ Page({
     const getHistory = new Promise((resolve, reject) => {
       if (app.globalData.userInfo) {
         this.setData({
-          tradeHistory: app.globalData.gameProfile.tradeHistory,
+          tradeHistory: this.sortTradeHistory(
+            app.globalData.gameProfile.tradeHistory
+          ),
         });
         resolve();
       } else if (this.data.canIUse) {
@@ -43,7 +47,9 @@ Page({
           // onLaunch -> onLoad -> onLaunch: has to get data here
           if (res.userInfo) {
             this.setData({
-              tradeHistory: app.globalData.gameProfile.tradeHistory,
+              tradeHistory: this.sortTradeHistory(
+                app.globalData.gameProfile.tradeHistory
+              ),
             });
           }
           resolve();
@@ -67,7 +73,7 @@ Page({
               let info = res.data[0];
               this.setData({
                 wishlist: info.wishlist,
-                tradeHistory: info.tradeHistory,
+                tradeHistory: this.sortTradeHistory(info.tradeHistory),
               });
               app.globalData.gameProfile.tradeHistory = info.tradeHistory;
             })
@@ -80,12 +86,13 @@ Page({
     });
 
     // Watch history并且更新
-    db.collection("UsersProfile").watch({
+    this.data.watcher = db.collection("UsersProfile").watch({
       onChange: (snapshot) => {
+        console.log(snapshot);
         let tradeHistory = snapshot.docChanges[0].doc.tradeHistory;
         app.globalData.gameProfile.tradeHistory = tradeHistory;
         this.setData({
-          tradeHistory: tradeHistory,
+          tradeHistory: this.sortTradeHistory(tradeHistory),
         });
         this.updateMaparr();
       },
@@ -94,8 +101,9 @@ Page({
       },
     });
 
+    clearInterval(this.data.setInter);
     //每隔10s刷新一次时间
-    setInterval(() => {
+    this.data.setInter = setInterval(() => {
       console.log("获取时间中...");
       this.setData({
         nowTimestamp: util.formatTime(),
@@ -152,10 +160,19 @@ Page({
                 isUpdated = true;
               }
             }
+            //这里更新tradeHistory.isUpdated的东西
+            let isTradeHistoryUpdated = false;
+            let cat = res.data.tradeHistory;
+            for (var x in cat) {
+              if (cat[x].isUpdated === true) {
+                isTradeHistoryUpdated = true;
+              }
+            }
             db.collection("UsersProfile")
               .doc(app.globalData.id)
               .update({
                 data: {
+                  "tradeHistory.isUpdated": isTradeHistoryUpdated,
                   "tradeHistory.news.isUpdated": isUpdated,
                 },
               });
@@ -195,11 +212,20 @@ Page({
                 isUpdated = true;
               }
             }
+            //这里更新tradeHistory.isUpdated的东西
+            let isTradeHistoryUpdated = false;
+            let cat = res.data.tradeHistory;
+            for (var x in cat) {
+              if (cat[x].isUpdated === true) {
+                isTradeHistoryUpdated = true;
+              }
+            }
             let path = "tradeHistory." + type + ".isUpdated";
             db.collection("UsersProfile")
-              .where({})
+              .doc(app.globalData.id)
               .update({
                 data: {
+                  "tradeHistory.isUpdated": isTradeHistoryUpdated,
                   [path]: isUpdated,
                 },
               });
@@ -208,5 +234,55 @@ Page({
       .catch((res) => {
         console.log(res);
       });
+  },
+  // 用于给本地的tradeHistory按isupdated,时间排序
+  sortTradeHistory: function (oldTradeHistory) {
+    var sortBy = function (a, b) {
+      if (a.isUpdated && !b.isUpdated) {
+        return -1;
+      } else if (!a.isUpdated && b.isUpdated) {
+        return 1;
+      } else if (a.timestamp > b.timestamp) {
+        return -1;
+      } else if (a.timestamp < b.timestamp) {
+        return 1;
+      } else {
+        return 0;
+      }
+    };
+
+    let { news, selling, buying, history } = oldTradeHistory;
+    let newTradeHistory = Object.assign({}, oldTradeHistory);
+    let origin = [news, selling, buying, history];
+    let roomsGroup = [{}, {}, {}, {}];
+    let arrGroup = [[], [], [], []];
+    for (var i in origin) {
+      for (var key in origin[i].rooms) {
+        var x = {};
+        Object.assign(x, origin[i].rooms[key]);
+        x.key = key;
+        arrGroup[i].push(x);
+      }
+      arrGroup[i] = arrGroup[i].sort(sortBy);
+      for (var x in arrGroup[i]) {
+        var _temp = arrGroup[i][x];
+        var key = _temp.key;
+        delete _temp.key;
+        roomsGroup[i][key] = _temp;
+      }
+    }
+    newTradeHistory.news.rooms = roomsGroup[0];
+    newTradeHistory.selling.rooms = roomsGroup[1];
+    newTradeHistory.buying.rooms = roomsGroup[2];
+    newTradeHistory.history.rooms = roomsGroup[3];
+
+    return newTradeHistory;
+  },
+  onUnload: function () {
+    // 页面销毁时执行
+    console.log("Enter onUnload");
+    clearInterval(this.data.setInter);
+
+    this.data.watcher.close();
   },
 });

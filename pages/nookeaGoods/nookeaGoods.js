@@ -440,7 +440,7 @@ Page({
         data: {
           zh_name: this.data.productInfo.zh_name,
           img_url: this.data.productInfo.img_url,
-          roomId: this.data.productInfo._id,
+          roomId: this.data.productInfo._id, //This roomId is actuall productId
           timestamp: _timestamp,
         },
       });

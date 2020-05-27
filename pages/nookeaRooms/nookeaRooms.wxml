@@ -152,7 +152,7 @@
           <!-- 这是回复栏 -->
           <view class="reply-box" wx:if="{{openid === db.masterInfo._openid || openid === item.slaveInfo._openid}}" hidden="{{!isExpand[commentIndex]}}">
             <input value="{{replyText}}" class="reply-text" bindinput="replyText" />
-            <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}">
+            <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}">
               <text>发送</text>
               <view class="reply-btn-plus  {{replyText?'plus-active':''}} {{textSending?'rotating':''}}">
                 +
