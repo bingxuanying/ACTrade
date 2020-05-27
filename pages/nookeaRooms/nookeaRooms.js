@@ -207,9 +207,13 @@ Page({
             return t;
           });
           if (dbdata.masterInfo._openid == this.data.openid) {
+            if (len !== this.data.isExpand.length) {
+              this.setData({
+                isExpand: Array(len).fill(false),
+              });
+            }
             this.setData({
               addReplyEnabled: false,
-              isExpand: Array(len).fill(false),
             });
             dbdata.comments.sort((a, b) => {
               if (a.isUpdated && !b.isUpdated) {
@@ -228,11 +232,13 @@ Page({
                 const temp = dbdata.comments[i];
                 dbdata.comments[i] = dbdata.comments[0];
                 dbdata.comments[0] = temp;
-                let isExpand = Array(len).fill(false);
-                isExpand[0] = true;
+                if (len !== this.data.isExpand.length) {
+                  this.setData({
+                    isExpand: Array(len).fill(false),
+                  });
+                }
                 this.setData({
                   addReplyEnabled: false,
-                  isExpand: isExpand,
                 });
                 break;
               }
@@ -329,13 +335,13 @@ Page({
         isRefresh: true,
       },
     });
-
+    let _timestamp = util.formatTime();
     const updateDef = {};
     updateDef[
       `comments.${e.currentTarget.dataset.index}.conversations`
     ] = db.command.push({
       isMaster: this.data.openid === this.data.db.masterInfo._openid,
-      timestamp: util.formatTime(),
+      timestamp: _timestamp,
       content: this.data.replyText,
     });
 
@@ -345,7 +351,26 @@ Page({
         data: updateDef,
       })
       .then((t) => {
-        console.log(t);
+        // 更新对方的tradeHistory
+        let index = e.currentTarget.dataset.index;
+        let reciverId = this.data.isMaster
+          ? this.data.db.comments[index].slaveInfo._openid
+          : this.data.db.masterInfo._openid;
+        wx.cloud.callFunction({
+          name: "conversationNotify",
+          data: {
+            isMaster: this.data.isMaster,
+            senderName: app.globalData.gameProfile.nickname,
+            reciverId: reciverId,
+            infomation: this.data.replyText,
+            productid: this.data.db.itemInfo._id,
+            img_url: this.data.db.itemInfo.img_url,
+            roomId: this.data.currentRoom,
+            timestamp: _timestamp,
+            zh_name: this.data.db.itemInfo.zh_name,
+          },
+        });
+        // call function end
         return this.setData({
           replyText: "",
           loading: {
