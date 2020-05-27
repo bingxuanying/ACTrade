@@ -17,7 +17,7 @@ Page({
     content: {
       bell: "",
       ticket: "",
-      wishlist: false,
+      wishlist: true,
       isWxid: false,
       wxidText: "",
       notes: "你报个价吧~",

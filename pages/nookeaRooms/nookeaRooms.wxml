@@ -1,6 +1,7 @@
 <block>
   <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" />
-  <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+  <view class="nookeaRooms" style="height: calc(100vh - {{statusBarHeight}}px - 44px)">
+    <!-- Master Info -->
     <view class="top-box">
       <view class="master-avatar">
         <view class="room-status {{db.isActive?'status-active':'status-inactive'}}">
@@ -54,6 +55,8 @@
         <view class="note">note here</view>
       </view>
     </view>
+
+    <!-- Switch Bar -->
     <view class="switch-box">
       <view class="moving-box {{firstTimeLoad? '': (commentSelect ? 'slide-left':'slide-right')}}" />
       <view class="left-btn" bindtap="commentClick">
@@ -65,7 +68,10 @@
         <view class="switch-box-text {{commentSelect?'inactive':'active'}}">心愿单</view>
       </view>
     </view>
+    
+    <!-- Board -->
     <view class="board {{firstTimeLoading?'':(commentSelect?'slideleft':'slideright')}}">
+      <!-- Comments -->
       <view class="board-left">
         <!-- 这是slave的留言按钮 -->
         <view class="slave-reply" wx:if="{{addReplyEnabled && !isMaster}}" bindtap="modalShow">
@@ -142,9 +148,27 @@
         </view>
       </view>
       <view class="board-mid"></view>
-      <view class="board-right"></view>
+      <!-- Wishlist -->
+      <view class="board-right">
+        <block wx:for="{{db.masterInfo.wishlist}}" wx:for-item="item" wx:key="wishlist" wx:if="{{db.content.isWxid}}">
+          <view class="card" data-info="{{item}}" bindtap="onTapItem">
+            <view class="card-content">
+              <view class="card-content-bg" style="background-color:{{item.bg_color}};">
+                <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
+                <image class="card-content-item-collect" src="../../assets/nookea/cardCollectIcon.png" mode="widthFix" />
+                <image class="card-content-item" src="{{item.img_url}}" mode="widthFix" />
+              </view>
+            </view>
+            <view class="card-title">{{item.zh_name}}</view>
+          </view>
+        </block>
+        <view class="board-right-warn" wx:if="{{!db.content.isWxid}}">
+          <text>房主暂时不接受心愿单物品交换哦~</text>
+        </view>
+      </view>
     </view>
   </view>
+
   <!-- mask -->
   <view class="mask" wx:if="{{showModal}}" bindtap="modalHide" />
   <!-- modal -->

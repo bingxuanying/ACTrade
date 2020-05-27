@@ -15,6 +15,7 @@ page {
 
 .top-box {
   width: 100%;
+  height: 400rpx;
   display: flex;
   flex-direction: row;
   justify-items: center;
@@ -29,6 +30,7 @@ page {
 }
 .master-avatar-img {
   width: 70%;
+  height: 100rpx;
   border-radius: 25rpx;
   justify-self: center;
   align-self: center;
@@ -229,34 +231,41 @@ page {
 /* --- MARKET BOARD --- */
 .board {
   width: 194vw;
+  height: calc(100% - 500rpx) ;
   display: flex;
   flex-direction: row;
   position: relative;
   left: 150vw;
   transition: all ease-in-out 0.5s;
 }
+
 .slideleft {
   left: 50vw;
 }
+
 .slideright {
-  left: -47vw;
+  left: -50vw;
 }
+
 .board-left {
   width: 94vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
+
 .board-mid {
   width: 6vw;
 }
 
 .board-right {
   width: 94vw;
-  display: flex;
-  flex-direction: column;
-  overflow-x: scroll;
   height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  overflow-y: scroll;
 }
 
 .slave-reply {
@@ -272,6 +281,7 @@ page {
   padding: 10rpx;
   border-radius: 15rpx;
 }
+
 .slave-reply-icon {
   height: 30rpx;
   width: 30rpx;
@@ -294,6 +304,7 @@ page {
 
 .conversation {
 }
+
 .conversation-head {
   height: 175rpx;
   width: 100%;
@@ -467,6 +478,82 @@ page {
   background-color: #88624f;
   border: #eebb4e 5rpx solid;
 }
+
+/* Board: right */
+.board-right-warn {
+  width: 100%;
+  text-align: center;
+}
+
+.card {
+  width: 20vw;
+  height: 240rpx;
+  margin-top: 20rpx;
+  /* ((full-width - num of cards * self.width) / (num of cards + 1)) */
+  margin-left: 2.8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.card-content {
+  background-color: #fff;
+  width: 100%;
+  height: 86%;
+  border-radius: 10rpx;
+  border: none;
+  position: relative;
+}
+
+.card-content-bg {
+  width: calc(100% - 15rpx);
+  height: calc(100% - 15rpx);
+  border-radius: 6rpx;
+  border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); */
+  overflow: hidden;
+}
+
+.card-content-item {
+  width: 60%;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-content-item-bg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-content-item-collect {
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+}
+
+.card-title {
+  width: 100%;
+  height: 14%;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 47rpx;
+}
+
+
 
 /* --- Modal ---*/
 .mymodal {

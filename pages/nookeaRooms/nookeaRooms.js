@@ -47,7 +47,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
+  // onLoad: function (options) {
+    let options = {
+      isMaster: "true",
+      id: "982133855ec0a22f00dc2b0703e78dc7",
+    };
+
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
       loading: {
