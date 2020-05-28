@@ -1,6 +1,6 @@
 /* pages/nookeaRooms/nookeaRooms.wxss */
 page {
-  background-color: #fbf6e0;
+  background-color: #ccd47f;
   font-size: 26rpx;
 }
 .nookeaRooms {
@@ -17,7 +17,7 @@ page {
 
 .top-box {
   width: calc(94% - 30rpx);
-  height: 470rpx;
+  height: 430rpx;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -33,12 +33,13 @@ page {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 
 .master-avatar {
   width: 30%;
   height: 100%;
+  background-color: rgba(255, 255, 255, 0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -80,8 +81,10 @@ page {
 .master-info {
   width: calc(70% - 10rpx);
   height: calc(100% - 10rpx);
-  margin-left: 10rpx;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding-left: 10rpx;
   padding-top: 10rpx;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -90,7 +93,6 @@ page {
 }
 
 .master-info-row {
-  width: 100%;
   width: 100%;
   height: 40rpx;
   display: flex;
@@ -114,7 +116,7 @@ page {
 
 .master-info-row-text {
   height: 40rpx;
-  max-width: 180rpx;
+  max-width: 150rpx;
   margin-right: 10rpx;
   line-height: 40rpx;
   text-overflow: ellipsis;
@@ -125,7 +127,7 @@ page {
 
 .master-info-row-notes{
   height: 100%; 
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 15rpx;
   padding: 5rpx;
   margin-right: 15rpx;
@@ -172,7 +174,7 @@ page {
 }
 
 .switch-box-text {
-  transition: color 2s ease;
+  transition: color 0.5s ease;
 }
 
 .active {
@@ -187,7 +189,7 @@ page {
   width: 30%;
   height: 60rpx;
   position: absolute;
-  background-color: #685b48;
+  background-color: #f99d78;
   border-radius: 30rpx;
   z-index: -1;
   left: 12.5%;
@@ -206,7 +208,6 @@ page {
 /* --- MARKET BOARD --- */
 .board {
   width: 194vw;
-  height: calc(100% - 700rpx) ;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -224,7 +225,6 @@ page {
 
 .board-left {
   width: calc(94vw - 20rpx);
-  height: 100%;
   display: flex;
   padding-right: 20rpx;
   flex-direction: column;
@@ -233,18 +233,11 @@ page {
 
 .board-right {
   width: 94vw;
-  height: 100%;
   position: relative;
   display: flex;
   flex-flow: row wrap;
   align-content: flex-start;
   overflow-y: scroll;
-}
-
-.slave-info-icon,
-.master-info-icon {
-  height: 30rpx;
-  width: 30rpx;
 }
 
 .slave-reply {
@@ -278,14 +271,12 @@ page {
   display: flex;
   flex-direction: column;
   border-radius: 5rpx;
-  margin-top: 25rpx;
+  margin-bottom: 20rpx;
 }
 
-.conversation {
-}
 
 .conversation-head {
-  height: 175rpx;
+  /* height: 175rpx; */
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -298,12 +289,12 @@ page {
   background-position: bottom;
   background-size: 29rpx 4rpx;
   background-repeat: repeat-x;
+  overflow: hidden;
 }
+
 .conversation-head-avatar {
   width: 20%;
   display: block;
-  overflow: hidden;
-  padding-bottom: 0;
 }
 
 .conversation-head-info {
@@ -315,90 +306,94 @@ page {
   justify-content: flex-start;
   align-items: flex-start;
 }
-.conversation-head-info-offering,
-.conversation-head-info-name {
+
+.conversation-head-info-row {
   width: 100%;
+  height: 40rpx;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 10rpx;
 }
-.conversation-head-info-content {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+
+.conversation-head-info-row-title {
+  width: 130rpx;
+  height: 34rpx;
+  background-color: #636571;
+  margin-right: 15rpx;
+  border-radius: 10rpx;
+  color: #fbf6e0;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 36rpx;
 }
-.conversation-head-info-expandicon {
-  margin-left: auto;
+
+.conversation-head-info-row-text {
+  height: 40rpx;
+  max-width: 150rpx;
+  margin-right: 10rpx;
+  line-height: 40rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 24rpx;
 }
+
 .converstaion-head-info-time {
   margin-left: auto;
   justify-self: flex-end;
   align-self: flex-end;
-  color: gray;
+  color: #f5f7e1;
 }
 
-.slave-name,
-.slave-island {
-  max-width: 35%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.conversation-extend {
-  display: flex;
-  flex-direction: column;
-}
-
-.conversation-master {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin-right: auto;
-  height: 80rpx;
-  justify-content: flex-start;
-  align-items: center;
-}
-.conversation-slave {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+.conversation-head-info-expandicon {
   margin-left: auto;
-  height: 80rpx;
+}
+
+/* extend area */
+.conversation-master {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 15rpx;
+  margin-right: auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.conversation-slave {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 15rpx;
+  margin-left: auto;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-start;
 }
+
+
 .conversation-extend-avatar {
-}
-
-.conversation-extend-text {
-  margin: 0 20rpx;
-  padding: 15rpx 10rpx;
-  text-align: center;
-  background-color: #685b48;
-  color: #f2f4dc;
-  border-radius: 30rpx;
-  letter-spacing: 2rpx;
-}
-
-.conversation-extend-avatar-img {
   height: 60rpx;
   width: 60rpx;
 }
 
-.record {
-  width: 100%;
-  height: 200rpx;
-  background-color: lightcoral;
-  margin-bottom: 20rpx;
+.conversation-extend-text {
+  max-width: calc(100% - 190rpx);
+  margin: 0 20rpx;
+  padding: 5rpx 15rpx;
+  text-align: left;
+  background-color: #ffe1c9;
+  color: #a0674c;
+  border-radius: 15rpx;
+  letter-spacing: 2rpx;
 }
 
+/* reply box */
 .reply-box {
   width: 100%;
-  height: 80rpx;
+  height: 70rpx;
   margin-top: 15rpx;
   padding-bottom: 10rpx;
   background-image: linear-gradient(
@@ -414,13 +409,16 @@ page {
   justify-content: flex-start;
   align-items: center;
 }
-.reply-text {
+
+.reply-input-bar {
   height: 95%;
-  width: 85%;
+  width: calc(85% - 30rpx);
+  padding: 0 15rpx;
   border-radius: 25rpx;
-  background-color: #d3d6ab;
+  background-color: #f5f7e1;
   color: #685b48;
 }
+
 .reply-btn {
   width: 15%;
   height: 95%;
@@ -435,10 +433,12 @@ page {
   justify-content: center;
   align-items: center;
 }
+
 .reply-active {
   background-color: #eebb4e;
   color: #88624f;
 }
+
 .reply-btn-plus {
   position: absolute;
   width: 20rpx;
@@ -452,6 +452,7 @@ page {
   right: 0;
   top: 0;
 }
+
 .plus-active {
   color: #eebb4e;
   background-color: #88624f;
@@ -541,57 +542,268 @@ page {
 }
 
 
+/* --- Mask --- */
+.mask10 {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
 
-/* --- Modal ---*/
-.mymodal {
+
+/* --- Modal: Update --- */
+.modal-update {
   width: 98%;
   height: fit-content;
-  background-color: #224153;
-  border-radius: 50rpx;
+  background-color: #fbf6e0;
   opacity: 0.5;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  transition: all 600ms ease-out;
+  /* color: #f2f4dc; */
+  color: #716a58;
+  font-size: 28rpx;
+}
+
+.modal-update-title {
+  width: 100%;
+  height: 60rpx;
+  text-align: center;
+  letter-spacing: 10rpx;
+  line-height: 60rpx;
+}
+
+.modal-update-bg {
+  width: 100%;
+  height: 400rpx;
+}
+
+.modal-update-content {
+  width: 100%;
+  height: calc(100% - 160rpx);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-update-row {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15rpx;
+  justify-content: center;
+}
+
+.modal-update-row50 {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-update-row-title {
+  /* width: 40%; */
+  width: 140rpx;
+  height: 50rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 28rpx;
+  line-height: 50rpx;
+}
+
+.modal-update-row-title-icon {
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.modal-update-row-content {
+  width: calc(100% - 140rpx);
+  margin-left: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.modal-update-row-content input {
+  width: 100%;
+  height: 50rpx;
+  background-color: lightgray;
+  border-radius: 10rpx;
+  padding: 2rpx 5rpx;
+  color: #685b48;
+  font-size: 26rpx;
+}
+
+.modal-update-row-content textarea {
+  height: 120rpx;
+  width: 100%;
+  background-color: lightgray;
+  border-radius: 10rpx;
+  padding: 2rpx 5rpx;
+  color: #685b48;
+  font-size: 26rpx;
+}
+
+
+.modal-update-row-closeBtn {
+  width: 65%;
+  height: 40rpx;
+  background-color: #ddd1bb;
+  border-radius: 50rpx;
+  position: relative;
+}
+
+.modal-update-row-closeBtn-greenbox {
+  width: 80%;
+  height: 100%;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  left: 20%;
+}
+
+@keyframes modal-update-toleft {
+  from {
+    left: 20%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+  to {
+    left: 0%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+}
+
+@keyframes modal-update-toright {
+  from {
+    left: 0%;
+    background-color: #4fb262;
+    color: #f8f5e6;
+  }
+  to {
+    left: 20%;
+    background-color: #a4a49c;
+    color: #bbbcae;
+  }
+}
+
+.modal-update-row-closeBtn-click {
+  animation: modal-update-toleft 250ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+.modal-update-row-closeBtn-unclick {
+  animation: modal-update-toright 250ms ease-in-out 1;
+  animation-fill-mode: forwards;
+}
+
+.modal-update-row-btn-text {
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 26rpx;
+}
+
+.modal-update-btn-box {
+  width: 100%;
+  height: 60rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.modal-update-btn {
+  background-color: #faf7e0;
+  border-radius: 32rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 3rpx 10rpx;
+  margin-right: 25rpx;
+  font-size: 28rpx;
+  letter-spacing: 3rpx;
+}
+
+
+/* --- Modal: Reply --- */
+.modal-reply {
+  width: 98%;
+  height: fit-content;
+  background-color: #224153;
+  position: fixed;
   left: 1vw;
   bottom: 50vh;
+  border-radius: 50rpx;
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   z-index: 20;
   transition: all 600ms ease-out;
   color: #f2f4dc;
 }
-.modal-option {
+
+.modal-reply-option {
   width: 100%;
   display: flex;
   flex-direction: row;
   margin-top: 10rpx;
 }
-.modal-option-title {
+
+.modal-reply-option-title {
   width: 25%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding-right: 15rpx;
 }
-.modal-option-content {
+
+.modal-reply-option-content {
   width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 }
-.modal-option-content-btn {
+
+.modal-reply-option-content-btn {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-right: 10rpx;
 }
-.modal-option-content-btn-icon {
+
+.modal-reply-option-content-btn-icon {
   height: 50rpx;
   width: 50rpx;
 }
-.modal-text {
+
+.modal-reply-text {
   width: 100%;
   height: 60rpx;
   text-align: center;
@@ -600,7 +812,7 @@ page {
   letter-spacing: 10rpx;
 }
 
-.modal-btns {
+.modal-reply-btns {
   width: 100%;
   height: 100rpx;
   display: flex;
@@ -608,14 +820,16 @@ page {
   align-items: center;
   justify-content: center;
 }
-.modal-btn {
+
+.modal-reply-btn {
   width: 25%;
   padding: 0;
   font-size: 30rpx;
   letter-spacing: 5rpx;
   text-align: center;
 }
-.modal-leave-icon {
+
+.modal-reply-leave-icon {
   width: 40rpx;
   height: 40rpx;
   position: fixed;
@@ -623,6 +837,7 @@ page {
   bottom: 160rpx;
   z-index: 20;
 }
+
 .yellow-triangle {
   height: 30rpx;
   width: 30rpx;

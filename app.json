@@ -1,10 +1,7 @@
 {
   "pages": [
-<<<<<<< HEAD
     "pages/nookeaRooms/nookeaRooms",
-=======
     "pages/profile/profile",
->>>>>>> a020d6ff8c0e44f598787fd66bea43614f18d846
     "pages/nookea/nookea",
     "pages/nookeaGoods/nookeaGoods",
     "pages/tradingFloor/tradingFloor",
