@@ -331,7 +331,7 @@ Page({
     });
   },
 
-  onTapCreate: function (e) {
+  onTapCreate: function () {
     let _masterInfo = {
       _openid: app.globalData.openid,
       avatarUrl: app.globalData.userInfo.avatarUrl,
