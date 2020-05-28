@@ -1,6 +1,6 @@
 /* pages/nookeaRooms/nookeaRooms.wxss */
 page {
-  background-color: #f2f4dc;
+  background-color: #fbf6e0;
   font-size: 26rpx;
 }
 .nookeaRooms {
@@ -13,35 +13,59 @@ page {
   overflow-x: hidden;
 }
 
+/* --- TOP BOX --- */
+
 .top-box {
-  width: 100%;
+  width: calc(94% - 30rpx);
+  height: 470rpx;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-items: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 30rpx;
+  border: solid #fff 15rpx;
+  z-index: 1;
 }
+
+.top-box-bg {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+
 .master-avatar {
   width: 30%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
+
 .master-avatar-img {
-  width: 70%;
-  border-radius: 25rpx;
+  width: 80%;
+  height: 150rpx;
+  border-radius: 10rpx;
   justify-self: center;
   align-self: center;
+  margin-bottom: 15rpx;
 }
 
 .room-status {
-  font-size: 32rpx;
-  margin-bottom: 10rpx;
+  width: 100rpx;
+  background-color: #4fb262;
   justify-self: flex-start;
   align-self: flex-start;
+  margin-bottom: 15rpx;
   border-radius: 0 25rpx 25rpx 0;
   padding: 4rpx 8rpx;
-  background-color: #4fb262;
+  padding-left: 5rpx;
+  font-size: 26rpx;
+  text-align: center;
   color: #bfedc6;
 }
 .status-active {
@@ -53,210 +77,176 @@ page {
   color: #c2c3b5;
 }
 
-.info {
-  width: 72%;
-}
-
-/* --- ITEM INFO --- */
-.item-box {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 10rpx;
-  align-items: center;
-}
-.item-img-box {
-  border: 10rpx lightyellow solid;
-  border-radius: 8rpx;
-  display: flex;
-  align-items: center;
-}
-
-.item-img {
-  width: 50rpx;
-  height: 50rpx;
-}
-
-.userinfo,
 .master-info {
-  width: 100%;
-  margin: 20rpx 0 0 0;
+  width: calc(70% - 10rpx);
+  height: calc(100% - 10rpx);
+  margin-left: 10rpx;
+  padding-top: 10rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   font-size: 26rpx;
+  z-index: 1;
 }
 
-.avatar {
-  border-radius: 50%;
-  overflow: hidden;
-  width: 120rpx;
-  height: 120rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.avatar-img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.master-info-detail {
+.master-info-row {
   width: 100%;
+  width: 100%;
+  height: 40rpx;
   display: flex;
   flex-direction: row;
-  justify-items: flex-start;
   align-items: center;
-}
-.slave-info-icon,
-.master-info-icon {
-  height: 30rpx;
-  width: 30rpx;
-}
-.master-info-wechat {
-  margin-top: 15rpx;
+  justify-content: flex-start;
+  margin-bottom: 15rpx;
 }
 
-.master-island,
-.master-name {
+.master-info-row-title {
+  width: 130rpx;
+  height: 34rpx;
+  background-color: #636571;
+  margin-right: 15rpx;
+  border-radius: 10rpx;
+  color: #fbf6e0;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 36rpx;
+}
+
+.master-info-row-text {
+  height: 40rpx;
+  max-width: 180rpx;
   margin-right: 10rpx;
-  max-width: calc(50% - 40rpx);
-  white-space: nowrap;
+  line-height: 40rpx;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
+  font-size: 24rpx;
 }
 
-.content {
-  width: 100%;
-  margin-top: 15rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.content-item {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  margin-right: 10rpx;
-}
-.item-info {
-  width: 60%;
+.master-info-row-notes {
   height: 100%;
-  background-color: gray;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.item-tile {
-  width: 100%;
-  height: 13%;
-  background-color: lightcyan;
-}
-
-.item-subtile {
-  width: 100%;
-  height: 13%;
-  background-color: lightyellow;
-}
-
-.item-madeof {
-  width: 100%;
-  height: 74%;
-  background-color: lightblue;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15rpx;
+  padding: 5rpx;
+  margin-right: 15rpx;
+  margin-bottom: 10rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
   overflow-y: scroll;
+  flex-grow: 1;
 }
-.item-info-icon {
-  height: 35rpx;
-  width: 35rpx;
+
+.master-info-item-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 5rpx;
 }
+
+/* --- SWTICH BAR --- */
 .switch-box {
-  width: 100%;
-  height: 100rpx;
+  width: 94%;
+  height: 60rpx;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-items: center;
   align-items: center;
   justify-content: center;
-  position: relative;
+  margin: 20rpx 0;
 }
-.right-btn,
-.left-btn {
-  width: 45%;
+
+.switch-box-btn {
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.right-btn {
-}
+
 .switch-box-icon {
-  height: 80rpx;
-  width: 80rpx;
+  height: 40rpx;
+  width: 40rpx;
   margin-right: 15rpx;
 }
+
 .switch-box-text {
   transition: color 2s ease;
 }
+
 .active {
-  color: #f2f4dc;
-}
-.inactive {
+  /* color: #f2f4dc; */
   color: #685b48;
 }
+
+.inactive {
+  /* color: #685b48; */
+  color: lightgray;
+}
+
 .moving-box {
   width: 30%;
-  height: 100rpx;
+  height: 60rpx;
   position: absolute;
-  background-color: #685b48;
+  /* background-color: #685b48; */
+  background-color: #d0dc4c;
   border-radius: 30rpx;
   z-index: -1;
   left: 12.5%;
 }
+
 .slide-left {
   animation: slideleft 0.5s ease-in-out 1;
   animation-fill-mode: forwards;
 }
+
 .slide-right {
   animation: slideright 0.5s ease-in-out 1;
   animation-fill-mode: forwards;
-}
-.note {
 }
 
 /* --- MARKET BOARD --- */
 .board {
   width: 194vw;
+  height: calc(100% - 700rpx);
   display: flex;
   flex-direction: row;
   position: relative;
   left: 150vw;
   transition: all ease-in-out 0.5s;
 }
+
 .slideleft {
   left: 50vw;
 }
+
 .slideright {
-  left: -47vw;
+  left: -50vw;
 }
+
 .board-left {
-  width: 94vw;
+  width: calc(94vw - 20rpx);
+  height: 100%;
   display: flex;
+  padding-right: 20rpx;
   flex-direction: column;
-  overflow-x: scroll;
-}
-.board-mid {
-  width: 6vw;
+  overflow-y: scroll;
 }
 
 .board-right {
   width: 94vw;
-  display: flex;
-  flex-direction: column;
-  overflow-x: scroll;
   height: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  overflow-y: scroll;
+}
+
+.slave-info-icon,
+.master-info-icon {
+  height: 30rpx;
+  width: 30rpx;
 }
 
 .slave-reply {
@@ -272,6 +262,7 @@ page {
   padding: 10rpx;
   border-radius: 15rpx;
 }
+
 .slave-reply-icon {
   height: 30rpx;
   width: 30rpx;
@@ -294,6 +285,7 @@ page {
 
 .conversation {
 }
+
 .conversation-head {
   height: 175rpx;
   width: 100%;
@@ -468,6 +460,88 @@ page {
   border: #eebb4e 5rpx solid;
 }
 
+/* Board: right */
+.board-right-warn {
+  width: 100%;
+  height: 60rpx;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 20vw;
+  height: 240rpx;
+  margin-top: 20rpx;
+  /* ((full-width - num of cards * self.width) / (num of cards + 1)) */
+  margin-left: 2.8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.card-content {
+  background-color: #fff;
+  width: 100%;
+  height: 86%;
+  border-radius: 10rpx;
+  border: none;
+  position: relative;
+}
+
+.card-content-bg {
+  width: calc(100% - 15rpx);
+  height: calc(100% - 15rpx);
+  border-radius: 6rpx;
+  border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); */
+  overflow: hidden;
+}
+
+.card-content-item {
+  width: 60%;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-content-item-bg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-content-item-collect {
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+}
+
+.card-title {
+  width: 100%;
+  height: 14%;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 47rpx;
+}
+
 /* --- Modal ---*/
 .mymodal {
   width: 98%;
@@ -614,7 +688,6 @@ page {
 /* This is for closeBtn */
 .onoff-btn {
   width: 100%;
-  height: 80rpx;
   align-self: center;
   justify-self: center;
   display: flex;
@@ -624,7 +697,7 @@ page {
 
 .tool-closeBtn {
   width: 65%;
-  height: 60%;
+  height: 40rpx;
   background-color: #ddd1bb;
   border-radius: 50rpx;
   border: solid #f5f7e1 7rpx;
@@ -677,21 +750,22 @@ page {
 }
 .tool-box-text {
   text-align: center;
-  line-height: 50rpx;
-  font-size: 30rpx;
+  line-height: 40rpx;
+  font-size: 26rpx;
 }
 
 /* This is for Edit BTN */
-.edit-btn {
-  height: 100%;
-  margin-left: auto;
-  margin-right: 25rpx;
+.edit-btn-box {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   color: #685b48;
 }
+
 .edit-btn-img {
   height: 45rpx;
   width: 45rpx;

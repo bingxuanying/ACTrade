@@ -23,17 +23,18 @@ Page({
     showModal: false,
     addReplyEnabled: true,
     img: {
-      BellIcon: iu.nookeaRooms.bell,
-      TicketIcon: iu.nookeaRooms.ticket,
-      WishlistIcon: iu.nookeaRooms.wishlist,
-      BellIconGray: iu.nookeaRooms.bellGray,
-      TicketIconGray: iu.nookeaRooms.ticketGray,
-      WishlistIconGray: iu.nookeaRooms.wishlistGray,
+      BellIcon: iu.nookea.bell,
+      TicketIcon: iu.nookea.ticket,
+      WishlistIcon: iu.nookea.wishlist,
+      BellIconGray: iu.nookea.bellGray,
+      TicketIconGray: iu.nookea.ticketGray,
+      WishlistIconGray: iu.nookea.wishlistGray,
+      modalBG_ballon: iu.nookea.modalBG_ballon,
     },
     // commentSelect控制留言和心愿单切换
     commentSelect: true,
     firstTimeLoad: true,
-    isExpand: [],
+    chattingId: null,
     isMaster: true,
     // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
     paymentType: {
@@ -49,7 +50,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
+    // onLoad: function (options) {
+    let options = {
+      isMaster: "true",
+      id: "982133855ec0a22f00dc2b0703e78dc7",
+    };
+
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
       loading: {
@@ -64,6 +71,7 @@ Page({
       isMaster: options.isMaster === "true" ? true : false,
       currentRoom: options.id,
     });
+
     const getUserInfo = new Promise((resolve, reject) => {
       if (app.globalData.userInfo) {
         this.setData({
@@ -144,7 +152,6 @@ Page({
         if (dbdata.masterInfo._openid == this.data.openid) {
           this.setData({
             addReplyEnabled: false,
-            isExpand: Array(len).fill(false),
           });
           dbdata.comments.sort((a, b) => {
             if (a.isUpdated && !b.isUpdated) {
@@ -163,11 +170,9 @@ Page({
               const temp = dbdata.comments[i];
               dbdata.comments[i] = dbdata.comments[0];
               dbdata.comments[0] = temp;
-              let isExpand = Array(len).fill(false);
-              isExpand[0] = true;
               this.setData({
                 addReplyEnabled: false,
-                isExpand: isExpand,
+                chattingId: dbdata.comments[i].slaveInfo._openid,
               });
               break;
             }
@@ -204,11 +209,6 @@ Page({
             return t;
           });
           if (dbdata.masterInfo._openid == this.data.openid) {
-            if (len !== this.data.isExpand.length) {
-              this.setData({
-                isExpand: Array(len).fill(false),
-              });
-            }
             this.setData({
               addReplyEnabled: false,
             });
@@ -229,11 +229,6 @@ Page({
                 const temp = dbdata.comments[i];
                 dbdata.comments[i] = dbdata.comments[0];
                 dbdata.comments[0] = temp;
-                if (len !== this.data.isExpand.length) {
-                  this.setData({
-                    isExpand: Array(len).fill(false),
-                  });
-                }
                 this.setData({
                   addReplyEnabled: false,
                 });
@@ -256,7 +251,7 @@ Page({
       });
 
     clearInterval(this.data.setInter);
-    //每隔10s刷新一次时间
+    //每隔60s刷新一次时间
     this.data.setInter = setInterval(() => {
       console.log("获取时间中...");
       this.setData({
@@ -297,6 +292,7 @@ Page({
       .update({
         data: {
           comments: db.command.push({
+            isUpdated: true,
             paymentType: this.data.paymentType,
             slaveInfo: {
               _openid: this.data.openid,
@@ -344,6 +340,7 @@ Page({
       })
       .catch((t) => console.log(t));
   },
+
   onTapSend: function (e) {
     this.setData({
       loading: {
@@ -352,6 +349,7 @@ Page({
       },
     });
     let _timestamp = util.formatTime();
+    let path = `comments.${e.currentTarget.dataset.index}.isUpdated`;
     const updateDef = {};
     updateDef[
       `comments.${e.currentTarget.dataset.index}.conversations`
@@ -360,6 +358,8 @@ Page({
       timestamp: _timestamp,
       content: this.data.replyText,
     });
+    updateDef[path] = true;
+    console.log(updateDef);
 
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
@@ -372,8 +372,6 @@ Page({
         let reciverId = this.data.isMaster
           ? this.data.db.comments[index].slaveInfo._openid
           : this.data.db.masterInfo._openid;
-        console.log(index);
-        console.log(this.data.db.comments);
         wx.cloud.callFunction({
           name: "conversationNotify",
           data: {
@@ -439,11 +437,21 @@ Page({
   expandClick: function (e) {
     // toggle idx的expand，关闭其他idx的expand
     let idx = e.currentTarget.dataset.index;
-    let _isExpand = Array(this.data.isExpand.length).fill(false);
-    _isExpand[idx] = !this.data.isExpand[idx];
-    this.setData({
-      isExpand: _isExpand,
-    });
+
+    // chattingId: null,
+    // console.log(idx);
+    // console.log(this.data.db);
+    if (this.data.db.comments[idx].slaveInfo._openid !== this.data.chattingId) {
+      // 是master, 打开另一个对话
+      let id = this.data.db.comments[idx].slaveInfo._openid;
+      this.setData({
+        chattingId: id,
+      });
+    } else {
+      this.setData({
+        chattingId: null,
+      });
+    }
   },
   // 用于切换房间开关状态
   closeRoomClick: function () {
