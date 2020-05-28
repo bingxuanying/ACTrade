@@ -81,7 +81,7 @@
               <view class="record-info-row-text">{{selfPost.roomInfo.masterInfo.nickname}}</view>
               <image src="{{selfPost.roomInfo.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
               mode="widthFix" style="margin-right:15rpx; width:20rpx;" />
-              <text class="record-info-row-text">{{selfPost.roomInfo.masterInfo.islandName}}岛</text>                
+              <view class="record-info-row-text">{{selfPost.roomInfo.masterInfo.islandName}}岛</view>                
             </view>
             <view class="record-info-row">
               <view class="record-info-row-title">微信号</view>
@@ -125,8 +125,8 @@
                 <view class="record-info-row-text">{{item.masterInfo.nickname}}</view>
                 <image src="{{item.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
                 mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
-                <text class="record-info-row-text">{{item.masterInfo.islandName}}</text>
-                <text style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</text>
+                <view class="record-info-row-text">{{item.masterInfo.islandName}}</view>
+                <view style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</view>
               </view>
               <view class="record-info-row">
                 <view class="record-info-row-title">微信号</view>

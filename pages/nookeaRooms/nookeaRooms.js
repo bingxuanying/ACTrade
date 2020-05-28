@@ -56,7 +56,7 @@ Page({
   onLoad: function () {
     // onLoad: function (options) {
     let options = {
-      isMaster: "true",
+      isMaster: "false",
       id: "982133855ec0a22f00dc2b0703e78dc7",
     };
 
@@ -627,6 +627,13 @@ Page({
           masterInfo: _masterInfo,
           timestamp: _timestamp,
         },
+      }).then(() => {
+        this.setData({
+          modal: {
+            ...this.data.modal,
+            update: false,
+          }
+        })
       });
   },
 
