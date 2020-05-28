@@ -1,6 +1,8 @@
 <block>
   <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" />
   <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
+    
+    
     <!-- Master Info -->
     <view class="top-box">
       <image class="top-box-bg" src="{{img.modalBG_ballon}}" mode="widthFix" />
@@ -60,18 +62,23 @@
         </view>
       </view>
     </view>
+    
+    
     <!-- Switch Bar -->
     <view class="switch-box">
       <view class="moving-box {{firstTimeLoad? '': (commentSelect ? 'slide-left':'slide-right')}}" />
+      <view class="switch-box-dividing-line" />
       <view class="switch-box-btn" bindtap="commentClick">
         <image class="switch-box-icon" src="../../assets/icons/CommentIcon.png" />
-        <view class="switch-box-text {{commentSelect?'active':'inactive'}}">留言</view>
+        <view class="switch-box-text {{commentSelect?'active':'inactive'}}">留言区</view>
       </view>
       <view class="switch-box-btn" bindtap="wishlistClick">
         <image class="switch-box-icon " src="{{img.WishlistIcon}}" />
         <view class="switch-box-text {{commentSelect?'inactive':'active'}}">心愿单</view>
       </view>
     </view>
+
+
     <!-- Board -->
     <view class="board {{firstTimeLoading?'':(commentSelect?'slideleft':'slideright')}}">
       <!-- Comments -->
@@ -81,74 +88,91 @@
           <view class="slave-reply-icon">+</view>
           <view class="slave-reply-btn">我要留言</view>
         </view>
-        <view class="board-content" wx:for="{{db.comments}}" wx:for-index="commentIndex" wx:key="comments">
-          <!-- Slave Info -->
-          <view class="conversation-head">
-            <view class="conversation-head-avatar">
-              <image style="width:100%;" mode="widthFix" src="{{item.slaveInfo.avatarUrl}}" />
+        <!-- Comments list -->
+        <block wx:for="{{db.comments}}" wx:for-index="commentIndex" wx:key="comments">
+          <view class="board-content">
+            <!-- Slave Info -->
+            <view class="conversation-head">
+              <view class="conversation-head-avatar">
+                <image style="width:100%; border-radius:15rpx;" mode="widthFix" src="{{item.slaveInfo.avatarUrl}}" />
+              </view>
+              <view class="conversation-head-info">
+                <view class="conversation-head-info-row">
+                  <view class="conversation-head-info-row-text">{{item.slaveInfo.nickname}}</view>
+                  <image src="{{db.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
+                  <view class="conversation-head-info-row-text">{{item.slaveInfo.islandName}}</view>
+                  <view style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</view>
+                  <wxs module="filter" src="../../utils/uti.wxs"></wxs>
+                  <view class="conversation-head-info-time" wx:if="{{filter.getDays(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getDays(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}天前
+                  </view>
+                  <view class="conversation-head-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getHours(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp)}}小时前
+                  </view>
+                  <view class="conversation-head-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
+                    {{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}分前
+                  </view>
+                  <view class="conversation-head-info-time" wx:else>刚刚</view>
+                </view>
+                <view class="conversation-head-info-row">
+                  <view class="conversation-head-info-row-title">接收方式</view>
+                  <image class="master-info-item-icon" wx:if='{{item.paymentType.bell}}' src="{{img.BellIcon}}" mode="widthFix" />
+                  <image class="master-info-item-icon" wx:if='{{item.paymentType.ticket}}' src="{{img.TicketIcon}}" mode="widthFix" />
+                  <image class="master-info-item-icon" wx:if='{{item.paymentType.wishlist}}' src="{{img.WishlistIcon}}" mode="widthFix" />
+                </view>
+                <view class="conversation-head-info-row">
+                  <view class="conversation-head-info-row-title">评论留言</view>
+                  <view class="conversation-head-info-row-text" style="max-width:300rpx;">
+                    {{item.conversations[0].content}}
+                  </view>
+                  <view class="conversation-head-info-expandicon" data-index="{{commentIndex}}" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
+                    <image style="height:25rpx;width:25rpx;" src="../../assets/icons/expendLeft.png" class="expand-icon {{chattingId === item.slaveInfo._openid ? 'rotated':''}}" />
+                  </view>
+                </view>
+              </view>
             </view>
-            <view class="conversation-head-info">
-              <view class="conversation-head-info-row">
-                <view class="conversation-head-info-row-text">{{item.slaveInfo.nickname}}</view>
-                <image src="{{db.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
-                <view class="conversation-head-info-row-text">{{item.slaveInfo.islandName}}</view>
-                <view style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</view>
-                <wxs module="filter" src="../../utils/uti.wxs"></wxs>
-                <view class="conversation-head-info-time" wx:if="{{filter.getDays(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                  {{filter.getDays(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}天前
+            <!-- Comments -->
+            <scroll-view class="conversation-content" scroll-y scroll-into-view="{{item.slaveInfo._openid}}{{item.conversations.length-1}}" wx:if="{{chattingId === item.slaveInfo._openid}}">
+              <block wx:for="{{item.conversations}}" wx:for-item="conversation" wx:for-index="conversationIndex" wx:key="conversations">
+                <view class="conversation-line" style="top:0;" wx:if="{{conversationIndex===0}}" />
+                <!-- 别人的聊天模板 -->
+                <view class="conversation-master" id="{{item.slaveInfo._openid}}{{conversationIndex}}" wx:if="{{(conversation.isMaster && openid !==db.masterInfo._openid) || (!conversation.isMaster && openid === db.masterInfo._openid)}}">
+                  <image class="conversation-extend-avatar" src="{{openid===db.masterInfo._openid?item.slaveInfo.avatarUrl:db.masterInfo.avatarUrl}}" mode="widthFix" />
+                  <view class="conversation-extend-text">{{conversation.content}}</view>
                 </view>
-                <view class="conversation-head-info-time" wx:elif="{{filter.getHours(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                  {{filter.getHours(nowTimestamp, item.conversations[item.conversations.length - 1].timestamp)}}小时前
+                <!-- 自己的聊天模板 -->
+                <view class="conversation-slave" id="{{item.slaveInfo._openid}}{{conversationIndex}}" wx:else>
+                  <view class="conversation-extend-text">{{conversation.content}}</view>
+                  <image class="conversation-extend-avatar" src="{{openid ===db.masterInfo._openid?db.masterInfo.avatarUrl:item.slaveInfo.avatarUrl}}" mode="widthFix" />
                 </view>
-                <view class="conversation-head-info-time" wx:elif="{{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp) > 0}}">
-                  {{filter.getMins(nowTimestamp , item.conversations[item.conversations.length - 1].timestamp)}}分前
-                </view>
-                <view class="conversation-head-info-time" wx:else>刚刚</view>
-              </view>
-              <view class="conversation-head-info-row">
-                <view class="conversation-head-info-row-title">接收方式</view>
-                <image class="master-info-item-icon" wx:if='{{item.paymentType.bell}}' src="{{img.BellIcon}}" mode="widthFix" />
-                <image class="master-info-item-icon" wx:if='{{item.paymentType.ticket}}' src="{{img.TicketIcon}}" mode="widthFix" />
-                <image class="master-info-item-icon" wx:if='{{item.paymentType.wishlist}}' src="{{img.WishlistIcon}}" mode="widthFix" />
-              </view>
-              <view class="conversation-head-info-row">
-                <view class="conversation-head-info-row-title">评论留言</view>
-                <view class="conversation-head-info-row-text" style="max-width:300rpx;">
-                  {{item.conversations[0].content}}
-                </view>
-                <view class="conversation-head-info-expandicon" data-index="{{commentIndex}}" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
-                  <image style="height:25rpx;width:25rpx;" src="../../assets/icons/expendLeft.png" class="expand-icon {{chattingId === item.slaveInfo._openid ? 'rotated':''}}" />
+              </block>
+            </scroll-view>
+            <!-- 这是回复栏 -->
+            <view class="reply-box" hidden="{{chattingId !== item.slaveInfo._openid}}">
+              <view class="conversation-line" style="top:15rpx;" />
+              <input class="reply-input-bar" value="{{modal.replyText}}" cursor-spacing="30" data-title="replyText" bindinput="bindModalStr" />
+              <view class="reply-btn {{modal.replyText?'reply-active':''}}" bindtap="{{modal.replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}">
+                <text>发送</text>
+                <view class="reply-btn-plus  {{modal.replyText?'plus-active':''}} {{textSending?'rotating':''}}">
+                  +
                 </view>
               </view>
             </view>
           </view>
-          <block wx:if="{{chattingId === item.slaveInfo._openid}}">
-            <view class="conversation" wx:for="{{item.conversations}}" wx:for-item="conversation" wx:for-index="conversationIndex" wx:key="conversations">
-              <!-- Comments -->
-              <!-- 别人的聊天模板 -->
-              <view class="conversation-master" wx:if="{{(conversation.isMaster && openid !==db.masterInfo._openid) || (!conversation.isMaster && openid === db.masterInfo._openid)}}">
-                <image class="conversation-extend-avatar" src="{{openid===db.masterInfo._openid?item.slaveInfo.avatarUrl:db.masterInfo.avatarUrl}}" mode="widthFix" />
-                <view class="conversation-extend-text">{{conversation.content}}</view>
-              </view>
-              <!-- 自己的聊天模板 -->
-              <view class="conversation-slave" wx:else>
-                <view class="conversation-extend-text">{{conversation.content}}</view>
-                <image class="conversation-extend-avatar" src="{{openid ===db.masterInfo._openid?db.masterInfo.avatarUrl:item.slaveInfo.avatarUrl}}" mode="widthFix" />
-              </view>
-            </view>
-          </block>
-          <!-- 这是回复栏 -->
-          <view class="reply-box" hidden="{{chattingId !== item.slaveInfo._openid}}">
-            <input class="reply-input-bar" value="{{modal.replyText}}" cursor-spacing="30" data-title="replyText" bindinput="bindModalStr" />
-            <view class="reply-btn {{modal.replyText?'reply-active':''}}" bindtap="{{modal.replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}">
-              <text>发送</text>
-              <view class="reply-btn-plus  {{modal.replyText?'plus-active':''}} {{textSending?'rotating':''}}">
-                +
-              </view>
-            </view>
-          </view>
+          <view class="board-dividing-line" wx:if="{{openid===item.slaveInfo._openid}}">--- 其他人的留言 ---</view>
+        </block>
+        <!-- Bottom -->
+        <view class="board-bottom" wx:if="{{db.comments.length>0}}">
+          <image style="width:40rpx; height:40rpx;" src="../../assets/nookea/dialogAvatarIcon.png" mode="aspectFit" />
+          <view class="board-bottom-text">到底啦~</view>
+        </view>
+        <!-- No Comments Warn -->
+        <view class="board-bottom" style="margin-top:60rpx;" wx:if="{{db.comments.length===0}}">
+          <image style="width:40rpx; height:40rpx;" src="../../assets/nookea/dialogAvatarIcon.png" mode="aspectFit" />
+          <view class="board-bottom-text">暂时还没有评论~</view>
         </view>
       </view>
+      <!-- Middle Block -->
       <view style="width:6vw;" />
       <!-- Wishlist -->
       <view class="board-right">
@@ -164,14 +188,21 @@
             <view class="card-title">{{item.zh_name}}</view>
           </view>
         </block>
+        <!-- Bottom -->
+        <view class="board-bottom" style="margin-top:30rpx;">
+          <image style="width:40rpx; height:40rpx;" src="../../assets/nookea/dialogAvatarIcon.png" mode="aspectFit" />
+          <view class="board-bottom-text">就这么多啦~</view>
+        </view>
         <view class="board-right-warn" wx:if="{{!db.content.wishlist}}">
           <image style="width:60rpx; height:60rpx; margin-right:10rpx;" src="../../assets/icons/nook.png" mode="heightFix" />
           <view style="height:60rpx; line-height:60rpx;">房主暂时不接受心愿单物品交换哦~</view>
         </view>
       </view>
     </view>
+
     <!-- mask -->
     <view class="mask10" wx:if="{{modal.reply||modal.update}}" bindtap="modalHide" />
+
     <!-- modal: update -->
     <view class="modal-update fade-in" hidden="{{!modal.update}}">
       <!-- modal title -->
