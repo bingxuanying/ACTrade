@@ -123,8 +123,8 @@ page {
   font-size: 24rpx;
 }
 
-.master-info-row-notes{
-  height: 100%; 
+.master-info-row-notes {
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 15rpx;
   padding: 5rpx;
@@ -141,7 +141,6 @@ page {
   height: 40rpx;
   margin-right: 5rpx;
 }
-
 
 /* --- SWTICH BAR --- */
 .switch-box {
@@ -176,18 +175,21 @@ page {
 }
 
 .active {
-  color: #f2f4dc;
+  /* color: #f2f4dc; */
+  color: #685b48;
 }
 
 .inactive {
-  color: #685b48;
+  /* color: #685b48; */
+  color: lightgray;
 }
 
 .moving-box {
   width: 30%;
   height: 60rpx;
   position: absolute;
-  background-color: #685b48;
+  /* background-color: #685b48; */
+  background-color: #d0dc4c;
   border-radius: 30rpx;
   z-index: -1;
   left: 12.5%;
@@ -206,7 +208,7 @@ page {
 /* --- MARKET BOARD --- */
 .board {
   width: 194vw;
-  height: calc(100% - 700rpx) ;
+  height: calc(100% - 700rpx);
   display: flex;
   flex-direction: row;
   position: relative;
@@ -539,8 +541,6 @@ page {
   text-align: center;
   line-height: 47rpx;
 }
-
-
 
 /* --- Modal ---*/
 .mymodal {

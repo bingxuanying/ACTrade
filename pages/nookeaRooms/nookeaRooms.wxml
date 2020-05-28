@@ -4,7 +4,6 @@
     <!-- Master Info -->
     <view class="top-box">
       <image class="top-box-bg" src="{{img.modalBG_ballon}}" mode="widthFix" />
-
       <view class="master-avatar">
         <view class="room-status {{db.isActive?'status-active':'status-inactive'}}">
           {{db.isActive?'热卖中':"已关闭"}}
@@ -16,59 +15,53 @@
           </view>
         </view>
       </view>
-      
       <view class="master-info">
         <view class="edit-btn-box" hidden="{{!isMaster}}" bindtap="settingClick">
           <view class="edit-btn-text">编辑</view>
           <image class="edit-btn-img" src="../../assets/icons/settingIcon2.png" />
         </view>
-
         <view class="master-info-row">
           <view class="master-info-row-text">{{db.masterInfo.nickname}}</view>
-          <image src="{{db.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" 
-            mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
+          <image src="{{db.masterInfo.gender===1?'../../assets/icons/genderMale.png':'../../assets/icons/genderFemale.png'}}" mode="widthFix" style="margin-right:10rpx; width:20rpx;" />
           <view class="master-info-row-text">{{db.masterInfo.islandName}}</view>
-          <text style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">岛</text>
+          <text style="height:40rpx; margin-left:-10rpx; line-height:40rpx; font-size:24rpx;">
+            岛
+          </text>
         </view>
-        
         <view class="master-info-row">
           <view class="master-info-row-title">微信号</view>
-          <text class="master-info-row-text" style="max-width:300rpx;">{{db.content.isWxid?db.content.wxidText:'房主没透露哦~'}}</text>
+          <text class="master-info-row-text" style="max-width:300rpx;">
+            {{db.content.isWxid?db.content.wxidText:'房主没透露哦~'}}
+          </text>
         </view>
-
         <view class="master-info-row">
           <view class="master-info-row-title">在售物品</view>
           <image class="master-info-item-icon" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
           <view class="master-info-row-text">{{db.itemInfo.zh_name}}</view>
         </view>
-
         <block>
-        <view class="master-info-row">
-          <view class="master-info-row-title">接受方式</view>
-          <block wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
-            <image class="master-info-item-icon" src="{{img.BellIcon}}" mode="heightFix" />
-            <text class="master-info-row-text">{{db.content.bell}}</text>
-          </block>
-        </view>
-        <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
-          <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" style="margin-left:145rpx;" />
-          <text class="master-info-row-text">{{db.content.ticket}}</text>
-        </view>
-        <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.wishlist}}">
-          <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" style="margin-left:145rpx;" />
-          <text class="master-info-row-text">心愿单</text>
-        </view>
+          <view class="master-info-row">
+            <view class="master-info-row-title">接受方式</view>
+            <block wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
+              <image class="master-info-item-icon" src="{{img.BellIcon}}" mode="heightFix" />
+              <text class="master-info-row-text">{{db.content.bell}}</text>
+            </block>
+          </view>
+          <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
+            <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" style="margin-left:145rpx;" />
+            <text class="master-info-row-text">{{db.content.ticket}}</text>
+          </view>
+          <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.wishlist}}">
+            <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" style="margin-left:145rpx;" />
+            <text class="master-info-row-text">心愿单</text>
+          </view>
         </block>
-
         <view class="master-info-row" style="height:100%;">
           <view class="master-info-row-title" style="align-self:flex-start;">留言板</view>
           <text class="master-info-row-notes">{{db.content.notes}}</text>
-        </view>     
-
+        </view>
       </view>
     </view>
-      
-
     <!-- Switch Bar -->
     <view class="switch-box">
       <view class="moving-box {{firstTimeLoad? '': (commentSelect ? 'slide-left':'slide-right')}}" />
@@ -81,8 +74,6 @@
         <view class="switch-box-text {{commentSelect?'inactive':'active'}}">心愿单</view>
       </view>
     </view>
-    
-
     <!-- Board -->
     <view class="board {{firstTimeLoading?'':(commentSelect?'slideleft':'slideright')}}">
       <!-- Comments -->
@@ -125,12 +116,12 @@
                 <view class="conversation-head-info-content">
                   <view>留言：{{conversation.content}}</view>
                   <view class="conversation-head-info-expandicon" data-index="{{commentIndex}}" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
-                    <image style="height:25rpx;width:25rpx;" src="../../assets/icons/expendLeft.png" class="expand-icon {{isExpand[commentIndex]? 'rotated':''}}" />
+                    <image style="height:25rpx;width:25rpx;" src="../../assets/icons/expendLeft.png" class="expand-icon {{chattingId === item.slaveInfo._openid ? 'rotated':''}}" />
                   </view>
                 </view>
               </view>
             </view>
-            <view class="conversation-extend" hidden="{{!isExpand[commentIndex]}}">
+            <view class="conversation-extend" hidden="{{chattingId !== item.slaveInfo._openid}}">
               <block wx:if="{{conversationIndex != 0}}">
                 <!-- 别人的聊天模板 -->
                 <view class="conversation-master" wx:if="{{(conversation.isMaster && openid !==db.masterInfo._openid) || (!conversation.isMaster && openid === db.masterInfo._openid)}}">
@@ -150,7 +141,7 @@
             </view>
           </view>
           <!-- 这是回复栏 -->
-          <view class="reply-box" wx:if="{{openid === db.masterInfo._openid || openid === item.slaveInfo._openid}}" hidden="{{!isExpand[commentIndex]}}">
+          <view class="reply-box" hidden="{{chattingId !== item.slaveInfo._openid}}">
             <input value="{{replyText}}" class="reply-text" bindinput="replyText" />
             <view class="reply-btn {{replyText?'reply-active':''}}" bindtap="{{replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}">
               <text>发送</text>
@@ -183,7 +174,6 @@
       </view>
     </view>
   </view>
-
   <!-- mask -->
   <view class="mask" wx:if="{{showModal}}" bindtap="modalHide" />
   <!-- modal -->
