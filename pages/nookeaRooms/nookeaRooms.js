@@ -15,22 +15,15 @@ Page({
       isRefresh: false,
       isBottom: false,
     },
-    gif: {
-      EarthLoadingUrl: null,
-    },
     currentRoom: "",
     db: {},
-    showModal: false,
-    addReplyEnabled: true,
-    img: {
-      BellIcon: iu.nookea.bell,
-      TicketIcon: iu.nookea.ticket,
-      WishlistIcon: iu.nookea.wishlist,
-      BellIconGray: iu.nookea.bellGray,
-      TicketIconGray: iu.nookea.ticketGray,
-      WishlistIconGray: iu.nookea.wishlistGray,
-      modalBG_ballon: iu.nookea.modalBG_ballon,
+    modal: {
+      reply: false,
+      update: false,
+      content: {},
+      replyText: "",
     },
+    addReplyEnabled: true,
     // commentSelect控制留言和心愿单切换
     commentSelect: true,
     firstTimeLoad: true,
@@ -43,14 +36,24 @@ Page({
       ticket: false,
       wishlist: false,
     },
-    canIUse: wx.canIUse("button.open-type.getUserInfo"),
     setInter: null,
     watcher: null,
+    gif: {
+      EarthLoadingUrl: null,
+    },
+    img: {
+      BellIcon: iu.nookea.bell,
+      TicketIcon: iu.nookea.ticket,
+      WishlistIcon: iu.nookea.wishlist,
+      BellIconGray: iu.nookea.bellGray,
+      TicketIconGray: iu.nookea.ticketGray,
+      WishlistIconGray: iu.nookea.wishlistGray,
+      modalBG_ballon: iu.nookea.modalBG_ballon,
+      modalBG2: iu.nookea.modalBG2,
+    },
+    canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function () {
     // onLoad: function (options) {
     let options = {
@@ -182,6 +185,10 @@ Page({
         console.log(this.data.isMaster);
         this.setData({
           db: dbdata,
+          modal: {
+            ...this.data.modal,
+            content: dbdata.content,
+          },
           loading: {
             ...this.data.loading,
             isRefresh: false,
@@ -239,6 +246,10 @@ Page({
           }
           this.setData({
             db: dbdata,
+            modal: {
+              ...this.data.modal,
+              content: dbdata.content,
+            },
             loading: {
               ...this.data.loading,
               isRefresh: false,
@@ -261,87 +272,6 @@ Page({
     }, 60000);
   },
 
-  modalShow: function (e) {
-    this.setData({
-      showModal: true,
-    });
-  },
-
-  modalHide: function () {
-    this.setData({
-      showModal: false,
-      replyText: "",
-    });
-  },
-
-  replyText: function (e) {
-    this.setData({
-      replyText: e.detail.value,
-    });
-  },
-
-  onTapClose: function () {
-    this.setData({
-      loading: {
-        ...this.data.loading,
-        isRefresh: true,
-      },
-    });
-    let _timestamp = util.formatTime();
-    db.collection("Nookea-rooms")
-      .doc(this.data.currentRoom)
-      .update({
-        data: {
-          comments: db.command.push({
-            isUpdated: true,
-            paymentType: this.data.paymentType,
-            slaveInfo: {
-              _openid: this.data.openid,
-              avatarUrl: this.data.avatarUrl,
-              islandName: this.data.islandName,
-              nickname: this.data.nickname,
-            },
-            conversations: [
-              {
-                isMaster: false,
-                timestamp: _timestamp,
-                content: this.data.replyText,
-              },
-            ],
-          }),
-        },
-      })
-      .then((t) => {
-        // 更新对方的tradeHistory 这个仅可能slave发送
-        let reciverId = this.data.db.masterInfo._openid;
-        wx.cloud.callFunction({
-          name: "conversationNotify",
-          data: {
-            isMaster: this.data.isMaster,
-            senderName: app.globalData.gameProfile.nickname,
-            reciverId: reciverId,
-            infomation: this.data.replyText,
-            productid: this.data.db.itemInfo._id,
-            img_url: this.data.db.itemInfo.img_url,
-            roomId: this.data.currentRoom,
-            timestamp: _timestamp,
-            zh_name: this.data.db.itemInfo.zh_name,
-          },
-        });
-        console.log(t);
-        return this.setData({
-          showModal: false,
-          addReplyEnabled: false,
-          replyText: "",
-          loading: {
-            ...this.data.loading,
-            isRefresh: false,
-          },
-        });
-      })
-      .catch((t) => console.log(t));
-  },
-
   onTapSend: function (e) {
     this.setData({
       loading: {
@@ -357,7 +287,7 @@ Page({
     ] = db.command.push({
       isMaster: this.data.openid === this.data.db.masterInfo._openid,
       timestamp: _timestamp,
-      content: this.data.replyText,
+      content: this.data.modal.replyText,
     });
     updateDef[path] = true;
     console.log(updateDef);
@@ -379,7 +309,7 @@ Page({
             isMaster: this.data.isMaster,
             senderName: app.globalData.gameProfile.nickname,
             reciverId: reciverId,
-            infomation: this.data.replyText,
+            infomation: this.data.modal.replyText,
             productid: this.data.db.itemInfo._id,
             img_url: this.data.db.itemInfo.img_url,
             roomId: this.data.currentRoom,
@@ -389,7 +319,10 @@ Page({
         });
         // call function end
         return this.setData({
-          replyText: "",
+          modal: {
+            ...this.data.modal,
+            replyText: "",
+          },
           loading: {
             ...this.data.loading,
             isRefresh: false,
@@ -454,6 +387,7 @@ Page({
       });
     }
   },
+
   // 用于切换房间开关状态
   closeRoomClick: function () {
     let isActive = this.data.db.isActive;
@@ -541,9 +475,162 @@ Page({
       });
     }
   },
-  settingClick: function () {
-    //TODO
+
+  modalShow: function (e) {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        reply: true,
+      },
+    });
   },
+
+  modalHide: function () {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        reply: false,
+        update: false,
+      },
+    });
+  },
+
+  bindModalStr: function (e) {
+    let title = e.currentTarget.dataset.title;
+    if (title === "replyText") {
+      this.setData({
+        modal: {
+          ...this.data.modal,
+          [title]: e.detail.value,
+        },
+      });
+    } else {
+      this.setData({
+        modal: {
+          ...this.data.modal,
+          content: {
+            ...this.data.modal.content,
+            [title]: e.detail.value,
+          },
+        },
+      });
+    }
+    console.log(this.data.modal);
+  },
+
+  bindModalSwitch: function (e) {
+    let title = e.currentTarget.dataset.title;
+
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        content: {
+          ...this.data.modal.content,
+          [title]: !this.data.modal.content[title],
+        },
+      },
+    });
+  },
+
+  onTapComment: function () {
+    this.setData({
+      loading: {
+        ...this.data.loading,
+        isRefresh: true,
+      },
+    });
+    let _timestamp = util.formatTime();
+    db.collection("Nookea-rooms")
+      .doc(this.data.currentRoom)
+      .update({
+        data: {
+          comments: db.command.push({
+            paymentType: this.data.paymentType,
+            slaveInfo: {
+              _openid: this.data.openid,
+              avatarUrl: this.data.avatarUrl,
+              islandName: this.data.islandName,
+              nickname: this.data.nickname,
+            },
+            conversations: [
+              {
+                isMaster: false,
+                timestamp: _timestamp,
+                content: this.data.modal.replyText,
+              },
+            ],
+          }),
+        },
+      })
+      .then((t) => {
+        // 更新对方的tradeHistory 这个仅可能slave发送
+        let reciverId = this.data.db.masterInfo._openid;
+        wx.cloud.callFunction({
+          name: "conversationNotify",
+          data: {
+            isMaster: this.data.isMaster,
+            senderName: app.globalData.gameProfile.nickname,
+            reciverId: reciverId,
+            infomation: this.data.modal.replyText,
+            productid: this.data.db.itemInfo._id,
+            img_url: this.data.db.itemInfo.img_url,
+            roomId: this.data.currentRoom,
+            timestamp: _timestamp,
+            zh_name: this.data.db.itemInfo.zh_name,
+          },
+        });
+        console.log(t);
+        return this.setData({
+          modal: {
+            ...this.data.modal,
+            reply: false,
+          },
+          addReplyEnabled: false,
+          modal: {
+            ...this.data.modal,
+            replyText: "",
+          },
+          loading: {
+            ...this.data.loading,
+            isRefresh: false,
+          },
+        });
+      })
+      .catch((t) => console.log(t));
+  },
+
+  showModalSetting: function () {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        update: true,
+      },
+    });
+  },
+
+  onTapUpdate: function () {
+    let _masterInfo = {
+      _openid: app.globalData.openid,
+      avatarUrl: app.globalData.userInfo.avatarUrl,
+      gender: app.globalData.userInfo.gender,
+      nickname: app.globalData.gameProfile.nickname,
+      islandName: app.globalData.gameProfile.islandName,
+      wishlist: app.globalData.gameProfile.wishlist,
+    };
+
+    let _timestamp = util.formatTime();
+
+    db.collection("Nookea-rooms")
+      .doc(this.data.currentRoom)
+      .update({
+        data: {
+          content: this.data.modal.content,
+          masterInfo: _masterInfo,
+          timestamp: _timestamp,
+        },
+      });
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
