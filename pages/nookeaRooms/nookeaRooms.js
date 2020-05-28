@@ -54,13 +54,7 @@ Page({
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 
-  onLoad: function () {
-    // onLoad: function (options) {
-    let options = {
-      isMaster: "true",
-      id: "982133855ec0a22f00dc2b0703e78dc7",
-    };
-
+  onLoad: function (options) {
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
       loading: {
@@ -176,7 +170,6 @@ Page({
               dbdata.comments[0] = temp;
               this.setData({
                 addReplyEnabled: false,
-                chattingId: dbdata.comments[i].slaveInfo._openid,
               });
               break;
             }
