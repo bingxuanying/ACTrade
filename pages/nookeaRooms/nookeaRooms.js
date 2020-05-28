@@ -34,6 +34,7 @@ Page({
     // commentSelect控制留言和心愿单切换
     commentSelect: true,
     firstTimeLoad: true,
+    // chattingId用于追踪打开的对话框
     chattingId: null,
     isMaster: true,
     // paymentType用于控制留言选项中 玲钱，机票，心愿单的开关
