@@ -99,7 +99,9 @@
         </view>
         <view style="height:230rpx"></view>
         <view class="warning-bar" hidden="{{!collect.mode}}">
-            <text>你已进入收藏模式</text>
+            <text>已经进入收藏模式</text>
+            <text>结束操作后记得点击"完成"哦~</text>
+            <image class="warning-bar-icon" src="../../assets/nookea/dialogAvatarIcon.png" mode="widthFix" />
         </view>
         <view class="board" hidden="{{loading.isRefresh}}">
             <!-- MAIN CARDS !! -->
