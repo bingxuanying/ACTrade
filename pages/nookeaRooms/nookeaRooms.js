@@ -803,6 +803,38 @@ Page({
   onUnload: function () {
     clearInterval(this.data.setInter);
     this.data.watcher.close();
+
+    // 退出房间时清除自己的tradeHistory当前房间的isUpdated, 与tradeHistoryisUpdated.
+
+    // 并且 清除nookea-rooms的自己的聊天的isUpdated(isSlaveUpdated/isMasterUpdated)
+    db.collection("Nookea-rooms")
+      .doc(this.data.currentRoom)
+      .get()
+      .then((res) => {
+        let comments = res.data.comments;
+        if (this.data.isMaster) {
+          for (var x in comments) {
+            comments[x].isMasterUpdated = false;
+          }
+        } else {
+          for (var x in comments) {
+            if (comments[x].slaveInfo._openid === app.globalData.id) {
+              comments[x].isSlaveUpdated = false;
+            }
+          }
+        }
+        console.log(comments);
+        db.collection("Nookea-rooms")
+          .doc(this.data.currentRoom)
+          .update({
+            data: {
+              comments: _.set(comments),
+            },
+          });
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   },
 
   /**

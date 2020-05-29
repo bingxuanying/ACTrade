@@ -22,6 +22,7 @@ page {
 }
 
 .trade-header-tag {
+  position: relative;
   margin: 5rpx 15rpx;
   padding: 10rpx;
   background-color: #faf8e1;
