@@ -61,12 +61,7 @@ Page({
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 
-  // onLoad: function (options) {
-  onLoad: function () {
-    let options = {
-      id: "982133855ec0a22f00dc2b0703e78dc7",
-      isMaster: "false",
-    }
+  onLoad: function (options) {
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
       nowTimestamp: util.formatTime(),
