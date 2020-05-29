@@ -175,6 +175,7 @@
     <view class='mask10' hidden="{{!modal.openPost}}" bindtap="hideModal" />
     <!-- Modal: Post -->
     <view class="mymodal fade-in" hidden="{{!modal.openPost}}">
+      <image class="modal-update-gif" src="{{gif.IslandLoading}}" mode="widthFix" hidden="{{!loading.isCreate}}" />
       <!-- modal title -->
       <view class="modal-title">发布商品信息</view>
       <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
@@ -234,7 +235,7 @@
             <view style="height: 50rpx; line-height: 50rpx">留言</view>
           </view>
           <view class="modal-row-content">
-            <textarea value="{{content.notes}}" cursor-spacing="30" data-title="notes" bindinput="bindModalStr" bindfocus="bindInputFocus" />
+            <textarea value="{{content.notes}}" cursor-spacing="50" data-title="notes" bindinput="bindModalStr" bindfocus="bindInputFocus" />
           </view>
         </view>
       </view>

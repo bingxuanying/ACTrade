@@ -30,6 +30,7 @@ Page({
     loading: {
       isRefresh: false,
       isBottom: false,
+      isCreate: false,
     },
     img: {
       BellIcon: iu.nookea.bell,
@@ -49,7 +50,9 @@ Page({
       commentBG3: iu.nookea.commentBG3,
     },
     gif: {
-      EarthLoadingUrl: null,
+      EarthLoadingUrl: iu.gif.EarthLoading,
+      FlightLoading: iu.gif.FlightLoading,
+      IslandLoading: iu.gif.IslandLoading,
     },
   },
 
@@ -59,10 +62,6 @@ Page({
       loading: {
         ...this.data.loading,
         isRefresh: true,
-      },
-      gif: {
-        ...this.data.gif,
-        EarthLoadingUrl: iu.gif.EarthLoading,
       },
     });
     var product_id = options._id;
@@ -332,6 +331,13 @@ Page({
   },
 
   onTapCreate: function () {
+    this.setData({
+      loading: {
+        ...this.data.loading,
+        isCreate: true,
+      },
+    })
+
     let _masterInfo = {
       _openid: app.globalData.openid,
       avatarUrl: app.globalData.userInfo.avatarUrl,
@@ -352,6 +358,10 @@ Page({
             isActive: true,
             masterInfo: _masterInfo,
             timestamp: _timestamp,
+          },
+          loading: {
+            ...this.data.loading,
+            isCreate: false,
           },
         })
         .then(() => {
@@ -412,6 +422,10 @@ Page({
             modal: {
               openPost: false,
               isKeyboard: false,
+            },
+            loading: {
+              ...this.data.loading,
+              isCreate: false,
             },
             offset: this.data.offset + 1,
           });

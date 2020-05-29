@@ -200,10 +200,13 @@
         </view>
       </view>
     </view>
+
     <!-- mask -->
     <view class="mask10" wx:if="{{modal.reply||modal.update}}" bindtap="modalHide" />
+    
     <!-- modal: update -->
     <view class="modal-update fade-in" hidden="{{!modal.update}}">
+      <image class="modal-update-gif" src="{{gif.IslandLoading}}" mode="widthFix" hidden="{{!loading.isUpdate}}" />
       <!-- modal title -->
       <view class="modal-update-title">发布商品信息</view>
       <image class="modal-update-bg" src="{{img.modalBG2}}" mode="widthFix" />
@@ -216,7 +219,7 @@
               <view>玲钱</view>
             </view>
             <view class="modal-update-row-content">
-              <input value="{{modal.content.bell}}" placeholder="选填" cursor-spacing="30" data-title="bell" bindinput="bindModalStr" />
+              <input value="{{modal.content.bell}}" placeholder="选填" cursor-spacing="30" data-title="bell" bindinput="bindModalStr" bindfocus="bindInputFocus" />
             </view>
           </view>
           <view class="modal-update-row50">
@@ -225,7 +228,7 @@
               <view>机票</view>
             </view>
             <view class="modal-update-row-content">
-              <input value="{{modal.content.ticket}}" placeholder="选填" cursor-spacing="30" data-title="ticket" bindinput="bindModalStr" />
+              <input value="{{modal.content.ticket}}" placeholder="选填" cursor-spacing="30" data-title="ticket" bindinput="bindModalStr" bindfocus="bindInputFocus" />
             </view>
           </view>
         </view>
@@ -253,7 +256,7 @@
                 <view class="modal-update-row-btn-text">{{modal.content.isWxid?'公开':'不公开'}}</view>
               </view>
             </view>
-            <input value="{{modal.content.wxidText}}" placeholder="选填" cursor-spacing="30" data-title="wxidText" bindinput="bindModalStr" />
+            <input value="{{modal.content.wxidText}}" placeholder="选填" cursor-spacing="30" data-title="wxidText" bindinput="bindModalStr" bindfocus="bindInputFocus" />
             <view style="font-size:26rpx;margin-top:5rpx;">{{"- 接受后, 对所有人可见 -"}}</view>
           </view>
         </view>
@@ -263,7 +266,7 @@
             <view style="height: 50rpx; line-height: 50rpx">留言</view>
           </view>
           <view class="modal-update-row-content">
-            <textarea value="{{modal.content.notes}}" cursor-spacing="30" data-title="notes" bindinput="bindModalStr" />
+            <textarea value="{{modal.content.notes}}" cursor-spacing="50" data-title="notes" bindinput="bindModalStr" bindfocus="bindInputFocus" />
           </view>
         </view>
       </view>
@@ -283,37 +286,50 @@
         </view>
       </view>
     </view>
+
+
     <!-- modal: reply -->
     <view class="modal-reply fade-in" wx:if="{{modal.reply}}">
-      <view class="modal-reply-text">添加回复</view>
-      <view class="modal-reply-option">
-        <view class="modal-reply-option-title">接受报价</view>
-        <view class="modal-reply-option-content">
-          <view class="modal-reply-option-content-btn {{paymentType.bell ? 'active': 'inactive'}}" data-name="bell" bindtap="paymentTypeCheck">
-            <image class="modal-reply-option-content-btn-icon" src="{{paymentType.bell ? img.BellIcon:img.BellIconGray}}" />
-            <view>玲钱</view>
-          </view>
-          <view class="modal-reply-option-content-btn {{paymentType.ticket ? 'active': 'inactive'}}" data-name="ticket" bindtap="paymentTypeCheck">
-            <image class="modal-reply-option-content-btn-icon" src="{{paymentType.ticket ? img.TicketIcon:img.TicketIconGray}}" />
-            <view>机票</view>
-          </view>
-          <view class="modal-reply-option-content-btn {{paymentType.wishlist ? 'active': 'inactive'}}" data-name="wishlist" bindtap="paymentTypeCheck">
-            <image class="modal-reply-option-content-btn-icon" src="{{paymentType.wishlist ? img.WishlistIcon:img.WishlistIconGray}}" />
-            <view>心愿单</view>
+      <image class="modal-reply-gif" src="{{gif.FlightLoading}}" mode="widthFix" hidden="{{!loading.isComment}}" />
+      <image class="modal-update-bg" src="{{img.modalBG}}" mode="widthFix" />
+      <view class="modal-reply-content">
+        <view class="modal-reply-title">回复给 {{db.masterInfo.nickname}}</view>
+
+        <view class="modal-reply-option">
+          <view class="modal-reply-option-title">选择方式</view>
+          <view class="modal-reply-option-content">
+            <view class="modal-reply-option-content-btn {{paymentType.bell ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="bell" bindtap="paymentTypeCheck"
+            wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
+              <image class="modal-reply-option-content-btn-icon" src="{{paymentType.bell ? img.BellIcon:img.BellIconGray}}" />
+              <view>玲钱</view>
+            </view>
+            <view class="modal-reply-option-content-btn {{paymentType.ticket ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="ticket" bindtap="paymentTypeCheck"
+              wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
+              <image class="modal-reply-option-content-btn-icon" src="{{paymentType.ticket ? img.TicketIcon:img.TicketIconGray}}" />
+              <view>机票</view>
+            </view>
+            <view class="modal-reply-option-content-btn {{paymentType.wishlist ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="wishlist" bindtap="paymentTypeCheck"
+              wx:if="{{db.content.wishlist}}">
+              <image class="modal-reply-option-content-btn-icon" src="{{paymentType.wishlist ? img.WishlistIcon:img.WishlistIconGray}}" />
+              <view>心愿单</view>
+            </view>
           </view>
         </view>
-      </view>
-      <view class="modal-reply-option">
-        <view class="modal-reply-option-title">留言</view>
-        <view class="modal-reply-option-content">
-          <textarea class="input-reply" data-title="replyText" bindinput="bindModalStr" cursor-spacing="30"></textarea>
+
+        <view class="modal-reply-option">
+          <view class="modal-reply-option-title"style="align-self:flex-start;">我的留言</view>
+          <view class="modal-reply-option-content">
+            <textarea data-title="replyText" bindinput="bindModalStr" bindtap="bindInputFocus" cursor-spacing="80" />
+          </view>
         </view>
+
+        <view class="modal-reply-btns">
+          <view class="modal-reply-btn" bindtap="modalHide">返回</view>
+          <view class="modal-reply-btn" bindtap="onTapComment">确定</view>
+        </view>
+
       </view>
-      <view class="modal-reply-btns">
-        <view class="modal-reply-btn" bindtap="modalHide">返回</view>
-        <view class="modal-reply-btn" bindtap="onTapComment">确定</view>
-      </view>
-      <image class="yellow-triangle" src="../../assets/icons/yellowTri.gif" />
+
     </view>
   </view>
 </block>
