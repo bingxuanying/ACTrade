@@ -191,11 +191,14 @@ Page({
             let isTradeHistoryUpdated = false;
             let cat = res.data.tradeHistory;
             for (var x in cat) {
+              if (x === type) continue;
               if (cat[x].isUpdated === true) {
                 isTradeHistoryUpdated = true;
               }
             }
             let path = "tradeHistory." + type + ".isUpdated";
+            console.log(path + isUpdated);
+            console.log("tradeHistory.isUpdated" + isTradeHistoryUpdated);
             db.collection("UsersProfile")
               .doc(app.globalData.id)
               .update({
