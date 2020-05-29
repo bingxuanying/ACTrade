@@ -225,11 +225,13 @@ Page({
       fruit: "peach",
     });
   },
+
   onTapPear: function () {
     this.setData({
       fruit: "pear",
     });
   },
+
   changeSwitch: function (i) {
     this.setData({ animActive: true });
     if (this.data.hemisphere == "north") {
@@ -238,6 +240,7 @@ Page({
       this.setData({ hemisphere: "north" });
     }
   },
+
   onTapDone: function () {
     this.setData({
       isSaving: true,
@@ -265,16 +268,19 @@ Page({
         },
       });
   },
+  
   wishlistClick: function () {
     wx.navigateTo({
       url: "/pages/wishlist/wishlist",
     });
   },
+
   tradeHistoryClick: function () {
     wx.navigateTo({
       url: "/pages/tradeHistory/tradeHistory",
     });
   },
+
   // TabBar setting
   onShow() {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
@@ -283,6 +289,7 @@ Page({
       });
     }
   },
+
   onReady() {
     var that = this;
     setTimeout(function () {
@@ -291,9 +298,11 @@ Page({
       });
     }, 500);
   },
+
   onUnload() {
     this.data.watcher.close();
   },
+
   createWatcher() {
     // Watcher: only watch tradeHistory.isUpdated
     let that = this;
@@ -301,7 +310,27 @@ Page({
       .collection("UsersProfile")
       .where({})
       .watch({
-        onChange: function (snapshot) {
+        onChange: function (snapshot) {          
+          that.setData({
+            wxid: snapshot.docs[0].wxid,
+            nickname: snapshot.docs[0].nickname,
+            islandName: snapshot.docs[0].islandName,
+            fruit: snapshot.docs[0].fruit,
+            hemisphere: snapshot.docs[0].hemisphere,
+          });
+
+          app.globalData.id = snapshot.docs[0]._id;
+          app.globalData.openid = snapshot.docs[0]._openid;
+          app.globalData.gameProfile = {
+            nickname: snapshot.docs[0].nickname,
+            islandName: snapshot.docs[0].islandName,
+            fruit: snapshot.docs[0].fruit,
+            hemisphere: snapshot.docs[0].hemisphere,
+            wxid: snapshot.docs[0].wxid,
+            wishlist: snapshot.docs[0].wishlist,
+            tradeHistory: snapshot.docs[0].tradeHistory,
+          };
+
           let changeField = snapshot.docChanges[0].updatedFields;
           if (
             typeof changeField !== "undefined" &&
