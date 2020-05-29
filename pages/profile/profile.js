@@ -36,6 +36,8 @@ Page({
         wishlist: app.globalData.gameProfile.wishlist,
         tradeHistory: app.globalData.gameProfile.tradeHistory,
       });
+
+      if (app.globalData.id) this.createWatcher();
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
@@ -54,8 +56,8 @@ Page({
             tradeHistory: app.globalData.gameProfile.tradeHistory,
           });
         }
-        console.log(this.data.wishlist);
-        console.log(this.data.tradeHistory);
+
+        if (app.globalData.id) this.createWatcher();
       };
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -90,6 +92,8 @@ Page({
                   wishlist: res.data[0].wishlist,
                   tradeHistory: res.data[0].tradeHistory,
                 });
+
+                if (app.globalData.id) this.createWatcher();
               }
             })
             .catch((err) => {
@@ -104,7 +108,6 @@ Page({
       wishlistIcon: iu.imgUrl.profile.wishlistIcon,
       tradeHistoryIcon: iu.imgUrl.profile.tradeHistoryIcon,
     });
-    this.createWatcher();
   },
   getUserInfo: function (e) {
     console.log(e);
@@ -137,6 +140,8 @@ Page({
               wxid: userData.data[0].wxid,
             });
 
+            if (app.globalData.id) this.createWatcher();
+
             db.collection("UsersProfile")
               .doc(app.globalData.id)
               .update({
@@ -158,15 +163,28 @@ Page({
                 isMaster: false,
                 wishlist: {},
                 tradeHistory: {
-                  news: {},
-                  selling: {},
-                  buying: {},
-                  history: {},
+                  news: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
+                  selling: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
+                  buying: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
+                  history: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
                 },
               },
               success: (userData) => {
                 console.log(userData);
                 app.globalData.id = userData._id;
+                if (app.globalData.id) this.createWatcher();
               },
             });
           }
@@ -175,7 +193,7 @@ Page({
     }
   },
   bindWxidInput: function (e) {
-    this.setData({  wxid: e.detail.value  });
+    this.setData({ wxid: e.detail.value });
   },
   bindNicknameInput: function (e) {
     this.setData({

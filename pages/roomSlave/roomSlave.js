@@ -459,10 +459,22 @@ Page({
                 isMaster: false,
                 wishlist: {},
                 tradeHistory: {
-                  news: {},
-                  selling: {},
-                  buying: {},
-                  history: {},
+                  news: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
+                  selling: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
+                  buying: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
+                  history: {
+                    isUpdated: false,
+                    rooms: {},
+                  },
                 },
               },
               success: (userData) => {

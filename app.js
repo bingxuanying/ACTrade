@@ -15,7 +15,7 @@ App({
     // 获取用户信息
     wx.getSetting({
       success: (res) => {
-        console.log('on launch')
+        console.log("on launch");
         if (res.authSetting["scope.userInfo"]) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
@@ -26,6 +26,7 @@ App({
               db.collection("UsersProfile")
                 .get()
                 .then((res) => {
+                  console.log(res);
                   if (res.data.length > 0) {
                     this.globalData.id = res.data[0]._id;
                     this.globalData.openid = res.data[0]._openid;

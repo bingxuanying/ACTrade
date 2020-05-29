@@ -10,10 +10,9 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse("button.open-type.getUserInfo"),
     loadingGifUrl: "",
     wishlist: {},
-    tradeHisory: {},
+    tradeHistory: {},
     tagChoose: [true, false, false, false],
     // mapArr用于整合tradeHistory 和 db里的信息
     mapArr: {
@@ -40,7 +39,7 @@ Page({
           ),
         });
         resolve();
-      } else if (this.data.canIUse) {
+      } else {
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
         // 所以此处加入 callback 以防止这种情况
         app.userInfoReadyCallback = (res) => {
@@ -54,30 +53,6 @@ Page({
           }
           resolve();
         };
-      } else {
-        wx.getUserInfo({
-          success: (res) => {
-            app.globalData.userInfo = res.userInfo;
-            this.setData({
-              userInfo: res.userInfo,
-              hasUserInfo: true,
-            });
-            resolve();
-          },
-        });
-        resolve(
-          db
-            .collection("UsersProfile")
-            .get()
-            .then((res) => {
-              let info = res.data[0];
-              this.setData({
-                wishlist: info.wishlist,
-                tradeHistory: this.sortTradeHistory(info.tradeHistory),
-              });
-              app.globalData.gameProfile.tradeHistory = info.tradeHistory;
-            })
-        );
       }
     });
 
