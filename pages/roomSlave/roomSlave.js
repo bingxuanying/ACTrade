@@ -57,6 +57,11 @@ Page({
     console.log(app.globalData.userInfo);
     if (app.globalData.userInfo) {
       console.log("check point 1");
+      this.setData({
+        nickname: app.globalData.gameProfile.nickname,
+        islandName: app.globalData.gameProfile.islandName,
+      })
+
       if (
         app.globalData.gameProfile.nickname.length > 0 &&
         app.globalData.gameProfile.islandName.length > 0
@@ -70,7 +75,10 @@ Page({
     // has auth
     else if (this.data.canIUse) {
       console.log("check point 2");
-      this.setData({ clientStatus: "no auth" });
+      this.setData({clientStatus: "no auth",
+        nickname: app.globalData.gameProfile.nickname,
+        islandName: app.globalData.gameProfile.islandName,
+      })
 
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {

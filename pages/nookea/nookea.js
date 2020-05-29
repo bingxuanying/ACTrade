@@ -433,10 +433,16 @@ Page({
       if (!app.globalData.userInfo) {
         this.setData({ clientStatus: "no auth" });
       } else if (
-        app.globalData.gameProfile.nickname.length === 0 &&
+        app.globalData.gameProfile.nickname.length === 0 ||
         app.globalData.gameProfile.islandName.length === 0
       ) {
-        this.setData({ clientStatus: "no name" });
+        this.setData({ 
+          clientStatus: "no name",
+          input: {
+            nickname: app.globalData.gameProfile.nickname,
+            islandName: app.globalData.gameProfile.islandName,
+          },
+        });
       } else {
         this.setData({
           specs: {
@@ -462,7 +468,7 @@ Page({
         console.log(this.data.specs);
 
         if (
-          !app.globalData.gameProfile.wishlist &&
+          !app.globalData.gameProfile.wishlist ||
           !app.globalData.gameProfile.tradetradeHistory
         ) {
           db.collection("UsersProfile")
