@@ -46,7 +46,7 @@
                                     <view class="card-info-time" wx:else>刚刚</view>
                                 </view>
                                 <view class="card-info-body">
-                                    <text>有人刚刚回复你了~</text>
+                                    <text>{{item.description}}</text>
                                 </view>
                             </view>
                         </view>
@@ -112,7 +112,7 @@
                                     <view class="card-info-time" wx:else>刚刚</view>
                                 </view>
                                 <view class="card-info-body">
-                                    <text>有人刚刚回复你了~</text>
+                                    <text>{{item.description}}</text>
                                 </view>
                             </view>
                         </view>
