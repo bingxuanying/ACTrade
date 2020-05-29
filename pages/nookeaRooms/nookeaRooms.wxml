@@ -39,24 +39,24 @@
           <image class="master-info-item-icon" src="{{db.itemInfo.img_url}}" mode="heightFix"></image>
           <view class="master-info-row-text">{{db.itemInfo.zh_name}}</view>
         </view>
-        <block>
-          <view class="master-info-row">
-            <view class="master-info-row-title">接受方式</view>
-            <block wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
+        <view class="master-info-row" style="height:fit-content;">
+          <view class="master-info-row-title" style="align-self:flex-start;">接受方式</view>
+          <view style="display:flex; flex-direction:column;">
+            <view class="master-info-row" style="margin-bottom:6rpx;" wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
               <image class="master-info-item-icon" src="{{img.BellIcon}}" mode="heightFix" />
               <view class="master-info-row-text">{{db.content.bell}}</view>
-            </block>
-          </view>
-          <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
-            <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" style="margin-left:145rpx;" />
+            </view>
+            <view class="master-info-row" style="margin-bottom:6rpx;" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
+            <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" />
             <view class="master-info-row-text">{{db.content.ticket}}</view>
-          </view>
-          <view class="master-info-row" style="margin-top:-5rpx" wx:if="{{db.content.wishlist}}">
-            <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" style="margin-left:145rpx;" />
+            </view>
+            <view class="master-info-row" style="margin-bottom:6rpx;" wx:if="{{db.content.wishlist}}">
+            <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" />
             <view class="master-info-row-text">心愿单</view>
+            </view>
           </view>
-        </block>
-        <view class="master-info-row" style="height:100%;">
+        </view>
+        <view class="master-info-row" style="flex-grow:1;">
           <view class="master-info-row-title" style="align-self:flex-start;">留言板</view>
           <view class="master-info-row-notes">{{db.content.notes}}</view>
         </view>
