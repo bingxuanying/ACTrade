@@ -161,14 +161,18 @@ Page({
         },
       });
     }
-    this.setData({
-      curtain: {
-        ...this.data.curtain,
-        filter: !this.data.curtain.filter,
-        search: false,
-      },
-    });
 
+    if (this.data.curtain.filter === true) {
+      this.onTapFilterExec();
+    } else {
+      this.setData({
+        curtain: {
+          ...this.data.curtain,
+          filter: !this.data.curtain.filter,
+          search: false,
+        },
+      });
+    }
     // console.log(this.data.curtain)
   },
 
@@ -677,14 +681,18 @@ Page({
   },
 
   // --- Mask ---
-  onTapHieCurtain: function () {
-    this.setData({
-      curtain: {
-        ...this.data.curtain,
-        filter: false,
-        search: false,
-      },
-    });
+  onTapHideCurtain: function () {
+    if (this.data.curtain.filter === true) {
+      this.onTapFilterExec();
+    } else {
+      this.setData({
+        curtain: {
+          ...this.data.curtain,
+          filter: false,
+          search: false,
+        },
+      });
+    }
   },
 
   // --- general db data fetch ---

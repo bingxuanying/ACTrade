@@ -754,6 +754,21 @@ Page({
             isUpdate: false,
           },
         });
+
+        let updatePath = this.data.db.isActive ? "tradeHistory.selling.rooms" : "tradeHistory.history.rooms";
+
+        db.collection("UsersProfile")
+        .doc(app.globalData.id)
+        .update({
+          data: {
+            [updatePath]: {
+              [this.data.db.itemInfo._id]: {
+                timestamp: _timestamp,
+              },
+            },
+            wxid: this.data.modal.content.wxidText
+          },
+        });
       });
   },
 
