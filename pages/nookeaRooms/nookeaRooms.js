@@ -478,8 +478,8 @@ Page({
           isActive: !isActive,
         },
       });
-    // history.selling -> history
     if (isActive) {
+      // history.selling -> history
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
         .get()
@@ -505,7 +505,7 @@ Page({
           console.log(err);
         });
     } else {
-      // 以上是move history里的
+      // history.history -> selling
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
         .get()
@@ -695,7 +695,7 @@ Page({
             ...this.data.modal,
             replyText: "",
             reply: false,
-            isKeyboard: false
+            isKeyboard: false,
           },
           loading: {
             ...this.data.loading,
@@ -721,7 +721,7 @@ Page({
         ...this.data.loading,
         isUpdate: true,
       },
-    })
+    });
 
     let _masterInfo = {
       _openid: app.globalData.openid,

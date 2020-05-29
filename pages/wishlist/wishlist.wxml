@@ -1,6 +1,6 @@
 <block>
     <nav-bar navInfo="-- 我的心愿单 --" back="True"></nav-bar>
-    <view class="wishlist" style="height: calc(100vh - {{statusBarHeight}}px - 44px);">
+    <view class="wishlist" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px);">
         <view class="wishlist-head">
             <view class="wishlist-delete {{collectMode? 'yellow':''}}" bindtap="onTapCollect">
                 {{collectMode?'再次点击完成编辑':'点击进入删除模式'}}
@@ -20,6 +20,11 @@
                     <view class="card-title">{{item.zh_name}}</view>
                 </view>
             </block>
+        </view>
+        <!-- Bottom -->
+        <view class="board-bottom">
+            <image style="width:40rpx; height:40rpx;" src="../../assets/nookea/dialogAvatarIcon.png" mode="aspectFit" />
+            <view class="board-bottom-text">到底啦~</view>
         </view>
     </view>
 </block>

@@ -1,6 +1,5 @@
 .wishlist {
   width: 100%;
-  overflow-x: scroll;
 }
 .deck {
   width: 100%;
@@ -102,4 +101,21 @@
   font-size: 28rpx;
   text-align: center;
   line-height: 47rpx;
+}
+
+/* --- Bottom --- */
+.board-bottom {
+  width: 100%;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  margin-bottom: 50rpx;
+}
+
+.board-bottom-text {
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-left: 15rpx;
 }

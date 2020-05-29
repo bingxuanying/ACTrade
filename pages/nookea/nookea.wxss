@@ -395,7 +395,6 @@ page {
   width: calc(75% - 40rpx);
   height: 100%;
   padding-left: 40rpx;
-  overflow-x: scroll;
 }
 
 .search-btn {
@@ -640,7 +639,6 @@ page {
   margin-left: 10rpx;
   padding: 5rpx 10rpx;
   font-size: inherit;
-  overflow-x: scroll;
 }
 .name-chat-icon {
   width: 40rpx;
