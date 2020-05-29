@@ -105,7 +105,27 @@ Page({
               content: res.data.content,
             })
           );
+      } else if (_tradeHistory.history.rooms.hasOwnProperty(product_id)) {
+        this.setData({
+          selfPost: {
+            ...this.data.selfPost,
+            room_id: _tradeHistory.history.rooms[product_id].roomId,
+          },
+        });
+        db.collection("Nookea-rooms")
+          .doc(_tradeHistory.history.rooms[product_id].roomId)
+          .get()
+          .then((res) =>
+            this.setData({
+              selfPost: {
+                ...this.data.selfPost,
+                roomInfo: res.data,
+              },
+              content: res.data.content,
+            })
+          );
       }
+
     } else {
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {
@@ -129,6 +149,25 @@ Page({
             });
             db.collection("Nookea-rooms")
               .doc(_tradeHistory.selling.rooms[product_id].roomId)
+              .get()
+              .then((res) =>
+                this.setData({
+                  selfPost: {
+                    ...this.data.selfPost,
+                    roomInfo: res.data,
+                  },
+                  content: res.data.content,
+                })
+              );
+          } else if (_tradeHistory.history.rooms.hasOwnProperty(product_id)) {
+            this.setData({
+              selfPost: {
+                ...this.data.selfPost,
+                room_id: _tradeHistory.history.rooms[product_id].roomId,
+              },
+            });
+            db.collection("Nookea-rooms")
+              .doc(_tradeHistory.history.rooms[product_id].roomId)
               .get()
               .then((res) =>
                 this.setData({
@@ -177,7 +216,7 @@ Page({
           .where({
             isActive: true,
             itemInfo: {
-              _id: item_id,
+              _id: this.data.productInfo._id,
             },
           })
           .skip(this.data.offset)
@@ -371,6 +410,65 @@ Page({
               this.data.selfPost.room_id +
               "&isMaster=true",
           });
+          
+          // history.history -> selling
+          db.collection("Nookea-rooms")
+            .doc(this.data.selfPost.room_id)
+            .get()
+            .then((res) => {
+              let productId = res.data.itemInfo._id;
+              let tradeHistory = app.globalData.gameProfile.tradeHistory;
+              if (typeof tradeHistory.history.rooms === "undefined") {
+                tradeHistory.selling["rooms"] = {};
+              }
+              tradeHistory.selling.rooms[productId] =
+                tradeHistory.history.rooms[productId];
+              delete tradeHistory.history.rooms[productId];
+              app.globalData.gameProfile.tradeHistory = tradeHistory;
+              db.collection("UsersProfile")
+                .doc(app.globalData.id)
+                .update({
+                  data: {
+                    tradeHistory: db.command.set(tradeHistory),
+                  },
+                });
+              // 以下是update nookea-rooms.timestamp
+              db.collection("Nookea-rooms")
+                .doc(this.data.selfPost.room_id)
+                .update({
+                  data: {
+                    timestamp: _timestamp,
+                  },
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          
+          // <----------------------- cloud func call -------------------------->
+          wx.cloud.callFunction({
+            name: "newSellingNotify",
+            data: {
+              zh_name: this.data.productInfo.zh_name,
+              img_url: this.data.productInfo.img_url,
+              roomId: this.data.productInfo._id, //This roomId is actuall productId
+              timestamp: _timestamp,
+            },
+          });
+          
+          db.collection("UsersProfile")
+          .doc(app.globalData.id)
+          .update({
+            data: {
+              "tradeHistory.selling.rooms": {
+                [this.data.productInfo._id]: {
+                  timestamp: _timestamp,
+                },
+              },
+              wxid: this.data.content.wxidText,
+            },
+          });
+
           this.setData({
             selfPost: {
               ...this.data.selfPost,
@@ -444,6 +542,7 @@ Page({
                     zh_name: this.data.productInfo.zh_name,
                   },
                 },
+                wxid: this.data.content.wxidText,
               },
             });
         });

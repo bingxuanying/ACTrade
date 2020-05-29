@@ -140,7 +140,7 @@
         </view>
         <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
         <!-- Mask -->
-        <view class='mask10' hidden="{{!curtain.filter&&!curtain.search}}" bindtap="onTapHieCurtain" />
+        <view class='mask10' hidden="{{!curtain.filter&&!curtain.search}}" bindtap="onTapHideCurtain" />
         <!-- Mask -->
         <view class='mask20' hidden="{{clientStatus==='ok'}}" />
         <!-- modal_1: no auth -->

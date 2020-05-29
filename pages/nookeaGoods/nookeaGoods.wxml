@@ -60,7 +60,7 @@
       </view>
       <view class="board-options-subtitle">(被 {{productInfo.subscription}} 个人添加到心愿单)</view>
       <!-- Main Board -->
-      <view class="board-content" hidden="{{rooms.length===0||loading.isRefresh}}">
+      <view class="board-content" hidden="{{(rooms.length===0&&!selfPost.room_id)||loading.isRefresh}}">
         <!-- I am the seller -->
         <view class="record" hidden="{{!selfPost.room_id}}" data-ismaster="true" data-id="{{selfPost.room_id}}" bindtap="onTapEnter">
           <image class="record-bg" src="{{img.commentBG3}}" mode="widthFix" />
@@ -101,7 +101,7 @@
             </view>
           </view>
         </view>
-        <view class="record-selfline" hidden="{{!selfPost.room_id}}">--- 别人的出售 ---</view>
+        <view class="record-selfline" hidden="{{!selfPost.room_id}}">{{rooms.length===0?"暂时只有你的出售哦~":"--- 别人的出售 ---"}}</view>
         <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
           <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="false" data-id="{{item._id}}" bindtap="onTapEnter">
@@ -152,7 +152,7 @@
       <!-- Loading -->
       <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
       <!-- Reminder -->
-      <view class="board-cant-find" hidden="{{rooms.length>0||loading.isRefresh}}">
+      <view class="board-cant-find" hidden="{{rooms.length>0||selfPost.room_id||loading.isRefresh}}">
         <view>暂时没有人评论...</view>
         <view>可以下拉刷新试试看~！</view>
         <image class="board-cant-find-nook" src="../../assets/icons/nook.png" mode="aspectFit" />
