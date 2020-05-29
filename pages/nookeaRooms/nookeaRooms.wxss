@@ -288,11 +288,13 @@ page {
   background-size: 29rpx 4rpx;
   background-repeat: repeat-x;
   overflow: hidden;
+  padding-top: 5rpx;
 }
 
 .conversation-head-avatar {
   width: 20%;
   display: block;
+  position: relative;
 }
 
 .conversation-head-info {

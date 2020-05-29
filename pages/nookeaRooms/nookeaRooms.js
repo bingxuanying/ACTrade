@@ -45,9 +45,13 @@ Page({
       BellIcon: iu.nookea.bell,
       TicketIcon: iu.nookea.ticket,
       WishlistIcon: iu.nookea.wishlist,
+      NoteIcon: iu.nookea.note,
+      WxIcon: iu.nookea.wx,
       BellIconGray: iu.nookea.bellGray,
       TicketIconGray: iu.nookea.ticketGray,
       WishlistIconGray: iu.nookea.wishlistGray,
+      NoteIconGray: iu.nookea.noteGray,
+      WxIconGray: iu.nookea.wxGray,
       modalBG_ballon: iu.nookea.modalBG_ballon,
       modalBG2: iu.nookea.modalBG2,
     },
@@ -273,7 +277,6 @@ Page({
       },
     });
     let _timestamp = util.formatTime();
-    let path = `comments.${e.currentTarget.dataset.index}.isUpdated`;
     const updateDef = {};
     updateDef[
       `comments.${e.currentTarget.dataset.index}.conversations`
@@ -282,8 +285,11 @@ Page({
       timestamp: _timestamp,
       content: this.data.modal.replyText,
     });
-    updateDef[path] = true;
-    console.log(updateDef);
+    // Slave send to Master -> comments.isUpdated: ture
+    if (!this.data.isMaster) {
+      let path = `comments.${e.currentTarget.dataset.index}.isUpdated`;
+      updateDef[path] = true;
+    }
 
     db.collection("Nookea-rooms")
       .doc(this.data.currentRoom)
@@ -363,21 +369,40 @@ Page({
 
   expandClick: function (e) {
     // toggle idx的expand，关闭其他idx的expand
-    let idx = e.currentTarget.dataset.index;
-
+    let localindex = e.currentTarget.dataset.localindex;
+    let dbindex = e.currentTarget.dataset.index;
     // chattingId: null,
     // console.log(idx);
     // console.log(this.data.db);
-    if (this.data.db.comments[idx].slaveInfo._openid !== this.data.chattingId) {
-      // 是master, 打开另一个对话
-      let id = this.data.db.comments[idx].slaveInfo._openid;
+    let isUpdatePath = "db.comments[" + localindex + "].isUpdated";
+    if (
+      this.data.db.comments[localindex].slaveInfo._openid !==
+      this.data.chattingId
+    ) {
+      let id = this.data.db.comments[localindex].slaveInfo._openid;
       this.setData({
         chattingId: id,
+        [isUpdatePath]: false,
       });
     } else {
       this.setData({
         chattingId: null,
       });
+      // update comments.isUpdated
+      let path = "comments." + dbindex + ".isUpdated";
+      db.collection("Nookea-rooms")
+        .doc(this.data.currentRoom)
+        .update({
+          data: {
+            [path]: false,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     }
   },
 
@@ -621,6 +646,14 @@ Page({
           masterInfo: _masterInfo,
           timestamp: _timestamp,
         },
+      })
+      .then(() => {
+        this.setData({
+          modal: {
+            ...this.data.modal,
+            update: false,
+          },
+        });
       });
   },
 
