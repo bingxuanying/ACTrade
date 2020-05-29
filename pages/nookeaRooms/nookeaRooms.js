@@ -17,6 +17,7 @@ Page({
     },
     currentRoom: "",
     db: {},
+    dbBackup: {},
     modal: {
       reply: false,
       update: false,
@@ -213,6 +214,7 @@ Page({
       .watch({
         onChange: (snapshot) => {
           let dbdata = snapshot.docs[0];
+          let dbBackup = snapshot.docs[0];
           if (!this.data.chattingId) {
             // 没有打开对话的时候，watch 整个dbdata并按时间排序
             dbdata.comments = dbdata.comments.map((t, i) => {
@@ -233,14 +235,32 @@ Page({
             dbdata = this.data.db;
             let changeField = snapshot.docChanges[0].updatedFields;
             let { nodeIndex, index } = this.findNoteIndex(dbdata);
+            // 筛选出仅当前对话的db.update
             if (typeof changeField !== "undefined") {
               for (var x in changeField) {
-                if (x.includes(`comments.${nodeIndex}.`)) {
+                if (
+                  x.includes(`comments.${nodeIndex}.`) &&
+                  !x.includes("Updated")
+                ) {
                   dbdata.comments[index].conversations.push(changeField[x]);
                 }
               }
             }
-            console.log(dbdata);
+
+            // dbBackup part
+            dbBackup.comments = dbBackup.comments.map((t, i) => {
+              t.conversations.sort((a, b) => a.timestamp - b.timestamp);
+              t.noteIndex = i;
+              t.lastConversationTimestamp =
+                t.conversations[t.conversations.length - 1].timestamp;
+              if (
+                t.slaveInfo._openid !== this.data.openid &&
+                dbBackup.masterInfo._openid !== this.data.openid
+              ) {
+                t.conversations = [t.conversations[0]];
+              }
+              return t;
+            });
           }
           if (dbdata.masterInfo._openid == this.data.openid) {
             // 是Master的情况，这时候需要考虑排序
@@ -250,6 +270,20 @@ Page({
             if (!this.data.chattingId) {
               // chattingID没有的时候进行排序
               dbdata.comments.sort((a, b) => {
+                if (a.isMasterUpdated && !b.isMasterUpdated) {
+                  return -1;
+                } else if (!a.isMasterUpdated && b.isMasterUpdated) {
+                  return 1;
+                } else {
+                  return a.lastConversationTimestamp <
+                    b.lastConversationTimestamp
+                    ? 1
+                    : -1;
+                }
+              });
+            } else {
+              // 有chattingId的时候给backup排序
+              dbBackup.comments.sort((a, b) => {
                 if (a.isMasterUpdated && !b.isMasterUpdated) {
                   return -1;
                 } else if (!a.isMasterUpdated && b.isMasterUpdated) {
@@ -278,6 +312,7 @@ Page({
           }
           this.setData({
             db: dbdata,
+            dbBackup: dbBackup,
             modal: {
               ...this.data.modal,
               content: dbdata.content,
@@ -735,81 +770,9 @@ Page({
 
   //用于重新fetch db
   refetch: function () {
-    db.collection("Nookea-rooms")
-      .doc(this.data.currentRoom)
-      .get()
-      .then((res) => {
-        let dbdata = res.data;
-        let len = dbdata.comments.length;
-        dbdata.comments = dbdata.comments.map((t, i) => {
-          t.conversations.sort((a, b) => a.timestamp - b.timestamp);
-          t.noteIndex = i;
-          t.lastConversationTimestamp =
-            t.conversations[t.conversations.length - 1].timestamp;
-          if (
-            t.slaveInfo._openid !== this.data.openid &&
-            dbdata.masterInfo._openid !== this.data.openid
-          ) {
-            t.conversations = [t.conversations[0]];
-          }
-          return t;
-        });
-        if (dbdata.masterInfo._openid == this.data.openid) {
-          this.setData({
-            addReplyEnabled: false,
-          });
-          dbdata.comments.sort((a, b) => {
-            if (this.data.isMaster && a.isMasterUpdated && !b.isMasterUpdated) {
-              return -1;
-            } else if (
-              this.data.isMaster &&
-              !a.isMasterUpdated &&
-              b.isMasterUpdated
-            ) {
-              return 1;
-            } else if (
-              !this.data.isMaster &&
-              a.isSlaveUpdated &&
-              !b.isSlaveUpdated
-            ) {
-              return -1;
-            } else if (
-              !this.data.isMaster &&
-              !a.isSlaveUpdated &&
-              b.isSlaveUpdated
-            ) {
-              return 1;
-            } else {
-              return a.lastConversationTimestamp < b.lastConversationTimestamp
-                ? 1
-                : -1;
-            }
-          });
-        } else {
-          for (let i in dbdata.comments) {
-            if (dbdata.comments[i].slaveInfo._openid === this.data.openid) {
-              const temp = dbdata.comments[i];
-              dbdata.comments[i] = dbdata.comments[0];
-              dbdata.comments[0] = temp;
-              this.setData({
-                addReplyEnabled: false,
-              });
-              break;
-            }
-          }
-        }
-        this.setData({
-          db: dbdata,
-          modal: {
-            ...this.data.modal,
-            content: dbdata.content,
-          },
-          loading: {
-            ...this.data.loading,
-            isRefresh: false,
-          },
-        });
-      });
+    this.setData({
+      db: this.data.dbBackup,
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

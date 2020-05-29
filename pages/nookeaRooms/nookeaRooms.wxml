@@ -90,7 +90,7 @@
             <!-- Slave Info -->
             <view class="conversation-head" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}" bindtap="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid ? 'expandClick' : ''}}">
               <view class="conversation-head-avatar">
-                <view class="app-notification" wx:if="{{isMaster? item.isMasterUpdated: item.isSlaveUpdated}}" />
+                <view class="app-notification" wx:if="{{(isMaster? item.isMasterUpdated: item.isSlaveUpdated) && openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}" />
                 <image style="width:100%; border-radius:15rpx;" mode="widthFix" src="{{item.slaveInfo.avatarUrl}}" />
               </view>
               <view class="conversation-head-info">
