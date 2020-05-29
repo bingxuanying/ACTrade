@@ -123,7 +123,7 @@
                   <view class="conversation-head-info-row-text" style="max-width:300rpx;">
                     {{item.conversations[0].content}}
                   </view>
-                  <view class="conversation-head-info-expandicon" data-index="{{commentIndex}}" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
+                  <view class="conversation-head-info-expandicon" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}" bindtap="expandClick" wx:if="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid}}">
                     <image style="height:25rpx;width:25rpx;" src="../../assets/icons/expendLeft.png" class="expand-icon {{chattingId === item.slaveInfo._openid ? 'rotated':''}}" />
                   </view>
                 </view>
