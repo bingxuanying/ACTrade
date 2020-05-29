@@ -175,22 +175,17 @@ Page({
     }
   },
   bindWxidInput: function (e) {
-    this.setData({
-      wxid: e.detail.value,
-    });
-    console.log("wxid: " + this.data.wxid);
+    this.setData({  wxid: e.detail.value  });
   },
   bindNicknameInput: function (e) {
     this.setData({
       nickname: e.detail.value,
     });
-    console.log("nickname: " + this.data.nickname);
   },
   bindIslandNameInput: function (e) {
     this.setData({
       islandName: e.detail.value,
     });
-    console.log("islandName: " + this.data.islandName);
   },
   onTapApple: function () {
     this.setData({
@@ -224,7 +219,6 @@ Page({
     } else {
       this.setData({ hemisphere: "north" });
     }
-    // console.log(this.data.hemisphere);
   },
   onTapDone: function () {
     this.setData({
@@ -259,7 +253,6 @@ Page({
     });
   },
   tradeHistoryClick: function () {
-    let that = this;
     wx.navigateTo({
       url: "/pages/tradeHistory/tradeHistory",
     });

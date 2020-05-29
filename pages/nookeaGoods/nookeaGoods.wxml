@@ -101,7 +101,7 @@
             </view>
           </view>
         </view>
-        <view class="record-selfline">--- 以下是别人的出售 ---</view>
+        <view class="record-selfline" hidden="{{!selfPost.room_id}}">--- 别人的出售 ---</view>
         <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
           <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="false" data-id="{{item._id}}" bindtap="onTapEnter">
