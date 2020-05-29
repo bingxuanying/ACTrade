@@ -11,10 +11,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loading: {
-      isRefresh: false,
-      isBottom: false,
-    },
     currentRoom: "",
     db: {},
     dbBackup: {},
@@ -23,6 +19,7 @@ Page({
       update: false,
       content: {},
       replyText: "",
+      isKeyboard: false,
     },
     addReplyEnabled: true,
     // commentSelect控制留言和心愿单切换
@@ -39,8 +36,13 @@ Page({
     },
     setInter: null,
     watcher: null,
+    loading: {
+      isUpdate: false,
+      isComment: false,
+    },
     gif: {
-      EarthLoadingUrl: null,
+      FlightLoading: iu.gif.FlightLoading,
+      IslandLoading: iu.gif.IslandLoading,
     },
     img: {
       BellIcon: iu.nookea.bell,
@@ -54,6 +56,7 @@ Page({
       NoteIconGray: iu.nookea.noteGray,
       WxIconGray: iu.nookea.wxGray,
       modalBG_ballon: iu.nookea.modalBG_ballon,
+      modalBG: iu.nookea.modalBG,
       modalBG2: iu.nookea.modalBG2,
     },
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
@@ -62,14 +65,6 @@ Page({
   onLoad: function (options) {
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
-      loading: {
-        ...this.data.loading,
-        isRefresh: true,
-      },
-      gif: {
-        ...this.data.gif,
-        EarthLoadingUrl: iu.gif.EarthLoading,
-      },
       nowTimestamp: util.formatTime(),
       isMaster: options.isMaster === "true" ? true : false,
       currentRoom: options.id,
@@ -202,10 +197,6 @@ Page({
             ...this.data.modal,
             content: dbdata.content,
           },
-          loading: {
-            ...this.data.loading,
-            isRefresh: false,
-          },
         });
       });
     this.data.watcher = db
@@ -317,10 +308,6 @@ Page({
               ...this.data.modal,
               content: dbdata.content,
             },
-            loading: {
-              ...this.data.loading,
-              isRefresh: false,
-            },
           });
         },
         onError: (err) => {
@@ -339,12 +326,6 @@ Page({
   },
 
   onTapSend: function (e) {
-    this.setData({
-      loading: {
-        ...this.data.loading,
-        isRefresh: true,
-      },
-    });
     let _timestamp = util.formatTime();
     const updateDef = {};
     updateDef[
@@ -398,10 +379,6 @@ Page({
           modal: {
             ...this.data.modal,
             replyText: "",
-          },
-          loading: {
-            ...this.data.loading,
-            isRefresh: false,
           },
         });
       })
@@ -584,13 +561,24 @@ Page({
   },
 
   modalHide: function () {
-    this.setData({
-      modal: {
-        ...this.data.modal,
-        reply: false,
-        update: false,
-      },
-    });
+    if (this.data.modal.isKeyboard) {
+      wx.hideKeyboard().then(() => {
+        this.setData({
+          modal: {
+            ...this.data.modal,
+            isKeyboard: false,
+          },
+        });
+      });
+    } else {
+      this.setData({
+        modal: {
+          ...this.data.modal,
+          reply: false,
+          update: false,
+        },
+      });
+    }
   },
 
   bindModalStr: function (e) {
@@ -600,6 +588,7 @@ Page({
         modal: {
           ...this.data.modal,
           [title]: e.detail.value,
+          isKeyboard: false,
         },
       });
     } else {
@@ -610,6 +599,7 @@ Page({
             ...this.data.modal.content,
             [title]: e.detail.value,
           },
+          isKeyboard: false,
         },
       });
     }
@@ -634,7 +624,7 @@ Page({
     this.setData({
       loading: {
         ...this.data.loading,
-        isRefresh: true,
+        isComment: true,
       },
     });
     let _timestamp = util.formatTime();
@@ -700,18 +690,16 @@ Page({
 
         console.log(t);
         return this.setData({
-          modal: {
-            ...this.data.modal,
-            reply: false,
-          },
           addReplyEnabled: false,
           modal: {
             ...this.data.modal,
             replyText: "",
+            reply: false,
+            isKeyboard: false
           },
           loading: {
             ...this.data.loading,
-            isRefresh: false,
+            isComment: false,
           },
         });
       })
@@ -728,6 +716,13 @@ Page({
   },
 
   onTapUpdate: function () {
+    this.setData({
+      loading: {
+        ...this.data.loading,
+        isUpdate: true,
+      },
+    })
+
     let _masterInfo = {
       _openid: app.globalData.openid,
       avatarUrl: app.globalData.userInfo.avatarUrl,
@@ -754,8 +749,21 @@ Page({
             ...this.data.modal,
             update: false,
           },
+          loading: {
+            ...this.data.loading,
+            isUpdate: false,
+          },
         });
       });
+  },
+
+  bindInputFocus: function () {
+    this.setData({
+      modal: {
+        ...this.data.modal,
+        isKeyboard: true,
+      },
+    });
   },
 
   findNoteIndex: function (dbdata) {

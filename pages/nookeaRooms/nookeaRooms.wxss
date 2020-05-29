@@ -13,8 +13,8 @@ page {
   overflow-x: hidden;
 }
 
-/* --- TOP BOX --- */
 
+/* --- TOP BOX --- */
 .top-box {
   width: calc(94% - 30rpx);
   height: 430rpx;
@@ -259,14 +259,15 @@ page {
 }
 
 .slave-reply {
-  height: 60rpx;
-  width: fit-content;
-  margin-top: 20rpx;
+  height: 50rpx;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 30rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: #685b48 1px solid;
+  /* border: #685b48 1px solid; */
   align-self: center;
   padding: 10rpx;
   border-radius: 15rpx;
@@ -623,6 +624,15 @@ page {
   font-size: 28rpx;
 }
 
+.modal-update-gif {
+  width: 200rpx;
+  height: 200rpx;
+  position: absolute;
+  bottom: 60rpx;
+  right: -30rpx;
+  z-index: 20;
+}
+
 .modal-update-title {
   width: 100%;
   height: 60rpx;
@@ -798,11 +808,10 @@ page {
 .modal-reply {
   width: 98%;
   height: fit-content;
-  background-color: #224153;
   position: fixed;
-  left: 1vw;
-  bottom: 50vh;
-  border-radius: 50rpx;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   opacity: 0.5;
   display: flex;
   flex-direction: column;
@@ -810,30 +819,76 @@ page {
   justify-content: flex-start;
   z-index: 20;
   transition: all 600ms ease-out;
-  color: #f2f4dc;
+  font-size: 26rpx;
+}
+
+.modal-reply-gif {
+  width: 200rpx;
+  height: 200rpx;
+  position: absolute;
+  bottom: 20rpx;
+  right: 30rpx;
+  z-index: 20;
+}
+
+.modal-reply-title {
+  width: calc(100% - 100rpx);
+  margin-top: 40rpx;
+  padding-left: 100rpx;
+  letter-spacing: 2rpx;
+}
+
+.modal-reply-content {
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX( -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-reply-option {
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: row;
-  margin-top: 10rpx;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25rpx;
+  font-size: 24rpx;
 }
 
 .modal-reply-option-title {
-  width: 25%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 15rpx;
+  width: 130rpx;
+  height: 34rpx;
+  background-color: #636571;
+  margin-right: 15rpx;
+  border-radius: 10rpx;
+  color: #fbf6e0;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 36rpx;
 }
 
 .modal-reply-option-content {
-  width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
+}
+
+.modal-reply-option-content textarea {
+  height: 170rpx;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10rpx;
+  padding: 5rpx 10rpx;
+  color: #4a4b53;
+  overflow-y: scroll;
 }
 
 .modal-reply-option-content-btn {
@@ -849,15 +904,6 @@ page {
   width: 50rpx;
 }
 
-.modal-reply-text {
-  width: 100%;
-  height: 60rpx;
-  text-align: center;
-  line-height: 60rpx;
-  font-size: 28rpx;
-  letter-spacing: 10rpx;
-}
-
 .modal-reply-btns {
   width: 100%;
   height: 100rpx;
@@ -870,7 +916,7 @@ page {
 .modal-reply-btn {
   width: 25%;
   padding: 0;
-  font-size: 30rpx;
+  font-size: 26rpx;
   letter-spacing: 5rpx;
   text-align: center;
 }
@@ -884,11 +930,12 @@ page {
   z-index: 20;
 }
 
-.yellow-triangle {
-  height: 30rpx;
-  width: 30rpx;
-  position: relative;
-  bottom: -18rpx;
+.modal-reply-text-active {
+  color: #636571;
+}
+
+.modal-reply-text-inactive {
+  color: #bbbbbb;
 }
 
 .fade-in {
@@ -919,24 +966,20 @@ page {
     left: 50%;
   }
 }
-.input-reply {
-  height: 100rpx;
-  width: 70%;
-  background-color: lightgray;
-  border-radius: 10rpx;
-  color: #685b48;
-}
 
 .expand-icon {
   transition: all ease 0.1s;
   transform: rotate(0);
 }
+
 .rotated {
   transform: rotate(-90deg);
 }
+
 .rotating {
   animation: rotation 1s infinite linear;
 }
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -1017,6 +1060,7 @@ page {
 
 /* This is for Edit BTN */
 .edit-btn-box {
+  background-color: rgba(255, 255, 255, 0.3);
   position: absolute;
   top: 0;
   right: 0;
@@ -1024,6 +1068,8 @@ page {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  border-radius: 10rpx;
+  padding: 5rpx;
   color: #685b48;
 }
 
