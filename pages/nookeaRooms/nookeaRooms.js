@@ -156,9 +156,25 @@ Page({
             addReplyEnabled: false,
           });
           dbdata.comments.sort((a, b) => {
-            if (a.isUpdated && !b.isUpdated) {
+            if (this.data.isMaster && a.isMasterUpdated && !b.isMasterUpdated) {
               return -1;
-            } else if (!a.isUpdated && b.isUpdated) {
+            } else if (
+              this.data.isMaster &&
+              !a.isMasterUpdated &&
+              b.isMasterUpdated
+            ) {
+              return 1;
+            } else if (
+              !this.data.isMaster &&
+              a.isSlaveUpdated &&
+              !b.isSlaveUpdated
+            ) {
+              return -1;
+            } else if (
+              !this.data.isMaster &&
+              !a.isSlaveUpdated &&
+              b.isSlaveUpdated
+            ) {
               return 1;
             } else {
               return a.lastConversationTimestamp < b.lastConversationTimestamp
@@ -285,10 +301,18 @@ Page({
       timestamp: _timestamp,
       content: this.data.modal.replyText,
     });
-    // Slave send to Master -> comments.isUpdated: ture
+    // Slave send to Master -> comments.isMasterUpdated: ture
+    //                       & comments.isSlaveUpdated: false
+    // Master send to slave -> commetns.isSlaveUpdated: ture
+    //                       & comments.isMasterUpdated: false
+    let path1 = `comments.${e.currentTarget.dataset.index}.isMasterUpdated`;
+    let path2 = `comments.${e.currentTarget.dataset.index}.isSlaveUpdated`;
     if (!this.data.isMaster) {
-      let path = `comments.${e.currentTarget.dataset.index}.isUpdated`;
-      updateDef[path] = true;
+      updateDef[path1] = true;
+      updateDef[path2] = false;
+    } else {
+      updateDef[path1] = false;
+      updateDef[path2] = true;
     }
 
     db.collection("Nookea-rooms")
@@ -374,7 +398,9 @@ Page({
     // chattingId: null,
     // console.log(idx);
     // console.log(this.data.db);
-    let isUpdatePath = "db.comments[" + localindex + "].isUpdated";
+    let isUpdated = this.data.isMaster ? "isMasterUpdated" : "isSlaveUpdated";
+    let isUpdatePath = "db.comments[" + localindex + "]." + isUpdated;
+
     if (
       this.data.db.comments[localindex].slaveInfo._openid !==
       this.data.chattingId
@@ -389,7 +415,7 @@ Page({
         chattingId: null,
       });
       // update comments.isUpdated
-      let path = "comments." + dbindex + ".isUpdated";
+      let path = "comments." + dbindex + "." + isUpdated;
       db.collection("Nookea-rooms")
         .doc(this.data.currentRoom)
         .update({
@@ -577,6 +603,8 @@ Page({
                 content: this.data.modal.replyText,
               },
             ],
+            isMasterUpdated: true,
+            isSlaveUpdated: false,
           }),
         },
       })
@@ -597,6 +625,25 @@ Page({
             zh_name: this.data.db.itemInfo.zh_name,
           },
         });
+        //然后 更新自己的tradeaHistory,加入到自己的留言里
+        let path = "tradeHistory.buying.rooms." + this.data.db.itemInfo._id;
+        db.collection("UsersProfile")
+          .where({
+            _openid: app.globalData.openid,
+          })
+          .update({
+            data: {
+              [path]: {
+                description: "你发布了留言",
+                img_url: this.data.db.itemInfo.img_url,
+                isUpdated: false,
+                roomId: this.data.currentRoom,
+                timestamp: _timestamp,
+                zh_name: this.data.db.itemInfo.zh_name,
+              },
+            },
+          });
+
         console.log(t);
         return this.setData({
           modal: {

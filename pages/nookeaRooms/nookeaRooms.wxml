@@ -47,12 +47,12 @@
               <view class="master-info-row-text">{{db.content.bell}}</view>
             </view>
             <view class="master-info-row" style="margin-bottom:6rpx;" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
-            <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" />
-            <view class="master-info-row-text">{{db.content.ticket}}</view>
+              <image class="master-info-item-icon" src="{{img.TicketIcon}}" mode="heightFix" />
+              <view class="master-info-row-text">{{db.content.ticket}}</view>
             </view>
             <view class="master-info-row" style="margin-bottom:6rpx;" wx:if="{{db.content.wishlist}}">
-            <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" />
-            <view class="master-info-row-text">心愿单</view>
+              <image class="master-info-item-icon" src="{{img.WishlistIcon}}" mode="heightFix" />
+              <view class="master-info-row-text">心愿单</view>
             </view>
           </view>
         </view>
@@ -90,6 +90,7 @@
             <!-- Slave Info -->
             <view class="conversation-head" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}" bindtap="expandClick">
               <view class="conversation-head-avatar">
+                <view class="app-notification" wx:if="{{isMaster? item.isMasterUpdated: item.isSlaveUpdated}}" />
                 <image style="width:100%; border-radius:15rpx;" mode="widthFix" src="{{item.slaveInfo.avatarUrl}}" />
               </view>
               <view class="conversation-head-info">

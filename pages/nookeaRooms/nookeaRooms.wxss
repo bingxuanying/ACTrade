@@ -316,6 +316,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .conversation-head-info {
