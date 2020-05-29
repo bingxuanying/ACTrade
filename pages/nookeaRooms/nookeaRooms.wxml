@@ -90,7 +90,7 @@
             <!-- Slave Info -->
             <view class="conversation-head" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}" bindtap="{{openid == db.masterInfo._openid || openid == item.slaveInfo._openid ? 'expandClick' : ''}}">
               <view class="conversation-head-avatar">
-                <view class="app-notification" wx:if="{{isMaster? item.isMasterUpdated: item.isSlaveUpdated}}" />
+                <view class="app-notification" wx:if="{{(isMaster? item.isMasterUpdated: item.isSlaveUpdated) && (openid == db.masterInfo._openid || openid == item.slaveInfo._openid)}}" />
                 <image style="width:100%; border-radius:15rpx;" mode="widthFix" src="{{item.slaveInfo.avatarUrl}}" />
               </view>
               <view class="conversation-head-info">
@@ -200,10 +200,8 @@
         </view>
       </view>
     </view>
-
     <!-- mask -->
     <view class="mask10" wx:if="{{modal.reply||modal.update}}" bindtap="modalHide" />
-    
     <!-- modal: update -->
     <view class="modal-update fade-in" hidden="{{!modal.update}}">
       <image class="modal-update-gif" src="{{gif.IslandLoading}}" mode="widthFix" hidden="{{!loading.isUpdate}}" />
@@ -286,50 +284,40 @@
         </view>
       </view>
     </view>
-
-
     <!-- modal: reply -->
     <view class="modal-reply fade-in" wx:if="{{modal.reply}}">
       <image class="modal-reply-gif" src="{{gif.FlightLoading}}" mode="widthFix" hidden="{{!loading.isComment}}" />
       <image class="modal-update-bg" src="{{img.modalBG}}" mode="widthFix" />
       <view class="modal-reply-content">
         <view class="modal-reply-title">回复给 {{db.masterInfo.nickname}}</view>
-
         <view class="modal-reply-option">
           <view class="modal-reply-option-title">选择方式</view>
           <view class="modal-reply-option-content">
-            <view class="modal-reply-option-content-btn {{paymentType.bell ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="bell" bindtap="paymentTypeCheck"
-            wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
+            <view class="modal-reply-option-content-btn {{paymentType.bell ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="bell" bindtap="paymentTypeCheck" wx:if="{{db.content.bell.length>0&&db.content.bell!=='0'}}">
               <image class="modal-reply-option-content-btn-icon" src="{{paymentType.bell ? img.BellIcon:img.BellIconGray}}" />
               <view>玲钱</view>
             </view>
-            <view class="modal-reply-option-content-btn {{paymentType.ticket ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="ticket" bindtap="paymentTypeCheck"
-              wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
+            <view class="modal-reply-option-content-btn {{paymentType.ticket ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="ticket" bindtap="paymentTypeCheck" wx:if="{{db.content.ticket.length>0&&db.content.ticket!=='0'}}">
               <image class="modal-reply-option-content-btn-icon" src="{{paymentType.ticket ? img.TicketIcon:img.TicketIconGray}}" />
               <view>机票</view>
             </view>
-            <view class="modal-reply-option-content-btn {{paymentType.wishlist ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="wishlist" bindtap="paymentTypeCheck"
-              wx:if="{{db.content.wishlist}}">
+            <view class="modal-reply-option-content-btn {{paymentType.wishlist ? 'modal-reply-text-active': 'modal-reply-text-inactive'}}" data-name="wishlist" bindtap="paymentTypeCheck" wx:if="{{db.content.wishlist}}">
               <image class="modal-reply-option-content-btn-icon" src="{{paymentType.wishlist ? img.WishlistIcon:img.WishlistIconGray}}" />
               <view>心愿单</view>
             </view>
           </view>
         </view>
-
         <view class="modal-reply-option">
-          <view class="modal-reply-option-title"style="align-self:flex-start;">我的留言</view>
+          <view class="modal-reply-option-title" style="align-self:flex-start;">我的留言</view>
           <view class="modal-reply-option-content">
             <textarea data-title="replyText" bindinput="bindModalStr" bindtap="bindInputFocus" cursor-spacing="80" />
           </view>
         </view>
-
         <view class="modal-reply-btns">
           <view class="modal-reply-btn" bindtap="modalHide">返回</view>
           <view class="modal-reply-btn" bindtap="onTapComment">确定</view>
         </view>
-
       </view>
-
     </view>
   </view>
 </block>

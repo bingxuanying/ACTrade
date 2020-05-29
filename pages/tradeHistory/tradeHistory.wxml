@@ -1,24 +1,24 @@
 <block>
     <nav-bar navInfo="我的交易" back="True"></nav-bar>
-    <view class="tradeHistory" style="height: calc(100vh - {{statusBarHeight}}px - 44px);">
-        <view class="trade-header">
-            <view class="trade-header-tag {{tagChoose[0]?'active':''}}" bindtap="onTagTap" data-index='0'>
-                <view class="app-notification" hidden="{{!tradeHistory.selling.isUpdated}}"></view>
-                我的出售
-            </view>
-            <view class="trade-header-tag {{tagChoose[1]?'active':''}}" bindtap="onTagTap" data-index='1'>
-                <view class="app-notification" hidden="{{!tradeHistory.buying.isUpdated}}"></view>
-                我的留言
-            </view>
-            <view class="trade-header-tag {{tagChoose[2]?'active':''}}" bindtap="onTagTap" data-index='2'>
-                <view class="app-notification" hidden="{{!tradeHistory.news.isUpdated}}"></view>
-                心愿单
-            </view>
-            <view class="trade-header-tag {{tagChoose[3]?'active':''}}" bindtap="onTagTap" data-index='3'>
-                <view class="app-notification" hidden="{{!tradeHistory.history.isUpdated}}"></view>
-                出售历史
-            </view>
+    <view class="trade-header" style="top:calc({{statusBarHeight}}px+44px);">
+        <view class="trade-header-tag {{tagChoose[0]?'active':''}}" bindtap="onTagTap" data-index='0'>
+            <view class="app-notification" hidden="{{!tradeHistory.selling.isUpdated}}"></view>
+            我的出售
         </view>
+        <view class="trade-header-tag {{tagChoose[1]?'active':''}}" bindtap="onTagTap" data-index='1'>
+            <view class="app-notification" hidden="{{!tradeHistory.buying.isUpdated}}"></view>
+            我的留言
+        </view>
+        <view class="trade-header-tag {{tagChoose[2]?'active':''}}" bindtap="onTagTap" data-index='2'>
+            <view class="app-notification" hidden="{{!tradeHistory.news.isUpdated}}"></view>
+            心愿单
+        </view>
+        <view class="trade-header-tag {{tagChoose[3]?'active':''}}" bindtap="onTagTap" data-index='3'>
+            <view class="app-notification" hidden="{{!tradeHistory.history.isUpdated}}"></view>
+            出售历史
+        </view>
+    </view>
+    <view class="tradeHistory">
         <view class="trade-content">
             <view class="trade-content-page" hidden="{{!tagChoose[0]}}">
                 <!-- for selling -->
@@ -152,6 +152,11 @@
                     </view>
                 </block>
             </view>
+        </view>
+        <!-- Bottom -->
+        <view class="board-bottom">
+            <image style="width:40rpx; height:40rpx;" src="../../assets/nookea/dialogAvatarIcon.png" mode="aspectFit" />
+            <view class="board-bottom-text">到底啦~</view>
         </view>
     </view>
 </block>

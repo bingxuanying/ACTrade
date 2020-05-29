@@ -5,16 +5,20 @@ page {
 }
 .tradeHistory {
   width: 100%;
-  height: 100vh;
+  margin-top: 120rpx;
 }
 
 .trade-header {
   width: 100%;
   height: 120rpx;
+  background-color: #faf8e1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  left: 0;
+  z-index: 10;
 }
 
 .trade-header-tag {
@@ -24,7 +28,6 @@ page {
   color: #716a58;
   border-radius: 15rpx;
   transition: all ease-in-out 0.25s;
-  position: relative;
 }
 
 .active {
@@ -38,7 +41,7 @@ page {
 
 .trade-content-page {
   width: 100%;
-  overflow-x: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -99,4 +102,21 @@ page {
   margin-left: auto;
   margin-right: 15rpx;
   color: #716a58;
+}
+
+/* --- Bottom --- */
+.board-bottom {
+  width: 100%;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  margin-bottom: 50rpx;
+}
+
+.board-bottom-text {
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-left: 15rpx;
 }
