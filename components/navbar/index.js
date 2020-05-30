@@ -50,8 +50,10 @@ Component({
     },
     back: function (e) {
       if (this.data.currentPage === "nookeaRooms") {
-        // 退出房间时清除自己的tradeHistory当前房间的isUpdated, 与tradeHistoryisUpdated.
-        // 并且 清除nookea-rooms的自己的聊天的isUpdated(isSlaveUpdated/isMasterUpdated)
+        // 清除nookea-rooms的自己的聊天的isUpdated(isSlaveUpdated/isMasterUpdated)
+        wx.navigateBack({
+          delta: 1,
+        });
         db.collection("Nookea-rooms")
           .doc(this.data.roomId)
           .get()
@@ -68,9 +70,7 @@ Component({
                 }
               }
             }
-            wx.navigateBack({
-              delta: 1,
-            });
+
             console.log(comments);
             db.collection("Nookea-rooms")
               .doc(this.data.roomId)
