@@ -139,7 +139,8 @@ Page({
             let isTradeHistoryUpdated = false;
             let cat = res.data.tradeHistory;
             for (var x in cat) {
-              if (cat[x].isUpdated === true) {
+              if (x === "news") continue;
+              if (cat[x].isUpdated === true || isUpdated == true) {
                 isTradeHistoryUpdated = true;
               }
             }
@@ -192,7 +193,7 @@ Page({
             let cat = res.data.tradeHistory;
             for (var x in cat) {
               if (x === type) continue;
-              if (cat[x].isUpdated === true) {
+              if (cat[x].isUpdated === true || isUpdated == true) {
                 isTradeHistoryUpdated = true;
               }
             }
