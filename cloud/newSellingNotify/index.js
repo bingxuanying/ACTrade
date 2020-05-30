@@ -24,7 +24,8 @@ exports.main = async (event, context) => {
   }).update({
     data:{
       'tradeHistory.news.isUpdated': true,
-      [path2]: news
+      [path2]: news,
+      'tradeHistory.isUpdated': true,
     }
   }).then(res=>{
     console.log("push news to who in wishlist: success")
