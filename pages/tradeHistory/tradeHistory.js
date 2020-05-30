@@ -10,7 +10,12 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    loadingGifUrl: "",
+    gif: {
+      EarthLoadingUrl: iu.gif.EarthLoading,
+    },
+    loading: {
+      isRefreshing: true,
+    },
     wishlist: {},
     tradeHistory: {},
     tagChoose: [true, false, false, false],
@@ -27,13 +32,14 @@ Page({
   onLoad: function () {
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
-      loadingGifUrl: iu.gif.EarthLoading,
       nowTimestamp: util.formatTime(),
+      "loading.isRefreshing": true,
     });
 
     const getHistory = new Promise((resolve, reject) => {
       if (app.globalData.userInfo) {
         this.setData({
+          "loading.isRefreshing": false,
           tradeHistory: this.sortTradeHistory(
             app.globalData.gameProfile.tradeHistory
           ),
@@ -46,6 +52,7 @@ Page({
           // onLaunch -> onLoad -> onLaunch: has to get data here
           if (res.userInfo) {
             this.setData({
+              "loading.isRefreshing": false,
               tradeHistory: this.sortTradeHistory(
                 app.globalData.gameProfile.tradeHistory
               ),

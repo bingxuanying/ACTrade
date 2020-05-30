@@ -23,7 +23,7 @@ Page({
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
     });
-    if (app.globalData.userInfo) {
+    if (app.globalData.userInfo && app.globalData.gameProfile.nickname) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
@@ -268,7 +268,7 @@ Page({
         },
       });
   },
-  
+
   wishlistClick: function () {
     wx.navigateTo({
       url: "/pages/wishlist/wishlist",
@@ -310,7 +310,7 @@ Page({
       .collection("UsersProfile")
       .where({})
       .watch({
-        onChange: function (snapshot) {          
+        onChange: function (snapshot) {
           that.setData({
             wxid: snapshot.docs[0].wxid,
             nickname: snapshot.docs[0].nickname,

@@ -27,4 +27,5 @@
             <view class="board-bottom-text">到底啦~</view>
         </view>
     </view>
+    <image class="loadingGIF" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefreshing}}" />
 </block>

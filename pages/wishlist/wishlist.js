@@ -9,7 +9,12 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
-    loadingGifUrl: "",
+    gif: {
+      EarthLoadingUrl: iu.gif.EarthLoading,
+    },
+    loading: {
+      isRefreshing: true,
+    },
     wishlist: {},
     tradeHisory: {},
     collectMode: false,
@@ -18,7 +23,8 @@ Page({
   onLoad: function () {
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight,
-      loadingGifUrl: iu.gif.EarthLoading,
+      "gif.EarthLoadingUrl": iu.gif.EarthLoading,
+      "loading.isRefreshing": true,
     });
 
     // TODO: to Modify
@@ -28,6 +34,7 @@ Page({
         let info = res.data[0];
         console.log(info);
         this.setData({
+          "loading.isRefreshing": false,
           wishlist: info.wishlist,
           tradeHistory: info.tradeHistory,
         });

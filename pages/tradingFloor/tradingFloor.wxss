@@ -16,15 +16,13 @@ page {
   overflow-x: hidden;
 }
 
-
 /* --- FIX --- */
 .fix-box {
-  position:fixed;
-  left:0;
-  width:100%;
-  z-index:15;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 15;
 }
-
 
 /* --- HEADER BAR --- */
 .headBar {
@@ -73,6 +71,7 @@ page {
 
 .headBar-btn-order-icon {
   width: 100%;
+  height: 104rpx;
   position: absolute;
   top: -35rpx;
   left: 0;

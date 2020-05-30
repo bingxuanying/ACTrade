@@ -483,6 +483,7 @@ Page({
           isActive: !isActive,
         },
       });
+
     if (isActive) {
       // history.selling -> history
       db.collection("Nookea-rooms")

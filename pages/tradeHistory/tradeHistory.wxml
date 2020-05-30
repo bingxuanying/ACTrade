@@ -18,7 +18,7 @@
             出售历史
         </view>
     </view>
-    <view class="tradeHistory">
+    <view class="tradeHistory" wx:if="{{!loading.isRefreshing}}">
         <view class="trade-content">
             <view class="trade-content-page" hidden="{{!tagChoose[0]}}">
                 <!-- for selling -->
@@ -159,4 +159,5 @@
             <view class="board-bottom-text">到底啦~</view>
         </view>
     </view>
+    <image class="loadingGIF" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefreshing}}" />
 </block>

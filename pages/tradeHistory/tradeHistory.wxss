@@ -121,3 +121,12 @@ page {
   line-height: 50rpx;
   margin-left: 15rpx;
 }
+
+.loadingGIF {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -135,10 +135,12 @@ page {
 }
 
 .tool-btn-icon {
-  width: 82%;
+  width: 77rpx;
+  height: 77rpx;
   position: absolute;
-  left: 9%;
-  top: 9%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .tool-btn-text {
