@@ -162,7 +162,7 @@ Page({
       });
     }
 
-    if (this.data.curtain.filter === true) {
+    if (this.data.curtain.filter === true && this.data.keyword.tags.length > 0) {
       this.onTapFilterExec();
     } else {
       this.setData({
@@ -700,7 +700,7 @@ Page({
 
   // --- Mask ---
   onTapHideCurtain: function () {
-    if (this.data.curtain.filter === true) {
+    if (this.data.curtain.filter === true && this.data.keyword.tags.length > 0) {
       this.onTapFilterExec();
     } else {
       this.setData({

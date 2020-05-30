@@ -185,6 +185,8 @@ Page({
       this.setData({
         order: "createTime",
         isLoading: true,
+        curTool_id: "",
+        preTool_id: "",
       });
 
       if (this.data.keyword.length === 5) {
@@ -231,6 +233,8 @@ Page({
       this.setData({
         order: "price",
         isLoading: true,
+        curTool_id: "",
+        preTool_id: "",
       });
 
       if (this.data.keyword.length === 5) {
