@@ -150,9 +150,9 @@
             <view class="reply-box" hidden="{{chattingId !== item.slaveInfo._openid}}">
               <view class="conversation-line" style="top:15rpx;" />
               <input class="reply-input-bar" value="{{modal.replyText}}" cursor-spacing="30" data-title="replyText" bindinput="bindModalStr" />
-              <view class="reply-btn {{modal.replyText?'reply-active':''}}" bindtap="{{modal.replyText? 'onTapSend':''}}" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}">
+              <view class="reply-btn {{(modal.replyText && !loading.isSend)?'reply-active':''}}" bindtap="{{(modal.replyText && !loading.isSend)? 'onTapSend':''}}" data-index="{{item.noteIndex}}" data-localindex="{{commentIndex}}">
                 <text>发送</text>
-                <view class="reply-btn-plus  {{modal.replyText?'plus-active':''}} {{textSending?'rotating':''}}">
+                <view class="reply-btn-plus  {{(modal.replyText && !loading.isSend)?'plus-active':''}} {{loading.isSend?'rotating':''}}">
                   +
                 </view>
               </view>

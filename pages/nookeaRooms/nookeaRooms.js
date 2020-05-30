@@ -39,6 +39,7 @@ Page({
     loading: {
       isUpdate: false,
       isComment: false,
+      isSend: false,
     },
     gif: {
       FlightLoading: iu.gif.FlightLoading,
@@ -326,15 +327,18 @@ Page({
   },
 
   onTapSend: function (e) {
+    this.setData({ "loading.isSend": true });
     let _timestamp = util.formatTime();
+    let _replyText = this.data.modal.replyText;
     const updateDef = {};
     updateDef[
       `comments.${e.currentTarget.dataset.index}.conversations`
     ] = db.command.push({
       isMaster: this.data.openid === this.data.db.masterInfo._openid,
       timestamp: _timestamp,
-      content: this.data.modal.replyText,
+      content: _replyText,
     });
+
     // Slave send to Master -> comments.isMasterUpdated: ture
     //                       & comments.isSlaveUpdated: false
     // Master send to slave -> commetns.isSlaveUpdated: ture
@@ -355,6 +359,14 @@ Page({
         data: updateDef,
       })
       .then((t) => {
+        // call function end
+        this.setData({
+          modal: {
+            ...this.data.modal,
+            replyText: "",
+          },
+          "loading.isSend": false,
+        });
         // 更新对方的tradeHistory
         let index = e.currentTarget.dataset.localindex;
         let reciverId = this.data.isMaster
@@ -366,19 +378,12 @@ Page({
             isMaster: this.data.isMaster,
             senderName: app.globalData.gameProfile.nickname,
             reciverId: reciverId,
-            infomation: this.data.modal.replyText,
+            infomation: _replyText,
             productid: this.data.db.itemInfo._id,
             img_url: this.data.db.itemInfo.img_url,
             roomId: this.data.currentRoom,
             timestamp: _timestamp,
             zh_name: this.data.db.itemInfo.zh_name,
-          },
-        });
-        // call function end
-        return this.setData({
-          modal: {
-            ...this.data.modal,
-            replyText: "",
           },
         });
       })
