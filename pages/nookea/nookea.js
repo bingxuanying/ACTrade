@@ -162,7 +162,10 @@ Page({
       });
     }
 
-    if (this.data.curtain.filter === true && this.data.keyword.tags.hasOwnProperty("collection")) {
+    if (
+      this.data.curtain.filter === true &&
+      this.data.keyword.tags.hasOwnProperty("collection")
+    ) {
       this.onTapFilterExec();
     } else {
       this.setData({
@@ -436,7 +439,7 @@ Page({
         app.globalData.gameProfile.nickname.length === 0 ||
         app.globalData.gameProfile.islandName.length === 0
       ) {
-        this.setData({ 
+        this.setData({
           clientStatus: "no name",
           input: {
             nickname: app.globalData.gameProfile.nickname,
@@ -700,7 +703,10 @@ Page({
 
   // --- Mask ---
   onTapHideCurtain: function () {
-    if (this.data.curtain.filter === true && this.data.keyword.tags.hasOwnProperty("collection")) {
+    if (
+      this.data.curtain.filter === true &&
+      this.data.keyword.tags.hasOwnProperty("collection")
+    ) {
       this.onTapFilterExec();
     } else {
       this.setData({

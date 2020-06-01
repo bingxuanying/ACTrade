@@ -125,7 +125,6 @@ Page({
             })
           );
       }
-
     } else {
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {
@@ -375,7 +374,7 @@ Page({
         ...this.data.loading,
         isCreate: true,
       },
-    })
+    });
 
     let _masterInfo = {
       _openid: app.globalData.openid,
@@ -410,7 +409,7 @@ Page({
               this.data.selfPost.room_id +
               "&isMaster=true",
           });
-          
+
           // history.history -> selling
           db.collection("Nookea-rooms")
             .doc(this.data.selfPost.room_id)
@@ -444,7 +443,7 @@ Page({
             .catch((err) => {
               console.log(err);
             });
-          
+
           // <----------------------- cloud func call -------------------------->
           wx.cloud.callFunction({
             name: "newSellingNotify",
@@ -455,19 +454,19 @@ Page({
               timestamp: _timestamp,
             },
           });
-          
+
           db.collection("UsersProfile")
-          .doc(app.globalData.id)
-          .update({
-            data: {
-              "tradeHistory.selling.rooms": {
-                [this.data.productInfo._id]: {
-                  timestamp: _timestamp,
+            .doc(app.globalData.id)
+            .update({
+              data: {
+                "tradeHistory.selling.rooms": {
+                  [this.data.productInfo._id]: {
+                    timestamp: _timestamp,
+                  },
                 },
+                wxid: this.data.content.wxidText,
               },
-              wxid: this.data.content.wxidText,
-            },
-          });
+            });
 
           this.setData({
             selfPost: {
@@ -558,5 +557,12 @@ Page({
         },
       });
     }
+  },
+  onShareAppMessage: function (res) {
+    // console.log(res);
+    // return {
+    //   title: `快来买${this.data.productInfo.zh_name}吧`,
+    //   path: "/pages/nookeaGoods/nookeaGoods?_id=" + this.data.productInfo._id,
+    // };
   },
 });

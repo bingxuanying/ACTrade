@@ -265,7 +265,8 @@ Page({
       title: "来卖大头菜啦！！房间号是" + this.data.roomInfo.roomNum,
       path:
         "/pages/roomSlave/roomSlave?room_id=" + app.globalData.roomInfo.roomID,
-      imageUrl: "../../assets/SharePage.png",
+      imageUrl:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/SharePage.png",
     };
   },
   onUnload: function () {

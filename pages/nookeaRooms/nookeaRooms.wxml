@@ -9,7 +9,7 @@
           {{db.isActive?'热卖中':"已关闭"}}
         </view>
         <image class="master-avatar-img" src="{{db.masterInfo.avatarUrl}}" mode="widthFix" />
-        <view class="tool-closeBtn">
+        <view class="tool-closeBtn" hidden="{{!isMaster}}">
           <view class="tool-closeBtn-greenbox {{!db.isActive ?'closeBtn-click':'closeBtn-unclick'}}" bindtap="closeRoomClick">
             <view class="tool-box-text">{{db.isActive? 'ON':'OFF'}}</view>
           </view>
