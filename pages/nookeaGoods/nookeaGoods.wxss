@@ -15,7 +15,6 @@ page {
   overflow-x: hidden;
 }
 
-
 /* --- HEADER BAR --- */
 .header-bar {
   height: 120rpx;
@@ -38,7 +37,6 @@ page {
   left: 50%;
   transform: translateX(-50%);
 }
-
 
 /* --- ITEM INFO --- */
 .item-box {
@@ -128,7 +126,7 @@ page {
   height: calc(100% - 15rpx);
   border-radius: 6rpx;
   position: relative;
-  box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3); 
+  box-shadow: 0 0 0 15rpx rgba(255, 255, 255, 0.3);
   margin-right: 4rpx;
   overflow: hidden;
 }
@@ -140,6 +138,10 @@ page {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.card-content-item-larger {
+  width: 100% !important;
 }
 
 .card-content-item-bg {
@@ -207,7 +209,6 @@ page {
   background-repeat: repeat-x;
   margin: 0 10rpx;
 }
-
 
 /* --- MARKET BOARD --- */
 .board {
@@ -278,10 +279,10 @@ page {
 }
 
 .record-selfline {
-    width: 100%;
-    text-align: center;
-    font-size: 26rpx;
-    margin-bottom: 10rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
 }
 
 .record-bg {
@@ -353,8 +354,8 @@ page {
   font-size: 24rpx;
 }
 
-.record-info-row-notes{
-  height: 100%; 
+.record-info-row-notes {
+  height: 100%;
   width: 70%;
   margin-right: 10rpx;
   display: -webkit-box;
@@ -365,7 +366,6 @@ page {
   line-height: 40rpx;
   font-size: 24rpx;
 }
-
 
 /* --- BOTTOM --- */
 .board-bottom {
@@ -406,7 +406,6 @@ page {
   margin-left: 300rpx;
 }
 
-
 /* --- Loading GIF --- */
 .pull-loading {
   width: 100rpx;
@@ -416,7 +415,6 @@ page {
   left: 50%;
   transform: translateX(-50%);
 }
-
 
 /* --- Mask --- */
 .mask10 {
@@ -428,7 +426,6 @@ page {
   left: 0;
   z-index: 10;
 }
-
 
 /* --- Modal: Post --- */
 .mymodal {
@@ -546,7 +543,6 @@ page {
   color: #685b48;
   font-size: 26rpx;
 }
-
 
 .modal-row-closeBtn {
   width: 65%;

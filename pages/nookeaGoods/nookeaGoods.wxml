@@ -19,7 +19,7 @@
           <view class="card-content" style="background-color:{{productInfo.bg_color}};">
             <view class="card-content-bg" style="background-color:{{productInfo.bg_color}};">
               <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" />
-              <image class="card-content-item" src="{{productInfo.img_url}}" mode="widthFix" />
+              <image class="card-content-item {{productInfo.collection ==='艺术品'? 'card-content-item-larger':''}}" src="{{productInfo.img_url}}" mode="widthFix" />
             </view>
           </view>
         </view>
@@ -101,7 +101,9 @@
             </view>
           </view>
         </view>
-        <view class="record-selfline" hidden="{{!selfPost.room_id}}">{{rooms.length===0?"暂时只有你的出售哦~":"--- 别人的出售 ---"}}</view>
+        <view class="record-selfline" hidden="{{!selfPost.room_id}}">
+          {{rooms.length===0?"暂时只有你的出售哦~":"--- 别人的出售 ---"}}
+        </view>
         <!-- cards from other seller -->
         <block wx:for="{{rooms}}" wx:for-item="item" wx:for-index="idx" wx:key="trade_cards">
           <view class="record" hidden="{{selfPost.room_id===item._id}}" data-ismaster="false" data-id="{{item._id}}" bindtap="onTapEnter">

@@ -236,7 +236,7 @@ page {
   transform: translate(-50%, -50%);
 }
 
-.larger {
+.card-content-item-larger {
   width: 100% !important;
 }
 
