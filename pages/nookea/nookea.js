@@ -316,12 +316,12 @@ Page({
           searchType: "filter",
           words: "",
         },
+        page: "specs",
       });
 
       this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
         console.log(res.data);
         this.setData({
-          page: "specs",
           specsDeck: res.data,
           offset: this.data.offset + res.data.length,
           loading: {
@@ -362,12 +362,12 @@ Page({
           ...this.data.loading,
           isRefresh: true,
         },
+        page: "specs",
       });
 
       this.fetchData(this.data.keyword.words, this.data.offset).then((res) => {
         console.log(res.data);
         this.setData({
-          page: "specs",
           specsDeck: res.data,
           offset: this.data.offset + res.data.length,
           loading: {
@@ -411,12 +411,12 @@ Page({
           words: "",
           tags: tempObj,
         },
+        page: "specs",
       });
 
       this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
         console.log(res.data);
         this.setData({
-          page: "specs",
           specsDeck: res.data,
           offset: this.data.offset + res.data.length,
           loading: {
@@ -467,6 +467,7 @@ Page({
               ["collection"]: _info.zh_name,
             },
           },
+          page: "specs",
         });
         console.log(this.data.specs);
 
@@ -514,7 +515,6 @@ Page({
         this.fetchData(this.data.keyword.tags, this.data.offset).then((res) => {
           console.log(res.data);
           this.setData({
-            page: "specs",
             specsDeck: res.data,
             offset: this.data.offset + res.data.length,
             loading: {
