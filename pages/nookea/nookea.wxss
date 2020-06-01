@@ -236,6 +236,10 @@ page {
   transform: translate(-50%, -50%);
 }
 
+.larger {
+  width: 100% !important;
+}
+
 .card-content-item-bg {
   width: 100%;
   height: 100%;

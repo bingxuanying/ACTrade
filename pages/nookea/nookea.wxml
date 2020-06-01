@@ -112,7 +112,7 @@
                             <view class="card-content-bg" style="background-color:{{item.disable?'lightgray':item.bg_color}};">
                                 <image class="card-content-item-bg" src="../../assets/nookea/card-bg.png" mode="widthFix" hidden="{{page==='cat'}}" />
                                 <image class="card-content-item-collect" src="{{collect.wishlist[item.zh_name]?'../../assets/nookea/cardCollectIcon.png':'../../assets/nookea/cardCollectIcon-empty.png'}}" mode="widthFix" hidden="{{!collect.mode}}" />
-                                <image class="card-content-item" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
+                                <image class="card-content-item {{item.collection ==='艺术品' ? 'larger':''}}" src="{{item.disable?item.img_url_disable:item.img_url}}" mode="widthFix" />
                             </view>
                         </view>
                         <view class="card-title">{{item.zh_name}}</view>
