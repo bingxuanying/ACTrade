@@ -683,7 +683,7 @@ Page({
           .update({
             data: {
               [path]: {
-                description: "你发布了留言",
+                description: "已留言",
                 img_url: this.data.db.itemInfo.img_url,
                 isUpdated: false,
                 roomId: this.data.currentRoom,
