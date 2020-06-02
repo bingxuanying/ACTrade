@@ -190,7 +190,7 @@
           </view>
         </block>
         <!-- Bottom -->
-        <view class="board-bottom" style="margin-top:30rpx;">
+        <view class="board-bottom" style="margin-top:30rpx;" wx:if="{{db.content.wishlist}}">
           <image style="width:40rpx; height:40rpx;" src="../../assets/nookea/dialogAvatarIcon.png" mode="aspectFit" />
           <view class="board-bottom-text">就这么多啦~</view>
         </view>
