@@ -11,18 +11,31 @@ exports.main = async (event, context) => {
         password = event.password,
         roomNum = event.roomNum,
         roomId = event.roomId;
+        note = event.note
     console.log(OPENID+' '+ password + ' '+ roomNum+' '+ roomId);
     return await cloud.openapi.subscribeMessage
       .send({
         touser: OPENID,
         page: "/pages/roomSlave/roomSlave?room_id=" + roomId,
         lang: "zh_CN",
+        // 等新版上线才能使用
+        // data: {
+        //   character_string1: {
+        //     value: roomNum,
+        //   },
+        //   character_string2: {
+        //     value: password,
+        //   },
+        //   thing3: {
+        //     value: note,
+        //   },
+        // },
+        // templateId: "nCLX2VrFKOP_Xg8hrR_mT2tg5Vylbam_cHPrZgOqOrA",
         data: {
           phrase1: {
-            value: "动森叫号",
+            value: roomNum,
           },
           phrase3: {
-            // value: event.roomNum,
             value: "密码如下",
           },
           character_string2: {
@@ -64,5 +77,3 @@ exports.main = async (event, context) => {
     return err;
   }
 };
-
-async function sendTemplateMessage(event) {}
