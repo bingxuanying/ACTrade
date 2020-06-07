@@ -19,30 +19,18 @@ exports.main = async (event, context) => {
         page: "/pages/roomSlave/roomSlave?room_id=" + roomId,
         lang: "zh_CN",
         // 等新版上线才能使用
-        // data: {
-        //   character_string1: {
-        //     value: roomNum,
-        //   },
-        //   character_string2: {
-        //     value: password,
-        //   },
-        //   thing3: {
-        //     value: note,
-        //   },
-        // },
-        // templateId: "nCLX2VrFKOP_Xg8hrR_mT2tg5Vylbam_cHPrZgOqOrA",
         data: {
-          phrase1: {
+          character_string1: {
             value: roomNum,
-          },
-          phrase3: {
-            value: "密码如下",
           },
           character_string2: {
             value: password,
           },
+          thing3: {
+            value: note,
+          },
         },
-        templateId: "qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA",
+        templateId: "nCLX2VrFKOP_Xg8hrR_mT2tg5Vylbam_cHPrZgOqOrA",
         miniprogramState: "formal",
       })
       .then(
