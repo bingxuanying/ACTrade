@@ -538,7 +538,7 @@ Page({
     // 订阅消息授权申请;
     wx.requestSubscribeMessage({
       // 传入订阅消息的模板id
-      tmplIds: ["qIrI96K_NpjeopDWiH1iYexvCzU6v289wpIqyMEVwYA"],
+      tmplIds: ["nCLX2VrFKOP_Xg8hrR_mT2tg5Vylbam_cHPrZgOqOrA"],
       success(res) {
         console.log(res);
         wx.showToast({

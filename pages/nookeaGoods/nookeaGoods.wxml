@@ -52,10 +52,10 @@
       <!-- Board Bar -->
       <view class="board-options">
         <image class="item-title-icon" style="float:left;" src="../../assets/nookea/titleIcon2.png" mode="widthFix" />
-        <view style="float:left">卖家信息</view>
+        <view style="float:left">岛主信息</view>
         <view class="post-btn" bindtap="onTapPostModal">
           <view class="post-btn-icon">+</view>
-          {{selfPost.room_id?"更新":"发布"}}
+          {{selfPost.room_id?"更新":"添加"}}
         </view>
       </view>
       <view class="board-options-subtitle">(被 {{productInfo.subscription}} 个人添加到心愿单)</view>
@@ -179,7 +179,7 @@
     <view class="mymodal fade-in" hidden="{{!modal.openPost}}">
       <image class="modal-update-gif" src="{{gif.IslandLoading}}" mode="widthFix" hidden="{{!loading.isCreate}}" />
       <!-- modal title -->
-      <view class="modal-title">发布商品信息</view>
+      <view class="modal-title">卡片信息</view>
       <image class="mymodal-bg" src="{{img.modalBG2}}" mode="widthFix" />
       <!-- modal content -->
       <view class="mymodal-content">
@@ -253,7 +253,7 @@
           <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
             A
           </view>
-          <view class="confirm-btn-text">发布</view>
+          <view class="confirm-btn-text">添加</view>
         </view>
       </view>
     </view>

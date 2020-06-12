@@ -8,13 +8,15 @@ exports.main = async (event, context) => {
   console.log("触发lineUpdater");
   var flightNum = event.roomNum;
   var roomID = event.roomID;
-  console.log(typeof(roomID));
+  console.log(flightNum);
+  console.log(roomID);
   try {
     const flights = await db.collection("Flights").where({_id:roomID}).get();
     const flight = flights.data[0];
     console.log(flight);
     var _slaves = flight.slaves;
-    console.log(_slaves);
+    var note = cutText(flight.note)
+    console.log(note)
     for (const idx in _slaves) {
       if (!_slaves[idx].notified && idx < flight.people) {
         _slaves[idx].notified = true;
@@ -32,7 +34,8 @@ exports.main = async (event, context) => {
             openid: _slaves[idx].openid,
             roomNum: flight.roomNum,
             password: flight.code,
-            roomId: roomID
+            roomId: roomID,
+            note : note
           },
           success: res => {
             console.log('sucsess')
@@ -56,39 +59,18 @@ exports.main = async (event, context) => {
         data: { slaves: _slaves },
       });
     return null;
-    // flights.data.map(async (flight) => {
-    //   var _slaves = flight.slaves;
-    //   console.log(_slaves);
-    //   for (const idx in _slaves) {
-    //     if (!_slaves[idx].notified && idx < flight.people) {
-    //       _slaves[idx].notified = true;
-    //       console.log("now change notified for user"+idx+" in flihgt"+" "+ flight.roomNum);
-    //       // 发送通知
-    //       cloud.callFunction({
-    //         name: "lineNotify",
-    //         data: {
-    //           openid: _slaves[idx].openid,
-    //           roomNum: flight.roomNum,
-    //           password: flight.code
-    //         },
-    //       });
-    //     }
-    //     else {
-    //       console.log("nofitied no change");
-    //     }
-    //   }
-    //   await db
-    //     .collection("Flights")
-    //     .doc(flight._id)
-    //     .update({
-    //       data: {
-    //         slaves: _slaves,
-    //       },
-    //     });
-    //   return null;
-    // });
   } catch (e) {
     console.log(e);
   }
   return null;
 };
+
+function cutText(text) {
+  if(text == null){
+    return "";
+    }
+    if(text.length > 17){
+    return text.substring(0, numSub - 1) + "...";
+    }
+    return text;
+}
