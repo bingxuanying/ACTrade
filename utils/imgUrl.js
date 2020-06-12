@@ -1,6 +1,6 @@
 export default {
   imgUrl: {
-    tradingFloor: {
+    vegiStock: {
       InfoPageBrown_in:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/img/InfoPageBrown_in.png",
       InfoPageRed_in:

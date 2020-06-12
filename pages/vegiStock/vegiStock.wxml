@@ -1,7 +1,7 @@
-<!-- tradingFloor.wxml -->
+<!-- vegiStock.wxml -->
 <block>
   <nav-bar navInfo="-- 动森交易 商业街 --"></nav-bar>
-  <view class="tradingFloor" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px);">
+  <view class="vegiStock" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px);">
     <!-- head bar -->
     <view class="fix-box" style="top:calc({{statusBarHeight}}px+44px);">
       <view class="headBar">

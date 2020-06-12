@@ -1,4 +1,4 @@
-// pages/tradingFloor/tradingFloor.js
+// pages/vegiStock/vegiStock.js
 const app = getApp();
 const db = wx.cloud.database();
 
@@ -42,13 +42,13 @@ Page({
 
     // 直接从本地拉取imgUrl
     const json = require("../../utils/imgUrl");
-    console.log(json.default.imgUrl.tradingFloor);
+    console.log(json.default.imgUrl.vegiStock);
     const iu = json.default.imgUrl;
     this.setData({
       EarthLoadingUrl: iu.gif.EarthLoading,
-      InfoPageBrown_in: iu.tradingFloor.InfoPageBrown_in,
-      InfoPageRed_in: iu.tradingFloor.InfoPageRed_in,
-      InfoPageYellow_in: iu.tradingFloor.InfoPageYellow_in,
+      InfoPageBrown_in: iu.vegiStock.InfoPageBrown_in,
+      InfoPageRed_in: iu.vegiStock.InfoPageRed_in,
+      InfoPageYellow_in: iu.vegiStock.InfoPageYellow_in,
     });
   },
   onPullDownRefresh: function () {

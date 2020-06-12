@@ -1,11 +1,11 @@
-/* pages/tradingFloor/tradingFloor.wxss */
+/* pages/vegiStock/vegiStock.wxss */
 @import "../../utils/font.wxss";
 page {
   font-family: webfont;
   background: #bac8ef;
 }
 
-.tradingFloor {
+.vegiStock {
   width: 100vw;
   position: relative;
   display: flex;

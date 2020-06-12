@@ -360,7 +360,7 @@ Page({
       });
 
     wx.switchTab({
-      url: "/pages/tradingFloor/tradingFloor",
+      url: "/pages/vegiStock/vegiStock",
     }).then(() => {
       if (this.data.kicked) {
         db.collection("Flights")
@@ -406,7 +406,7 @@ Page({
 
     // wx.navigateBack()
     wx.switchTab({
-      url: "/pages/tradingFloor/tradingFloor",
+      url: "/pages/vegiStock/vegiStock",
     });
   },
 

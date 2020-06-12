@@ -6,8 +6,8 @@ Component({
     selectedColor: "#3cc51f",
     list: [
       {
-        pagePath: "/pages/tradingFloor/tradingFloor",
-        text: "交易大厅",
+        pagePath: "/pages/vegiStock/vegiStock",
+        text: "白菜证券",
         iconPath: "../assets/tab/ShopIconGray.png",
         selectedIconPath: "../assets/tab/ShopIconActive.png",
       },

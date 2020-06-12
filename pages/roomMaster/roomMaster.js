@@ -256,7 +256,7 @@ Page({
     };
 
     wx.switchTab({
-      url: "/pages/tradingFloor/tradingFloor",
+      url: "/pages/vegiStock/vegiStock",
     });
   },
   onShareAppMessage: function (res) {
