@@ -1,5 +1,5 @@
 <block>
-  <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" currentPage="nookeaRooms" roomId="{{currentRoom}}" userId="{{openid}}" />
+  <nav-bar navInfo="交易房间:{{db.itemInfo.zh_name}}" back="True" home="True" currentPage="nookeaRooms" roomId="{{currentRoom}}" userId="{{openid}}" />
   <view class="nookeaRooms" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <!-- Master Info -->
     <view class="top-box">
@@ -320,4 +320,5 @@
       </view>
     </view>
   </view>
+  <check-auth />
 </block>

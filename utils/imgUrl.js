@@ -176,6 +176,16 @@ export default {
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/生日.png",
       叶子:
         "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/叶子.png",
+      出色蘑菇:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/出色蘑菇.png",
+      珍贵蘑菇:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/珍贵蘑菇.png",
+      瘦小蘑菇:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/瘦小蘑菇.png",
+      圆形蘑菇:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/圆形蘑菇.png",
+      扁平蘑菇:
+        "https://7665-vegi-exchange-45j4z-1301890684.tcb.qcloud.la/dev/nookea/materials/扁平蘑菇.png",
     },
   },
 };

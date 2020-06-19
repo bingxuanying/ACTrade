@@ -842,10 +842,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    // console.log(res);
-    // return {
-    //   title: `快来买${this.data.db.itemInfo.zh_name}吧`,
-    //   path: "/pages/nookeaRooms/nookeaRooms?id=" + this.data.currentRoom,
-    // };
+    console.log(res);
+    return {
+      title: `快来交换${this.data.db.itemInfo.zh_name}吧`,
+      path: "/pages/nookeaRooms/nookeaRooms?id=" + this.data.currentRoom,
+    };
   },
 });

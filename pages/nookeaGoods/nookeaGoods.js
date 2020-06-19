@@ -26,6 +26,7 @@ Page({
     modal: {
       openPost: false,
       isKeyboard: false,
+      isAuth: false,
     },
     loading: {
       isRefresh: false,
@@ -66,11 +67,19 @@ Page({
     });
     var product_id = options._id;
 
+    let that = this;
     if (!app.globalData.openid) {
       db.collection("UsersProfile")
         .get()
         .then((res) => {
           if (res.data.length > 0) app.globalData.openid = res.data[0]._openid;
+        })
+        .catch((res) => {
+          console.log("no user profile");
+          console.log(res);
+          that.setData({
+            "modal.isAuth": true,
+          });
         });
     }
 
@@ -559,10 +568,10 @@ Page({
     }
   },
   onShareAppMessage: function (res) {
-    // console.log(res);
-    // return {
-    //   title: `快来买${this.data.productInfo.zh_name}吧`,
-    //   path: "/pages/nookeaGoods/nookeaGoods?_id=" + this.data.productInfo._id,
-    // };
+    console.log(res);
+    return {
+      title: `快来交换${this.data.productInfo.zh_name}吧`,
+      path: "/pages/nookeaGoods/nookeaGoods?_id=" + this.data.productInfo._id,
+    };
   },
 });

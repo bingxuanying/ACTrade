@@ -1,6 +1,6 @@
 <!-- pages/nookeaGoods/nookeaGoods.wxml -->
 <block>
-  <nav-bar navInfo="-- 商品 xxx --" back="True" />
+  <nav-bar navInfo="-- 商品:{{productInfo.zh_name}} --" back="True" home="True" />
   <view class="nookeaGoods" style="min-height: calc(100vh - {{statusBarHeight}}px - 44px)">
     <view class="header-bar">
       <image class="head-bar-bg" src="../../assets/nookea/header-bg3.png" mode="heightFix" />
@@ -258,4 +258,5 @@
       </view>
     </view>
   </view>
+  <check-auth />
 </block>
