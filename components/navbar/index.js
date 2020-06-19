@@ -43,9 +43,8 @@ Component({
 
   methods: {
     backHome: function () {
-      let pages = getCurrentPages();
-      wx.navigateBack({
-        delta: pages.length,
+      wx.switchTab({
+        url: "/pages/tradingFloor/tradingFloor",
       });
     },
     back: function (e) {

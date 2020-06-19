@@ -80,6 +80,7 @@ Component({
                   isTransfer: false,
                 },
               });
+              app.globalData.clientStatus = "no name";
             } else {
               console.log("no previous user");
               db.collection("UsersProfile").add({
@@ -149,6 +150,7 @@ Component({
         .then(() => {
           app.globalData.gameProfile.nickname = this.data.input.nickname;
           app.globalData.gameProfile.islandName = this.data.input.islandName;
+          app.globalData.clientStatus = "ok";
           this.setData({
             clientStatus: "ok",
             loading: {
@@ -156,6 +158,8 @@ Component({
               isEnter: false,
             },
           });
+          // 触发父级的刷新function
+          this.triggerEvent("authdone");
         });
     },
 
@@ -190,37 +194,43 @@ Component({
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.log("checkAuth attached");
-      // 检查auth, no name情况
-      var that = this;
-
-      // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.userInfo"
-      wx.getSetting({
-        success(res) {
-          console.log(res.authSetting["scope.userInfo"]);
-          that.setData({
-            clientStatus: "ok",
-          });
-          if (!res.authSetting["scope.userInfo"]) {
-            wx.authorize({
-              scope: "scope.userInfo",
-              success() {
-                // 用户已经同意小程序获取用户信息
-                wx.getUserInfo();
-                that.getUserInfo();
-                res.authSetting = {
-                  "scope.userInfo": true,
-                  "scope.userLocation": true,
-                };
-              },
-              fail() {
-                that.setData({
-                  clientStatus: "no auth",
-                });
-              },
-            });
-          }
-        },
+      this.setData({
+        clientStatus: app.globalData.clientStatus,
       });
+      // 检查auth, no name情况
+      if (this.data.clientStatus !== "ok") {
+        var that = this;
+        // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.userInfo"
+        wx.getSetting({
+          success(res) {
+            console.log(res.authSetting["scope.userInfo"]);
+            that.setData({
+              clientStatus: "ok",
+            });
+            app.globalData.clientStatus = "ok";
+            if (!res.authSetting["scope.userInfo"]) {
+              wx.authorize({
+                scope: "scope.userInfo",
+                success() {
+                  // 用户已经同意小程序获取用户信息
+                  wx.getUserInfo();
+                  that.getUserInfo();
+                  res.authSetting = {
+                    "scope.userInfo": true,
+                    "scope.userLocation": true,
+                  };
+                },
+                fail() {
+                  that.setData({
+                    clientStatus: "no auth",
+                  });
+                  app.globalData.clientStatus = "no auth";
+                },
+              });
+            }
+          },
+        });
+      }
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行

@@ -4,6 +4,9 @@
         <cover-view class="nav-back" hidden="{{!back}}" bindtap='back'>
             <cover-image class="nav-back-icon" src="../../assets/icons/backIcon.png"></cover-image>
         </cover-view>
+        <cover-view class="nav-home" hidden="{{!home}}" bindtap='backHome'>
+            <cover-image class="nav-back-icon" src="../../assets/icons/HomeIcon.png"></cover-image>
+        </cover-view>
         <cover-view class="title">{{navInfo}}</cover-view>
     </cover-view>
 </cover-view>

@@ -149,53 +149,8 @@
     </view>
   </view>
   <!-- join room -->
-  <!-- mask -->
-  <view class='mask-join' wx:if="{{clientStatus==='no auth'||clientStatus==='no name'}}" />
-  <!-- modal_1: no auth -->
-  <view class='mymodal-auth' wx:if="{{clientStatus==='no auth'}}">
-    <view class="auth-name-tag">ybxx</view>
-    <view class="auth-chat-box">
-      <view>{{isTransfering?"保存中...":"请先登入才能进入或者开创房间哦~！"}}</view>
-      <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isTransfering}}" mode="widthFix" />
-    </view>
-    <image class="auth-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
-  </view>
-  <!-- modal_2: no name -->
-  <view class='mymodal-name fade-in' wx:if="{{clientStatus==='no name'}}">
-    <view class="name-name-tag">阿力</view>
-    <view class="name-chat-box">
-      <text class="name-chat-content">{{isSaving?"保存中...":"请登记你游戏中的个人信息~！"}}</text>
-      <block wx:if="{{!isSaving}}">
-        <view class="name-chat-box-row">
-          <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
-          <view class="name-chat-box-title">游戏昵称</view>
-          <input class="name-chat-box-input" value="{{nickname}}" bindinput="bindNicknameInput" />
-        </view>
-        <view class="name-chat-box-row">
-          <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
-          <view class="name-chat-box-title">岛名</view>
-          <input class="name-chat-box-input" value="{{islandName}}" bindinput="bindIslandNameInput" />
-        </view>
-      </block>
-      <image class="name-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!isSaving}}" mode="widthFix" />
-    </view>
-    <image class="name-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
-  </view>
-  <!-- modal btn -->
-  <button class="noAuthName-btn" style="width:140rpx;right:50rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(nickname.length>0&&islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
-    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-      A
-    </view>
-    <view class="confirm-btn-text">{{clientStatus==='no name'?'进房':'登入'}}</view>
-  </button>
-  <button class="noAuthName-btn" style="width:140rpx;right:230rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
-    <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-      B
-    </view>
-    <view class="confirm-btn-text">返回</view>
-  </button>
   <!-- Check Auth -->
-  <!-- <check-auth /> -->
+  <check-auth bind:authdone="authdone" />
   <!-- leave room -->
   <!-- mask -->
   <view class='mask-leave' wx:if="{{closeBtnClick}}" bindtap="{{!kicked&&!closed?'modalLeaveHide':''}}" />

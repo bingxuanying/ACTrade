@@ -32,14 +32,10 @@ Component({
     switchTab(e) {
       const dataset = e.currentTarget.dataset;
       const path = dataset.path;
-      const index = dataset.index;
       //tabbar切换界面
       wx.switchTab({
         url: path,
       });
-      // this.setData({
-      //   selected: index,
-      // });
     },
   },
 });

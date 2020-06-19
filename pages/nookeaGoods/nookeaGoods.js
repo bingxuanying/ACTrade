@@ -65,7 +65,8 @@ Page({
         isRefresh: true,
       },
     });
-    var product_id = options._id;
+    // var product_id = options._id;
+    var product_id = "MzIixNBBmq4BONsz2ilim4K4GMutU1gQ0dljtGhYVMuizBXJ";
 
     let that = this;
     if (!app.globalData.openid) {

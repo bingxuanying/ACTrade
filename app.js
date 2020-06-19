@@ -11,6 +11,10 @@ App({
       success: (res) => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       },
+      fail: (res) => {
+        console.log("login fail");
+        this.globalData.clientStatus = "no auth";
+      },
     });
     // 获取用户信息
     wx.getSetting({
@@ -21,8 +25,8 @@ App({
           wx.getUserInfo({
             success: (res) => {
               this.globalData.userInfo = res.userInfo;
+              this.globalData.clientStatus = "ok";
               const db = wx.cloud.database();
-
               db.collection("UsersProfile")
                 .get()
                 .then((res) => {
@@ -84,6 +88,7 @@ App({
       roomID: null,
       timeStamp: null,
     },
+    clientStatus: "no auth", // no auth -> no name -> ok
     statusBarHeight: 0,
     imgUrl: {
       gif: {

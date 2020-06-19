@@ -33,7 +33,7 @@ Page({
     // nav-bar
     statusBarHeight: app.globalData.statusBarHeight,
     // onLoad check status
-    clientStatus: "ok", // no auth -> no name -> ok
+    clientStatus: "no auth", // no auth -> no name -> ok
     subscription: false,
     nickname: "",
     islandName: "",
@@ -50,7 +50,10 @@ Page({
     watcher2: null,
   },
   onLoad: function (query) {
-    this.setData({ statusBarHeight: app.globalData.statusBarHeight });
+    this.setData({
+      statusBarHeight: app.globalData.statusBarHeight,
+      clientStatus: app.globalData.clientStatus,
+    });
     console.log(query.room_id);
     app.globalData.roomInfo.roomID = query.room_id;
     // registered
@@ -67,9 +70,11 @@ Page({
         app.globalData.gameProfile.islandName.length > 0
       ) {
         this.setData({ clientStatus: "ok" });
+        app.globalData.clientStatus = "ok";
         this.checkin();
       } else {
         this.setData({ clientStatus: "no name" });
+        app.globalData.clientStatus = "no name";
       }
     }
     // has auth
@@ -80,6 +85,7 @@ Page({
         nickname: app.globalData.gameProfile.nickname,
         islandName: app.globalData.gameProfile.islandName,
       });
+      app.globalData.clientStatus = "no auth";
 
       app.userInfoReadyCallback = (res) => {
         if (res.userInfo) {
@@ -89,13 +95,17 @@ Page({
             app.globalData.gameProfile.islandName.length > 0
           ) {
             this.setData({ clientStatus: "ok" });
+            app.globalData.clientStatus = "ok";
+
             this.checkin();
           } else {
             this.setData({ clientStatus: "no name" });
+            app.globalData.clientStatus = "no name";
           }
         } else {
           console.log("check point 2.2");
           this.setData({ clientStatus: "no auth" });
+          app.globalData.clientStatus = "no auth";
         }
       };
     }
@@ -103,11 +113,15 @@ Page({
     else {
       console.log("check point 3");
       this.setData({ clientStatus: "no auth" });
+      app.globalData.clientStatus = "no auth";
     }
-
     this.setData({
       EarthLoadingUrl: iu.imgUrl.gif.EarthLoading,
     });
+  },
+  authdone: function () {
+    console.log("auth done");
+    this.checkin();
   },
   checkin: function () {
     this.setData({ isLoading: true });
@@ -261,10 +275,10 @@ Page({
                   i = idx;
                 }
               }
-              if (i < this.data.roomInfo.people) {
-                this.setData({ inLine: true });
-              } else {
+              if (i >= this.data.roomInfo.people) {
                 this.setData({ inLine: false });
+              } else {
+                this.setData({ inLine: true });
               }
 
               if (
@@ -408,130 +422,6 @@ Page({
     wx.switchTab({
       url: "/pages/tradingFloor/tradingFloor",
     });
-  },
-
-  onTapRegister: function (e) {
-    console.log(e);
-
-    if (e.detail.errMsg === "getUserInfo:ok") {
-      app.globalData.userInfo = e.detail.userInfo;
-      this.setData({ isTransfering: true });
-
-      db.collection("UsersProfile").get({
-        success: (userData) => {
-          if (userData.data.length > 0) {
-            console.log("has previous user");
-            console.log(userData);
-            app.globalData.id = userData.data[0]._id;
-            app.globalData.openid = userData.data[0]._openid;
-            app.globalData.gameProfile = {
-              ...app.globalData.gameProfile,
-              nickname: userData.data[0].nickname,
-              islandName: userData.data[0].islandName,
-              fruit: userData.data[0].fruit,
-              hemisphere: userData.data[0].hemisphere,
-              wishlist: userData.data[0].wishlist,
-              tradeHistory: userData.data[0].tradeHistory,
-              wxid: userData.data[0].wxid,
-            };
-
-            this.setData({
-              nickname: userData.data[0].nickname,
-              islandName: userData.data[0].islandName,
-              fruit: userData.data[0].fruit,
-              hemisphere: userData.data[0].hemisphere,
-            });
-
-            db.collection("UsersProfile")
-              .doc(userData.data[0]._id)
-              .update({
-                data: {
-                  userInfo: app.globalData.userInfo,
-                },
-              })
-              .then(() => console.log("done"));
-            this.setData({
-              clientStatus: "no name",
-              isTransfering: false,
-            });
-          } else {
-            console.log("no previous user");
-            db.collection("UsersProfile").add({
-              data: {
-                userInfo: app.globalData.userInfo,
-                nickname: "",
-                islandName: "",
-                fruit: "apple",
-                hemisphere: "north",
-                wxid: "",
-                subscription: false,
-                curRoomid: null,
-                isMaster: false,
-                wishlist: {},
-                tradeHistory: {
-                  news: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                  selling: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                  buying: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                  history: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                },
-              },
-              success: (userData) => {
-                console.log(userData);
-                app.globalData.id = userData._id;
-                this.setData({
-                  clientStatus: "no name",
-                  isTransfering: false,
-                });
-              },
-            });
-          }
-        },
-      });
-    }
-  },
-  onTapEnter: function () {
-    this.setData({ isSaving: true });
-    db.collection("UsersProfile")
-      .doc(app.globalData.id)
-      .update({
-        data: {
-          nickname: this.data.nickname,
-          islandName: this.data.islandName,
-        },
-        success: (res) => {
-          app.globalData.gameProfile.nickname = this.data.nickname;
-          app.globalData.gameProfile.islandName = this.data.islandName;
-          this.checkin();
-          this.setData({
-            clientStatus: "ok",
-            isSaving: false,
-          });
-        },
-      });
-  },
-  bindNicknameInput: function (e) {
-    this.setData({
-      nickname: e.detail.value,
-    });
-    console.log("nickname: " + this.data.nickname);
-  },
-  bindIslandNameInput: function (e) {
-    this.setData({
-      islandName: e.detail.value,
-    });
-    console.log("islandName: " + this.data.islandName);
   },
   onSubscribe() {
     var that = this;
