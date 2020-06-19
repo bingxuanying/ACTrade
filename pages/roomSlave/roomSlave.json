@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "nav-bar": "../../components/navbar"
+    "nav-bar": "../../components/navbar",
+    "check-auth": "../../components/checkAuth"
   },
   "navigationStyle": "custom"
 }

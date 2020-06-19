@@ -141,54 +141,6 @@
         <image class="pull-loading" src="{{gif.EarthLoadingUrl}}" mode="widthFix" hidden="{{!loading.isRefresh}}" />
         <!-- Mask -->
         <view class='mask10' hidden="{{!curtain.filter&&!curtain.search}}" bindtap="onTapHideCurtain" />
-        <!-- Mask -->
-        <view class='mask20' hidden="{{clientStatus==='ok'}}" />
-        <!-- modal_1: no auth -->
-        <view class='mymodal-auth fadein' wx:if="{{clientStatus==='no auth'}}">
-            <view class="auth-name-tag">ybxx</view>
-            <view class="auth-chat-box">
-                <view>{{loading.isTransfer?"保存中...":"请先登入才能进入哦~！"}}</view>
-                <image class="auth-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!loading.isTransfer}}" mode="widthFix" />
-            </view>
-            <image class="auth-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
-        </view>
-        <!-- modal_2: no name -->
-        <view class='mymodal-name fade-in' wx:if="{{clientStatus==='no name'}}">
-            <view class="name-name-tag">arition</view>
-            <view class="name-chat-box">
-                <text class="name-chat-content">{{loading.isEnter?"保存中...":"请登记你游戏中的个人信息~！"}}</text>
-                <block wx:if="{{!loading.isEnter}}">
-                    <view class="name-chat-box-row">
-                        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon2.png" mode="widthFix" />
-                        <view class="name-chat-box-title">游戏昵称</view>
-                        <input class="name-chat-box-input" value="{{input.nickname}}" bindinput="bindNicknameInput" />
-                    </view>
-                    <view class="name-chat-box-row">
-                        <image class="name-chat-box-icon" src="../../assets/icons/IslandIcon.png" mode="widthFix" />
-                        <view class="name-chat-box-title">岛名</view>
-                        <input class="name-chat-box-input" value="{{input.islandName}}" bindinput="bindIslandNameInput" />
-                    </view>
-                </block>
-                <image class="name-savingGIF" src="../../assets/passport/PassportLoading.gif" hidden="{{!loading.isEnter}}" mode="widthFix" />
-            </view>
-            <image class="name-chat-icon" src="../../assets/icons/yellowTri.gif" mode="widthFix" />
-        </view>
-        <!-- modal btn -->
-        <button class="noAuthName-btn" style="width:140rpx;right:50rpx;" open-type="getUserInfo" bindgetuserinfo="{{clientStatus==='no name'?'onTapEnter':'onTapRegister'}}" disabled="{{clientStatus==='no auth'?false:(input.nickname.length>0&&input.islandName.length>0?false:true)}}" wx:if="{{clientStatus!=='ok'}}">
-            <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-                A
-            </view>
-            <view class="confirm-btn-text">
-                <text>{{clientStatus==='no name'?'完成':'登入'}}</text>
-            </view>
-        </button>
-        <button class="noAuthName-btn" style="width:140rpx;right:230rpx;" bindtap="onTapBack" wx:if="{{clientStatus!=='ok'}}">
-            <view class="confirm-btn-icon" style="height:35rpx; width:35rpx;font-size:25rpx; text-align:center; line-height:35rpx;">
-                B
-            </view>
-            <view class="confirm-btn-text">
-                <text>返回</text>
-            </view>
-        </button>
     </view>
+    <check-auth />
 </block>

@@ -12,8 +12,6 @@ Page({
     specsDeck: [],
     specs: null,
     offset: 0,
-    // onLoad check status
-    clientStatus: "ok", // no auth -> no name -> ok
     collect: {
       mode: false,
       wishlist: {},
@@ -534,173 +532,6 @@ Page({
     });
   },
 
-  // --- Auth Modal ---
-  onTapRegister: function (e) {
-    console.log(e);
-
-    if (e.detail.errMsg === "getUserInfo:ok") {
-      app.globalData.userInfo = e.detail.userInfo;
-      this.setData({
-        loading: {
-          ...this.data.loading,
-          isTransfer: true,
-        },
-      });
-
-      db.collection("UsersProfile").get({
-        success: (userData) => {
-          if (userData.data.length > 0) {
-            console.log("has previous user");
-            console.log(userData);
-            app.globalData.id = userData.data[0]._id;
-            app.globalData.openid = userData.data[0]._openid;
-            app.globalData.gameProfile = {
-              ...app.globalData.gameProfile,
-              nickname: userData.data[0].nickname,
-              islandName: userData.data[0].islandName,
-              fruit: userData.data[0].fruit,
-              hemisphere: userData.data[0].hemisphere,
-              wishlist: userData.data[0].wishlist,
-              tradeHistory: userData.data[0].tradeHistory,
-              wxid: userData.data[0].wxid,
-            };
-
-            this.setData({
-              collect: {
-                ...this.data.collect,
-                wishlist: userData.data[0].wishlist
-                  ? userData.data[0].wishlist
-                  : {},
-                tradeHistory: userData.data[0].tradeHistory
-                  ? userData.data[0].tradeHistory
-                  : {},
-              },
-              input: {
-                nickname: userData.data[0].nickname,
-                islandName: userData.data[0].islandName,
-              },
-            });
-
-            db.collection("UsersProfile")
-              .doc(app.globalData.id)
-              .update({
-                data: {
-                  userInfo: app.globalData.userInfo,
-                },
-              });
-            this.setData({
-              clientStatus: "no name",
-              loading: {
-                ...this.data.loading,
-                isTransfer: false,
-              },
-            });
-          } else {
-            console.log("no previous user");
-            db.collection("UsersProfile").add({
-              data: {
-                userInfo: app.globalData.userInfo,
-                nickname: "",
-                islandName: "",
-                fruit: "apple",
-                hemisphere: "north",
-                wxid: "",
-                subscription: false,
-                curRoomid: null,
-                isMaster: false,
-                wishlist: {},
-                tradeHistory: {
-                  news: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                  selling: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                  buying: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                  history: {
-                    isUpdated: false,
-                    rooms: {},
-                  },
-                },
-              },
-              success: (userData) => {
-                console.log(userData);
-                app.globalData.id = userData._id;
-                this.setData({
-                  clientStatus: "no name",
-                  loading: {
-                    ...this.data.loading,
-                    isTransfer: false,
-                  },
-                });
-              },
-            });
-          }
-        },
-      });
-    }
-  },
-
-  onTapEnter: function () {
-    this.setData({
-      loading: {
-        ...this.data.loading,
-        isEnter: true,
-      },
-    });
-    db.collection("UsersProfile")
-      .doc(app.globalData.id)
-      .update({
-        data: {
-          nickname: this.data.input.nickname,
-          islandName: this.data.input.islandName,
-        },
-      })
-      .then(() => {
-        app.globalData.gameProfile.nickname = this.data.input.nickname;
-        app.globalData.gameProfile.islandName = this.data.input.islandName;
-        this.setData({
-          clientStatus: "ok",
-          loading: {
-            ...this.data.loading,
-            isEnter: false,
-          },
-        });
-      });
-  },
-
-  onTapBack: function () {
-    this.setData({ clientStatus: "ok" });
-    // wx.switchTab({
-    //   url: "/pages/profile/profile",
-    // });
-  },
-
-  bindNicknameInput: function (e) {
-    this.setData({
-      input: {
-        ...this.data.input,
-        nickname: e.detail.value,
-      },
-    });
-    console.log("nickname: " + this.data.input.nickname);
-  },
-
-  bindIslandNameInput: function (e) {
-    this.setData({
-      input: {
-        ...this.data.input,
-        islandName: e.detail.value,
-      },
-    });
-    console.log("islandName: " + this.data.input.islandName);
-  },
-
   // --- Mask ---
   onTapHideCurtain: function () {
     if (
@@ -738,5 +569,12 @@ Page({
         .limit(18)
         .get();
     }
+  },
+  onShareAppMessage: function (res) {
+    console.log(res);
+    return {
+      title: `快来狸家买东西吧`,
+      path: "/pages/nookea/nookea",
+    };
   },
 });
