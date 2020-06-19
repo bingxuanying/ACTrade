@@ -44,7 +44,7 @@ Component({
   methods: {
     backHome: function () {
       wx.switchTab({
-        url: "/pages/tradingFloor/tradingFloor",
+        url: "/pages/vegiStock/vegiStock",
       });
     },
     back: function (e) {
